@@ -29,6 +29,7 @@ if __name__ == '__main__':
     if operacion == 'c':
         #engine.execute(CreateSchema('sileg'))
         Base.metadata.create_all(engine)
+        s.commit()
 
         u = s.query(Usuario).filter_by(id='89d88b81-fbc0-48fa-badb-d32854d3d93a').first()
         if not u:
