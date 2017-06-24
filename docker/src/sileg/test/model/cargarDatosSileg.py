@@ -42,11 +42,14 @@ if __name__ == '__main__':
 
 
     host = os.environ['SILEG_VIEJO_DB_HOST']
-    conn = psycopg2.connect(host=host, db='')
+    db = os.environ['SILEG_VIEJO_DB_NAME']
+    duser = os.environ['SILEG_VIEJO_DB_USER']
+    dbpass = os.environ['SILEG_VIEJO_DB_PASSWORD']
+    conn = psycopg2.connect(host=host, db=db, user=dbuser, password=dbpass)
     try:
         cur = conn.cursor()
         try:
-            cur.execute('select * from sileg.designaciones')
+            cur.execute('select * from designacion_docente')
             for d in cur:
 
                 cargo = s.query(Cargo).filter_by(name=d[0]).first()
