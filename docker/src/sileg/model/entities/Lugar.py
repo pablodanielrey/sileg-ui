@@ -11,3 +11,21 @@ class Lugar(Base):
     tipo = Column(String)
     padre_id = Column(String, ForeignKey('sileg.lugar.id'))
     padre = relationship('Lugar')
+    
+    __mapper_args__ = {
+        'polymorphic_on':tipo,
+        'polymorphic_identity':'lugar'
+    }
+
+
+
+class Departamento(Lugar):
+    __mapper_args__ = {
+        'polymorphic_identity':'departamento'
+    }    
+  
+ 
+class Catedra(Lugar):
+    __mapper_args__ = {
+        'polymorphic_identity':'catedra'
+    }

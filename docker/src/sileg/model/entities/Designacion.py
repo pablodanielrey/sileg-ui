@@ -2,6 +2,7 @@ from sqlalchemy import Column, String, Date, Table, ForeignKey
 from sqlalchemy.orm import relationship
 from model_utils import Base
 
+
 from .Cargo import Cargo
 from .Lugar import Lugar
 from .Usuario import Usuario
