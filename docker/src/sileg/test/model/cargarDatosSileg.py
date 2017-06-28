@@ -33,22 +33,12 @@ from sileg.model import SilegModel
 from sileg.model.entities import Usuario, Designacion, Cargo, Lugar
 """
 
-
-def obtenerMateria(nombre):
-    materia = d["materia_nombre"].split("C.")
-    if len(materia) > 1:
-        materia = nombre[0].replace('-','').rstrip()
-        centro = 
-        return ( logging.info(materia[1])
-
-
-
 if __name__ == '__main__':
 
     """conexion con la base antigua del sileg """
     Session = sessionmaker(bind=engine)
     session = Session();
-    
+
     host = os.environ['SILEG_OLD_DB_HOST']
     dbname = os.environ['SILEG_OLD_DB_NAME']
     user = os.environ['SILEG_OLD_DB_USER']
@@ -77,29 +67,38 @@ if __name__ == '__main__':
                 INNER JOIN departamento ON (materia.materia_dpto_id = departamento.dpto_id)
                 LEFT JOIN resolucion AS resolucion_alta ON (resolucion_alta.resolucion_id = desig_resolucionalta_id)
                 LEFT JOIN resolucion AS resolucion_baja ON (resolucion_baja.resolucion_id = desig_resolucionbaja_id);
-            ''');    
+            ''');
 
             for d in cur:
-                
 
-                materia = d["materia_nombre"].split("C.")
+
+                materia = d["materia_nombre"].split("C.U.")
+                depto = d['dpto_nombre'].strip()
+                m = None
+                ldd = None
                 if len(materia) > 1:
-                    logging.info(materia[1])
-                
-                
+                    m = materia[0].replace('-','').strip()
+                    ldd = materia[1].strip()
+                else:
+                    m = materia[0].strip()
+                    ldd = ''
+
+                logging.info('{:120} {:20} {:20}'.format(m,ldd,depto))
+
+
                 """
                 if(d["dpto_nombre"]):
                     lugar = session.query(Lugar).filter_by(nombre=d["dpto_nombre"]).first()
                     if not lugar:
                        if any(x in d["dpto_nombre"].lower() for x in ["c.u", "c. u"]):
                           CatedraLugar(nombre=d["dpto_nombre"])
-                    
+
                         lugar = CatedraLugar(nombre=d["dpto_nombre"]) if any(x in d["dpto_nombre"].lower() for x in ["c.u", "c. u"]) else Departamento(nombre=d["dpto_nombre"])
                         session.add(lugar)
                         session.commit()
-                      
+
                     instance = session.query(model).filter_by(**kwargs).first()
-                    
+
 
 
                     session.add(lugar)
@@ -109,6 +108,3 @@ if __name__ == '__main__':
             cur.close()
     finally:
         conn.close()
-    
-    
-    
