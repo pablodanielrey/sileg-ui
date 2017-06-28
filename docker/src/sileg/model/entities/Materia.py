@@ -2,9 +2,9 @@ from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
 from model_utils import Base
 
-class Asignatura(Base):
+class Materia(Base):
 
-    __tablename__ = 'asignatura'
+    __tablename__ = 'materia'
     __table_args__ = {'schema':'sileg'}
 
     nombre = Column(String)

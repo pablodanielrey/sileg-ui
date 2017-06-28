@@ -13,6 +13,7 @@ class MyBaseClass:
     creado = Column(DateTime, server_default=func.now())
     actualizado = Column(DateTime, onupdate=func.now())
 
+
     @classmethod
     def findAll(cls, s):
         return s.query(cls).all()
