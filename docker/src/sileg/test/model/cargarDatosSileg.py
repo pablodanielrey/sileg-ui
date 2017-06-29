@@ -8,7 +8,7 @@ import psycopg2
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from sileg.model.entities import Departamento
+from sileg.model.entities import Departamento, Catedra, Materia, LugarDictado
 
 
 
@@ -68,43 +68,86 @@ if __name__ == '__main__':
                 LEFT JOIN resolucion AS resolucion_alta ON (resolucion_alta.resolucion_id = desig_resolucionalta_id)
                 LEFT JOIN resolucion AS resolucion_baja ON (resolucion_baja.resolucion_id = desig_resolucionbaja_id);
             ''');
+            
+            
+
 
             for d in cur:
+          
+          
 
+                
+                
+                
+                mat_ = d["materia_nombre"].split("C.U.")
+                dep = d['dpto_nombre'].strip()
+                cat = d['catedra_nombre'].strip()
 
-                materia = d["materia_nombre"].split("C.U.")
-                depto = d['dpto_nombre'].strip()
-                m = None
-                ldd = None
-                if len(materia) > 1:
-                    m = materia[0].replace('-','').strip()
-                    ldd = materia[1].strip()
-                else:
-                    m = materia[0].strip()
-                    ldd = ''
-
-                logging.info('{:120} {:20} {:20}'.format(m,ldd,depto))
-
-
-                """
-                if(d["dpto_nombre"]):
-                    lugar = session.query(Lugar).filter_by(nombre=d["dpto_nombre"]).first()
-                    if not lugar:
-                       if any(x in d["dpto_nombre"].lower() for x in ["c.u", "c. u"]):
-                          CatedraLugar(nombre=d["dpto_nombre"])
-
-                        lugar = CatedraLugar(nombre=d["dpto_nombre"]) if any(x in d["dpto_nombre"].lower() for x in ["c.u", "c. u"]) else Departamento(nombre=d["dpto_nombre"])
-                        session.add(lugar)
+                mat = None
+                lugDic = None
+                if len(mat_) > 1:
+                    mat = mat_[0].replace('-','').strip()
+                    lugDic = mat_[1].strip()
+                           
+                    #agregar materia                                      
+                    materia = session.query(Materia).filter_by(nombre=mat).first()
+                    if not materia:
+                        materia = Materia(nombre=mat)                      
+                        session.add(materia)
                         session.commit()
+                      
+                    #agregar catedra
+                    catedra = session.query(Catedra).filter_by(nombre=cat, materia_id=materia.id).first()
+                    if not catedra:
+                        catedra = Catedra(nombre=cat, materia_id=materia.id)
+                        session.add(catedra)
+                        session.commit()
+                    
+                    lugarDictado = session.query(LugarDictado).filter_by(nombre=lugDic, padre_id=catedra.id).first()
+                    if not lugarDictado:
+                        lugarDictado = LugarDictado(nombre=lugDic, padre_id=catedra.id)
+                        session.add(lugarDictado)
+                        session.commit()
+                        
+                                            
+                 
+                else:                                
+                    mat = mat_[0].strip()
+                    
+                    #agregar departamento                                      
+                    departamento = session.query(Departamento).filter_by(nombre=mat).first()
+                    if not departamento:
+                        departamento = Departamento(nombre=mat)                      
+                        session.add(departamento)
+                        session.commit()
+                        
+                    #agregar materia                                      
+                    materia = session.query(Materia).filter_by(nombre=mat).first()
+                    if not materia:
+                        materia = Materia(nombre=mat)                      
+                        session.add(materia)
+                        session.commit()
+                    
+                    #agregar catedra
+                    catedra = session.query(Catedra).filter_by(nombre=cat, materia_id=materia.id).first()
+                    if not catedra:
+                        catedra = Catedra(nombre=cat, materia_id=materia.id, padre_id=departamento.id)
+                        session.add(catedra)
+                        session.commit()
+                        
+                        
+                        
 
-                    instance = session.query(model).filter_by(**kwargs).first()
-
-
-
-                    session.add(lugar)
-                    session.commit()
                 """
+
+                designacion = session.query(Designacion).filter_by(desde=d["desig_fecha_desde"], hasta=d["desig_fecha_hasta"], resolucion=d["resolucion_alta_numero"], expediente=d["resolucion_alta_expediente"], persona_id=).first()
+
+
+
+           
+
+
         finally:
-            cur.close()
+            cur.close()            
     finally:
         conn.close()

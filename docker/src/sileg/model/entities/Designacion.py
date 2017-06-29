@@ -43,6 +43,14 @@ class Designacion(Base):
     lugar_id = Column(String, ForeignKey('sileg.lugar.id'))
     lugar = relationship('Lugar', back_populates='designaciones')
 
+    _mapper_args__ = {
+        'polymorphic_on':tipo,
+        'polymorphic_identity':'designacion'
+    }
+
+
+
+
     def estado_actual(self, s):
         ultima = self
         for d in self.designaciones:
@@ -54,6 +62,16 @@ class Designacion(Base):
 Usuario.designaciones = relationship('Designacion', back_populates='usuario')
 Cargo.designaciones = relationship('Designacion', back_populates='cargo')
 Lugar.designaciones = relationship('Designacion', back_populates='lugar')
+
+
+class BajaDesignacion(Designacion):
+    __mapper_args__ = {
+        'polymorphic_identity':'baja'
+    }
+
+
+
+   
 
 
 class Categoria(Base):

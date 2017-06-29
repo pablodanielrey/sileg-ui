@@ -1,15 +1,19 @@
 
-from .Lugar import Lugar, Departamento, Catedra
+from .Lugar import Catedra, Departamento, Lugar, LugarDictado
 from .Cargo import Cargo
-from .Designacion import Designacion, Categoria
+from .Designacion import Designacion, Categoria, BajaDesignacion
 from .Usuario import Usuario
+from .Materia import Materia
 
 __all__ = [
-    'Lugar',
-    'Departamento',
+    'BajaDesignacion'
     'Catedra',
     'Cargo',
-    'Designacion',
     'Categoria',
+    'Departamento',
+    'Designacion',    
+    'Lugar',    
+    'LugarDictado',
+    'Materia',    
     'Usuario'
 ]
