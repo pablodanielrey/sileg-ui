@@ -1,6 +1,6 @@
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
-from model_utils import Base, ModelUtils
+from model_utils import Base, generateId
 
 class Lugar(Base):
     __tablename__ = 'lugar'
@@ -17,18 +17,16 @@ class Lugar(Base):
     }
 
 
-
 class Catedra(Lugar):
     __tablename__ = 'catedra'
     __table_args__ = {'schema':'sileg'}
-    
-    id = Column(String, ForeignKey('sileg.lugar.id'), primary_key=True, default=ModelUtils.generateId)
+
+    id = Column(String, ForeignKey('sileg.lugar.id'), primary_key=True, default=generateId)
     materia_id = Column(String)
 
     __mapper_args__ = {
         'polymorphic_identity':'catedra'
     }
-
 
 
 class LugarDictado(Lugar):

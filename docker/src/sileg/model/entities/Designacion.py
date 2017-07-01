@@ -18,9 +18,8 @@ class Designacion(Base):
     __tablename__ = 'designacion'
     __table_args__ = {'schema':'sileg'}
 
-    fecha_desde = Column(Date)
-    fecha_hasta = Column(Date)
-    fecha_baja = Column(Date)
+    desde = Column(Date)
+    hasta = Column(Date)
 
     expediente = Column(String)
     resolucion = Column(String)
@@ -71,7 +70,7 @@ class BajaDesignacion(Designacion):
 
 
 
-   
+
 
 
 class Categoria(Base):

@@ -8,5 +8,3 @@ class Materia(Base):
     __table_args__ = {'schema':'sileg'}
 
     nombre = Column(String)
-    padre_id = Column(String, ForeignKey('sileg.lugar.id'))
-    padre = relationship('Lugar')
