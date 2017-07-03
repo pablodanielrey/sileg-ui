@@ -47,17 +47,17 @@ class Comision(Lugar):
     }
 
 
+
+
 class Departamento(Lugar):
     __mapper_args__ = {
         'polymorphic_identity':'departamento'
     }
 
-
 class Direccion(Lugar):
     __mapper_args__ = {
-        'polymorphic_identity':'direccion'
+        'polymorphic_identity':'departamento'
     }
-
 
 class Escuela(Lugar):
     __mapper_args__ = {
