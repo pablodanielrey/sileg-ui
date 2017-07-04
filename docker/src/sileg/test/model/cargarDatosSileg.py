@@ -17,7 +17,7 @@ engine = create_engine('postgresql://{}:{}@{}:5432/{}'.format(
     os.environ['SILEG_DB_PASSWORD'],
     os.environ['SILEG_DB_HOST'],
     os.environ['SILEG_DB_NAME']
-), echo=True)
+), echo=False)
 
 Session = sessionmaker(bind=engine)
 session = Session();
@@ -282,84 +282,85 @@ def setLugarTrabajo(d):
     lug = d["lugdetrab_nombre"].strip().lower()
     area = d['area_nombre'].strip().lower()
     #func = d['funcion_nombre'].strip().lower()
-    
+
     lugar = None
 
     if area == "secretaria" or area == "secretaría":
         if area not in lug:
             lug = "secretaría de " + lug
             
-            lugar = session.query(Secretaria).filter_by(nombre=lug).first() 
-            if not lugar:
-                lugar = Secretaria(nombre=lug)
-                session.add(lugar)
+        lugar = session.query(Secretaria).filter_by(nombre=lug).first() 
+        if not lugar:
+            lugar = Secretaria(nombre=lug)
+            session.add(lugar)
                 
 
     elif area == "prosecretaria" or area == "prosecretaría":
         if area not in lug:
             lug = "prosecretaría de " + lug
             
-            lugar = session.query(Prosecretaria).filter_by(nombre=lug).first() 
-            if not lugar:
-                lugar = Prosecretaria(nombre=lug)
-                session.add(lugar)
-                
+        lugar = session.query(Prosecretaria).filter_by(nombre=lug).first() 
+        if not lugar:
+            lugar = Prosecretaria(nombre=lug)
+            session.add(lugar)
+            
                 
     elif area == "maestria" or area == "maestría":
         if area not in lug:
             lug = "maestría en " + lug
             
-            lugar = session.query(Maestria).filter_by(nombre=lug).first() 
-            if not lugar:
-                lugar = Maestria(nombre=lug)
-                session.add(lugar)
-                
+        lugar = session.query(Maestria).filter_by(nombre=lug).first() 
+        if not lugar:
+            lugar = Maestria(nombre=lug)
+            session.add(lugar)
+            
     elif area == "instituto":
         if area not in lug:
             lug = "instituto de " + lug
             
-            lugar = session.query(Instituto).filter_by(nombre=lug).first() 
-            if not lugar:
-                lugar = Instituto(nombre=lug)
-                session.add(lugar)
+        lugar = session.query(Instituto).filter_by(nombre=lug).first() 
+        if not lugar:
+            lugar = Instituto(nombre=lug)
+            session.add(lugar)
                 
                 
     elif area == "escuela":
         if area not in lug:
             lug = "escuela de " + lug
             
-            lugar = session.query(Escuela).filter_by(nombre=lug).first() 
-            if not lugar:
-                lugar = Escuela(nombre=lug)
-                session.add(lugar)
+        lugar = session.query(Escuela).filter_by(nombre=lug).first() 
+        if not lugar:
+            lugar = Escuela(nombre=lug)
+            session.add(lugar)
                 
                 
     elif area == "direccion" or area == "dirección":
         if area not in lug:
             lug = "dirección de " + lug
             
-            lugar = session.query(Direccion).filter_by(nombre=lug).first() 
-            if not lugar:
-                lugar = Direccion(nombre=lug)
-                session.add(lugar)
-                
+        lugar = session.query(Direccion).filter_by(nombre=lug).first() 
+        if not lugar:
+            lugar = Direccion(nombre=lug)
+            session.add(lugar)
+            
                 
     elif area == "departamento":
         if area not in lug:
             lug = "departamento de " + lug
-            
-            lugar = session.query(Departamento).filter_by(nombre=lug).first() 
-            if not lugar:
-                lugar = Departamento(nombre=lug)
-                session.add(lugar)
+        
+        lugar = session.query(Departamento).filter_by(nombre=lug).first() 
+        if not lugar:
+            lugar = Departamento(nombre=lug)
+            session.add(lugar)
 
     elif area == "centro":
         if "centro" not in lug:
             lug = "centro de " + lug
-            lugar = session.query(Centro).filter_by(nombre=lug).first() 
-            if not lugar:
-                lugar = Centro(nombre=lug)
-                session.add(lugar)                
+        
+        lugar = session.query(Centro).filter_by(nombre=lug).first() 
+        if not lugar:
+            lugar = Centro(nombre=lug)
+            session.add(lugar)                
             
 
     elif area == "autoridades superiores":    
@@ -371,20 +372,22 @@ def setLugarTrabajo(d):
               session.add(lugar)
                       
 
-        elif "prosecr" not in lug:
-            lug = "prosecretaría de " + lug
+        elif "prosecr" in lug:           
             lugar = session.query(Prosecretaria).filter_by(nombre=lug).first() 
             if not lugar:
                 lugar = Prosecretaria(nombre=lug)
                 session.add(lugar)
                 
-        elif "secr" not in lug:
-            lug = "secretaría de " + lug
+        elif "secr" in lug:
             lugar = session.query(Secretaria).filter_by(nombre=lug).first() 
             if not lugar:
                 lugar = Secretaria(nombre=lug)
                 session.add(lugar)                    
             
+    if lugar is None:
+          print("no se definio lugar " + lug + " " + area)
+
+
     return lugar        
             
     """
@@ -441,7 +444,7 @@ def setDesignacionDocente(d, cargo, lugar, usuario):
     if desde:
         expe = d['resolucion_baja_expediente']
         res = d['resolucion_baja_numero']
-        designacion = Designacion(tipo='Baja', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario)
+        designacion = Designacion(tipo='Baja Original', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario)
         session.add(designacion)
 
 
@@ -462,7 +465,7 @@ def setDesignacionTrabajo(d, cargo, lugar, usuario):
     if desde:
         expe = d['resolucion_baja_expediente']
         res = d['resolucion_baja_numero']
-        designacion = Designacion(tipo='Baja', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario)
+        designacion = Designacion(tipo='Baja Lugar', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario)
         session.add(designacion)
 
 
@@ -476,14 +479,13 @@ if __name__ == '__main__':
     
     users = users()
 
-    """
     for d in designacionesDocentes():
         lugar = setLugarDocente(d)
         usuario = setUsuario(d, users, usuarios_faltantes)
         cargo = setCargo(d)
         setDesignacionDocente(d, cargo=cargo, lugar=lugar, usuario=usuario)    
        
-    """     
+         
         
     for d in designacionesLugares():
         lugar = setLugarTrabajo(d)
