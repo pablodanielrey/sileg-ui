@@ -8,8 +8,12 @@ class Lugar(Base):
 
     nombre = Column(String)
     tipo = Column(String)
+    
     padre_id = Column(String, ForeignKey('sileg.lugar.id'))
     padre = relationship('Lugar')
+    
+    cambio_id = Column(String, ForeignKey('sileg.lugar.id'))
+    cambio = relationship('Lugar')
 
     __mapper_args__ = {
         'polymorphic_on':tipo,
@@ -40,14 +44,10 @@ class Centro(Lugar):
         'polymorphic_identity':'centro'
     }
 
-
 class Comision(Lugar):
     __mapper_args__ = {
         'polymorphic_identity':'comision'
     }
-
-
-
 
 class Departamento(Lugar):
     __mapper_args__ = {

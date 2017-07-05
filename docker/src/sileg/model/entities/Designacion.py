@@ -78,6 +78,6 @@ class Categoria(Base):
     __tablename__ = 'categoria'
     __table_args__ = {'schema':'sileg'}
 
-    nombre = Column(String)
+    nombre = Column(String, unique=True)
 
     designaciones = relationship('Designacion', secondary=categoria_designacion_table, back_populates='categorias')

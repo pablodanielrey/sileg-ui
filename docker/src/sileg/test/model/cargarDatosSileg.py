@@ -9,7 +9,7 @@ import psycopg2.extras
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from sileg.model.entities import Cargo, Catedra, Departamento, LugarDictado, Materia, Usuario, Designacion, Secretaria, Instituto, Maestria, Prosecretaria, Escuela, Lugar, Direccion, Centro
+from sileg.model.entities import Cargo, Catedra, Categoria, Departamento, Designacion, LugarDictado, Materia, Usuario, Secretaria, Instituto, Maestria, Prosecretaria, Escuela, Lugar, Direccion, Centro
 
 
 engine = create_engine('postgresql://{}:{}@{}:5432/{}'.format(
@@ -59,6 +59,7 @@ def designacionesDocentes():
                 INNER JOIN departamento ON (materia.materia_dpto_id = departamento.dpto_id)
                 LEFT JOIN resolucion AS resolucion_alta ON (resolucion_alta.resolucion_id = desig_resolucionalta_id)
                 LEFT JOIN resolucion AS resolucion_baja ON (resolucion_baja.resolucion_id = desig_resolucionbaja_id)
+                LIMIT 100
             ''');
 
             return cur.fetchall()
@@ -274,6 +275,8 @@ def setLugarDocente(d):
 
 
 
+
+
 def setLugarTrabajo(d):
     """
     Define lugar a partir de las designaciones a lugar de trabajo
@@ -385,7 +388,7 @@ def setLugarTrabajo(d):
                 session.add(lugar)                    
             
     if lugar is None:
-          print("no se definio lugar " + lug + " " + area)
+        print("no se definio lugar " + lug + " " + area)
 
 
     return lugar        
@@ -436,7 +439,20 @@ def setDesignacionDocente(d, cargo, lugar, usuario):
     hasta = d['desig_fecha_hasta']
     expe = d['resolucion_alta_expediente']
     res = d['resolucion_alta_numero']
+    ded = d["tipodedicacion_nombre"].strip().lower()
+    carac = d["tipocaracter_nombre"].strip().lower()
+      
+    dedicacion = session.query(Categoria).filter_by(nombre=ded).first()
+    if not dedicacion:
+        dedicacion = Categoria(nombre=ded)
+        
+    caracter = session.query(Categoria).filter_by(nombre=carac).first()
+    if not caracter:
+        caracter = Categoria(nombre=carac)
+        
     designacion = Designacion(tipo='Original', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario)
+    designacion.categorias.append(dedicacion)
+    designacion.categorias.append(caracter)
     session.add(designacion)
 
     ''' proceso la baja '''
@@ -445,20 +461,76 @@ def setDesignacionDocente(d, cargo, lugar, usuario):
         expe = d['resolucion_baja_expediente']
         res = d['resolucion_baja_numero']
         designacion = Designacion(tipo='Baja Original', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario)
+        designacion.categorias.append(dedicacion)
+        designacion.categorias.append(caracter)
         session.add(designacion)
 
-
-
-
-
+    
+        
+    
 
 def setDesignacionTrabajo(d, cargo, lugar, usuario):
     desde = d['desig_fecha_desde']
     hasta = d['desig_fecha_hasta']
     expe = d['resolucion_alta_expediente']
     res = d['resolucion_alta_numero']
+    func = d['funcion_nombre'].strip().lower() if(d['funcion_nombre'] is not None) else None
+    
+    categorias = []
+    
+    if func is not None:
+        if "acad" in func:
+            categoria = session.query(Categoria).filter_by(nombre="academico").first()
+            if not categoria:
+                categoria = Categoria(nombre = "academico")   
+                
+         if "docente" in func:
+            categoria = session.query(Categoria).filter_by(nombre="docente").first()
+            if not categoria:
+                categoria = Categoria(nombre = "docente")   
+        
+        
+        elif "apoyo" in func:
+            categoria = session.query(Categoria).filter_by(nombre="apoyo").first()
+            if not categoria:
+                categoria = Categoria(nombre = "apoyo")
+        
+        elif "codir" in func:
+            categoria = session.query(Categoria).filter_by(nombre="codirector").first()
+            if not categoria:
+                categoria = Categoria(nombre = "codirector")      
+        
+        elif "coord" in func:
+            categoria = session.query(Categoria).filter_by(nombre="coordinador").first()
+            if not categoria:
+                categoria = Categoria(nombre = "coordinador")
+
+        elif "director" in func:
+            categoria = session.query(Categoria).filter_by(nombre="director").first()
+            if not categoria:
+                categoria = Categoria(nombre = "director")          
+
+        elif "investigador" in func:
+            categoria = session.query(Categoria).filter_by(nombre="investigador").first()
+            if not categoria:
+                categoria = Categoria(nombre = "investigador")
+                
+        elif "seminario" in func:
+            categoria = session.query(Categoria).filter_by(nombre="seminario").first()
+            if not categoria:
+                categoria = Categoria(nombre = "seminario")
+        
+        else:
+            categoria = None
+        
+        if categoria is not None:
+          categorias.append(categoria)                  
+        
+        
     designacion = Designacion(tipo='Lugar', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario)
+    designacion.categorias = categorias
     session.add(designacion)
+    
 
     ''' proceso la baja '''
     desde = d['desig_fecha_baja']
@@ -466,6 +538,7 @@ def setDesignacionTrabajo(d, cargo, lugar, usuario):
         expe = d['resolucion_baja_expediente']
         res = d['resolucion_baja_numero']
         designacion = Designacion(tipo='Baja Lugar', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario)
+        designacion.categorias = categorias  
         session.add(designacion)
 
 
