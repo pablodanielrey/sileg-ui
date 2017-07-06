@@ -58,8 +58,7 @@ def designacionesDocentes():
                 INNER JOIN catedra ON (catedras_x_materia.catxmat_catedra_id = catedra.catedra_id)
                 INNER JOIN departamento ON (materia.materia_dpto_id = departamento.dpto_id)
                 LEFT JOIN resolucion AS resolucion_alta ON (resolucion_alta.resolucion_id = desig_resolucionalta_id)
-                LEFT JOIN resolucion AS resolucion_baja ON (resolucion_baja.resolucion_id = desig_resolucionbaja_id)
-                LIMIT 100
+                LEFT JOIN resolucion AS resolucion_baja ON (resolucion_baja.resolucion_id = desig_resolucionbaja_id);
             ''');
 
             return cur.fetchall()
@@ -68,6 +67,85 @@ def designacionesDocentes():
 
     finally:
         conn.close()
+        
+        
+        
+        
+
+
+
+
+
+def extensionesDocentesDeDesignacionesDocentes():
+    """ conexion con la base antigua del sileg para obtener las designaciones docentes """
+    host = os.environ['SILEG_OLD_DB_HOST']
+    dbname = os.environ['SILEG_OLD_DB_NAME']
+    user = os.environ['SILEG_OLD_DB_USER']
+    password = os.environ['SILEG_OLD_DB_PASSWORD']
+    conn = psycopg2.connect(host=host, dbname=dbname, user=user, password=password)
+    try:
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        try:
+            cur.execute('''
+                SELECT desig_id, desig_observaciones AS observaciones, desig_fecha_desde AS fecha_desde, desig_fecha_hasta AS fecha_hasta, desig_fecha_baja AS fecha_baja,
+                resolucion_alta.resolucion_numero AS resolucion,  resolucion_alta.resolucion_expediente AS expediente,
+                desig_ord_fdesde AS fecha_desde_ordenanza, desig_ord_fhasta AS fecha_hasta_ordenanza,
+                resolucion_ordenanza.resolucion_numero AS resolucion_ordenanza, resolucion_ordenanza.resolucion_expediente AS resolucion_expediente, 
+                resolucion_baja.resolucion_numero AS resolucion_baja,  resolucion_baja.resolucion_expediente AS expediente_baja,
+                tipo_baja.tipobajadesig_nombre AS baja,
+                tipocargo_nombre AS cargo, tipo_dedicacion.tipodedicacion_nombre AS dedicacion, tipocaracter_nombre AS caracter,
+                tipo_caracter_extraordinario.tipoextraord_nombre AS caracter_extraordinario,
+                pers_nombres, pers_apellidos, pers_nrodoc,
+                materia.materia_nombre AS materia, catedra.catedra_nombre AS catedra, departamento.dpto_nombre AS departamento,
+
+                extension.extension_fecha_desde, extension.extension_fecha_hasta, extension.extension_fecha_baja,
+                eresolucion_alta.resolucion_numero AS extension_resolucion, eresolucion_alta.resolucion_expediente AS extension_expediente,
+                eresolucion_baja.resolucion_numero AS extension_resolucion_baja, eresolucion_baja.resolucion_expediente AS extension_expediente_baja,
+                emateria.materia_nombre AS extension_materia, ecatedra.catedra_nombre AS extension_catedra, edepartamento.dpto_nombre AS extension_departamento,
+                etipo_dedicacion.tipodedicacion_nombre AS extension_dedicacion, 
+                etipo_baja.tipobajadesig_nombre AS extension_baja,
+                extension.extension_comision AS extension_observaciones
+
+                FROM designacion_docente
+                INNER JOIN tipo_cargo ON (designacion_docente.desig_tipocargo_id = tipo_cargo.tipocargo_id)
+                INNER JOIN tipo_dedicacion ON (designacion_docente.desig_tipodedicacion_id = tipo_dedicacion.tipodedicacion_id)
+                INNER JOIN tipo_caracter ON (designacion_docente.desig_tipocaracter_id = tipo_caracter.tipocaracter_id)
+                INNER JOIN empleado ON (designacion_docente.desig_empleado_id = empleado.empleado_id)
+                INNER JOIN persona ON (empleado.empleado_pers_id = persona.pers_id)
+                INNER JOIN catedras_x_materia ON (designacion_docente.desig_catxmat_id = catedras_x_materia.catxmat_id)
+                INNER JOIN materia ON (catedras_x_materia.catxmat_materia_id = materia.materia_id)
+                INNER JOIN catedra ON (catedras_x_materia.catxmat_catedra_id = catedra.catedra_id)
+                INNER JOIN departamento ON (materia.materia_dpto_id = departamento.dpto_id)
+                LEFT JOIN resolucion AS resolucion_alta ON (resolucion_alta.resolucion_id = desig_resolucionalta_id)
+                LEFT JOIN resolucion AS resolucion_baja ON (resolucion_baja.resolucion_id = desig_resolucionbaja_id)
+                LEFT JOIN resolucion AS resolucion_ordenanza ON (resolucion_ordenanza.resolucion_id = desig_resolucionord_id)
+                LEFT JOIN tipo_caracter_extraordinario ON (designacion_docente.desig_tipodedicacion_id = tipo_caracter_extraordinario.tipoextraord_id)
+                LEFT JOIN tipo_baja AS tipo_baja ON (designacion_docente.desig_tipobaja_id = tipo_baja.tipobajadesig_id)
+
+                INNER JOIN extension ON (extension.extension_designacion_id = designacion_docente.desig_id)
+                INNER JOIN catedras_x_materia AS ecatedras_x_materia ON (extension.extension_catxmat_id = ecatedras_x_materia.catxmat_id)
+                INNER JOIN materia AS emateria ON (ecatedras_x_materia.catxmat_materia_id = emateria.materia_id)
+                INNER JOIN catedra AS ecatedra ON (ecatedras_x_materia.catxmat_catedra_id = ecatedra.catedra_id)
+                INNER JOIN departamento AS edepartamento ON (emateria.materia_dpto_id = edepartamento.dpto_id)
+                INNER JOIN tipo_dedicacion AS etipo_dedicacion ON (extension.extension_nuevadedicacion_id = etipo_dedicacion.tipodedicacion_id)
+                LEFT JOIN resolucion AS eresolucion_alta ON (eresolucion_alta.resolucion_id = extension_resolucionalta_id)
+                LEFT JOIN resolucion AS eresolucion_baja ON (resolucion_baja.resolucion_id = extension_resolucionbaja_id)
+                LEFT JOIN tipo_baja AS etipo_baja ON (extension.extension_tipobaja_id = etipo_baja.tipobajadesig_id);
+            ''');
+
+            return cur.fetchall()
+        finally:
+          cur.close()
+
+    finally:
+        conn.close()
+
+
+
+
+
+
+
 
 
 
@@ -103,7 +181,7 @@ def designacionesLugares():
                 LEFT JOIN area ON (lugar_de_trabajo.lugdetrab_area_id = area.area_id)
                 LEFT JOIN funcion ON (designacion_docente.desig_funcion_id = funcion.funcion_id)
                 LEFT JOIN resolucion AS resolucion_alta ON (resolucion_alta.resolucion_id = desig_resolucionalta_id)
-                LEFT JOIN resolucion AS resolucion_baja ON (resolucion_baja.resolucion_id = desig_resolucionbaja_id)
+                LEFT JOIN resolucion AS resolucion_baja ON (resolucion_baja.resolucion_id = desig_resolucionbaja_id);
             ''');
 
             return cur.fetchall()
@@ -156,7 +234,7 @@ def users():
 
 
 
-def setUsuario(d, users, usuarios_faltantes):
+def setUsuario(dni, users, usuarios_faltantes):
     """
         carga el usuario dentro de las tablas internas del sistema chequeando con el sistema de perfiles de usuario principal.
 
@@ -168,7 +246,6 @@ def setUsuario(d, users, usuarios_faltantes):
             left join profile.mails m on (u.id = m.user_id);
     """
 
-    dni = str(d['pers_nrodoc'])
     if dni not in users:
         usuarios_faltantes.append(dni)
         return None
@@ -187,16 +264,11 @@ def setUsuario(d, users, usuarios_faltantes):
 
 
 
-def setLugarDocente(d):
+def setLugarDocente(mat_, dep, cat):
     """
     Define lugar a partir de las designaciones docentes
     """
     
-    mat_ = d["materia_nombre"].split("C.U.")
-    dep = d['dpto_nombre'].strip().lower()
-    cat = d['catedra_nombre'].strip().lower()
-    
-
     mat = None
     lugDic = None
     if len(mat_) > 1:
@@ -414,11 +486,11 @@ def setLugarTrabajo(d):
     
     
 
-def setCargo(d):
-    nombre = d["tipocargo_nombre"].strip().lower()
-    cargo = session.query(Cargo).filter_by(nombre=nombre).first()
+def setCargo(car):
+
+    cargo = session.query(Cargo).filter_by(nombre=car).first()
     if not cargo:
-        cargo = Cargo(nombre=nombre, tipo='Docente')
+        cargo = Cargo(nombre=car, tipo='Docente')
         session.add(cargo)
     else:
         cargo.tipo = 'Docente'
@@ -450,7 +522,7 @@ def setDesignacionDocente(d, cargo, lugar, usuario):
     if not caracter:
         caracter = Categoria(nombre=carac)
         
-    designacion = Designacion(tipo='Original', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario)
+    designacion = Designacion(tipo='materia', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario)
     designacion.categorias.append(dedicacion)
     designacion.categorias.append(caracter)
     session.add(designacion)
@@ -460,16 +532,60 @@ def setDesignacionDocente(d, cargo, lugar, usuario):
     if desde:
         expe = d['resolucion_baja_expediente']
         res = d['resolucion_baja_numero']
-        designacion = Designacion(tipo='Baja Original', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario)
+        designacion = Designacion(tipo='baja materia', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario)
+        designacion.categorias.append(dedicacion)
+        designacion.categorias.append(caracter)
+        session.add(designacion)
+
+    
+    
+
+
+def setExtensionDocenteDeDesignacionDocente(datosExtension, cargo, lugar, usuario):
+    designacionMateria = session.query(Designacion).filter_by(tipo="materia", cargo=cargo, lugar=lugar, usuario=usuario, )
+    
+    ).first()
+    if not caracter:
+        caracter = Categoria(nombre=carac)
+
+    desde = d['desig_fecha_desde']
+    hasta = d['desig_fecha_hasta']
+    expe = d['resolucion_alta_expediente']
+    res = d['resolucion_alta_numero']
+    ded = d["tipodedicacion_nombre"].strip().lower()
+    carac = d["tipocaracter_nombre"].strip().lower()
+      
+    dedicacion = session.query(Categoria).filter_by(nombre=ded).first()
+    if not dedicacion:
+        dedicacion = Categoria(nombre=ded)
+        
+    caracter = session.query(Categoria).filter_by(nombre=carac).first()
+    if not caracter:
+        caracter = Categoria(nombre=carac)
+        
+    designacion = Designacion(tipo='extension materia', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario)
+    designacion.categorias.append(dedicacion)
+    designacion.categorias.append(caracter)
+    session.add(designacion)
+
+    ''' proceso la baja '''
+    desde = d['desig_fecha_baja']
+    if desde:
+        expe = d['resolucion_baja_expediente']
+        res = d['resolucion_baja_numero']
+        designacion = Designacion(tipo='baja materia', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario)
         designacion.categorias.append(dedicacion)
         designacion.categorias.append(caracter)
         session.add(designacion)
 
     
         
+        
+            
+        
     
 
-def setDesignacionTrabajo(d, cargo, lugar, usuario):
+def setDesignacionLugar(d, cargo, lugar, usuario):
     desde = d['desig_fecha_desde']
     hasta = d['desig_fecha_hasta']
     expe = d['resolucion_alta_expediente']
@@ -553,21 +669,28 @@ if __name__ == '__main__':
     users = users()
 
     for d in designacionesDocentes():
-        lugar = setLugarDocente(d)
-        usuario = setUsuario(d, users, usuarios_faltantes)
-        cargo = setCargo(d)
+        usuario = setUsuario(str(d['pers_nrodoc']), users, usuarios_faltantes)
+        lugar = setLugarDocente(d["materia_nombre"].split("C.U."), d['dpto_nombre'].strip().lower(), d['catedra_nombre'].strip().lower())
+
+        cargo = setCargo(d["tipocargo_nombre"].strip().lower())
         setDesignacionDocente(d, cargo=cargo, lugar=lugar, usuario=usuario)    
        
          
-        
+    """    
     for d in designacionesLugares():
         lugar = setLugarTrabajo(d)
         if not lugar:
             logging.info('No se define lugar\n')
         usuario = setUsuario(d, users, usuarios_faltantes)
         cargo = setCargo(d)
-        setDesignacionTrabajo(d, cargo=cargo, lugar=lugar, usuario=usuario)
+        setDesignacionLugar(d, cargo=cargo, lugar=lugar, usuario=usuario)
+    """
    
+    for d in extensionesDocentesDeDesignacionesDocentes():
+        usuario = setUsuario(str(d['pers_nrodoc']), users, usuarios_faltantes)
+        lugar = setLugarDocente(d,  d["extension_materia"].split("C.U."), d['extension_catedra'].strip().lower(), d['extension_departamento'].strip().lower())
+        cargo = setCargo(d["tipocargo_nombre"].strip().lower())
+        setDesignacionDocente(d, cargo=cargo, lugar=lugar, usuario=usuario)    
     session.commit()  
         
         
