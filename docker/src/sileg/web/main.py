@@ -7,5 +7,9 @@ app = Flask(__name__, static_url_path='/src/login/web')
 def send(path):
     return send_from_directory(app.static_url_path, path)
 
-if __name__ == "__main__":
+
+def main():
     app.run(host='0.0.0.0', port=5000, debug=True)
+
+if __name__ == "__main__":
+    main()
