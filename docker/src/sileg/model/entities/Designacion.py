@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Date, Table, ForeignKey
+from sqlalchemy import Column, String, Date, Table, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from model_utils import Base
 
@@ -20,6 +20,7 @@ class Designacion(Base):
 
     desde = Column(Date)
     hasta = Column(Date)
+    historico = Column(Boolean)
 
     expediente = Column(String)
     resolucion = Column(String)
@@ -28,7 +29,7 @@ class Designacion(Base):
     categorias = relationship('Categoria', secondary=categoria_designacion_table, back_populates='designaciones')
 
     designacion_id = Column(String, ForeignKey('sileg.designacion.id'))
-    designacion = relationship('Designacion')
+    designacion = relationship('Designacion', foreign_keys=[designacion_id])
     #designacion = relationship('Designacion', back_populates='designaciones')
 
     #designaciones = relationship('Designacion', back_populates='designacion')
@@ -41,6 +42,8 @@ class Designacion(Base):
 
     lugar_id = Column(String, ForeignKey('sileg.lugar.id'))
     lugar = relationship('Lugar', back_populates='designaciones')
+    
+    old_id = Column(String)
 
     _mapper_args__ = {
         'polymorphic_on':tipo,

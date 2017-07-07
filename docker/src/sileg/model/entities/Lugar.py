@@ -10,10 +10,10 @@ class Lugar(Base):
     tipo = Column(String)
     
     padre_id = Column(String, ForeignKey('sileg.lugar.id'))
-    padre = relationship('Lugar')
+    padre = relationship('Lugar', foreign_keys=[padre_id])
     
     cambio_id = Column(String, ForeignKey('sileg.lugar.id'))
-    cambio = relationship('Lugar')
+    cambio = relationship('Lugar', foreign_keys=[cambio_id])
 
     __mapper_args__ = {
         'polymorphic_on':tipo,

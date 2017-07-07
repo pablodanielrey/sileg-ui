@@ -40,17 +40,21 @@ def designacionesDocentes():
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         try:
             cur.execute('''
-                SELECT desig_id, desig_observaciones, desig_fecha_desde, desig_fecha_hasta, desig_fecha_baja,
-                resolucion_alta.resolucion_numero AS resolucion_alta_numero,  resolucion_alta.resolucion_expediente AS resolucion_alta_expediente,
-                resolucion_baja.resolucion_numero AS resolucion_baja_numero,  resolucion_baja.resolucion_expediente AS resolucion_baja_expediente,
-                tipocargo_nombre, tipodedicacion_nombre, tipocaracter_nombre,
+                SELECT desig_id AS id_designacion, desig_observaciones AS observaciones, desig_fecha_desde AS fecha_desde, desig_fecha_hasta AS fecha_hasta, desig_fecha_baja AS fecha_baja,
+                resolucion_alta.resolucion_numero AS resolucion,  resolucion_alta.resolucion_expediente AS expediente,
+                desig_ord_fdesde AS fecha_desde_ordenanza, desig_ord_fhasta AS fecha_hasta_ordenanza,
+                resolucion_ordenanza.resolucion_numero AS resolucion_ordenanza, resolucion_ordenanza.resolucion_expediente AS resolucion_expediente, 
+                resolucion_baja.resolucion_numero AS resolucion_baja,  resolucion_baja.resolucion_expediente AS expediente_baja,
+                tipo_baja.tipobajadesig_nombre AS baja,
+                tipocargo_nombre AS cargo, tipo_dedicacion.tipodedicacion_nombre AS dedicacion, tipocaracter_nombre AS caracter,
+                tipo_caracter_extraordinario.tipoextraord_nombre AS caracter_extraordinario,
                 pers_nombres, pers_apellidos, pers_nrodoc,
-                materia_nombre, catedra_nombre,
-                dpto_nombre
+                materia.materia_nombre AS materia, catedra.catedra_nombre AS catedra, departamento.dpto_nombre AS departamento
+
                 FROM designacion_docente
-                INNER JOIN tipo_cargo AS tc ON (desig_tipocargo_id = tipocargo_id)
-                INNER JOIN tipo_dedicacion AS td ON (desig_tipodedicacion_id = tipodedicacion_id)
-                INNER JOIN tipo_caracter AS tca ON (desig_tipocaracter_id = tipocaracter_id)
+                INNER JOIN tipo_cargo ON (designacion_docente.desig_tipocargo_id = tipo_cargo.tipocargo_id)
+                INNER JOIN tipo_dedicacion ON (designacion_docente.desig_tipodedicacion_id = tipo_dedicacion.tipodedicacion_id)
+                INNER JOIN tipo_caracter ON (designacion_docente.desig_tipocaracter_id = tipo_caracter.tipocaracter_id)
                 INNER JOIN empleado ON (designacion_docente.desig_empleado_id = empleado.empleado_id)
                 INNER JOIN persona ON (empleado.empleado_pers_id = persona.pers_id)
                 INNER JOIN catedras_x_materia ON (designacion_docente.desig_catxmat_id = catedras_x_materia.catxmat_id)
@@ -58,7 +62,10 @@ def designacionesDocentes():
                 INNER JOIN catedra ON (catedras_x_materia.catxmat_catedra_id = catedra.catedra_id)
                 INNER JOIN departamento ON (materia.materia_dpto_id = departamento.dpto_id)
                 LEFT JOIN resolucion AS resolucion_alta ON (resolucion_alta.resolucion_id = desig_resolucionalta_id)
-                LEFT JOIN resolucion AS resolucion_baja ON (resolucion_baja.resolucion_id = desig_resolucionbaja_id);
+                LEFT JOIN resolucion AS resolucion_baja ON (resolucion_baja.resolucion_id = desig_resolucionbaja_id)
+                LEFT JOIN resolucion AS resolucion_ordenanza ON (resolucion_ordenanza.resolucion_id = desig_resolucionord_id)
+                LEFT JOIN tipo_caracter_extraordinario ON (designacion_docente.desig_tipodedicacion_id = tipo_caracter_extraordinario.tipoextraord_id)
+                LEFT JOIN tipo_baja AS tipo_baja ON (designacion_docente.desig_tipobaja_id = tipo_baja.tipobajadesig_id)
             ''');
 
             return cur.fetchall()
@@ -87,24 +94,15 @@ def extensionesDocentesDeDesignacionesDocentes():
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         try:
             cur.execute('''
-                SELECT desig_id, desig_observaciones AS observaciones, desig_fecha_desde AS fecha_desde, desig_fecha_hasta AS fecha_hasta, desig_fecha_baja AS fecha_baja,
-                resolucion_alta.resolucion_numero AS resolucion,  resolucion_alta.resolucion_expediente AS expediente,
-                desig_ord_fdesde AS fecha_desde_ordenanza, desig_ord_fhasta AS fecha_hasta_ordenanza,
-                resolucion_ordenanza.resolucion_numero AS resolucion_ordenanza, resolucion_ordenanza.resolucion_expediente AS resolucion_expediente, 
-                resolucion_baja.resolucion_numero AS resolucion_baja,  resolucion_baja.resolucion_expediente AS expediente_baja,
-                tipo_baja.tipobajadesig_nombre AS baja,
-                tipocargo_nombre AS cargo, tipo_dedicacion.tipodedicacion_nombre AS dedicacion, tipocaracter_nombre AS caracter,
-                tipo_caracter_extraordinario.tipoextraord_nombre AS caracter_extraordinario,
-                pers_nombres, pers_apellidos, pers_nrodoc,
-                materia.materia_nombre AS materia, catedra.catedra_nombre AS catedra, departamento.dpto_nombre AS departamento,
-
-                extension.extension_fecha_desde, extension.extension_fecha_hasta, extension.extension_fecha_baja,
-                eresolucion_alta.resolucion_numero AS extension_resolucion, eresolucion_alta.resolucion_expediente AS extension_expediente,
-                eresolucion_baja.resolucion_numero AS extension_resolucion_baja, eresolucion_baja.resolucion_expediente AS extension_expediente_baja,
-                emateria.materia_nombre AS extension_materia, ecatedra.catedra_nombre AS extension_catedra, edepartamento.dpto_nombre AS extension_departamento,
-                etipo_dedicacion.tipodedicacion_nombre AS extension_dedicacion, 
-                etipo_baja.tipobajadesig_nombre AS extension_baja,
-                extension.extension_comision AS extension_observaciones
+                SELECT desig_id AS id_designacion,
+                extension_id AS id_extension,
+                extension.extension_fecha_desde AS fecha_desde, extension.extension_fecha_hasta AS fecha_hasta, extension.extension_fecha_baja AS fecha_baja,
+                eresolucion_alta.resolucion_numero AS resolucion, eresolucion_alta.resolucion_expediente AS expediente,
+                eresolucion_baja.resolucion_numero AS resolucion_baja, eresolucion_baja.resolucion_expediente AS expediente_baja,
+                emateria.materia_nombre AS materia, ecatedra.catedra_nombre AS catedra, edepartamento.dpto_nombre AS departamento,
+                etipo_dedicacion.tipodedicacion_nombre AS dedicacion, 
+                etipo_baja.tipobajadesig_nombre AS baja,
+                extension.extension_comision AS observaciones
 
                 FROM designacion_docente
                 INNER JOIN tipo_cargo ON (designacion_docente.desig_tipocargo_id = tipo_cargo.tipocargo_id)
@@ -116,11 +114,6 @@ def extensionesDocentesDeDesignacionesDocentes():
                 INNER JOIN materia ON (catedras_x_materia.catxmat_materia_id = materia.materia_id)
                 INNER JOIN catedra ON (catedras_x_materia.catxmat_catedra_id = catedra.catedra_id)
                 INNER JOIN departamento ON (materia.materia_dpto_id = departamento.dpto_id)
-                LEFT JOIN resolucion AS resolucion_alta ON (resolucion_alta.resolucion_id = desig_resolucionalta_id)
-                LEFT JOIN resolucion AS resolucion_baja ON (resolucion_baja.resolucion_id = desig_resolucionbaja_id)
-                LEFT JOIN resolucion AS resolucion_ordenanza ON (resolucion_ordenanza.resolucion_id = desig_resolucionord_id)
-                LEFT JOIN tipo_caracter_extraordinario ON (designacion_docente.desig_tipodedicacion_id = tipo_caracter_extraordinario.tipoextraord_id)
-                LEFT JOIN tipo_baja AS tipo_baja ON (designacion_docente.desig_tipobaja_id = tipo_baja.tipobajadesig_id)
 
                 INNER JOIN extension ON (extension.extension_designacion_id = designacion_docente.desig_id)
                 INNER JOIN catedras_x_materia AS ecatedras_x_materia ON (extension.extension_catxmat_id = ecatedras_x_materia.catxmat_id)
@@ -129,7 +122,7 @@ def extensionesDocentesDeDesignacionesDocentes():
                 INNER JOIN departamento AS edepartamento ON (emateria.materia_dpto_id = edepartamento.dpto_id)
                 INNER JOIN tipo_dedicacion AS etipo_dedicacion ON (extension.extension_nuevadedicacion_id = etipo_dedicacion.tipodedicacion_id)
                 LEFT JOIN resolucion AS eresolucion_alta ON (eresolucion_alta.resolucion_id = extension_resolucionalta_id)
-                LEFT JOIN resolucion AS eresolucion_baja ON (resolucion_baja.resolucion_id = extension_resolucionbaja_id)
+                LEFT JOIN resolucion AS eresolucion_baja ON (eresolucion_baja.resolucion_id = extension_resolucionbaja_id)
                 LEFT JOIN tipo_baja AS etipo_baja ON (extension.extension_tipobaja_id = etipo_baja.tipobajadesig_id);
             ''');
 
@@ -256,6 +249,7 @@ def setUsuario(dni, users, usuarios_faltantes):
     if not usuario:
         usuario = Usuario(id=userId)
         session.add(usuario)
+        session.commit()  
     return usuario
 
 
@@ -291,18 +285,21 @@ def setLugarDocente(mat_, dep, cat):
         if not materia:
             materia = Materia(nombre=mat)
             session.add(materia)
-
+            session.commit()  
+            
         #agregar catedra
         catedra = session.query(Catedra).filter_by(nombre=cat, materia_id=materia.id).first()
         if not catedra:
             catedra = Catedra(nombre=cat, materia_id=materia.id)
             session.add(catedra)
-
+            session.commit()  
+            
         lugarDictado = session.query(LugarDictado).filter_by(nombre=lugDic, padre_id=catedra.id).first()
         if not lugarDictado:
             lugarDictado = LugarDictado(nombre=lugDic, padre_id=catedra.id)
             session.add(lugarDictado)
-
+            session.commit()  
+            
         return lugarDictado
 
     else:
@@ -328,19 +325,22 @@ def setLugarDocente(mat_, dep, cat):
         if not departamento:
             departamento = Departamento(nombre=dep)
             session.add(departamento)
-
+            session.commit()  
+            
         #agregar materia
         materia = session.query(Materia).filter_by(nombre=mat).first()
         if not materia:
             materia = Materia(nombre=mat)
             session.add(materia)
-
+            session.commit()  
+            
         #agregar catedra
         catedra = session.query(Catedra).filter_by(nombre=cat, materia_id=materia.id).first()
         if not catedra:
             catedra = Catedra(nombre=cat, materia_id=materia.id, padre_id=departamento.id)
             session.add(catedra)
-
+            session.commit()  
+            
         return catedra
 
 
@@ -368,7 +368,7 @@ def setLugarTrabajo(d):
         if not lugar:
             lugar = Secretaria(nombre=lug)
             session.add(lugar)
-                
+            session.commit()                  
 
     elif area == "prosecretaria" or area == "prosecretaría":
         if area not in lug:
@@ -378,7 +378,7 @@ def setLugarTrabajo(d):
         if not lugar:
             lugar = Prosecretaria(nombre=lug)
             session.add(lugar)
-            
+            session.commit()            
                 
     elif area == "maestria" or area == "maestría":
         if area not in lug:
@@ -388,6 +388,7 @@ def setLugarTrabajo(d):
         if not lugar:
             lugar = Maestria(nombre=lug)
             session.add(lugar)
+            session.commit()              
             
     elif area == "instituto":
         if area not in lug:
@@ -397,7 +398,7 @@ def setLugarTrabajo(d):
         if not lugar:
             lugar = Instituto(nombre=lug)
             session.add(lugar)
-                
+            session.commit()
                 
     elif area == "escuela":
         if area not in lug:
@@ -407,7 +408,7 @@ def setLugarTrabajo(d):
         if not lugar:
             lugar = Escuela(nombre=lug)
             session.add(lugar)
-                
+            session.commit()
                 
     elif area == "direccion" or area == "dirección":
         if area not in lug:
@@ -417,7 +418,7 @@ def setLugarTrabajo(d):
         if not lugar:
             lugar = Direccion(nombre=lug)
             session.add(lugar)
-            
+            session.commit()
                 
     elif area == "departamento":
         if area not in lug:
@@ -427,7 +428,8 @@ def setLugarTrabajo(d):
         if not lugar:
             lugar = Departamento(nombre=lug)
             session.add(lugar)
-
+            session.commit()
+            
     elif area == "centro":
         if "centro" not in lug:
             lug = "centro de " + lug
@@ -436,7 +438,7 @@ def setLugarTrabajo(d):
         if not lugar:
             lugar = Centro(nombre=lug)
             session.add(lugar)                
-            
+            session.commit()
 
     elif area == "autoridades superiores":    
         if "decanato" in lug:
@@ -445,20 +447,22 @@ def setLugarTrabajo(d):
           if not lugar:
               lugar = Lugar(nombre="decanato")
               session.add(lugar)
-                      
+              session.commit()
 
         elif "prosecr" in lug:           
             lugar = session.query(Prosecretaria).filter_by(nombre=lug).first() 
             if not lugar:
                 lugar = Prosecretaria(nombre=lug)
                 session.add(lugar)
+                session.commit()
                 
         elif "secr" in lug:
             lugar = session.query(Secretaria).filter_by(nombre=lug).first() 
             if not lugar:
                 lugar = Secretaria(nombre=lug)
                 session.add(lugar)                    
-            
+                session.commit()
+
     if lugar is None:
         print("no se definio lugar " + lug + " " + area)
 
@@ -492,6 +496,8 @@ def setCargo(car):
     if not cargo:
         cargo = Cargo(nombre=car, tipo='Docente')
         session.add(cargo)
+        session.commit()  
+
     else:
         cargo.tipo = 'Docente'
 
@@ -506,13 +512,17 @@ def setCargo(car):
 
 
 
-def setDesignacionDocente(d, cargo, lugar, usuario):
-    desde = d['desig_fecha_desde']
-    hasta = d['desig_fecha_hasta']
-    expe = d['resolucion_alta_expediente']
-    res = d['resolucion_alta_numero']
-    ded = d["tipodedicacion_nombre"].strip().lower()
-    carac = d["tipocaracter_nombre"].strip().lower()
+def setDesignacionDocente(datosDesignacion, cargo, lugar, usuario):
+    old_id = "designacion" + str(datosDesignacion["id_designacion"])
+    desde = datosDesignacion['fecha_desde']
+    hasta = datosDesignacion['fecha_hasta']
+    expe = datosDesignacion['expediente']
+    res = datosDesignacion['resolucion']
+    ded = datosDesignacion["dedicacion"].strip().lower()
+    carac = datosDesignacion["caracter"].strip().lower()
+    desde_baja = datosDesignacion['fecha_baja']
+    expe_baja = datosDesignacion['expediente_baja']
+    res_baja = datosDesignacion['resolucion_baja']
       
     dedicacion = session.query(Categoria).filter_by(nombre=ded).first()
     if not dedicacion:
@@ -522,65 +532,79 @@ def setDesignacionDocente(d, cargo, lugar, usuario):
     if not caracter:
         caracter = Categoria(nombre=carac)
         
-    designacion = Designacion(tipo='materia', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario)
-    designacion.categorias.append(dedicacion)
-    designacion.categorias.append(caracter)
-    session.add(designacion)
-
-    ''' proceso la baja '''
-    desde = d['desig_fecha_baja']
-    if desde:
-        expe = d['resolucion_baja_expediente']
-        res = d['resolucion_baja_numero']
-        designacion = Designacion(tipo='baja materia', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario)
+    designacion = session.query(Designacion).filter_by(old_id=old_id).first()
+    if not designacion:
+        designacion = Designacion(tipo='designacion', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario, old_id=old_id)
         designacion.categorias.append(dedicacion)
         designacion.categorias.append(caracter)
         session.add(designacion)
-
+        session.commit()  
     
-    
-
-
-def setExtensionDocenteDeDesignacionDocente(datosExtension, cargo, lugar, usuario):
-    designacionMateria = session.query(Designacion).filter_by(tipo="materia", cargo=cargo, lugar=lugar, usuario=usuario, )
-    
-    ).first()
-    if not caracter:
-        caracter = Categoria(nombre=carac)
-
-    desde = d['desig_fecha_desde']
-    hasta = d['desig_fecha_hasta']
-    expe = d['resolucion_alta_expediente']
-    res = d['resolucion_alta_numero']
-    ded = d["tipodedicacion_nombre"].strip().lower()
-    carac = d["tipocaracter_nombre"].strip().lower()
-      
-    dedicacion = session.query(Categoria).filter_by(nombre=ded).first()
-    if not dedicacion:
-        dedicacion = Categoria(nombre=ded)
-        
-    caracter = session.query(Categoria).filter_by(nombre=carac).first()
-    if not caracter:
-        caracter = Categoria(nombre=carac)
-        
-    designacion = Designacion(tipo='extension materia', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario)
-    designacion.categorias.append(dedicacion)
-    designacion.categorias.append(caracter)
-    session.add(designacion)
-
     ''' proceso la baja '''
-    desde = d['desig_fecha_baja']
-    if desde:
-        expe = d['resolucion_baja_expediente']
-        res = d['resolucion_baja_numero']
-        designacion = Designacion(tipo='baja materia', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario)
-        designacion.categorias.append(dedicacion)
-        designacion.categorias.append(caracter)
-        session.add(designacion)
+    if desde_baja:
+        old_id_baja = "bajadesignacion" + str(datosDesignacion["id_designacion"])
+        designacionBaja = session.query(Designacion).filter_by(old_id=old_id_baja).first()
+        if not designacionBaja:
+            designacionBaja = Designacion(tipo='baja', desde=desde_baja, expediente=expe_baja, resolucion=res_baja, cargo=cargo, lugar=lugar, usuario=usuario, designacion_id=designacion.id, old_id=old_id_baja)
+            session.add(designacionBaja)
+            session.commit()  
+        
+    
 
+
+def setExtensionDocenteDeDesignacionDocente(datosExtension, lugar):
+    old_id_designacion = "designacion" + str(datosExtension["id_designacion"])
+    old_id_extension = "extension" + str(datosExtension["id_extension"])
+
+    desde = datosExtension['fecha_desde']
+    hasta = datosExtension['fecha_hasta']
+    expe = datosExtension['expediente']
+    res = datosExtension['resolucion']
+    ded = datosExtension["dedicacion"].strip().lower()
+    desde_baja = datosExtension['fecha_baja']
+    expe_baja = datosExtension['expediente_baja']
+    res_baja = datosExtension['resolucion_baja']
+        
+     
+   
+    extension = session.query(Designacion).filter_by(old_id=old_id_extension).first()
+    if not extension:
+        designacion = session.query(Designacion).filter_by(old_id=old_id_designacion).first()
+        if not designacion:
+            print("No esta definida la designacion " + old_id_designacion)
+            return 
+         
+        usuario_id = designacion.usuario_id
+        cargo_id = designacion.cargo_id
     
         
+        dedicacion = session.query(Categoria).filter_by(nombre=ded).first()
+        if not dedicacion:
+            dedicacion = Categoria(nombre=ded)
+
+        """        
+        se define caracter de la extension?
+        caracter = session.query(Categoria).filter_by(nombre=carac).first()
+        if not caracter:
+            caracter = Categoria(nombre=carac)
+        """
         
+        extension = Designacion(tipo='extension', desde=desde_baja, hasta=hasta, expediente=expe, cargo_id=cargo_id, resolucion=res, lugar=lugar, usuario_id=usuario_id, designacion_id=extension.id, old_id=old_id_extension)
+        designacion.categorias.append(dedicacion)
+        session.add(designacion)
+        session.commit()  
+        
+
+        ''' proceso la baja '''
+        if desde_baja:
+            old_id_baja = "bajaextension" + str(datosDesignacion["id_designacion"])
+            designacionBaja = session.query(Designacion).filter_by(old_id=old_id_baja).first()
+            if not designacionBaja:
+                designacionBaja = Designacion(tipo='baja', desde=desde_baja, expediente=expe_baja, resolucion=res_baja, cargo_id=cargo_id, lugar=lugar, usuario_id=usuario_id, designacion_id=extension.id, old_id=old_id_baja)
+                session.add(designacionBaja)
+                session.commit()  
+
+
             
         
     
@@ -600,7 +624,7 @@ def setDesignacionLugar(d, cargo, lugar, usuario):
             if not categoria:
                 categoria = Categoria(nombre = "academico")   
                 
-         if "docente" in func:
+        if "docente" in func:
             categoria = session.query(Categoria).filter_by(nombre="docente").first()
             if not categoria:
                 categoria = Categoria(nombre = "docente")   
@@ -646,7 +670,7 @@ def setDesignacionLugar(d, cargo, lugar, usuario):
     designacion = Designacion(tipo='Lugar', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario)
     designacion.categorias = categorias
     session.add(designacion)
-    
+    session.commit()   
 
     ''' proceso la baja '''
     desde = d['desig_fecha_baja']
@@ -656,7 +680,7 @@ def setDesignacionLugar(d, cargo, lugar, usuario):
         designacion = Designacion(tipo='Baja Lugar', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario)
         designacion.categorias = categorias  
         session.add(designacion)
-
+        session.commit()  
 
 
 
@@ -668,15 +692,20 @@ if __name__ == '__main__':
     
     users = users()
 
-    for d in designacionesDocentes():
-        usuario = setUsuario(str(d['pers_nrodoc']), users, usuarios_faltantes)
-        lugar = setLugarDocente(d["materia_nombre"].split("C.U."), d['dpto_nombre'].strip().lower(), d['catedra_nombre'].strip().lower())
+    for datosDesignacion in designacionesDocentes():
+        usuario = setUsuario(str(datosDesignacion['pers_nrodoc']), users, usuarios_faltantes)
+        lugar = setLugarDocente(datosDesignacion["materia"].split("C.U."), datosDesignacion['departamento'].strip().lower(), datosDesignacion['catedra'].strip().lower())
 
-        cargo = setCargo(d["tipocargo_nombre"].strip().lower())
-        setDesignacionDocente(d, cargo=cargo, lugar=lugar, usuario=usuario)    
-       
-         
-    """    
+        cargo = setCargo(datosDesignacion["cargo"].strip().lower())
+        setDesignacionDocente(datosDesignacion, cargo=cargo, lugar=lugar, usuario=usuario)    
+
+
+    for datosExtension in extensionesDocentesDeDesignacionesDocentes():
+        lugar = setLugarDocente(datosExtension["materia"].split("C.U."), datosExtension['departamento'].strip().lower(), datosExtension['catedra'].strip().lower())
+        setExtensionDocenteDeDesignacionDocente(datosExtension, lugar)
+        
+          
+    
     for d in designacionesLugares():
         lugar = setLugarTrabajo(d)
         if not lugar:
@@ -684,16 +713,16 @@ if __name__ == '__main__':
         usuario = setUsuario(d, users, usuarios_faltantes)
         cargo = setCargo(d)
         setDesignacionLugar(d, cargo=cargo, lugar=lugar, usuario=usuario)
+    
     """
-   
     for d in extensionesDocentesDeDesignacionesDocentes():
         usuario = setUsuario(str(d['pers_nrodoc']), users, usuarios_faltantes)
         lugar = setLugarDocente(d,  d["extension_materia"].split("C.U."), d['extension_catedra'].strip().lower(), d['extension_departamento'].strip().lower())
         cargo = setCargo(d["tipocargo_nombre"].strip().lower())
         setDesignacionDocente(d, cargo=cargo, lugar=lugar, usuario=usuario)    
-    session.commit()  
-        
-        
+
+    """ 
+
         
 
     logging.info('Usuarios Faltantes\n')
