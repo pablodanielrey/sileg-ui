@@ -692,20 +692,21 @@ if __name__ == '__main__':
     
     users = users()
 
+    """
     for datosDesignacion in designacionesDocentes():
         usuario = setUsuario(str(datosDesignacion['pers_nrodoc']), users, usuarios_faltantes)
         lugar = setLugarDocente(datosDesignacion["materia"].split("C.U."), datosDesignacion['departamento'].strip().lower(), datosDesignacion['catedra'].strip().lower())
 
         cargo = setCargo(datosDesignacion["cargo"].strip().lower())
         setDesignacionDocente(datosDesignacion, cargo=cargo, lugar=lugar, usuario=usuario)    
-
-
+    
+    """
     for datosExtension in extensionesDocentesDeDesignacionesDocentes():
         lugar = setLugarDocente(datosExtension["materia"].split("C.U."), datosExtension['departamento'].strip().lower(), datosExtension['catedra'].strip().lower())
         setExtensionDocenteDeDesignacionDocente(datosExtension, lugar)
         
           
-    
+    """
     for d in designacionesLugares():
         lugar = setLugarTrabajo(d)
         if not lugar:
@@ -714,7 +715,7 @@ if __name__ == '__main__':
         cargo = setCargo(d)
         setDesignacionLugar(d, cargo=cargo, lugar=lugar, usuario=usuario)
     
-    """
+    
     for d in extensionesDocentesDeDesignacionesDocentes():
         usuario = setUsuario(str(d['pers_nrodoc']), users, usuarios_faltantes)
         lugar = setLugarDocente(d,  d["extension_materia"].split("C.U."), d['extension_catedra'].strip().lower(), d['extension_departamento'].strip().lower())

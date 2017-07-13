@@ -1,0 +1,29 @@
+  <div>
+    <div ng-show="designaciones.length" class="table-responsive">
+      <table class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr>      
+            <th>persona</th>
+            <th>cargo</th>
+            <th>lugar</th>
+            <th>desde</th>
+            <th>hasta</th>
+            <th>expediente</th>            
+            <th>resolucion</th>            
+            <th>Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="row in designaciones">
+            <td><div>{{row.persona}}</div></td>
+            <td><div>{{row.cargo}}</div></td>
+            <td><div>{{row.lugar}}</div></td>
+            <td><div>{{row.desde}}</div></td>
+            <td><div>{{row.hasta}}</div></td>            
+            <td><div>{{row.expediente}}</div></td>
+            <td><div>{{row.resolucion}}</div></td>            
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

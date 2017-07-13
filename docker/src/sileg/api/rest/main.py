@@ -1,26 +1,24 @@
 import sys
-from flask import Flask, abort, make_response, jsonify, url_for
+from flask import Flask, abort, make_response, jsonify, url_for, request
 
 # set the project root directory as the static folder, you can set others.
 app = Flask(__name__, static_url_path='/src/sileg/web')
 
 
-"""
-    Seguir la definición de REST
-    http://www.restapitutorial.com/lessons/httpmethods.html
-    https://spring.io/guides/gs/consuming-rest-angularjs/
-"""
 
-@app.route('/sileg/api/v1.0/designaciones/<int:id>', methods=['GET'])
-def obtenerDesignacion(id):
-    ''' obtengo la designacion definida por tal id '''
-    d = None
-    return jsonify(d)
+    
+    
+@app.route('/sileg/api/v1.0/designaciones/', methods=['GET', 'POST'])
+def designaciones():
+    #data = request.form.get('data')
+    key = request.args.get('key', '')
 
-@app.route('/sileg/api/v1.0/designaciones', methods=['GET'])
-def obtenerDesignaciones():
-    ''' obtengo todas las designaciones '''
-    return jsonify({'designaciones':[]})
+    return data
+    #data = post.get('data')
+    #return data
+
+
+    
 
 
 def main():
