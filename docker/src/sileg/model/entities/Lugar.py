@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref
 from model_utils import Base, generateId
 
 class Lugar(Base):
@@ -10,10 +10,11 @@ class Lugar(Base):
     tipo = Column(String)
     
     padre_id = Column(String, ForeignKey('sileg.lugar.id'))
-    padre = relationship('Lugar', foreign_keys=[padre_id])
+    hijos = relationship("Lugar",  foreign_keys=[padre_id], backref=backref('padre', remote_side="Lugar.id"))
     
+        
     cambio_id = Column(String, ForeignKey('sileg.lugar.id'))
-    cambio = relationship('Lugar', foreign_keys=[cambio_id])
+    cambios = relationship("Lugar",  foreign_keys=[cambio_id], backref=backref('cambio', remote_side="Lugar.id"))
 
     __mapper_args__ = {
         'polymorphic_on':tipo,
@@ -56,7 +57,7 @@ class Departamento(Lugar):
 
 class Direccion(Lugar):
     __mapper_args__ = {
-        'polymorphic_identity':'departamento'
+        'polymorphic_identity':'direccion'
     }
 
 class Escuela(Lugar):

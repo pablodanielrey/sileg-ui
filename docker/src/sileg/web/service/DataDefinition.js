@@ -3,35 +3,28 @@
 
 app.service("DataDefinition", DataDefinition);
 
-DataDefinition.$inject = ["$q", "$window", "Server"];
+DataDefinition.$inject = ["$q", "$http"];
 
-function DataDefinition($q, $window, Server){
-  this.Server = Server;
-  this.window = $window;
+
+function DataDefinition($q, $http){
   this.q = $q;
+  this.http = $http;
 };
 
 
-//Consulta basica de entidades, admite filtros de busqueda
-//@param entity Descripcion de la entidad que se desea consultar
-//@param FILTROS DE BUSQUEDA
-//  page Paginacion
-DataDefinition.prototype.query = function(p){
-
-}
 
 
 //Consulta de designaciones con datos asociados, admite filtros de busqueda
 //@param FILTROS DE BUSQUEDA
-//  page Paginacion
+//  page Pagina
+//  size Tamanio
 DataDefinition.prototype.designaciones = function(p){ 
-  return this.Server.designaciones(p).then( 
-    function(response){ 
-      console.log(response);
-    }
-    
-  );
+   return this.http.post("http://127.0.0.1:5001/sileg/api/v1.0/designaciones/", {data:JSON.stringify(p)}).then(
+     function(response){ return response.data; },
+     function(error){ console.log(error) }
+   ); 
 
 };
+
 
 

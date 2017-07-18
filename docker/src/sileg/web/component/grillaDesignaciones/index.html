@@ -15,13 +15,14 @@
         </thead>
         <tbody>
           <tr ng-repeat="row in designaciones">
-            <td><div>{{row.persona}}</div></td>
-            <td><div>{{row.cargo}}</div></td>
-            <td><div>{{row.lugar}}</div></td>
-            <td><div>{{row.desde}}</div></td>
-            <td><div>{{row.hasta}}</div></td>            
+            <td><div>{{row.usuario.apellidos}}, {{row.usuario.nombres}}</div></td>
+            <td><div>{{row.cargo.nombre}}</div></td>
+            <td><div>{{row.lugar.nombre}}</div></td>
+            <td><div>{{row.desde | date:'dd/MM/yyyy'}}</div></td>
+            <td><div>{{row.hasta | date:'dd/MM/yyyy'}}</div></td>            
             <td><div>{{row.expediente}}</div></td>
-            <td><div>{{row.resolucion}}</div></td>            
+            <td><div>{{row.resolucion}}</div></td>  
+            <td></td>          
           </tr>
         </tbody>
       </table>

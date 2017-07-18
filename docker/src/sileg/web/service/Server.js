@@ -29,6 +29,7 @@ function Server($http){
 Server.prototype.designaciones = function(p){ 
    return this.http.post("http://127.0.0.1:5001/sileg/api/v1.0/designaciones/", {data:JSON.stringify(p)}).then(
      function(response){
+       console.log(response);
        return response.data;
      }   
    ); 
