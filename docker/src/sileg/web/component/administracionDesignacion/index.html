@@ -1,0 +1,21 @@
+  <fieldset ng-disabled="disabled">
+      <legend>Designación</legend>
+      
+      <div class="form-group">
+        <label class="control-label col-sm-2">Desde:</label>
+        <div class="col-sm-4">
+          <input class="form-control" type="text" ng-model="designacion.desde.value"/>
+        </div>
+        <div class="col-sm-6 text-danger" ng-show="designacion.desde.error">{{designacion.desde.error}}</div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label col-sm-2">Lugar:</label>      
+        <div class="col-sm-4">
+          <input type="text" ng-model="designacion.lugar.selected" placeholder="Lugar" uib-typeahead="opt as opt.label for opt in typeaheadOptionsLugar()" typeahead-wait-ms="300" class="form-control" >
+          <span ng-show="selectTypeaheadLugar()" class="glyphicon glyphicon-ok"></span>          
+        </div>
+        <div class="col-sm-6 text-danger" ng-show="toma.curso.error">{{designacion.lugar.error}}</div>
+      </div>
+
+    </fieldset>
