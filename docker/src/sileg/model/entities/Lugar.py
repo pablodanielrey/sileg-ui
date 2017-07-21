@@ -12,7 +12,6 @@ class Lugar(Base):
     padre_id = Column(String, ForeignKey('sileg.lugar.id'))
     hijos = relationship("Lugar",  foreign_keys=[padre_id], backref=backref('padre', remote_side="Lugar.id"))
     
-        
     cambio_id = Column(String, ForeignKey('sileg.lugar.id'))
     cambios = relationship("Lugar",  foreign_keys=[cambio_id], backref=backref('cambio', remote_side="Lugar.id"))
 
@@ -27,7 +26,8 @@ class Catedra(Lugar):
     __table_args__ = {'schema':'sileg'}
 
     id = Column(String, ForeignKey('sileg.lugar.id'), primary_key=True, default=generateId)
-    materia_id = Column(String)
+    materia_id = Column(String, ForeignKey('sileg.materia.id'))
+    materia = relationship("Materia")
 
     __mapper_args__ = {
         'polymorphic_identity':'catedra'

@@ -43,12 +43,12 @@ def designacionesDocentes():
                 SELECT desig_id AS id_designacion, desig_observaciones AS observaciones, desig_fecha_desde AS fecha_desde, desig_fecha_hasta AS fecha_hasta, desig_fecha_baja AS fecha_baja,
                 resolucion_alta.resolucion_numero AS resolucion,  resolucion_alta.resolucion_expediente AS expediente,
                 desig_ord_fdesde AS fecha_desde_ordenanza, desig_ord_fhasta AS fecha_hasta_ordenanza,
-                resolucion_ordenanza.resolucion_numero AS resolucion_ordenanza, resolucion_ordenanza.resolucion_expediente AS resolucion_expediente, 
-                resolucion_baja.resolucion_numero AS resolucion_baja,  resolucion_baja.resolucion_expediente AS expediente_baja,
+                resolucion_ordenanza.resolucion_numero AS resolucion_ordenanza, resolucion_ordenanza.resolucion_expediente AS expediente_ordenanza, 
+                resolucion_baja.resolucion_numero AS resolucion_baja, resolucion_baja.resolucion_expediente AS expediente_baja,
                 tipo_baja.tipobajadesig_nombre AS baja,
                 tipocargo_nombre AS cargo, tipo_dedicacion.tipodedicacion_nombre AS dedicacion, tipocaracter_nombre AS caracter,
                 tipo_caracter_extraordinario.tipoextraord_nombre AS caracter_extraordinario,
-                pers_nombres, pers_apellidos, pers_nrodoc,
+                pers_nombres AS nombres, pers_apellidos AS apellidos, pers_nrodoc AS numero_documento,
                 materia.materia_nombre AS materia, catedra.catedra_nombre AS catedra, departamento.dpto_nombre AS departamento
 
                 FROM designacion_docente
@@ -61,6 +61,7 @@ def designacionesDocentes():
                 INNER JOIN materia ON (catedras_x_materia.catxmat_materia_id = materia.materia_id)
                 INNER JOIN catedra ON (catedras_x_materia.catxmat_catedra_id = catedra.catedra_id)
                 INNER JOIN departamento ON (materia.materia_dpto_id = departamento.dpto_id)
+               
                 LEFT JOIN resolucion AS resolucion_alta ON (resolucion_alta.resolucion_id = desig_resolucionalta_id)
                 LEFT JOIN resolucion AS resolucion_baja ON (resolucion_baja.resolucion_id = desig_resolucionbaja_id)
                 LEFT JOIN resolucion AS resolucion_ordenanza ON (resolucion_ordenanza.resolucion_id = desig_resolucionord_id)
@@ -81,6 +82,57 @@ def designacionesDocentes():
 
 
 
+def designacionesLugares():
+    """ conexion con la base antigua del sileg para obtener las designaciones a un lugar de trabajo """
+    host = os.environ['SILEG_OLD_DB_HOST']
+    dbname = os.environ['SILEG_OLD_DB_NAME']
+    user = os.environ['SILEG_OLD_DB_USER']
+    password = os.environ['SILEG_OLD_DB_PASSWORD']
+    conn = psycopg2.connect(host=host, dbname=dbname, user=user, password=password)
+    try:
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        try:
+            cur.execute('''
+                SELECT desig_id AS id_designacion, desig_observaciones AS observaciones, desig_fecha_desde AS fecha_desde, desig_fecha_hasta AS fecha_hasta, desig_fecha_baja AS fecha_baja,
+                resolucion_alta.resolucion_numero AS resolucion,  resolucion_alta.resolucion_expediente AS expediente,
+                desig_ord_fdesde AS fecha_desde_ordenanza, desig_ord_fhasta AS fecha_hasta_ordenanza,
+                resolucion_ordenanza.resolucion_numero AS resolucion_ordenanza, resolucion_ordenanza.resolucion_expediente AS resolucion_expediente, 
+                resolucion_baja.resolucion_numero AS resolucion_baja, resolucion_baja.resolucion_expediente AS expediente_baja,
+                tipo_baja.tipobajadesig_nombre AS baja,
+                tipocargo_nombre AS cargo, tipo_dedicacion.tipodedicacion_nombre AS dedicacion, tipocaracter_nombre AS caracter,
+                tipo_caracter_extraordinario.tipoextraord_nombre AS caracter_extraordinario,
+                pers_nombres AS nombres, pers_apellidos AS apellidos, pers_nrodoc AS numero_documento,
+                lugdetrab_nombre AS lugar, area_nombre AS area, funcion_nombre AS funcion
+                
+                FROM designacion_docente
+                INNER JOIN tipo_cargo ON (desig_tipocargo_id = tipocargo_id)
+                INNER JOIN tipo_dedicacion ON (desig_tipodedicacion_id = tipodedicacion_id)
+                INNER JOIN tipo_caracter ON (desig_tipocaracter_id = tipocaracter_id)
+                INNER JOIN empleado ON (designacion_docente.desig_empleado_id = empleado.empleado_id)
+                INNER JOIN persona ON (empleado.empleado_pers_id = persona.pers_id)
+                INNER JOIN lugar_de_trabajo ON (designacion_docente.desig_lugdetrab_id = lugar_de_trabajo.lugdetrab_id)
+                LEFT JOIN area ON (lugar_de_trabajo.lugdetrab_area_id = area.area_id)
+                LEFT JOIN funcion ON (designacion_docente.desig_funcion_id = funcion.funcion_id)
+                
+                LEFT JOIN resolucion AS resolucion_alta ON (resolucion_alta.resolucion_id = desig_resolucionalta_id)
+                LEFT JOIN resolucion AS resolucion_baja ON (resolucion_baja.resolucion_id = desig_resolucionbaja_id)
+                LEFT JOIN resolucion AS resolucion_ordenanza ON (resolucion_ordenanza.resolucion_id = desig_resolucionord_id)
+                LEFT JOIN tipo_caracter_extraordinario ON (designacion_docente.desig_tipodedicacion_id = tipo_caracter_extraordinario.tipoextraord_id)
+                LEFT JOIN tipo_baja ON (designacion_docente.desig_tipobaja_id = tipo_baja.tipobajadesig_id)
+            ''');
+
+            return cur.fetchall()
+        finally:
+          cur.close()
+
+    finally:
+        conn.close()
+        
+        
+        
+        
+        
+        
 
 
 def extensionesDocentesDeDesignacionesDocentes():
@@ -121,6 +173,59 @@ def extensionesDocentesDeDesignacionesDocentes():
                 INNER JOIN catedra AS ecatedra ON (ecatedras_x_materia.catxmat_catedra_id = ecatedra.catedra_id)
                 INNER JOIN departamento AS edepartamento ON (emateria.materia_dpto_id = edepartamento.dpto_id)
                 INNER JOIN tipo_dedicacion AS etipo_dedicacion ON (extension.extension_nuevadedicacion_id = etipo_dedicacion.tipodedicacion_id)
+                
+                LEFT JOIN resolucion AS eresolucion_alta ON (eresolucion_alta.resolucion_id = extension_resolucionalta_id)
+                LEFT JOIN resolucion AS eresolucion_baja ON (eresolucion_baja.resolucion_id = extension_resolucionbaja_id)
+                LEFT JOIN tipo_baja AS etipo_baja ON (extension.extension_tipobaja_id = etipo_baja.tipobajadesig_id);
+            ''');
+
+            return cur.fetchall()
+        finally:
+          cur.close()
+
+    finally:
+        conn.close()
+
+
+
+
+
+def extensionesDocentesDeDesignacionesLugares():
+    """ conexion con la base antigua del sileg para obtener las designaciones docentes """
+    host = os.environ['SILEG_OLD_DB_HOST']
+    dbname = os.environ['SILEG_OLD_DB_NAME']
+    user = os.environ['SILEG_OLD_DB_USER']
+    password = os.environ['SILEG_OLD_DB_PASSWORD']
+    conn = psycopg2.connect(host=host, dbname=dbname, user=user, password=password)
+    try:
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        try:
+            cur.execute('''
+                SELECT desig_id AS id_designacion,
+	              extension_id AS id_extension,
+                extension.extension_fecha_desde AS fecha_desde, extension.extension_fecha_hasta AS fecha_hasta, extension.extension_fecha_baja AS fecha_baja,
+                eresolucion_alta.resolucion_numero AS resolucion, eresolucion_alta.resolucion_expediente AS expediente,
+                eresolucion_baja.resolucion_numero AS resolucion_baja, eresolucion_baja.resolucion_expediente AS expediente_baja,
+                emateria.materia_nombre AS materia, ecatedra.catedra_nombre AS catedra, edepartamento.dpto_nombre AS departamento,
+                etipo_dedicacion.tipodedicacion_nombre AS dedicacion, 
+                etipo_baja.tipobajadesig_nombre AS baja,
+                extension.extension_comision AS observaciones
+                
+                FROM designacion_docente
+                INNER JOIN tipo_cargo ON (desig_tipocargo_id = tipocargo_id)
+                INNER JOIN tipo_dedicacion ON (desig_tipodedicacion_id = tipodedicacion_id)
+                INNER JOIN tipo_caracter ON (desig_tipocaracter_id = tipocaracter_id)
+                INNER JOIN empleado ON (designacion_docente.desig_empleado_id = empleado.empleado_id)
+                INNER JOIN persona ON (empleado.empleado_pers_id = persona.pers_id)
+                INNER JOIN lugar_de_trabajo ON (designacion_docente.desig_lugdetrab_id = lugar_de_trabajo.lugdetrab_id)
+                
+		            INNER JOIN extension ON (extension.extension_designacion_id = designacion_docente.desig_id)
+                INNER JOIN catedras_x_materia AS ecatedras_x_materia ON (extension.extension_catxmat_id = ecatedras_x_materia.catxmat_id)
+                INNER JOIN materia AS emateria ON (ecatedras_x_materia.catxmat_materia_id = emateria.materia_id)
+                INNER JOIN catedra AS ecatedra ON (ecatedras_x_materia.catxmat_catedra_id = ecatedra.catedra_id)
+                INNER JOIN departamento AS edepartamento ON (emateria.materia_dpto_id = edepartamento.dpto_id)
+                INNER JOIN tipo_dedicacion AS etipo_dedicacion ON (extension.extension_nuevadedicacion_id = etipo_dedicacion.tipodedicacion_id)
+                
                 LEFT JOIN resolucion AS eresolucion_alta ON (eresolucion_alta.resolucion_id = extension_resolucionalta_id)
                 LEFT JOIN resolucion AS eresolucion_baja ON (eresolucion_baja.resolucion_id = extension_resolucionbaja_id)
                 LEFT JOIN tipo_baja AS etipo_baja ON (extension.extension_tipobaja_id = etipo_baja.tipobajadesig_id);
@@ -138,19 +243,8 @@ def extensionesDocentesDeDesignacionesDocentes():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-def designacionesLugares():
-    """ conexion con la base antigua del sileg para obtener las designaciones a un lugar de trabajo """
+def extensionesLugaresDeDesignacionesDocentes():
+    """ conexion con la base antigua del sileg para obtener las designaciones docentes """
     host = os.environ['SILEG_OLD_DB_HOST']
     dbname = os.environ['SILEG_OLD_DB_NAME']
     user = os.environ['SILEG_OLD_DB_USER']
@@ -160,21 +254,36 @@ def designacionesLugares():
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         try:
             cur.execute('''
-                SELECT desig_id, desig_observaciones, desig_fecha_desde, desig_fecha_hasta, desig_fecha_baja,
-                resolucion_alta.resolucion_numero AS resolucion_alta_numero,  resolucion_alta.resolucion_expediente AS resolucion_alta_expediente,
-                resolucion_baja.resolucion_numero AS resolucion_baja_numero,  resolucion_baja.resolucion_expediente AS resolucion_baja_expediente,
-                tipocargo_nombre, tipodedicacion_nombre, tipocaracter_nombre, pers_nombres, pers_apellidos, pers_nrodoc, lugdetrab_nombre, area_nombre, funcion_nombre
+                SELECT desig_id AS id_designacion,
+                extension_id AS id_extension,
+                extension.extension_fecha_desde AS fecha_desde, extension.extension_fecha_hasta AS fecha_hasta, extension.extension_fecha_baja AS fecha_baja,
+                eresolucion_alta.resolucion_numero AS resolucion, eresolucion_alta.resolucion_expediente AS expediente,
+                eresolucion_baja.resolucion_numero AS resolucion_baja, eresolucion_baja.resolucion_expediente AS expediente_baja,
+                elugar_de_trabajo.lugdetrab_nombre AS lugar, earea.area_nombre AS area, efuncion.funcion_nombre AS funcion,
+                etipo_dedicacion.tipodedicacion_nombre AS dedicacion, 
+                etipo_baja.tipobajadesig_nombre AS baja,
+                extension.extension_comision AS observaciones          
+                
                 FROM designacion_docente
-                INNER JOIN tipo_cargo AS tc ON (desig_tipocargo_id = tipocargo_id)
-                INNER JOIN tipo_dedicacion AS td ON (desig_tipodedicacion_id = tipodedicacion_id)
-                INNER JOIN tipo_caracter AS tca ON (desig_tipocaracter_id = tipocaracter_id)
+                INNER JOIN tipo_cargo ON (designacion_docente.desig_tipocargo_id = tipo_cargo.tipocargo_id)
+                INNER JOIN tipo_dedicacion ON (designacion_docente.desig_tipodedicacion_id = tipo_dedicacion.tipodedicacion_id)
+                INNER JOIN tipo_caracter ON (designacion_docente.desig_tipocaracter_id = tipo_caracter.tipocaracter_id)
                 INNER JOIN empleado ON (designacion_docente.desig_empleado_id = empleado.empleado_id)
                 INNER JOIN persona ON (empleado.empleado_pers_id = persona.pers_id)
-                INNER JOIN lugar_de_trabajo ON (designacion_docente.desig_lugdetrab_id = lugar_de_trabajo.lugdetrab_id)
-                LEFT JOIN area ON (lugar_de_trabajo.lugdetrab_area_id = area.area_id)
-                LEFT JOIN funcion ON (designacion_docente.desig_funcion_id = funcion.funcion_id)
-                LEFT JOIN resolucion AS resolucion_alta ON (resolucion_alta.resolucion_id = desig_resolucionalta_id)
-                LEFT JOIN resolucion AS resolucion_baja ON (resolucion_baja.resolucion_id = desig_resolucionbaja_id);
+                INNER JOIN catedras_x_materia ON (designacion_docente.desig_catxmat_id = catedras_x_materia.catxmat_id)
+                INNER JOIN materia ON (catedras_x_materia.catxmat_materia_id = materia.materia_id)
+                INNER JOIN catedra ON (catedras_x_materia.catxmat_catedra_id = catedra.catedra_id)
+                INNER JOIN departamento ON (materia.materia_dpto_id = departamento.dpto_id)
+                
+		            INNER JOIN extension ON (extension.extension_designacion_id = designacion_docente.desig_id)
+                INNER JOIN lugar_de_trabajo AS elugar_de_trabajo ON (extension.extension_lugdetrab_id = elugar_de_trabajo.lugdetrab_id)
+                LEFT JOIN area AS earea ON (elugar_de_trabajo.lugdetrab_area_id = earea.area_id)
+                LEFT JOIN funcion AS efuncion ON (extension.extension_funcion_id = efuncion.funcion_id)
+                INNER JOIN tipo_dedicacion AS etipo_dedicacion ON (extension.extension_nuevadedicacion_id = etipo_dedicacion.tipodedicacion_id)
+                
+                LEFT JOIN resolucion AS eresolucion_alta ON (eresolucion_alta.resolucion_id = extension_resolucionalta_id)
+                LEFT JOIN resolucion AS eresolucion_baja ON (eresolucion_baja.resolucion_id = extension_resolucionbaja_id)
+                LEFT JOIN tipo_baja AS etipo_baja ON (extension.extension_tipobaja_id = etipo_baja.tipobajadesig_id);
             ''');
 
             return cur.fetchall()
@@ -185,12 +294,139 @@ def designacionesLugares():
         conn.close()
         
         
-        
+
+
+
+def extensionesLugaresDeDesignacionesLugares():
+    """ conexion con la base antigua del sileg para obtener las designaciones """
+    host = os.environ['SILEG_OLD_DB_HOST']
+    dbname = os.environ['SILEG_OLD_DB_NAME']
+    user = os.environ['SILEG_OLD_DB_USER']
+    password = os.environ['SILEG_OLD_DB_PASSWORD']
+    conn = psycopg2.connect(host=host, dbname=dbname, user=user, password=password)
+    try:
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        try:
+            cur.execute('''
+                SELECT desig_id AS id_designacion,
+                extension_id AS id_extension,
+                extension.extension_fecha_desde AS fecha_desde, extension.extension_fecha_hasta AS fecha_hasta, extension.extension_fecha_baja AS fecha_baja,
+                eresolucion_alta.resolucion_numero AS resolucion, eresolucion_alta.resolucion_expediente AS expediente,
+                eresolucion_baja.resolucion_numero AS resolucion_baja, eresolucion_baja.resolucion_expediente AS expediente_baja,
+                elugar_de_trabajo.lugdetrab_nombre AS lugar, earea.area_nombre AS area, efuncion.funcion_nombre AS funcion,
+                etipo_dedicacion.tipodedicacion_nombre AS dedicacion, 
+                etipo_baja.tipobajadesig_nombre AS baja,
+                extension.extension_comision AS observaciones                                                             
+                
+                FROM designacion_docente
+                INNER JOIN tipo_cargo ON (desig_tipocargo_id = tipocargo_id)
+                INNER JOIN tipo_dedicacion ON (desig_tipodedicacion_id = tipodedicacion_id)
+                INNER JOIN tipo_caracter ON (desig_tipocaracter_id = tipocaracter_id)
+                INNER JOIN empleado ON (designacion_docente.desig_empleado_id = empleado.empleado_id)
+                INNER JOIN persona ON (empleado.empleado_pers_id = persona.pers_id)
+                INNER JOIN lugar_de_trabajo ON (designacion_docente.desig_lugdetrab_id = lugar_de_trabajo.lugdetrab_id)
+
+		            INNER JOIN extension ON (extension.extension_designacion_id = designacion_docente.desig_id)
+                INNER JOIN lugar_de_trabajo AS elugar_de_trabajo ON (extension.extension_lugdetrab_id = elugar_de_trabajo.lugdetrab_id)
+                LEFT JOIN area AS earea ON (elugar_de_trabajo.lugdetrab_area_id = earea.area_id)
+                LEFT JOIN funcion AS efuncion ON (extension.extension_funcion_id = efuncion.funcion_id)
+                INNER JOIN tipo_dedicacion AS etipo_dedicacion ON (extension.extension_nuevadedicacion_id = etipo_dedicacion.tipodedicacion_id)
+               
+                LEFT JOIN resolucion AS eresolucion_alta ON (eresolucion_alta.resolucion_id = extension_resolucionalta_id)
+                LEFT JOIN resolucion AS eresolucion_baja ON (eresolucion_baja.resolucion_id = extension_resolucionbaja_id)
+                LEFT JOIN tipo_baja AS etipo_baja ON (extension.extension_tipobaja_id = etipo_baja.tipobajadesig_id);
+            ''');
+
+            return cur.fetchall()
+        finally:
+          cur.close()
+
+    finally:
+        conn.close()
+
+
+
+
+def prorrogasIniciales(tipoDesignacion):
+    """ tipoDesignacion = 'des' | 'ext' | 'pro' """
+    host = os.environ['SILEG_OLD_DB_HOST']
+    dbname = os.environ['SILEG_OLD_DB_NAME']
+    user = os.environ['SILEG_OLD_DB_USER']
+    password = os.environ['SILEG_OLD_DB_PASSWORD']
+    conn = psycopg2.connect(host=host, dbname=dbname, user=user, password=password)
+    try:
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        try:
+            cur.execute('''
+                SELECT 
+                prorroga_id AS id_prorroga, 
+                prorroga_fecha_obtencion AS observaciones,
+                prorroga_fecha_desde AS fecha_desde,
+                prorroga_fecha_hasta AS fecha_hasta,
+                resolucion_alta.resolucion_numero AS resolucion,  resolucion_alta.resolucion_expediente AS expediente,
+                resolucion_baja.resolucion_numero AS resolucion_baja, resolucion_baja.resolucion_expediente AS expediente_baja,
+                prorroga_prorroga_de_id AS id_designacion,
+                pers_nombres AS numero, pers_apellidos, pers_nrodoc
+                FROM prorroga
+                INNER JOIN empleado ON (prorroga.prorroga_idemp = empleado.empleado_id)  
+                INNER JOIN persona ON (empleado.empleado_pers_id = persona.pers_id)
+                LEFT JOIN resolucion AS resolucion_alta ON (resolucion_alta.resolucion_id = prorroga_resolucionalta_id)
+                LEFT JOIN resolucion AS resolucion_baja ON (resolucion_baja.resolucion_id = prorroga_resolucionbaja_id)
+                AND prorroga_prorroga_de = %s;
+            ''', (tipoDesignacion,));
+
+            return cur.fetchall()
+        finally:
+          cur.close()
+
+    finally:
+        conn.close()
+      
         
         
 
 
 
+def prorrogasDeIds(ids):
+    host = os.environ['SILEG_OLD_DB_HOST']
+    dbname = os.environ['SILEG_OLD_DB_NAME']
+    user = os.environ['SILEG_OLD_DB_USER']
+    password = os.environ['SILEG_OLD_DB_PASSWORD']
+    conn = psycopg2.connect(host=host, dbname=dbname, user=user, password=password)
+    try:
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        try:
+            cur.execute('''
+                SELECT 
+                prorroga_id AS id_prorroga, 
+                prorroga_fecha_obtencion AS observaciones,
+                prorroga_fecha_desde AS fecha_desde,
+                prorroga_fecha_hasta AS fecha_hasta,
+                resolucion_alta.resolucion_numero AS resolucion,  resolucion_alta.resolucion_expediente AS expediente,
+                resolucion_baja.resolucion_numero AS resolucion_baja, resolucion_baja.resolucion_expediente AS expediente_baja,
+                prorroga_prorroga_de_id AS id_designacion,
+                pers_nombres AS numero, pers_apellidos, pers_nrodoc
+                FROM prorroga
+                INNER JOIN empleado ON (prorroga.prorroga_idemp = empleado.empleado_id)  
+                INNER JOIN persona ON (empleado.empleado_pers_id = persona.pers_id)
+                LEFT JOIN resolucion AS resolucion_alta ON (resolucion_alta.resolucion_id = prorroga_resolucionalta_id)
+                LEFT JOIN resolucion AS resolucion_baja ON (resolucion_baja.resolucion_id = prorroga_resolucionbaja_id)
+                AND prorroga_prorroga_de_id IN (%s);
+            ''', (tuple(ids),));
+
+            return cur.fetchall()
+        finally:
+          cur.close()
+
+    finally:
+        conn.close()
+      
+
+
+
+
+
+  
 
 
 
@@ -258,7 +494,12 @@ def setUsuario(dni, users, usuarios_faltantes):
 
 
 
-def setLugarDocente(mat_, dep, cat):
+def setLugarDocente(datos):
+
+    mat_ = datos["materia"].split("C.U.")
+    dep = datos['departamento'].strip().lower()
+    cat = datos['catedra'].strip().lower()
+
     """
     Define lugar a partir de las designaciones docentes
     """
@@ -349,14 +590,14 @@ def setLugarDocente(mat_, dep, cat):
 
 
 
-def setLugarTrabajo(d):
+def setLugarTrabajo(datos):
     """
     Define lugar a partir de las designaciones a lugar de trabajo
     """
 
-    lug = d["lugdetrab_nombre"].strip().lower()
-    area = d['area_nombre'].strip().lower()
-    #func = d['funcion_nombre'].strip().lower()
+    lug = datos["lugar"].strip().lower()
+    area = datos['area'].strip().lower()
+    #func = datos['funcion'].strip().lower()
 
     lugar = None
 
@@ -485,10 +726,6 @@ def setLugarTrabajo(d):
     
     
     
-    
-    
-    
-    
 
 def setCargo(car):
 
@@ -507,118 +744,29 @@ def setCargo(car):
 
 
 
-
-
-
-
-
-def setDesignacionDocente(datosDesignacion, cargo, lugar, usuario):
-    old_id = "designacion" + str(datosDesignacion["id_designacion"])
-    desde = datosDesignacion['fecha_desde']
-    hasta = datosDesignacion['fecha_hasta']
-    expe = datosDesignacion['expediente']
-    res = datosDesignacion['resolucion']
-    ded = datosDesignacion["dedicacion"].strip().lower()
-    carac = datosDesignacion["caracter"].strip().lower()
-    desde_baja = datosDesignacion['fecha_baja']
-    expe_baja = datosDesignacion['expediente_baja']
-    res_baja = datosDesignacion['resolucion_baja']
-      
-    dedicacion = session.query(Categoria).filter_by(nombre=ded).first()
-    if not dedicacion:
-        dedicacion = Categoria(nombre=ded)
-        
-    caracter = session.query(Categoria).filter_by(nombre=carac).first()
-    if not caracter:
-        caracter = Categoria(nombre=carac)
-        
-    designacion = session.query(Designacion).filter_by(old_id=old_id).first()
-    if not designacion:
-        designacion = Designacion(tipo='designacion', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario, old_id=old_id)
-        designacion.categorias.append(dedicacion)
-        designacion.categorias.append(caracter)
-        session.add(designacion)
-        session.commit()  
-    
-    ''' proceso la baja '''
-    if desde_baja:
-        old_id_baja = "bajadesignacion" + str(datosDesignacion["id_designacion"])
-        designacionBaja = session.query(Designacion).filter_by(old_id=old_id_baja).first()
-        if not designacionBaja:
-            designacionBaja = Designacion(tipo='baja', desde=desde_baja, expediente=expe_baja, resolucion=res_baja, cargo=cargo, lugar=lugar, usuario=usuario, designacion_id=designacion.id, old_id=old_id_baja)
-            session.add(designacionBaja)
-            session.commit()  
-        
-    
-
-
-def setExtensionDocenteDeDesignacionDocente(datosExtension, lugar):
-    old_id_designacion = "designacion" + str(datosExtension["id_designacion"])
-    old_id_extension = "extension" + str(datosExtension["id_extension"])
-
-    desde = datosExtension['fecha_desde']
-    hasta = datosExtension['fecha_hasta']
-    expe = datosExtension['expediente']
-    res = datosExtension['resolucion']
-    ded = datosExtension["dedicacion"].strip().lower()
-    desde_baja = datosExtension['fecha_baja']
-    expe_baja = datosExtension['expediente_baja']
-    res_baja = datosExtension['resolucion_baja']
-        
-     
-   
-    extension = session.query(Designacion).filter_by(old_id=old_id_extension).first()
-    if not extension:
-        designacion = session.query(Designacion).filter_by(old_id=old_id_designacion).first()
-        if not designacion:
-            print("No esta definida la designacion " + old_id_designacion)
-            return 
-         
-        usuario_id = designacion.usuario_id
-        cargo_id = designacion.cargo_id
-    
-        
-        dedicacion = session.query(Categoria).filter_by(nombre=ded).first()
-        if not dedicacion:
-            dedicacion = Categoria(nombre=ded)
-
-        """        
-        se define caracter de la extension?
-        caracter = session.query(Categoria).filter_by(nombre=carac).first()
-        if not caracter:
-            caracter = Categoria(nombre=carac)
-        """
-        
-        extension = Designacion(tipo='extension', desde=desde_baja, hasta=hasta, expediente=expe, cargo_id=cargo_id, resolucion=res, lugar=lugar, usuario_id=usuario_id, designacion_id=extension.id, old_id=old_id_extension)
-        designacion.categorias.append(dedicacion)
-        session.add(designacion)
-        session.commit()  
-        
-
-        ''' proceso la baja '''
-        if desde_baja:
-            old_id_baja = "bajaextension" + str(datosDesignacion["id_designacion"])
-            designacionBaja = session.query(Designacion).filter_by(old_id=old_id_baja).first()
-            if not designacionBaja:
-                designacionBaja = Designacion(tipo='baja', desde=desde_baja, expediente=expe_baja, resolucion=res_baja, cargo_id=cargo_id, lugar=lugar, usuario_id=usuario_id, designacion_id=extension.id, old_id=old_id_baja)
-                session.add(designacionBaja)
-                session.commit()  
-
-
-            
-        
-    
-
-def setDesignacionLugar(d, cargo, lugar, usuario):
-    desde = d['desig_fecha_desde']
-    hasta = d['desig_fecha_hasta']
-    expe = d['resolucion_alta_expediente']
-    res = d['resolucion_alta_numero']
-    func = d['funcion_nombre'].strip().lower() if(d['funcion_nombre'] is not None) else None
+def setCategorias(datos):
+    ded = datos["dedicacion"].strip().lower()
     
     categorias = []
-    
-    if func is not None:
+   
+    #dedicacion siempre existe
+    dedicacion = session.query(Categoria).filter_by(nombre=ded).first()
+    if not dedicacion:
+        categoria = Categoria(nombre=ded)
+        categorias.append(categoria)
+           
+    #caracter es opcional (se define caracter en extension con el mismo que la designacion? por el momento no)           
+    if 'caracter' in datos: 
+        carac = datos["caracter"].strip().lower()                               
+        caracter = session.query(Categoria).filter_by(nombre=carac).first()
+        if not caracter:
+            categoria = Categoria(nombre=carac)
+            categorias.append(categoria)
+
+    #funcion se define solo en lugar
+    if(('funcion' in datos) and (datos['funcion'] is not None)):
+        func = datos['funcion'].strip().lower() 
+   
         if "acad" in func:
             categoria = session.query(Categoria).filter_by(nombre="academico").first()
             if not categoria:
@@ -664,25 +812,156 @@ def setDesignacionLugar(d, cargo, lugar, usuario):
             categoria = None
         
         if categoria is not None:
-          categorias.append(categoria)                  
-        
-        
-    designacion = Designacion(tipo='Lugar', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario)
-    designacion.categorias = categorias
-    session.add(designacion)
-    session.commit()   
+            categorias.append(categoria)
+          
+    return categorias
+          
 
-    ''' proceso la baja '''
-    desde = d['desig_fecha_baja']
-    if desde:
-        expe = d['resolucion_baja_expediente']
-        res = d['resolucion_baja_numero']
-        designacion = Designacion(tipo='Baja Lugar', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario)
-        designacion.categorias = categorias  
+
+def setDesignacion(datos, cargo, lugar, usuario, categorias):
+    id_designacion = str(datos["id_designacion"])
+    old_id = "designacion" + id_designacion
+    desde = datos['fecha_desde']
+    hasta = datos['fecha_hasta']
+    expe = datos['expediente']
+    res = datos['resolucion']
+   
+    desde_baja = datos['fecha_baja']
+    expe_baja = datos['expediente_baja']
+    res_baja = datos['resolucion_baja']
+        
+    designacion = session.query(Designacion).filter_by(old_id=old_id).first()
+    if not designacion:
+        designacion = Designacion(tipo='original', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario, old_id=old_id)
+        designacion.categorias = categorias
         session.add(designacion)
         session.commit()  
+    
+    ''' proceso la baja '''
+    if desde_baja:
+        old_id_baja = "baja" + old_id
+        designacionBaja = session.query(Designacion).filter_by(old_id=old_id_baja).first()
+        if not designacionBaja:
+            designacionBaja = Designacion(tipo='baja', desde=desde_baja, expediente=expe_baja, resolucion=res_baja, cargo=cargo, lugar=lugar, usuario=usuario, designacion_id=designacion.id, old_id=old_id_baja)
+            session.add(designacionBaja)
+            session.commit()  
+  
+  
+  
 
 
+      
+    
+    
+
+def setExtension(datos, lugar, categorias):
+    id_extension = str(datos["id_extension"])
+    id_designacion = str(datos["id_designacion"])
+    old_id_extension = "extension" + id_extension
+    old_id_designacion = "designacion" + id_designacion
+    desde = datos['fecha_desde']
+    hasta = datos['fecha_hasta']
+    expe = datos['expediente']
+    res = datos['resolucion']
+    ded = datos["dedicacion"].strip().lower()
+    desde_baja = datos['fecha_baja']
+    expe_baja = datos['expediente_baja']
+    res_baja = datos['resolucion_baja']
+        
+     
+   
+    extension = session.query(Designacion).filter_by(old_id=old_id_extension).first()
+    if not extension:
+        designacion = session.query(Designacion).filter_by(old_id=old_id_designacion).first()
+        if not designacion:
+            print("No esta definida la designacion " + old_id_designacion)
+            return 
+         
+        usuario_id = designacion.usuario_id
+        cargo_id = designacion.cargo_id
+    
+        
+        
+        extension = Designacion(tipo='extension', desde=desde_baja, hasta=hasta, expediente=expe, cargo_id=cargo_id, resolucion=res, lugar=lugar, usuario_id=usuario_id, designacion_id=designacion.id, old_id=old_id_extension)
+        extension.categorias = categorias
+        session.add(extension)
+        session.commit()  
+        
+
+        ''' proceso la baja '''
+        if desde_baja:
+            old_id_baja = "baja" + old_id_extension
+            designacionBaja = session.query(Designacion).filter_by(old_id=old_id_baja).first()
+            if not designacionBaja:
+                designacionBaja = Designacion(tipo='baja', desde=desde_baja, expediente=expe_baja, resolucion=res_baja, cargo_id=cargo_id, lugar=lugar, usuario_id=usuario_id, designacion_id=designacion.id, old_id=old_id_baja)
+                session.add(designacionBaja)
+                session.commit()  
+      
+
+
+
+
+def setProrroga(datos, oldIdDesignacion):
+    id_prorroga = str(datos["id_prorroga"])
+    old_id_prorroga = "prorroga" + id_prorroga
+
+    desde = datos['fecha_desde']
+    hasta = datos['fecha_hasta']
+    expe = datos['expediente']
+    res = datos['resolucion']
+
+    
+    prorroga = session.query(Designacion).filter_by(old_id=old_id_prorroga).first()
+    if not prorroga:
+        designacion = session.query(Designacion).filter_by(old_id=oldIdDesignacion).first()
+        if not designacion:
+            print("No esta definida la designacion " + oldIdDesignacion)
+            return False
+         
+        usuario_id = designacion.usuario_id
+        cargo_id = designacion.cargo_id
+        lugar_id = designacion.lugar_id
+    
+        
+        prorroga = Designacion(tipo='prorroga', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo_id=cargo_id, lugar_id=lugar_id, usuario_id=usuario_id, designacion_id=designacion.id, old_id=old_id_prorroga)
+
+        session.add(prorroga)
+        session.commit()  
+        
+    return True
+            
+        
+
+def setProrrogaDeProrroga(datos, oldIdProrroga):
+    id_prorroga = str(datos["id_prorroga"])
+    old_id_prorroga = "prorroga" + id_prorroga
+
+    desde = datos['fecha_desde']
+    hasta = datos['fecha_hasta']
+    expe = datos['expediente']
+    res = datos['resolucion']
+
+    
+    prorroga = session.query(Designacion).filter_by(old_id=old_id_prorroga).first()
+    if not prorroga:
+        designacion = session.query(Designacion).filter_by(old_id=oldIdDesignacion).first()
+        if not designacion:
+            print("No esta definida la prorroga " + oldIdProrroga)
+            return False
+         
+        usuario_id = designacion.usuario_id
+        cargo_id = designacion.cargo_id
+        lugar_id = designacion.lugar_id
+    
+        
+        prorroga = Designacion(tipo='prorroga', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo_id=cargo_id, lugar_id=lugar_id, usuario_id=usuario_id, designacion_id=designacion.designacion_id, old_id=old_id_prorroga)
+
+        session.add(prorroga)
+        session.commit()  
+        
+    return True
+            
+        
 
 
 
@@ -692,39 +971,98 @@ if __name__ == '__main__':
     
     users = users()
 
-    """
-    for datosDesignacion in designacionesDocentes():
-        usuario = setUsuario(str(datosDesignacion['pers_nrodoc']), users, usuarios_faltantes)
-        lugar = setLugarDocente(datosDesignacion["materia"].split("C.U."), datosDesignacion['departamento'].strip().lower(), datosDesignacion['catedra'].strip().lower())
-
-        cargo = setCargo(datosDesignacion["cargo"].strip().lower())
-        setDesignacionDocente(datosDesignacion, cargo=cargo, lugar=lugar, usuario=usuario)    
+    logging.info('designaciones docentes\n')
+    for datos in designacionesDocentes():
+        usuario = setUsuario(str(datos['numero_documento']), users, usuarios_faltantes)
+        cargo = setCargo(datos["cargo"].strip().lower())
+        lugar = setLugarDocente(datos)
+        categorias = setCategorias(datos)
+        setDesignacion(datos, cargo=cargo, lugar=lugar, usuario=usuario, categorias=categorias)    
     
-    """
-    for datosExtension in extensionesDocentesDeDesignacionesDocentes():
-        lugar = setLugarDocente(datosExtension["materia"].split("C.U."), datosExtension['departamento'].strip().lower(), datosExtension['catedra'].strip().lower())
-        setExtensionDocenteDeDesignacionDocente(datosExtension, lugar)
-        
-          
-    """
-    for d in designacionesLugares():
-        lugar = setLugarTrabajo(d)
+    
+    logging.info('designaciones lugar\n')
+    for datos in designacionesLugares():
+        usuario = setUsuario(str(datos['numero_documento']), users, usuarios_faltantes)
+        cargo = setCargo(datos["cargo"].strip().lower())
+        lugar = setLugarTrabajo(datos)
+        categorias = setCategorias(datos)
         if not lugar:
             logging.info('No se define lugar\n')
-        usuario = setUsuario(d, users, usuarios_faltantes)
-        cargo = setCargo(d)
-        setDesignacionLugar(d, cargo=cargo, lugar=lugar, usuario=usuario)
-    
-    
-    for d in extensionesDocentesDeDesignacionesDocentes():
-        usuario = setUsuario(str(d['pers_nrodoc']), users, usuarios_faltantes)
-        lugar = setLugarDocente(d,  d["extension_materia"].split("C.U."), d['extension_catedra'].strip().lower(), d['extension_departamento'].strip().lower())
-        cargo = setCargo(d["tipocargo_nombre"].strip().lower())
-        setDesignacionDocente(d, cargo=cargo, lugar=lugar, usuario=usuario)    
 
-    """ 
-
+        setDesignacion(datos, cargo=cargo, lugar=lugar, usuario=usuario, categorias=categorias)    
         
+    
+    logging.info('extensiones docentes de designaciones docentes\n')
+    for datos in extensionesDocentesDeDesignacionesDocentes():
+        lugar = setLugarDocente(datos)
+        categorias = setCategorias(datos)
+        setExtension(datos, lugar, categorias)
+        
+   
+    logging.info('extensiones docentes de designaciones lugares\n')
+    for datos in extensionesDocentesDeDesignacionesLugares():
+        lugar = setLugarDocente(datos)
+        categorias = setCategorias(datos)
+        setExtension(datos, lugar, categorias)
+   
+    logging.info('extensiones lugares de designaciones docentes\n')   
+    for datos in extensionesLugaresDeDesignacionesDocentes():
+        lugar = setLugarTrabajo(datos)
+        categorias = setCategorias(datos)
+        setExtension(datos, lugar, categorias)
+        
+    logging.info('extensiones lugares de designaciones docentes\n')   
+    for datos in extensionesLugaresDeDesignacionesLugares():
+        lugar = setLugarTrabajo(datos)
+        categorias = setCategorias(datos)
+        setExtension(datos, lugar, categorias)
+        
+     
+    logging.info('prorrogas iniciales de designacion\n')   
+    for datos in prorrogasIniciales("des"):
+        id = str(datos["id_designacion"])
+        oldIdDesignacion = "designacion" + id
+        setProrroga(datos, oldIdDesignacion)
+
+    logging.info('prorrogas iniciales de extension\n')   
+    for datos in prorrogasIniciales("ext"):
+        id = str(datos["id_designacion"])
+        oldIdDesignacion = "extension" + id
+        setProrroga(datos, oldIdDesignacion)
+        
+                
+    logging.info('prorrogas iniciales de prorroga\n')   
+    idsProrrogas = []
+    for datos in prorrogasIniciales("pro"):  
+        id = str(datos["id_designacion"])
+        oldIdDesignacion = "prorroga" + id
+        result = setProrrogaDeProrroga(datos, oldIdDesignacion)
+
+        if result == False:         
+          idsProrrogas.append(datos["id_prorroga"])
+
+    cantidad = 0
+    if len(idsProrrogas) > 0:
+        while True:
+            logging.info("prorrogas restantes")         
+
+            for datos in prorrogasDeIds(idsProrrogas):
+                idsProrrogas = []
+                id = str(datos["id_designacion"])
+                oldIdDesignacion = "prorroga" + id
+                result = setProrrogaDeProrroga(datos, oldIdDesignacion)
+                if result == False:         
+                   idsProrrogas.append(datos["id_prorroga"])
+           
+                if cantidad == len(idsProrrogas):
+                    break;
+                    
+                cantidad = len(idProrrogas)
+        
+    logging.info("no se procesan mas prorrogas, quedaron sin cargar " + str(cantidad))   
+        
+        
+      
 
     logging.info('Usuarios Faltantes\n')
     logging.info(usuarios_faltantes)

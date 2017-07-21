@@ -2,11 +2,6 @@
 //Controlador Indice
 app.controller("IndexCtrl", ["$scope", "$timeout", "$uibModal", "$window", function ($scope, $timeout, $uibModal, $window) {
   
-  //***** almacenamiento de variables globales del scope *****
-  $scope.global = {};
-  $scope.set = function(name, value){ $scope.global[name] = value; };
-  $scope.get = function(name){ return $scope.global[name]; };
-  
   
   //***** definir titulo principal *****
   $scope.setMainTitle = function(mainTitle){ $scope.mainTitle = mainTitle; };

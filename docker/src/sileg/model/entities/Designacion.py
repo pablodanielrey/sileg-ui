@@ -51,16 +51,45 @@ class Designacion(Base):
     }
 
 
+    @classmethod
+    def find(cls, session, render):
+        render = cls.render(render)
 
+        query = session.query(cls).join(Designacion.usuario).join(Designacion.lugar).join(Designacion.cargo)
+        
+        for ft in render["filters"]:
+            if ft["id"] == "tipo" and ft["option"] == "==":                   
+               query = query.filter(Designacion.tipo == ft["value"])
 
-    def estado_actual(self, s):
-        ultima = self
-        for d in self.designaciones:
-            if ultima.creado <= d.creado:
-                ultima = d
-        return ultima
+            elif ft["id"] == "tipo" and ft["option"] == ">":
+               query = query.filter(Designacion.tipo > ft["value"])
 
+            elif ft["id"] == "usuario" and ft["option"] == "=":
+               query = query.filter(Designacion.usuario == ft["value"])
+               
+            elif ft["id"] == "cargo_nombre" and ft["option"] == "==":
+               query = query.filter(Cargo.nombre == ft["value"])
+                           
+            
 
+        for key, value in render["order"].items():
+            if key == "desde":
+                query = query.order_by(Designacion.desde) if value else query.order_by(Designacion.desde.desc())
+
+            elif key == "hasta":
+                query = query.order_by(Designacion.hasta) if value else query.order_by(Designacion.hasta.desc())
+   
+        if render["size"]:
+           query = query.limit(render["size"])
+           query = query.offset((render["size"]) * render["size"]) 
+           
+
+        return query.all()
+    
+    
+
+          
+        
 Usuario.designaciones = relationship('Designacion', back_populates='usuario')
 Cargo.designaciones = relationship('Designacion', back_populates='cargo')
 Lugar.designaciones = relationship('Designacion', back_populates='lugar')
