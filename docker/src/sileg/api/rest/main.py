@@ -15,14 +15,18 @@ register_encoder(app)
 @jsonapi
 def designaciones():
     limit = int(request.args.get('limit',10))
-    response = SilegModel.designaciones(limit=limit)
-    return response
+    return SilegModel.designaciones(limit=limit)
+
+@app.route('/sileg/api/v1.0/departamentos/', methods=['GET', 'POST'])
+@jsonapi
+def departamentos():
+    return SilegModel.departamentos()
 
 @app.route('/sileg/api/v1.0/materias/', methods=['GET', 'POST'])
 @jsonapi
 def materias():
-    response = SilegModel.materiasConDepartamento()
-    return response
+    dId = request.args.get('d',None)
+    return SilegModel.materias(departamento=dId)
 
 def main():
     app.run(host='0.0.0.0', port=5001, debug=True)
