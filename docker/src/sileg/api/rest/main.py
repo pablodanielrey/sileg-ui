@@ -3,24 +3,22 @@ logging.getLogger().setLevel(logging.INFO)
 import sys
 from flask import Flask, abort, make_response, jsonify, url_for, request, json
 from sileg.model.SilegModel import SilegModel
+from flask_jsontools import jsonapi
 
+from rest_utils import register_encoder
 
 # set the project root directory as the static folder, you can set others.
 app = Flask(__name__, static_url_path='/src/sileg/web')
+register_encoder(app)
 
-
-
-    
-    
 @app.route('/sileg/api/v1.0/designaciones/', methods=['GET', 'POST'])
+@jsonapi
 def designaciones():
-    data = request.form.get('data')
-    render = json.loads(data)
-    response = SilegModel.designaciones(render)
-    return jsonify(response)
-  
-
-    
+    limit = int(request.args.get('limit',10))
+    response = SilegModel.designaciones(limit=limit)
+    for r in response:
+        print(r.lugar.nombre)
+    return response
 
 
 def main():

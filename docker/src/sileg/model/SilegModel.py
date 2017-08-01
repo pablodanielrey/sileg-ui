@@ -30,17 +30,19 @@ class UsuarioDatos:
 
 class SilegModel:
 
+    @staticmethod
+    def onlyKeys(d, keys):
+        return {k: d[k] for k in keys}
+
     @classmethod
     def obtenerUsuarios(cls):
 
         s = Session()
         s.query(Usuarios)
 
-
+    """
     @classmethod
     def designaciones(cls, render):
-        """ consulta de designaciones con sus respectivas relaciones utilizando filtros opcionales """
-
         session = Session()
 
         designaciones = Designacion.find(session, render)
@@ -76,3 +78,10 @@ class SilegModel:
             response.append(r)
 
         return response
+    """
+
+    @classmethod
+    def designaciones(cls, limit=100):
+        session = Session()
+        designaciones = Designacion.find(session, limit=limit)
+        return designaciones

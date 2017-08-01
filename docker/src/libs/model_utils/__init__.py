@@ -18,24 +18,25 @@ class MyBaseClass:
     @classmethod
     def findAll(cls, s):
         return s.query(cls).all()
-        
-      
-    @classmethod      
+
+
+    @classmethod
     def render(cls, render):
         """ Redefinir clase de presentacion """
-       
-        ret = {      
+
+        ret = {
           "size": render["size"] if "size" in render and int(render["size"]) else None,
           "page": render["page"] if "page" in render and int(render["page"]) - 1 else 0,
-          "order": render["order"] if "order" in render and render["order"] else [],         
+          "order": render["order"] if "order" in render and render["order"] else [],
           "filters": render["filters"] if "filters" in render and render["filters"] else []
         }
-        
+
         #params son filters con opcion "=="
         if "params" in render and render["params"]:
             for field, value in render["params"].items():
                 ret["filters"].append({"id":field, "option":"==", "value":value})
-    
+
         return ret
 
 Base = declarative_base(cls=(JsonSerializableBase,MyBaseClass))
+#Base = declarative_base(cls=(MyBaseClass,))
