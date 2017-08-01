@@ -14,8 +14,11 @@ register_encoder(app)
 @app.route('/sileg/api/v1.0/designaciones/', methods=['GET', 'POST'])
 @jsonapi
 def designaciones():
-    limit = int(request.args.get('limit',10))
-    return SilegModel.designaciones(limit=limit)
+    offset = request.args.get('offset',None,int)
+    limit = request.args.get('limit',None,int)
+    lugar = request.args.get('l',None)
+    persona = request.args.get('p',None)
+    return SilegModel.designaciones(offset=offset, limit=limit, lugar=lugar, persona=persona)
 
 @app.route('/sileg/api/v1.0/departamentos/', methods=['GET', 'POST'])
 @jsonapi

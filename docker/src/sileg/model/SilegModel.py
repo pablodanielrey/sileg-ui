@@ -1,4 +1,7 @@
+from sqlalchemy import or_
 from sqlalchemy.orm import joinedload
+import datetime
+
 from .entities import *
 from . import Session
 from .UsuariosModel import UsuariosModel
@@ -22,9 +25,18 @@ class SilegModel:
         s.query(Usuarios)
 
     @classmethod
-    def designaciones(cls, offset=None, limit=None):
+    def designaciones(cls,
+                    offset=None, limit=None,
+                    persona=None,
+                    lugar=None,
+                    historico=False):
         session = Session()
         q = Designacion.find(session)
+        if not historico:
+            ahora = datetime.datetime.now().date()
+            q = q.filter(Designacion.desde <= ahora, Designacion.hasta >= ahora)
+        q = q.filter(Designacion.usuario_id == persona) if persona else q
+        q = q.filter(Designacion.lugar_id == lugar) if lugar else q
         q = q.offset(offset) if offset else q
         q = q.limit(limit) if limit else q
         return q.all()
