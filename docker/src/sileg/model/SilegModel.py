@@ -53,4 +53,9 @@ class SilegModel:
     @classmethod
     def materiasConDepartamento(cls):
         session = Session()
-        return Departamento.find(session).options(joinedload('hijos')).limit(10).all()
+        #return Catedra.find(session).options(joinedload('padre','departamento')).limit(10).all()
+        catedras = Catedra.find(session).limit(10).all()
+        for c in catedras:
+            c.padre
+            c.materia
+        return catedras
