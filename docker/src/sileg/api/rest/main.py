@@ -21,16 +21,39 @@ def designaciones():
     historico = request.args.get('h',False,bool)
     return SilegModel.designaciones(offset=offset, limit=limit, lugar=lugar, persona=persona, historico=historico)
 
+@app.route('/sileg/api/v1.0/prorrogas/<designacion>', methods=['GET', 'POST'])
+@jsonapi
+def prorrogas(designacion):
+    offset = request.args.get('offset',None,int)
+    limit = request.args.get('limit',None,int)
+    lugar = request.args.get('l',None)
+    persona = request.args.get('p',None)
+    historico = request.args.get('h',False,bool)
+    return SilegModel.prorrogas(offset=offset, limit=limit, designacion=designacion, lugar=lugar, persona=persona, historico=historico)
+
+
 @app.route('/sileg/api/v1.0/departamentos/', methods=['GET', 'POST'])
 @jsonapi
 def departamentos():
     return SilegModel.departamentos()
 
-@app.route('/sileg/api/v1.0/materias/', methods=['GET', 'POST'])
+@app.route('/sileg/api/v1.0/materias/', methods=['GET', 'POST'], defaults={'materia':None})
+@app.route('/sileg/api/v1.0/materias/<materia>', methods=['GET', 'POST'])
 @jsonapi
-def materias():
-    dId = request.args.get('d',None)
-    return SilegModel.materias(departamento=dId)
+def materias(materia=None):
+    catedra = request.args.get('c',None)
+    departamento = request.args.get('d',None)
+    return SilegModel.materias(materia=materia, catedra=catedra, departamento=departamento)
+
+@app.route('/sileg/api/v1.0/catedras/', methods=['GET', 'POST'], defaults={'catedra':None})
+@app.route('/sileg/api/v1.0/catedras/<catedra>', methods=['GET', 'POST'])
+@jsonapi
+def catedras(catedra=None):
+    materia = request.args.get('m',None)
+    departamento = request.args.get('d',None)
+    return SilegModel.catedras(catedra=catedra, materia=materia, departamento=departamento)
+
+
 
 def main():
     app.run(host='0.0.0.0', port=5001, debug=True)
