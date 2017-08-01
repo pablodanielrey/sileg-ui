@@ -1,6 +1,8 @@
 from sqlalchemy import or_
 from sqlalchemy.orm import joinedload
 import datetime
+import requests
+import os
 
 from .entities import *
 from . import Session
@@ -19,11 +21,19 @@ class UsuarioDatos:
 
 class SilegModel:
 
-    @classmethod
-    def obtenerUsuarios(cls):
-        s = Session()
-        s.query(Usuarios)
+    usuarios_url = os.environ['USER_REST_URL']
 
+    @classmethod
+    def usuarios(cls, usuario=None):
+        session = Session()
+        q = session.query(Usuario)
+        q = q.filter(Usuario.id == usuario) if usuario else q
+        usuarios = []
+        for u in q:
+            usr = requests.get(cls.usuarios_url + u.id).json()[0]
+            u.__dict__ = usr
+            usuarios.append(u)
+        return usuarios
 
     @classmethod
     def _agregar_filtros_comunes(cls, q, persona=None, lugar=None, offset=None, limit=None):
@@ -70,9 +80,16 @@ class SilegModel:
             q = q.filter(or_(Designacion.hasta == None, Designacion.hasta >= ahora))
 
         q = cls._agregar_filtros_comunes(q, offset, limit, persona, lugar)
-        q = q.options(joinedload('usuario'), joinedload('lugar'), joinedload('cargo'))
+        #q = q.options(joinedload('usuario'), joinedload('cargo'))
+        #q = q.options(joinedload('lugar').joinedload('padre'))
         q = q.order_by(Designacion.desde.desc())
         return q.all()
+
+
+    @classmethod
+    def cargos(cls):
+        session = Session()
+        return session.query(Cargo).all()
 
     @classmethod
     def lugares(cls):
@@ -92,7 +109,6 @@ class SilegModel:
         q = q.join(Catedra).filter(Catedra.id == catedra) if catedra else q
         q = q.join(Catedra).filter(Catedra.padre_id == departamento) if departamento else q
         return q.all()
-
 
     @classmethod
     def catedras(cls, catedra=None, materia=None, departamento=None):

@@ -10,3 +10,4 @@ SILEG_DB_USER=prueba
 SILEG_DB_PASSWORD=prueba
 SILEG_DB_HOST=localhost
 SILEG_DB_NAME=prueba
+USER_REST_URL=http://127.0.0.1:5001/fce/api/v1.0/usuarios/
