@@ -40,9 +40,12 @@ class SilegModel:
         s.query(Usuarios)
 
     @classmethod
-    def designaciones(cls, offset=0, limit=10):
+    def designaciones(cls, offset=None, limit=None):
         session = Session()
-        return Designacion.find(session).offset(offset).limit(limit).all()
+        q = Designacion.find(session)
+        q = q.offset(offset) if offset else q
+        q = q.limit(limit) if limit else q
+        return q.all()
 
     @classmethod
     def lugares(cls):
@@ -58,9 +61,5 @@ class SilegModel:
     def materias(cls, departamento=None):
         session = Session()
         q = Catedra.find(session)
-        if departamento:
-            q = q.filter(Catedra.padre_id == departamento)
-        catedras = q.limit(10).all()
-        for c in catedras:
-            c.materia
-        return catedras
+        q = q.filter(Catedra.padre_id == departamento) if departamento else q
+        return q.options(joinedload('materia')).all()
