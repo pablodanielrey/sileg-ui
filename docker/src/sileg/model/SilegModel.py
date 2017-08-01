@@ -36,52 +36,15 @@ class SilegModel:
 
     @classmethod
     def obtenerUsuarios(cls):
-
         s = Session()
         s.query(Usuarios)
 
-    """
     @classmethod
-    def designaciones(cls, render):
+    def designaciones(cls, offset=0, limit=10):
         session = Session()
-
-        designaciones = Designacion.find(session, render)
-
-        idsUsuarios = [d.usuario.id for d in designaciones]
-        usuarios_ = UsuariosModel.usuariosByIds(idsUsuarios)
-
-        usuarios = {}
-        for u in usuarios_:
-            usuarios[u["id"]] = u
-
-
-        response = []
-        for d in designaciones:
-            u = usuarios[d.usuario.id]
-
-            if d.lugar.tipo == "catedra":
-                detalle = {"id":d.lugar.materia.id, "nombre":d.lugar.materia.nombre}
-            else:
-                detalle = {"id":d.lugar.padre.id, "nombre":d.lugar.padre.nombre} if d.lugar.padre else None
-
-            r = {
-              "usuario":{"id":u["id"], "nombres":u["name"], "apellidos":u["lastname"], "numero_documento":u["dni"]},
-              "lugar":{"id":d.lugar.id, "nombre":d.lugar.nombre, "detalle":detalle},
-              "cargo":{"id":d.cargo.id, "nombre":d.cargo.nombre},
-              "desde":d.desde,
-              "hasta":d.hasta,
-              "historico":d.historico,
-              "expediente":d.expediente,
-              "resolucion":d.resolucion,
-              "tipo":d.tipo
-            }
-            response.append(r)
-
-        return response
-    """
+        return Designacion.find(session).offset(offset).limit(limit).all()
 
     @classmethod
-    def designaciones(cls, limit=100):
+    def lugares(cls):
         session = Session()
-        designaciones = Designacion.find(session, limit=limit)
-        return designaciones
+        return Lugar.find(session).all()

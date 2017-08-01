@@ -50,54 +50,10 @@ class Designacion(Base):
     }
 
 
-    """
     @classmethod
-    def find(cls, session, render):
-        render = cls.render(render)
-
+    def find(cls, session):
         query = session.query(cls).join(Designacion.usuario).join(Designacion.lugar).join(Designacion.cargo)
-
-        if 'filters' in render:
-            for ft in render["filters"]:
-                if ft["id"] == "tipo" and ft["option"] == "==":
-                   query = query.filter(Designacion.tipo == ft["value"])
-
-                elif ft["id"] == "tipo" and ft["option"] == ">":
-                   query = query.filter(Designacion.tipo > ft["value"])
-
-                elif ft["id"] == "usuario" and ft["option"] == "=":
-                   query = query.filter(Designacion.usuario == ft["value"])
-
-                elif ft["id"] == "cargo_nombre" and ft["option"] == "==":
-                   query = query.filter(Cargo.nombre == ft["value"])
-
-            order parece ser una propiedad de los diccionarios.
-            por lo tanto siempre existe.
-            este codigo tira error cuando se pasa {} = render.
-
-        for key, value in render["order"].items():
-            if key == "desde":
-                query = query.order_by(Designacion.desde) if value else query.order_by(Designacion.desde.desc())
-
-            elif key == "hasta":
-                query = query.order_by(Designacion.hasta) if value else query.order_by(Designacion.hasta.desc())
-
-            size tambien una propiedad de los diccionarios.
-            tira error cuando se pasa un {} = render
-
-        if 'size' in render:
-           query = query.limit(render["size"])
-           query = query.offset((render["size"]) * render["size"])
-
-        return query.all()
-    """
-
-    @classmethod
-    def find(cls, session, offset=0, limit=100):
-        query = session.query(cls).join(Designacion.usuario).join(Designacion.lugar).join(Designacion.cargo)
-        query = query.offset(offset).limit(limit)
-        return query.all()
-
+        return query
 
 
 Usuario.designaciones = relationship('Designacion', back_populates='usuario')

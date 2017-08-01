@@ -8,10 +8,10 @@ class Lugar(Base):
 
     nombre = Column(String)
     tipo = Column(String)
-    
+
     padre_id = Column(String, ForeignKey('sileg.lugar.id'))
     hijos = relationship("Lugar",  foreign_keys=[padre_id], backref=backref('padre', remote_side="Lugar.id"))
-    
+
     cambio_id = Column(String, ForeignKey('sileg.lugar.id'))
     cambios = relationship("Lugar",  foreign_keys=[cambio_id], backref=backref('cambio', remote_side="Lugar.id"))
 
@@ -19,6 +19,10 @@ class Lugar(Base):
         'polymorphic_on':tipo,
         'polymorphic_identity':'lugar'
     }
+
+    @classmethod
+    def find(cls, session):
+        return session.query(cls)
 
 
 class Catedra(Lugar):

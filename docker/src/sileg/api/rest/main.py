@@ -16,10 +16,15 @@ register_encoder(app)
 def designaciones():
     limit = int(request.args.get('limit',10))
     response = SilegModel.designaciones(limit=limit)
-    for r in response:
-        print(r.lugar.nombre)
     return response
 
+@app.route('/sileg/api/v1.0/materias/', methods=['GET', 'POST'])
+@jsonapi
+def materias():
+    response = SilegModel.lugares()
+    for r in response:
+        print(r.nombre)
+    return response
 
 def main():
     app.run(host='0.0.0.0', port=5001, debug=True)
