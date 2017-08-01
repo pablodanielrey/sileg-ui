@@ -17,7 +17,7 @@ password = os.environ['SILEG_DB_PASSWORD']
 class UsuariosModel:
 
     @classmethod
-    def usuariosByIds(cls, usuario=None):
+    def usuarios(cls, usuario=None):
         conn = psycopg2.connect(host=host, dbname=dbname, user=user, password=password)
         try:
             cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -26,7 +26,15 @@ class UsuariosModel:
                     cur.execute('SELECT * FROM profile.users WHERE id = %s', (usuario,))
                 else:
                     cur.execute('SELECT * FROM profile.users')
-                return cur.fetchall()
+                return [{
+                            'nombre':c['name'],
+                            'apellido':c['lastname'],
+                            'dni':c['dni'],
+                            'id':c['id'],
+                            'genero':c['gender'],
+                            'pais':c['country'],
+                            'direccion':c['address']
+                        } for c in cur]
             finally:
               cur.close()
 

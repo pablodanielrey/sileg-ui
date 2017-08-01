@@ -11,25 +11,13 @@ from rest_utils import register_encoder
 app = Flask(__name__, static_url_path='/src/sileg/web')
 register_encoder(app)
 
-"""
-    ------------------------ esto es codigo de otro sistema. el sistema de usuarios --------------------------
-"""
-
-@app.route('/fce/api/v1.0/usuarios/', methods=['GET', 'POST'], defaults={'usuario':None})
-@app.route('/fce/api/v1.0/usuarios/<usuario>', methods=['GET', 'POST'])
-@jsonapi
-def fce_usuarios(usuario=None):
-    return UsuariosModel.usuarios(usuario=usuario)
-
-"""
-    -----------------------------------------------------------------------------------------
-"""
-
 @app.route('/sileg/api/v1.0/usuarios/', methods=['GET', 'POST'], defaults={'usuario':None})
 @app.route('/sileg/api/v1.0/usuarios/<usuario>', methods=['GET', 'POST'])
 @jsonapi
 def usuarios(usuario=None):
-    return SilegModel.usuarios(usuario=usuario)
+    offset = request.args.get('offset',None,int)
+    limit = request.args.get('limit',None,int)
+    return SilegModel.usuarios(usuario=usuario, offset=offset, limit=limit)
 
 @app.route('/sileg/api/v1.0/designaciones/', methods=['GET', 'POST'])
 @jsonapi

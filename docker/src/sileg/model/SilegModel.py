@@ -6,17 +6,6 @@ import os
 
 from .entities import *
 from . import Session
-from .UsuariosModel import UsuariosModel
-
-
-
-class UsuarioDatos:
-
-    def __init__(self):
-        self.nombre
-        self.apellido
-        self.correoInstitucional
-        self.correoAlternativo
 
 
 class SilegModel:
@@ -24,15 +13,18 @@ class SilegModel:
     usuarios_url = os.environ['USER_REST_URL']
 
     @classmethod
-    def usuarios(cls, usuario=None):
+    def usuarios(cls, usuario=None, offset=None, limit=None):
         session = Session()
         q = session.query(Usuario)
         q = q.filter(Usuario.id == usuario) if usuario else q
+        q = cls._agregar_filtros_comunes(q, offset=offset, limit=limit)
         usuarios = []
         for u in q:
             usr = requests.get(cls.usuarios_url + u.id).json()[0]
-            u.__dict__ = usr
-            usuarios.append(u)
+            usuarios.append({
+                'usuario':usr,
+                'sileg':u
+            })
         return usuarios
 
     @classmethod
