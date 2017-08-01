@@ -21,9 +21,7 @@ def designaciones():
 @app.route('/sileg/api/v1.0/materias/', methods=['GET', 'POST'])
 @jsonapi
 def materias():
-    response = SilegModel.lugares()
-    for r in response:
-        print(r.nombre)
+    response = SilegModel.materiasConDepartamento()
     return response
 
 def main():

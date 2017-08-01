@@ -1,7 +1,7 @@
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.schema import CreateSchema
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, joinedload
 
 from model_utils import Base
 
@@ -48,3 +48,9 @@ class SilegModel:
     def lugares(cls):
         session = Session()
         return Lugar.find(session).all()
+
+
+    @classmethod
+    def materiasConDepartamento(cls):
+        session = Session()
+        return Departamento.find(session).options(joinedload('hijos')).limit(10).all()

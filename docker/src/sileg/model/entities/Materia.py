@@ -8,3 +8,7 @@ class Materia(Base):
     __table_args__ = {'schema':'sileg'}
 
     nombre = Column(String)
+
+    @classmethod
+    def find(cls, session):
+        return session.query(cls)
