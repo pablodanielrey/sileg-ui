@@ -31,15 +31,20 @@ class SilegModel:
                     lugar=None,
                     historico=False):
         session = Session()
-        q = Designacion.find(session)
+
+        q = Designacion.find(session).options(joinedload('usuario'), joinedload('lugar'), joinedload('cargo'))
+
         if not historico:
+            ''' designaciones actuales implican control de las fechas o que tengan prorrogas con fechas correctas '''
             ahora = datetime.datetime.now().date()
-            q = q.filter(Designacion.desde <= ahora, Designacion.hasta >= ahora)
+            q = q.filter(or_(Designacion.hasta == None, Designacion.hasta >= ahora))
+
         q = q.filter(Designacion.usuario_id == persona) if persona else q
         q = q.filter(Designacion.lugar_id == lugar) if lugar else q
+
         q = q.offset(offset) if offset else q
         q = q.limit(limit) if limit else q
-        return q.all()
+        return q.count()
 
     @classmethod
     def lugares(cls):

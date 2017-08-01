@@ -18,7 +18,8 @@ def designaciones():
     limit = request.args.get('limit',None,int)
     lugar = request.args.get('l',None)
     persona = request.args.get('p',None)
-    return SilegModel.designaciones(offset=offset, limit=limit, lugar=lugar, persona=persona)
+    historico = request.args.get('h',False,bool)
+    return SilegModel.designaciones(offset=offset, limit=limit, lugar=lugar, persona=persona, historico=historico)
 
 @app.route('/sileg/api/v1.0/departamentos/', methods=['GET', 'POST'])
 @jsonapi

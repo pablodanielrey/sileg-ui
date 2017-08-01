@@ -8,7 +8,21 @@ if __name__ == '__main__':
         materias = requests.get('http://127.0.0.1:5001/sileg/api/v1.0/materias/?d={}'.format(did)).json()
         for m in materias:
             print('''
-                Departamento: {}
-                Materia: {}
-                Cátedra: {}
+Departamento: {}
+Materia: {}
+Cátedra: {}
             '''.format(d['nombre'], m['materia']['nombre'], m['nombre']))
+
+
+    desig = requests.get('http://127.0.0.1:5001/sileg/api/v1.0/designaciones').json()
+    for d in desig:
+        print('''
+Departamento: {}
+Materia: {}
+Catedra: {}
+Persona: {}
+Cargo: {}
+        '''.format(
+            d['usuario'],
+
+        ))
