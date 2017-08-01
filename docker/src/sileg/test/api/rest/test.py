@@ -2,6 +2,12 @@
 import requests
 
 if __name__ == '__main__':
+
+    cargosA = requests.get('http://127.0.0.1:5001/sileg/api/v1.0/cargos/').json()
+    cargos = {}
+    for c in cargosA:
+        cargos[c['id']] = c
+
     """
     deptos = requests.get('http://127.0.0.1:5001/sileg/api/v1.0/departamentos').json()
     for d in deptos:
@@ -20,9 +26,13 @@ Cátedra: {}
     for d in desig:
 
         m = {'nombre':'-'}
-        if 'catedra' in d['lugar']['tipo']:
-            cid = d['lugar']['id']
-            c = requests.get('http://127.0.0.1:5001/sileg/api/v1.0/catedras/{}'.format(cid)).json()[0]
+        cid = d['lugar_id']
+        c = requests.get('http://127.0.0.1:5001/sileg/api/v1.0/catedras/{}'.format(cid)).json()[0]
+
+        cargo = cargos[d['cargo_id']]
+
+        uid = d['usuario_id']
+        u = requests.get('http://127.0.0.1:5002/fce/api/v1.0/usuarios/{}'.format(uid)).json()[0]
 
         print('''
 Departamento: {}
@@ -33,7 +43,7 @@ Cargo: {} - {}
         '''.format(
             c['padre']['nombre'],
             c['materia']['nombre'],
-            d['lugar']['nombre'],
-            d['usuario']['id'],
-            d['cargo']['nombre'], d['cargo']['tipo']
+            c['nombre'],
+            u['dni'] + ' ' + u['nombre'] + ' ' + u['apellido'],
+            cargo['nombre'], cargo['tipo']
         ))
