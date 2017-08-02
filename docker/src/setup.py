@@ -37,7 +37,6 @@ setup(name='sileg',
             'console_scripts': [
                 'wamp=sileg.api.wamp.main:main',
                 'rest=sileg.api.rest.main:main',
-                'rest2=sileg.api.rest.main0:main',
                 'flask=sileg.web.main:main'
             ]
           }
