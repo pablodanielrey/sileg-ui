@@ -20,7 +20,7 @@ class SilegModel:
         q = cls._agregar_filtros_comunes(q, offset=offset, limit=limit)
         usuarios = []
         for u in q:
-            usr = requests.get(cls.usuarios_url + u.id).json()[0]
+            usr = requests.get(cls.usuarios_url + u.id).json()
             usuarios.append({
                 'usuario':usr,
                 'sileg':u

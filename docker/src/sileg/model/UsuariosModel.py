@@ -26,7 +26,7 @@ class UsuariosModel:
                     cur.execute('SELECT * FROM profile.users WHERE id = %s', (usuario,))
                 else:
                     cur.execute('SELECT * FROM profile.users')
-                return [{
+                r = [{
                             'nombre':c['name'],
                             'apellido':c['lastname'],
                             'dni':c['dni'],
@@ -35,6 +35,10 @@ class UsuariosModel:
                             'pais':c['country'],
                             'direccion':c['address']
                         } for c in cur]
+                if len(r) <= 1:
+                    return r[0]
+                else:
+                    return r
             finally:
               cur.close()
 

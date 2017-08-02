@@ -4,7 +4,8 @@ app.config(['$routeProvider', function($routeProvider) {
 
   $routeProvider
     .when('/designaciones', {templateUrl: '/componentes/designaciones/index.html', controller:'DesignacionesCtrl'})
-    .otherwise({ redirectTo: '/' });
+    .when('/usuarios/:usuario', {templateUrl: '/componentes/usuarios/index.html', controller:'UsuariosCtrl'});
+    //.otherwise({ redirectTo: '/' });
 
 }]);
 
