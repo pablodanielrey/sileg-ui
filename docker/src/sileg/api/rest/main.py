@@ -15,9 +15,10 @@ register_encoder(app)
 @app.route('/sileg/api/v1.0/usuarios/<usuario>', methods=['GET', 'POST'])
 @jsonapi
 def usuarios(usuario=None):
+    dni = request.args.get('d',None)
     offset = request.args.get('offset',None,int)
     limit = request.args.get('limit',None,int)
-    return SilegModel.usuarios(usuario=usuario, offset=offset, limit=limit)
+    return SilegModel.usuarios(usuario=usuario, dni=dni, offset=offset, limit=limit)
 
 @app.route('/sileg/api/v1.0/designaciones/', methods=['GET', 'POST'])
 @jsonapi

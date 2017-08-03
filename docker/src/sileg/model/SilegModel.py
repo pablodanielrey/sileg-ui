@@ -12,19 +12,32 @@ class SilegModel:
 
     usuarios_url = os.environ['USER_REST_URL']
 
+    @staticmethod
+    def api(api):
+        r = requests.get(api)
+        if not r.ok:
+            return None
+        return r.json()
+
+
     @classmethod
-    def usuarios(cls, usuario=None, offset=None, limit=None):
+    def usuarios(cls, usuario=None, dni=None, offset=None, limit=None):
         session = Session()
         try:
+            usr = None
+            if dni and not usuario:
+                usr = cls.api(cls.usuarios_url + '/usuarios/?d=' + dni)[0]
+                if not usr:
+                    return []
+
             q = session.query(Usuario)
             q = q.filter(Usuario.id == usuario) if usuario else q
+            q = q.filter(Usuario.id == usr['id']) if usr else q
             q = cls._agregar_filtros_comunes(q, offset=offset, limit=limit)
             usuarios = []
             for u in q:
-                r = requests.get(cls.usuarios_url + '/usuarios/' + u.id)
-                if not r.ok:
-                    continue
-                usr = r.json()
+                if not usr:
+                    usr = cls.api(cls.usuarios_url + '/usuarios/' + u.id)
                 if not usr:
                     continue
                 usuarios.append({
@@ -63,7 +76,7 @@ class SilegModel:
             q = q.options(joinedload('usuario'), joinedload('lugar'), joinedload('cargo'))
             q = q.order_by(Designacion.desde.desc())
             return q.all()
-            
+
         finally:
             session.close()
 
