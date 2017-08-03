@@ -45,6 +45,7 @@ class SilegModel:
                     'usuario':usr,
                     'sileg':u
                 })
+                usr = None
             return usuarios
         finally:
             session.close()
