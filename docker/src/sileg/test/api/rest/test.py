@@ -1,5 +1,9 @@
 
 import requests
+import os
+
+sileg_api = 'http://127.0.0.1:5001/sileg/api/v1.0'
+usuarios_api = os.environ['USER_REST_URL']
 
 if __name__ == '__main__':
 
@@ -21,18 +25,15 @@ Cátedra: {}
             '''.format(d['nombre'], m['materia']['nombre'], m['nombre']))
     """
 
-
-    desig = requests.get('http://127.0.0.1:5001/sileg/api/v1.0/designaciones').json()
+    desig = requests.get(sileg_api + '/designaciones').json()
     for d in desig:
 
         m = {'nombre':'-'}
         cid = d['lugar_id']
-        c = requests.get('http://127.0.0.1:5001/sileg/api/v1.0/catedras/{}'.format(cid)).json()[0]
-
+        c = requests.get(sileg_api + '/catedras/' + cid).json()[0]
         cargo = cargos[d['cargo_id']]
-
         uid = d['usuario_id']
-        u = requests.get('http://127.0.0.1:5002/fce/api/v1.0/usuarios/{}'.format(uid)).json()[0]
+        u = requests.get(usuarios_api + '/usuarios/' + uid.json()[0]
 
         print('''
 Departamento: {}

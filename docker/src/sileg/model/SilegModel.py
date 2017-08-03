@@ -26,9 +26,10 @@ class SilegModel:
         try:
             usr = None
             if dni and not usuario:
-                usr = cls.api(cls.usuarios_url + '/usuarios/?d=' + dni)[0]
+                usr = cls.api(cls.usuarios_url + '/usuarios/?d=' + dni)
                 if not usr:
                     return []
+                usr = usr[0]
 
             q = session.query(Usuario)
             q = q.filter(Usuario.id == usuario) if usuario else q
