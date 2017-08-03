@@ -120,6 +120,15 @@ class SilegModel:
             session.close()
 
     @classmethod
+    def lugares(cls):
+        session = Session()
+        try:
+            return Lugar.find(session).all()
+        finally:
+            session.close()
+
+
+    @classmethod
     def departamentos(cls):
         session = Session()
         try:

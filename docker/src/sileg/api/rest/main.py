@@ -46,6 +46,12 @@ def prorrogas(designacion):
 def cargos():
     return SilegModel.cargos()
 
+@app.route('/sileg/api/v1.0/lugares/', methods=['GET'])
+@jsonapi
+def lugares():
+    return SilegModel.lugares()
+
+
 @app.route('/sileg/api/v1.0/departamentos/', methods=['GET', 'POST'])
 @jsonapi
 def departamentos():

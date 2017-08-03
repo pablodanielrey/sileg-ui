@@ -3,7 +3,16 @@ import requests
 import os
 
 sileg_api = 'http://127.0.0.1:5001/sileg/api/v1.0'
-usuarios_api = os.environ['USER_REST_URL']
+#usuarios_api = os.environ['USER_REST_URL']
+usuarios_api = 'http://192.168.0.3:6001/users/api/v1.0'
+
+def getEconoMail(usuario):
+    if len(usuario['mails']) <= 0:
+        return ''
+    for m in usuario['mails']:
+        if 'unlp.edu.ar' in m['email']:
+            return m['email']
+    return ''
 
 if __name__ == '__main__':
 
@@ -25,26 +34,47 @@ Cátedra: {}
             '''.format(d['nombre'], m['materia']['nombre'], m['nombre']))
     """
 
-    desig = requests.get(sileg_api + '/designaciones').json()
-    for d in desig:
+    with open('/tmp/sileg.csv','w') as f:
 
-        m = {'nombre':'-'}
-        cid = d['lugar_id']
-        c = requests.get(sileg_api + '/catedras/' + cid).json()[0]
-        cargo = cargos[d['cargo_id']]
-        uid = d['usuario_id']
-        u = requests.get(usuarios_api + '/usuarios/' + uid.json()[0]
+        desig = requests.get(sileg_api + '/designaciones').json()
+        for d in desig:
 
-        print('''
-Departamento: {}
-Materia: {}
-Catedra: {}
-Persona: {}
-Cargo: {} - {}
-        '''.format(
-            c['padre']['nombre'],
-            c['materia']['nombre'],
-            c['nombre'],
-            u['dni'] + ' ' + u['nombre'] + ' ' + u['apellido'],
-            cargo['nombre'], cargo['tipo']
-        ))
+            m = {'nombre':'-'}
+            cid = d['lugar_id']
+            cs = requests.get(sileg_api + '/catedras/' + cid).json()
+            if len(cs) <= 0:
+                ''' no es una catedra '''
+                continue
+
+            c = cs[0]
+            cargo = cargos[d['cargo_id']]
+            uid = d['usuario_id']
+            u = requests.get(usuarios_api + '/usuarios/' + uid).json()[0]
+
+            datos = {
+                'departamento': c['padre']['nombre'],
+                'materia': c['materia']['nombre'],
+                'catedra': c['nombre'],
+                'persona': u['dni'] + ' ' + u['nombre'] + ' ' + u['apellido'],
+                'email': getEconoMail(u),
+                'cargo': cargo['nombre'] + ' ' + cargo['tipo']
+            }
+
+
+            f.write(datos['departamento'] + ',' + datos['materia'] + ',' + datos['catedra'] + ',' + datos['persona'] + ',' + datos['email'] + ',' + datos['cargo'] + '\n')
+
+            print('''
+    Departamento: {}
+    Materia: {}
+    Catedra: {}
+    Persona: {}
+    Email: {}
+    Cargo: {}
+            '''.format(
+                datos['departamento'],
+                datos['materia'],
+                datos['catedra'],
+                datos['persona'],
+                datos['email'],
+                datos['cargo']
+            ))
