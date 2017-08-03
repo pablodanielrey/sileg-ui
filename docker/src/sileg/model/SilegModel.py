@@ -15,17 +15,25 @@ class SilegModel:
     @classmethod
     def usuarios(cls, usuario=None, offset=None, limit=None):
         session = Session()
-        q = session.query(Usuario)
-        q = q.filter(Usuario.id == usuario) if usuario else q
-        q = cls._agregar_filtros_comunes(q, offset=offset, limit=limit)
-        usuarios = []
-        for u in q:
-            usr = requests.get(cls.usuarios_url + u.id).json()
-            usuarios.append({
-                'usuario':usr,
-                'sileg':u
-            })
-        return usuarios
+        try:
+            q = session.query(Usuario)
+            q = q.filter(Usuario.id == usuario) if usuario else q
+            q = cls._agregar_filtros_comunes(q, offset=offset, limit=limit)
+            usuarios = []
+            for u in q:
+                r = requests.get(cls.usuarios_url + '/usuarios/' + u.id)
+                if not r.ok:
+                    continue
+                usr = r.json()
+                if not usr:
+                    continue
+                usuarios.append({
+                    'usuario':usr,
+                    'sileg':u
+                })
+            return usuarios
+        finally:
+            session.close()
 
     @classmethod
     def _agregar_filtros_comunes(cls, q, persona=None, lugar=None, offset=None, limit=None):
@@ -43,18 +51,21 @@ class SilegModel:
                     offset=None, limit=None):
 
         session = Session()
-        q = Designacion.find(session)
-        q = q.filter(Designacion.designacion_id == designacion, Designacion.tipo == 'prorroga')
+        try:
+            q = Designacion.find(session)
+            q = q.filter(Designacion.designacion_id == designacion, Designacion.tipo == 'prorroga')
 
-        if not historico:
-            ahora = datetime.datetime.now().date()
-            q = q.filter(or_(Designacion.hasta == None, Designacion.hasta >= ahora))
+            if not historico:
+                ahora = datetime.datetime.now().date()
+                q = q.filter(or_(Designacion.hasta == None, Designacion.hasta >= ahora))
 
-        q = cls._agregar_filtros_comunes(q, persona, lugar, offset, limit)
-        q = q.options(joinedload('usuario'), joinedload('lugar'), joinedload('cargo'))
-        q = q.order_by(Designacion.desde.desc())
-        return q.all()
-
+            q = cls._agregar_filtros_comunes(q, persona, lugar, offset, limit)
+            q = q.options(joinedload('usuario'), joinedload('lugar'), joinedload('cargo'))
+            q = q.order_by(Designacion.desde.desc())
+            return q.all()
+            
+        finally:
+            session.close()
 
     @classmethod
     def designaciones(cls,
@@ -81,32 +92,48 @@ class SilegModel:
     @classmethod
     def cargos(cls):
         session = Session()
-        return session.query(Cargo).all()
+        try:
+            return session.query(Cargo).all()
+        finally:
+            session.close()
 
     @classmethod
     def lugares(cls):
         session = Session()
-        return Lugar.find(session).all()
+        try:
+            return Lugar.find(session).all()
+        finally:
+            session.close()
 
     @classmethod
     def departamentos(cls):
         session = Session()
-        return Departamento.find(session).all()
+        try:
+            return Departamento.find(session).all()
+        finally:
+            session.close()
+
 
     @classmethod
     def materias(cls, materia=None, catedra=None, departamento=None):
         session = Session()
-        q = Materia.find(session)
-        q = q.filter(Materia.id == materia) if materia else q
-        q = q.join(Catedra).filter(Catedra.id == catedra) if catedra else q
-        q = q.join(Catedra).filter(Catedra.padre_id == departamento) if departamento else q
-        return q.all()
+        try:
+            q = Materia.find(session)
+            q = q.filter(Materia.id == materia) if materia else q
+            q = q.join(Catedra).filter(Catedra.id == catedra) if catedra else q
+            q = q.join(Catedra).filter(Catedra.padre_id == departamento) if departamento else q
+            return q.all()
+        finally:
+            session.close()
 
     @classmethod
     def catedras(cls, catedra=None, materia=None, departamento=None):
         session = Session()
-        q = Catedra.find(session)
-        q = q.filter(Catedra.id == catedra) if catedra else q
-        q = q.filter(Catedra.materia_id == materia) if materia else q
-        q = q.filter(Catedra.padre_id == departamento) if departamento else q
-        return q.options(joinedload('materia'), joinedload('padre')).all()
+        try:
+            q = Catedra.find(session)
+            q = q.filter(Catedra.id == catedra) if catedra else q
+            q = q.filter(Catedra.materia_id == materia) if materia else q
+            q = q.filter(Catedra.padre_id == departamento) if departamento else q
+            return q.options(joinedload('materia'), joinedload('padre')).all()
+        finally:
+            session.close()
