@@ -4,6 +4,8 @@ app.controller("DesignacionesCtrl", ["$scope", "$resource", "$location", functio
   var Designacion = $resource('http://127.0.0.1:5001/sileg/api/v1.0/designaciones/');
   $scope.designaciones = Designacion.query();
 
+  Designacion.get(id)
+
   $scope.viewUser = function(uid) {
     $location.path('/usuarios/' + uid);
   };
