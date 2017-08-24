@@ -69,7 +69,7 @@ def crearUsuario(usuario):
     return requests.post(mautic_api + 'contacts/new', auth=HTTPBasicAuth(usuario_mautic, clave_mautic), data=data).json()
 
 def normalizarAlias(alias):
-    return alias.lower().replace(".","-").replace(" ","").replace("á","a").replace("é","e").replace("í","i").replace("ó","o").replace("ú","u").replace("ñ","n").replace("(","").replace(")","")
+    return alias.lower().replace(".","-").replace(" ","").replace("á","a").replace("é","e").replace("í","i").replace("ó","o").replace("ú","u").replace("ñ","n").replace(":","").replace(",","").replace("(","").replace(")","")
 
 # user: {'nombre':"", "apellido":"", "email": ""}
 # members: arreglo de usuarios de mautic
