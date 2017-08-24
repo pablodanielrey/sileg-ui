@@ -19,28 +19,60 @@ def getEconoMail(usuario):
             return m['email']
     return None
 
+def obtenerSegmentos():
+    segmentos = requests.get(mautic_api + 'segments/', auth=HTTPBasicAuth(usuario_mautic, clave_mautic)).json()
+    return segmentos["lists"].values()
+
+def obtenerMiembrosSegmento(alias_segmento):
+    users = requests.get(mautic_api + 'contacts/?search=segment:' + alias_segmento, auth=HTTPBasicAuth(usuario_mautic, clave_mautic)).json()
+    return users["contacts"].values()
+
+def parseUser(u):
+    fields = u["fields"]
+    core = fields["core"]
+    email = core["email"]["value"]
+    name = core["firstname"]["value"]
+    lastname = core["lastname"]["value"]
+
+    return {"name":name, "lastname":lastname, "email":email}
+
+'''
+segmento:
+{
+    name: Segment name is the only required field,
+    alias: Name alias generated automatically if not set,
+    description: A description of the segment,
+    isPublished: A value of 0 or 1,
+    isGlobal: boolean
+}
+'''
+def crearSegmento(segmento):
+    return requests.post(mautic_api + 'segments/new', auth=HTTPBasicAuth(usuario_mautic, clave_mautic), data=segmento).json()
+
+def normalizarAlias(alias):
+    return alias.lower().replace(".","-").replace(" ","").replace("á","a").replace("é","e").replace("í","i").replace("ó","o").replace("ú","u").replace("ñ","n")
+
 if __name__ == '__main__':
 
     # mautic
 
     # obtengo los segmentos
-    segmentos = requests.get(mautic_api + 'segments/', auth=HTTPBasicAuth(usuario_mautic, clave_mautic)).json()
-
-    for s in segmentos["lists"].values():
-        print(s)
-        break;
+    segmentos = {}
+    for s in obtenerSegmentos():
+        segmentos[s["alias"]] = {"name":s["name"], "alias":s["alias"]}
+    print(segmentos)
 
     # obtengo los miembros de un segmento
-    users = requests.get(mautic_api + 'contacts/?search=segment:rebotados', auth=HTTPBasicAuth(usuario_mautic, clave_mautic)).json()
-    for u in users["contacts"].values():
+    users = obtenerMiembrosSegmento('rebotados')
+    for u in users:
+        print('Usuario: {}'.format(parseUser(u)))
+        break;
         print('id: {}'.format(u["id"]))
-
-    exit()
 
 
 
     # obtengo los cargos
-    cargosA = requests.get('http://127.0.0.1:5001/sileg/api/v1.0/cargos/').json()
+    cargosA = requests.get(sileg_api + '/cargos').json()
     cargos = {}
     for c in cargosA:
         cargos[c['id']] = c
@@ -80,5 +112,17 @@ if __name__ == '__main__':
         else:
             result[id] = {'nombre': nombre, 'usuarios':[user]}
 
+        break; # lo puse para hacer mas rapido las pruebas, eliminarlo en producccion
+
     for value in result.values():
+        seg = {"name":value["nombre"], "alias":normalizarAlias(value["nombre"])}
+
+        if seg["alias"] in segmentos:
+            print("ya existe el segmento: " + seg["alias"])
+            continue
+        print("creando segmento" + seg["alias"])
+        print(crearSegmento(seg))
+
+        # debo agregar los miembros al segmento
         print('Nombre: {} -- usuarios: {}'.format(value["nombre"], value["usuarios"]))
+        break; # lo puse para hacer mas rapido las pruebas, eliminarlo en producccion
