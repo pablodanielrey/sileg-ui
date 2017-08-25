@@ -15,3 +15,4 @@ USER_REST_URL=http://127.0.0.1:5001/fce/api/v1.0/usuarios/
 MAUTIC_USER=admin
 MAUTIC_PASSWORD=clave_admin
 MAUTIC_REST_URL=http://www.tu-sitio-mautic.com/api/
+ADMIN_USER_GOOGLE=
