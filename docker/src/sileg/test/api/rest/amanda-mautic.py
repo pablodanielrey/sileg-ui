@@ -6,9 +6,9 @@ import os
 
 usuarios_api = os.environ['USER_REST_URL']
 sileg_api = os.environ['SILEG_REST_URL']
-usuario_mautic = os.environ['MAUTIC_USER']
-clave_mautic = os.environ['MAUTIC_PASSWORD']
-mautic_api = os.environ['MAUTIC_REST_URL']
+usuario_mautic = os.environ['MAUTIC_OLD_USER']
+clave_mautic = os.environ['MAUTIC_OLD_PASSWORD']
+mautic_api = os.environ['MAUTIC_OLD_REST_URL']
 
 
 def getEconoMail(usuario):
@@ -122,8 +122,10 @@ if __name__ == '__main__':
         departamento = c['padre']['nombre']
         materia = c['materia']['nombre']
 
-        nombre = '{}.{}.{}'.format(departamento, materia, cargo['nombre'])
-        id = c['padre']['id'] + c['materia']['id'] + d['cargo_id']
+        # nombre = '{}.{}.{}'.format(departamento, materia, cargo['nombre'])
+        # id = c['padre']['id'] + c['materia']['id'] + d['cargo_id']
+        nombre = '{}.{}'.format(departamento, cargo['nombre'])
+        id = c['padre']['id'] + d['cargo_id']
 
         user = {'nombre':u["nombre"], "apellido":u["apellido"], "email": email}
         if id in result:
