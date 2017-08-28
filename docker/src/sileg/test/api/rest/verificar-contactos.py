@@ -1,6 +1,6 @@
 from sileg.model.entities import Lugar
 from sileg.model.GoogleAuthApi import GAuthApis
-
+import os
 
 def obtenerCorreos(service, spreadsheetId,sheet):
     range = sheet + "!A:A"
@@ -18,12 +18,10 @@ if __name__ == '__main__':
 
     service = GAuthApis.getServiceSheet()
 
-    spreadsheetId = '1doSTh4R_g2RBc26lXpv-xaqLMhBH1ZtR2qHu8JwvGOM'
-    # spreadsheetId = '1URLHQ5jjMt1ladZatVllth5mWXfxgabNHlmS9El44UE'
+    spreadsheetId = os.environ['SPREADSHEET_ID']
     ranges = []
     include_grid_data = False
 
-    # result = service.spreadsheets().values().get(spreadsheetId=spreadsheetId, range='A1-A100').execute()
     result = service.spreadsheets().get(spreadsheetId=spreadsheetId).execute()
     sheets = result["sheets"]
 

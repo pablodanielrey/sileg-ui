@@ -16,3 +16,4 @@ MAUTIC_USER=admin
 MAUTIC_PASSWORD=clave_admin
 MAUTIC_REST_URL=http://www.tu-sitio-mautic.com/api/
 ADMIN_USER_GOOGLE=
+SPREADSHEET_ID=
