@@ -6,9 +6,9 @@ import os
 
 usuarios_api = os.environ['USER_REST_URL']
 sileg_api = os.environ['SILEG_REST_URL']
-usuario_mautic = os.environ['MAUTIC_OLD_USER']
-clave_mautic = os.environ['MAUTIC_OLD_PASSWORD']
-mautic_api = os.environ['MAUTIC_OLD_REST_URL']
+usuario_mautic = os.environ['MAUTIC_PROD_USER']
+clave_mautic = os.environ['MAUTIC_PROD_PASSWORD']
+mautic_api = os.environ['MAUTIC_PROD_REST_URL']
 
 
 def getEconoMail(usuario):
