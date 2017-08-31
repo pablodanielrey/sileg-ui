@@ -10,7 +10,7 @@ from . import Session
 
 class SilegModel:
 
-    usuarios_url = os.environ['USER_REST_URL']
+    usuarios_url = os.environ['USERS_API_URL']
 
     @staticmethod
     def api(api):

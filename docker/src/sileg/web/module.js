@@ -3,9 +3,8 @@ app = angular.module('MainApp', ['ngRoute', 'ngResource'])
 app.config(['$routeProvider', function($routeProvider) {
 
   $routeProvider
-    .when('/designaciones', {templateUrl: '/componentes/designaciones/index.html', controller:'DesignacionesCtrl'})
-    .when('/usuarios/:usuario', {templateUrl: '/componentes/usuarios/index.html', controller:'UsuariosCtrl'});
-    //.otherwise({ redirectTo: '/' });
+    .when('/preload', {templateUrl: '/componentes/preload/index.html', controller:'PreloadCtrl'})
+    .otherwise({ redirectTo: '/preload' });
 
 }]);
 

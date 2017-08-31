@@ -1,0 +1,34 @@
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+.sistema {
+  /*overflow: hidden;*/
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 50px auto 20px;
+  grid-row-gap: 0;
+  grid-column-gap: 0;
+  grid-template-areas:
+    "cabecera"
+    "contenido"
+    "pie";
+}
+
+.sistema .cabecera {
+  grid-area: cabecera;
+}
+
+.sistema .contenido {
+  grid-area: contenido;
+}
+
+.sistema .pie {
+  grid-area: pie;
+}
