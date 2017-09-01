@@ -1,43 +1,34 @@
 
-<div class="agregar_designaciones {{estado}} {{mensaje.mensaje}} {{mensaje.codigo}} {{error.error}} {{error.codigo}}">
+<div class="designaciones {{estado}} {{mensaje.mensaje}} {{mensaje.codigo}} {{error.error}} {{error.codigo}}">
 
     <div>
       Datos de la persona
       Dni: <input type='text' ng-model='model.usuario.dni'></input>
-      Nombre: <input type='text' ng-model='model.usuario.nombre'></input>
-      Apellido: <input type='text' ng-model='model.usuario.apellido'></input>
+      Nombre: <input type='text' readonly=true ng-model='model.usuario.nombre'></input>
+      Apellido: <input type='text' readonly=true ng-model='model.usuario.apellido'></input>
     </div>
 
-    <div>
-        Cargo:
-        <select ng-model='model.designacion.cargo'
-                ng-options='cargo.nombre for cargo in model.cargos tack by cargo.id' required>
-        </select>
-
-        <!-- <div ng-if='esCargoDocente(model.designacion.cargo)'>
-
-            Tipo de Cargo:
-            <select ng-model='model.designacion.tipo_cargo'
-                    ng-options='model.tipo_cargos'>
-            </select>
-
-            Dedicación
-            <select ng-model='model.designacion.dedicacion_cargo'
-                    ng-options='model.dedicaciones_cargos'>
-            </select>
-
-            Caracter
-            <select ng-model='model.designacion.caracter_cargo'
-                    ng-options='model.caracter_cargos'>
-            </select> -->
-
+    <md-list flex>
+      <md-list-item class="md-list-item-text" layout='column' ng-repeat='d in model.designaciones'>
+        <h3>
+          {{d.cargo.nombre}}
+        </h3>
+        <div>
+          {{d.lugar.nombre}}
         </div>
-
-    </div>
-
-    <div>
-      Datos de la designacion
-
-    </div>
+        <div>
+          {{d.desde}}
+        </div>
+        <div>
+          {{d.hasta}}
+        </div>
+        <div>
+          expediente {{d.expediente}}
+        </div>
+        <div>
+          resolucion {{d.resolucion}}
+        </div>
+      </md-list-item>
+    </md-list>
 
 </div>
