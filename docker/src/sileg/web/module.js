@@ -46,7 +46,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
     templateUrl: 'componentes/designacion_no_docente/templates/cargando.html'
   })
   .state('designacion_no_docente.nueva', {
-    url:'/nueva',
+    // url:'/nueva',
     templateUrl: 'componentes/designacion_no_docente/templates/nueva.html'
   })
 

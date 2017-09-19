@@ -15,7 +15,7 @@ with open('/tmp/client_secrets.json','w') as f:
       "token_uri": os.environ['LOGIN_OIDC_URL'] + "/token",
       "userinfo_uri": os.environ['LOGIN_OIDC_URL'] + "/userinfo",
       "issuer": os.environ['LOGIN_OIDC_ISSUER'],
-      "redirect_uris": os.environ['USERS_URL'] + "/oidc_callback"
+      "redirect_uris": os.environ['SILEG_URL'] + "/oidc_callback"
     }}, f)
 
 
