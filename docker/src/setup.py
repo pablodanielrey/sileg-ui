@@ -37,7 +37,7 @@ setup(name='sileg',
                             'google-api-python-client',
                             'httplib2',
                             'pyjwt',
-                            'redis'],
+                            'microservices_common'],
           entry_points={
             'console_scripts': [
                 'wamp=sileg.api.wamp.main:main',
