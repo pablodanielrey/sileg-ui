@@ -36,7 +36,8 @@ setup(name='sileg',
                             'SQLAlchemy',
                             'google-api-python-client',
                             'httplib2',
-                            'pyjwt'],
+                            'pyjwt',
+                            'redis'],
           entry_points={
             'console_scripts': [
                 'wamp=sileg.api.wamp.main:main',
