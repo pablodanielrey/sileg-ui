@@ -37,7 +37,8 @@ setup(name='sileg',
                             'google-api-python-client',
                             'httplib2',
                             'pyjwt',
-                            'microservices_common'],
+                            'microservices_common',
+                            'gunicorn'],
           entry_points={
             'console_scripts': [
                 'wamp=sileg.api.wamp.main:main',

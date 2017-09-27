@@ -21,9 +21,6 @@ app.controller("DesignacionNoDocenteCtrl", ["$scope", "$resource", "$state", '$h
     inicia el timer para buscar la persona
   */
   $scope.buscarPersonas = function() {
-    if ($scope.view.texto = '') {
-      return;
-    }
     if ($scope.model.buscando) {
       return;
     }
