@@ -1,7 +1,51 @@
 <div>
-    cargar una nueva designacion.
-    hay que usar los controles de material.
-    para el buscar usar:
-    https://material.angularjs.org/latest/api/directive/mdAutocomplete
-    con un template para que se vea el dni, nombre y apellido
+  <div ng-if='model.buscando'>
+    buscandoooo!!!
+  </div>
+
+  <div>
+      Persona
+      <md-autocomplete
+        ng-disabled="false"
+        md-no-cache="true"
+        md-selected-item="model.usuario"
+        md-search-text-change="textoCambiado()"
+        md-search-text="view.texto"
+        md-items="u in buscarPersonas()"
+        md-item-text="u.usuario.id"
+        md-min-length="0"
+        placeholder="Ingrese dni, nombre o apellido"
+        md-menu-class="autocomplete-custom-template">
+      <md-item-template>
+        <span class="item-title">
+          <!-- <md-icon md-svg-icon="img/icons/octicon-repo.svg"></md-icon> -->
+          <span> {{u.usuario.nombre}} </span>
+        </span>
+        <span class="item-metadata">
+          <span>
+            Dni<strong>{{u.usuario.dni}}</strong>
+          </span>
+          <span>
+            Nombre<strong>{{u.usuario.nombre}}</strong>
+          </span>
+          <span>
+            Apellido<strong>{{u.usuario.apellido}}</strong>
+          </span>
+        </span>
+      </md-item-template>
+      </md-autocomplete>
+  </div>
+
+  <div>
+      Dni<input type='text' ng-model='model.usuario.usuario.dni'></input>
+  </div>
+  <div>
+      Nombre<input type='text' ng-model='model.usuario.usuario.nombre'></input>
+  </div>
+  <div>
+      Apellido<input type='text' ng-model='model.usuario.usuario.apellido'></input>
+  </div>
+
+
+
 </div>

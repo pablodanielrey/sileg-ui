@@ -19,34 +19,59 @@ class SilegModel:
             return None
         return r.json()
 
-
     @classmethod
-    def usuarios(cls, usuario=None, dni=None, offset=None, limit=None):
+    def usuario(cls, uid):
+        query = cls.usuarios_url + '/usuarios/' + uid
+        usr = cls.api(query)
+        if not usr:
+            return []
+
         session = Session()
         try:
-            usr = None
-            if dni and not usuario:
-                usr = cls.api(cls.usuarios_url + '/usuarios/?d=' + dni)
-                if not usr:
-                    return []
-                usr = usr[0]
+            susr = session.query(Usuario).filter(Usuario.id == uid).one_or_none()
+            if surs:
+                return {
+                    'usuario': usr,
+                    'sileg': susr
+                }
+            else:
+                return {
+                    'usuario': urs
+                }
 
-            q = session.query(Usuario)
-            q = q.filter(Usuario.id == usuario) if usuario else q
-            q = q.filter(Usuario.id == usr['id']) if usr else q
-            q = cls._agregar_filtros_comunes(q, offset=offset, limit=limit)
-            usuarios = []
-            for u in q:
-                if not usr:
-                    usr = cls.api(cls.usuarios_url + '/usuarios/' + u.id)
-                if not usr:
-                    continue
-                usuarios.append({
-                    'usuario':usr,
-                    'sileg':u
-                })
-                usr = None
-            return usuarios
+        finally:
+            session.close()
+
+
+    @classmethod
+    def usuarios(cls, search=None, offset=0, limit=10):
+        if search is None:
+            return []
+
+        query = cls.usuarios_url + '/usuarios/?q=' + search
+        query = query + '&offset={}'.format(offset) if offset else query
+        query = query + '&limit={}'.format(limit) if limit else query
+        usrs = cls.api(query)
+        if not usrs:
+            return []
+
+        session = Session()
+        try:
+            rusers = []
+            for u in usrs:
+                uid = u['id']
+                surs = session.query(Usuario).filter(Usuario.id == uid).one_or_none()
+                if surs:
+                    rusers.append({
+                        'usuario': u,
+                        'sileg': surs
+                    })
+                else:
+                    rusers.append({
+                        'usuario': u
+                    })
+            return rusers
+
         finally:
             session.close()
 

@@ -22,7 +22,7 @@ with open('/tmp/client_secrets.json','w') as f:
 import redis
 from flask import Flask, request, send_from_directory, jsonify, redirect, url_for
 from flask_jsontools import jsonapi
-from auth_utils import MyOpenIDConnect, DictWrapper
+from auth_utils import MyOpenIDConnect, RedisWrapper
 
 # set the project root directory as the static folder, you can set others.
 app = Flask(__name__, static_url_path='/src/sileg/web')
@@ -35,7 +35,8 @@ app.config['OIDC_COOKIE_SECURE'] = False
 app.config['OIDC_VALID_ISSUERS'] = [os.environ['LOGIN_OIDC_ISSUER']]
 app.config['OIDC_RESOURCE_CHECK_AUD'] = False
 app.config['OIDC_INTROSPECTION_AUTH_METHOD'] = 'client_secret_post'
-app.config['OIDC_ID_TOKEN_COOKIE_NAME'] = 'sileg_oidc'
+app.config['OIDC_ID_TOKEN_COOKIE_NAME'] = 'id_oidc'
+app.config['OIDC_ID_TOKEN_COOKIE_DOMAIN'] = '.econo.unlp.edu.ar'
 app.config['OIDC_USER_INFO_ENABLED'] = True
 app.config['OIDC_SCOPES'] = ['openid','email','phone','profile','address','econo']
 

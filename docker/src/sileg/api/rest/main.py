@@ -11,14 +11,17 @@ from rest_utils import register_encoder
 app = Flask(__name__, static_url_path='/src/sileg/web')
 register_encoder(app)
 
-@app.route('/sileg/api/v1.0/usuarios/', methods=['GET', 'POST'], defaults={'usuario':None})
-@app.route('/sileg/api/v1.0/usuarios/<usuario>', methods=['GET', 'POST'])
+@app.route('/sileg/api/v1.0/usuarios/', methods=['GET', 'POST'], defaults={'uid':None})
+@app.route('/sileg/api/v1.0/usuarios/<uid>', methods=['GET', 'POST'])
 @jsonapi
-def usuarios(usuario=None):
-    dni = request.args.get('d',None)
+def usuarios(uid=None):
+    search = request.args.get('q',None)
     offset = request.args.get('offset',None,int)
     limit = request.args.get('limit',None,int)
-    return SilegModel.usuarios(usuario=usuario, dni=dni, offset=offset, limit=limit)
+    if uid:
+        return SilegModel.usuario(uid)
+    else:
+        return SilegModel.usuarios(search=search, offset=offset, limit=limit)
 
 @app.route('/sileg/api/v1.0/designaciones/', methods=['GET', 'POST'])
 @jsonapi
@@ -72,6 +75,13 @@ def catedras(catedra=None):
     return SilegModel.catedras(catedra=catedra, materia=materia, departamento=departamento)
 
 @app.after_request
+def cors_after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+    return response
+
+@app.after_request
 def add_header(r):
     """
     Add headers to both force latest IE rendering engine or Chrome Frame,
@@ -82,7 +92,6 @@ def add_header(r):
     r.headers["Expires"] = "0"
     r.headers['Cache-Control'] = 'public, max-age=0'
 
-    r.headers['Access-Control-Allow-Origin'] = '*'
     return r
 
 def main():
