@@ -45,7 +45,7 @@ class SilegModel:
 
 
     @classmethod
-    def usuarios(cls, search=None, retornarClave=False, fecha=None, offset=0, limit=10):
+    def usuarios(cls, search=None, retornarClave=False, fecha=None, offset=None, limit=None):
         query = cls.usuarios_url + '/usuarios/'
         params = []
         if search: params.append('q={}'.format(search))
