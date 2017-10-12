@@ -36,7 +36,7 @@ class SilegModel:
                 }
             else:
                 return {
-                    'usuario': urs
+                    'usuario': usr
                 }
 
         finally:
