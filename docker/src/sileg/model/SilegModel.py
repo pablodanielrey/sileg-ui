@@ -20,7 +20,7 @@ class SilegModel:
         return r.json()
 
     @classmethod
-    def usuario(cls, uid, retornarClave=None):
+    def usuario(cls, uid, retornarClave=False):
         query = cls.usuarios_url + '/usuarios/' + uid
         query = query + '&c=True' if retornarClave else query
         usr = cls.api(query)
@@ -45,7 +45,7 @@ class SilegModel:
 
 
     @classmethod
-    def usuarios(cls, search=None, retornarClave=None, offset=0, limit=10):
+    def usuarios(cls, search=None, retornarClave=False, offset=0, limit=10):
         if search is None:
             return []
 

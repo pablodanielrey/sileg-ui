@@ -18,7 +18,7 @@ def usuarios(uid=None):
     search = request.args.get('q',None)
     offset = request.args.get('offset',None,int)
     limit = request.args.get('limit',None,int)
-    c = request.args.get('c',None,str)
+    c = request.args.get('c',False,bool)
     if uid:
         return SilegModel.usuario(uid, retornarClave=c)
     else:
