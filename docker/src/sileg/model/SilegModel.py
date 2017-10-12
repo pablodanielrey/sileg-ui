@@ -22,7 +22,7 @@ class SilegModel:
     @classmethod
     def usuario(cls, uid, retornarClave=False):
         query = cls.usuarios_url + '/usuarios/' + uid
-        query = query + '&c=True' if retornarClave else query
+        query = query + '?c=True' if retornarClave else query
         usr = cls.api(query)
         if not usr:
             return []
