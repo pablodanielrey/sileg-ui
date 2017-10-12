@@ -46,7 +46,7 @@ app.controller("DesignacionNoDocenteCtrl", ["$scope", "$resource", "$state", '$h
       var coded = window.encodeURIComponent($scope.view.texto);
       $http.get(api + '/usuarios/?q=' + coded).then(
         function(d) {
-          console.log(d);
+          console.log(d.data);
           $scope.model.usuarios = d.data;
           $scope.model.buscando = false;
           def.resolve(d.data);

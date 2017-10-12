@@ -29,7 +29,7 @@ class SilegModel:
         session = Session()
         try:
             susr = session.query(Usuario).filter(Usuario.id == uid).one_or_none()
-            if surs:
+            if susr:
                 return {
                     'usuario': usr,
                     'sileg': susr
