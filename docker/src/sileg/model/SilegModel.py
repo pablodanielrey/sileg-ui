@@ -46,14 +46,15 @@ class SilegModel:
 
     @classmethod
     def usuarios(cls, search=None, retornarClave=False, fecha=None, offset=0, limit=10):
-        if search is None:
-            return []
+        query = cls.usuarios_url + '/usuarios/'
+        params = []
+        if search: params.append('q={}'.format(search))
+        if fecha: params.append('f={}'.format(fecha))
+        if retornarClave: params.append('c=True')
+        if offset: params.append('offset={}'.format(offset))
+        if limit: params.append('limit={}'.format(limit))
+        if len(params) > 0: query = '{}?{}'.format(query, '&'.join(params))
 
-        query = cls.usuarios_url + '/usuarios/?q=' + search
-        query = query + '&c=True' if retornarClave else query
-        query = query + '&f={}'.format(fecha) if fecha else query
-        query = query + '&offset={}'.format(offset) if offset else query
-        query = query + '&limit={}'.format(limit) if limit else query
         usrs = cls.api(query)
         if not usrs:
             return []
