@@ -45,12 +45,13 @@ class SilegModel:
 
 
     @classmethod
-    def usuarios(cls, search=None, retornarClave=False, offset=0, limit=10):
+    def usuarios(cls, search=None, retornarClave=False, fecha=None, offset=0, limit=10):
         if search is None:
             return []
 
         query = cls.usuarios_url + '/usuarios/?q=' + search
         query = query + '&c=True' if retornarClave else query
+        query = query + '&f={}'.format(fecha) if fecha else query
         query = query + '&offset={}'.format(offset) if offset else query
         query = query + '&limit={}'.format(limit) if limit else query
         usrs = cls.api(query)
