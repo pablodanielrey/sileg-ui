@@ -18,10 +18,11 @@ def usuarios(uid=None):
     search = request.args.get('q',None)
     offset = request.args.get('offset',None,int)
     limit = request.args.get('limit',None,int)
+    c = request.args.get('c',None,str)
     if uid:
-        return SilegModel.usuario(uid)
+        return SilegModel.usuario(uid, retornarClave=c)
     else:
-        return SilegModel.usuarios(search=search, offset=offset, limit=limit)
+        return SilegModel.usuarios(search=search, retornarClave=c, offset=offset, limit=limit)
 
 @app.route('/sileg/api/v1.0/designaciones/', methods=['GET', 'POST'])
 @jsonapi
