@@ -54,26 +54,37 @@ class SilegModel:
         if offset: params.append('offset={}'.format(offset))
         if limit: params.append('limit={}'.format(limit))
         if len(params) > 0: query = '{}?{}'.format(query, '&'.join(params))
-
         usrs = cls.api(query)
+
         if not usrs:
             return []
 
+        idsProcesados = {}
         session = Session()
         try:
             rusers = []
             for u in usrs:
                 uid = u['id']
+                idsProcesados[uid] = u
                 surs = session.query(Usuario).filter(Usuario.id == uid).one_or_none()
                 if surs:
                     rusers.append({
                         'usuario': u,
                         'sileg': surs
                     })
-                else:
-                    rusers.append({
-                        'usuario': u
-                    })
+
+            """ tengo en cuenta los que se pudieron haber agregado al sileg despues """
+            for u in session.query(Usuario).filter(or_(Usuario.creado >= fecha, Usuario.actualizado >= fecha)).all():
+                if u.id not in idsProcesados.keys():
+                    query = '{}/{}/{}'.format(cls.usuarios_url, 'usuarios', u.id)
+                    usr = cls.api(query)
+                    if usr:
+                        rusers.append({
+                            'agregado': True,
+                            'usuario': usr,
+                            'sileg': u
+                        })
+
             return rusers
 
         finally:
