@@ -32,17 +32,17 @@ if __name__ == '__main__':
         sys.exit(1)
 
     uid = sys.argv[1]
-    lugar = sys.argv[2]
+    lid = sys.argv[2]
 
     cf = s.query(CumpleFunciones).one_or_none()
     if not cf:
         cf = CumpleFunciones()
         s.add(cf)
         s.commit()
-        
+
     cf = s.query(CumpleFunciones).one()
 
-    l = s.query(Lugar.id == lugar).one()
+    l = s.query(Lugar.id == lid).one()
 
     u = s.query(Usuario.id == uid).one()
 
