@@ -25,7 +25,7 @@ if __name__ == '__main__':
 
     s = Session()
 
-    if len(sys.argv) >= 2:
+    if len(sys.argv) <= 2:
         logging.warn('Debe especificar el id del lugar')
         for l in s.query(Lugar).all():
             logging.info(l.__json__())
