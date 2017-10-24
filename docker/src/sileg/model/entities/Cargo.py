@@ -7,13 +7,15 @@ class Cargo(Base):
     __tablename__ = 'cargo'
     __table_args__ = {'schema':'sileg'}
 
+    nombre = Column(String)
+    tipo = Column(String)
+    
     __mapper_args__ = {
         'polymorphic_on':nombre,
         'polymorphic_identity':'cargo'
     }
 
-    nombre = Column(String)
-    tipo = Column(String)
+
 
     """
         ejemplos de tipo
