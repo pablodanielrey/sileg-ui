@@ -13,8 +13,13 @@ class SilegModel:
     usuarios_url = os.environ['USERS_API_URL']
 
     @staticmethod
-    def api(api):
-        r = requests.get(api)
+    def api(api, params=None):
+        r = None
+        if not params:
+            r = requests.get(api)
+        else:
+            r = requests.get(api, params=params)
+
         if not r.ok:
             return None
         return r.json()
@@ -44,14 +49,20 @@ class SilegModel:
 
 
     @classmethod
-    def usuarios(cls, search=None, offset=0, limit=10):
+    def usuarios(cls, search=None, offset=None, limit=None, fecha=None):
         if search is None:
             return []
-
-        query = cls.usuarios_url + '/usuarios/?q=' + search
-        query = query + '&offset={}'.format(offset) if offset else query
-        query = query + '&limit={}'.format(limit) if limit else query
-        usrs = cls.api(query)
+        query = cls.usuarios_url + '/usuarios/'
+        params = {}
+        if search:
+            params['q'] = search
+        if offset:
+            params['offset'] = offset
+        if limit:
+            params['limit'] = limit
+        if fecha:
+            params['fecha'] = fecha
+        usrs = cls.api(query, params)
         if not usrs:
             return []
 

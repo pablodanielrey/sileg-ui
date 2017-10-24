@@ -4,8 +4,10 @@ import sys
 from flask import Flask, abort, make_response, jsonify, url_for, request, json
 from sileg.model.SilegModel import SilegModel
 from flask_jsontools import jsonapi
+from dateutil import parser
 
 from rest_utils import register_encoder
+
 
 # set the project root directory as the static folder, you can set others.
 app = Flask(__name__, static_url_path='/src/sileg/web')
@@ -18,10 +20,13 @@ def usuarios(uid=None):
     search = request.args.get('q',None)
     offset = request.args.get('offset',None,int)
     limit = request.args.get('limit',None,int)
+
     if uid:
         return SilegModel.usuario(uid)
     else:
-        return SilegModel.usuarios(search=search, offset=offset, limit=limit)
+        fecha_str = request.args.get('f', None)
+        fecha = parser.parse(fecha_str) if fecha_str else None
+        return SilegModel.usuarios(search=search, offset=offset, limit=limit, fecha=fecha)
 
 @app.route('/sileg/api/v1.0/designaciones/', methods=['GET', 'POST'])
 @jsonapi
