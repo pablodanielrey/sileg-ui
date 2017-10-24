@@ -68,7 +68,7 @@ class Direccion(Lugar):
     }
 
     def __init__(self, nombre):
-        super().__init__.(nombre)
+        super().__init__(nombre)
 
 class Escuela(Lugar):
     __mapper_args__ = {
