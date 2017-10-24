@@ -20,6 +20,9 @@ class Lugar(Base):
         'polymorphic_identity':'lugar'
     }
 
+    def __init__(self, nombre):
+        self.nombre = nombre
+
     @classmethod
     def find(cls, session):
         return session.query(cls)
@@ -63,6 +66,9 @@ class Direccion(Lugar):
     __mapper_args__ = {
         'polymorphic_identity':'direccion'
     }
+
+    def __init__(self, nombre):
+        super().__init__.(nombre)
 
 class Escuela(Lugar):
     __mapper_args__ = {
