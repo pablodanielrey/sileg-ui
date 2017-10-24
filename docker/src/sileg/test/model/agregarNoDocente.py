@@ -42,9 +42,9 @@ if __name__ == '__main__':
 
     cf = s.query(CumpleFunciones).one()
 
-    l = s.query(Lugar.id == lid).one()
+    l = s.query(Lugar).filter(Lugar.id == lid).one()
 
-    u = s.query(Usuario.id == uid).one()
+    u = s.query(Usuario).filter(Usuario.id == uid).one()
 
     d = Designacion()
     d.usuario = u
@@ -53,5 +53,5 @@ if __name__ == '__main__':
     s.add(d)
     s.commit()
 
-    for d in s.query(Designacion.usuario.id == uid).all():
+    for d in s.query(Designacion).filter(Designacion.usuario.id == uid).all():
         logging.info(d.__json__())
