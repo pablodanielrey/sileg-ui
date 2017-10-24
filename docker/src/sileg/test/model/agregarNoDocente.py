@@ -26,7 +26,7 @@ if __name__ == '__main__':
 
     if len(sys) >= 2:
         logging.warn('Debe especificar el id del lugar')
-        for l in s.query(Lugar).all()
+        for l in s.query(Lugar).all():
             logging.info(l.__json__())
         sys.exit(1)
 
