@@ -1,6 +1,8 @@
 import logging
 logging.getLogger().setLevel(logging.INFO)
 import sys
+from dateutil import parser
+
 from flask import Flask, abort, make_response, jsonify, url_for, request, json
 from sileg.model.SilegModel import SilegModel
 from flask_jsontools import jsonapi
@@ -20,13 +22,21 @@ def usuarios(uid=None):
     search = request.args.get('q',None)
     offset = request.args.get('offset',None,int)
     limit = request.args.get('limit',None,int)
+<<<<<<< HEAD
 
+=======
+    c = request.args.get('c',False,bool)
+>>>>>>> f15e991ee86243893fca2e5413e780fcd4c420f4
     if uid:
-        return SilegModel.usuario(uid)
+        return SilegModel.usuario(uid, retornarClave=c)
     else:
         fecha_str = request.args.get('f', None)
         fecha = parser.parse(fecha_str) if fecha_str else None
+<<<<<<< HEAD
         return SilegModel.usuarios(search=search, offset=offset, limit=limit, fecha=fecha)
+=======
+        return SilegModel.usuarios(search=search, retornarClave=c, offset=offset, limit=limit, fecha=fecha)
+>>>>>>> f15e991ee86243893fca2e5413e780fcd4c420f4
 
 @app.route('/sileg/api/v1.0/designaciones/', methods=['GET', 'POST'])
 @jsonapi

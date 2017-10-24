@@ -25,8 +25,9 @@ class SilegModel:
         return r.json()
 
     @classmethod
-    def usuario(cls, uid):
+    def usuario(cls, uid, retornarClave=False):
         query = cls.usuarios_url + '/usuarios/' + uid
+        query = query + '?c=True' if retornarClave else query
         usr = cls.api(query)
         if not usr:
             return []
@@ -34,14 +35,14 @@ class SilegModel:
         session = Session()
         try:
             susr = session.query(Usuario).filter(Usuario.id == uid).one_or_none()
-            if surs:
+            if susr:
                 return {
                     'usuario': usr,
                     'sileg': susr
                 }
             else:
                 return {
-                    'usuario': urs
+                    'usuario': usr
                 }
 
         finally:
@@ -49,9 +50,7 @@ class SilegModel:
 
 
     @classmethod
-    def usuarios(cls, search=None, offset=None, limit=None, fecha=None):
-        if search is None:
-            return []
+    def usuarios(cls, search=None, retornarClave=False, fecha=None, offset=None, limit=None):
         query = cls.usuarios_url + '/usuarios/'
         params = {}
         if search:
@@ -61,26 +60,40 @@ class SilegModel:
         if limit:
             params['limit'] = limit
         if fecha:
-            params['fecha'] = fecha
+            params['f'] = fecha
+        if retornarClave:
+            params['c'] = True
         usrs = cls.api(query, params)
+
         if not usrs:
             return []
 
+        idsProcesados = {}
         session = Session()
         try:
             rusers = []
             for u in usrs:
                 uid = u['id']
+                idsProcesados[uid] = u
                 surs = session.query(Usuario).filter(Usuario.id == uid).one_or_none()
                 if surs:
                     rusers.append({
                         'usuario': u,
                         'sileg': surs
                     })
-                else:
-                    rusers.append({
-                        'usuario': u
-                    })
+
+            """ tengo en cuenta los que se pudieron haber agregado al sileg despues """
+            for u in session.query(Usuario).filter(or_(Usuario.creado >= fecha, Usuario.actualizado >= fecha)).all():
+                if u.id not in idsProcesados.keys():
+                    query = '{}/{}/{}'.format(cls.usuarios_url, 'usuarios', u.id)
+                    usr = cls.api(query)
+                    if usr:
+                        rusers.append({
+                            'agregado': True,
+                            'usuario': usr,
+                            'sileg': u
+                        })
+
             return rusers
 
         finally:
