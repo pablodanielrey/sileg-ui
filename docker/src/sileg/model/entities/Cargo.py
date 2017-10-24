@@ -7,6 +7,11 @@ class Cargo(Base):
     __tablename__ = 'cargo'
     __table_args__ = {'schema':'sileg'}
 
+    __mapper_args__ = {
+        'polymorphic_on':nombre,
+        'polymorphic_identity':'cargo'
+    }
+
     nombre = Column(String)
     tipo = Column(String)
 
@@ -32,3 +37,9 @@ class Cargo(Base):
         Contrato de Servicio
         Contrato de Gestión
     """
+
+class CumpleFunciones(Cargo):
+
+    __mapper_args__ = {
+        'polymorphic_identity':'Cumple Funciones'
+    }

@@ -30,10 +30,9 @@ if __name__ == '__main__':
 
     d = Direccion(nombre)
     s.add(d)
+    s.commit()
 
-    logging.info(d.id)
+    logging.info('El id generado es : {}'.format(d.id))
 
     #for l in s.query(Lugar).all():
     #    logging.info(l.__json__())
-
-    s.commit()
