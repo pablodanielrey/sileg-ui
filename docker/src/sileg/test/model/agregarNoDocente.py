@@ -53,5 +53,5 @@ if __name__ == '__main__':
     s.add(d)
     s.commit()
 
-    for d in s.query(Designacion).filter(Designacion.usuario.id == uid).all():
+    for d in s.query(Designacion).filter(Designacion.usuario == u).all():
         logging.info(d.__json__())
