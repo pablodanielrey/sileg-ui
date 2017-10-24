@@ -152,7 +152,6 @@ class SilegModel:
         q = q.order_by(Designacion.desde.desc())
         return q.all()
 
-
     @classmethod
     def cargos(cls):
         session = Session()
