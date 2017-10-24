@@ -9,7 +9,7 @@ from sqlalchemy.orm import sessionmaker
 
 from model_utils import Base
 
-from sileg.model.entities import Lugar, Direccion, CumpleFunciones
+from sileg.model.entities import *
 
 if __name__ == '__main__':
 
