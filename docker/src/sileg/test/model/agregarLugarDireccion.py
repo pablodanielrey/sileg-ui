@@ -2,6 +2,7 @@ import logging
 logging.getLogger().setLevel(logging.DEBUG)
 
 import os
+import sys
 from sqlalchemy import create_engine
 from sqlalchemy.schema import CreateSchema
 from sqlalchemy.orm import sessionmaker
