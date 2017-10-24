@@ -39,6 +39,7 @@ if __name__ == '__main__':
         cf = CumpleFunciones()
         s.add(cf)
         s.commit()
+        
     cf = s.query(CumpleFunciones).one()
 
     l = s.query(Lugar.id == lugar).one()
