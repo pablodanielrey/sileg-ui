@@ -1,6 +1,7 @@
 import logging
 logging.getLogger().setLevel(logging.DEBUG)
 
+import sys
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.schema import CreateSchema
