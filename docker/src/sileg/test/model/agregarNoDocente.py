@@ -48,8 +48,8 @@ if __name__ == '__main__':
     if not u:
         u = Usuario()
         u.id = uid
-        session.add(u)
-        session.commit()
+        s.add(u)
+        s.commit()
     u = s.query(Usuario).filter(Usuario.id == uid).one()
 
     d = Designacion()
