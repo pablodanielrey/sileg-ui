@@ -44,6 +44,12 @@ if __name__ == '__main__':
 
     l = s.query(Lugar).filter(Lugar.id == lid).one()
 
+    u = s.query(Usuario).filter(Usuario.id == uid).one_or_none()
+    if not u:
+        u = Usuario()
+        u.id = uid
+        session.add(u)
+        session.commit()
     u = s.query(Usuario).filter(Usuario.id == uid).one()
 
     d = Designacion()
