@@ -46,10 +46,17 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
     templateUrl: 'componentes/designacion_no_docente/templates/cargando.html'
   })
   .state('designacion_no_docente.nueva', {
-    // url:'/nueva',
+    url:'/nueva',
     templateUrl: 'componentes/designacion_no_docente/templates/nueva.html'
   })
 
+  // ----- buscar ------
+  $stateProvider
+  .state('buscar', {
+    url:'/buscar',
+    templateUrl: 'componentes/buscar/index.html',
+    controller:'BuscarCtrl'
+  })
   /*
     ejemplo de error para ema
   .state('perfil.errorActualizandoUsuario', {
