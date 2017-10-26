@@ -20,10 +20,12 @@ if __name__ == '__main__':
     try:
 
         archivo = sys.argv[1]
-        with open(archivo,'r') as f:
+        with open(archivo,'r') as f, open('/tmp/usuarios.csv','w') as f2:
             for l in f:
                 row = l.split(',')
                 dni = row[0]
+                lastname = row[1]
+                name = row[2][:-1]
 
                 cur = con.cursor()
                 try:
@@ -35,9 +37,12 @@ if __name__ == '__main__':
 
                     datos = cur.fetchall()
                     if len(datos) <= 0:
-                        print("La persona {}  DNI:{} no esta asignada a una oficina".format(row[1] + ', ' + row[2], dni))
-                    # else:
-                        # print("Asignacion: ", datos)
+                        f2.write('{},{},{},{},{}\n'.format(dni, lastname, name, 'No posee',''))
+
+                    else:
+                        for d in datos:
+                            f2.write('{},{},{},{},{}\n'.format(dni, lastname, name, d[3],d[6]))
+
                 except Exception as e:
                     print (e)
                 finally:
