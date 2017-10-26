@@ -12,5 +12,8 @@ class Usuario(Base):
 
     def resolveUser(self):
         ''' se hace la llamada rest a la api de usuarios '''
-        data = requests.get('http://usuarios.econo.unlp.edu.ar/api/v1.0/users/{}'.format(self.id)).json()
-        self.__dict__ = json.loads(data)
+        r = requests.get('http://usuarios.econo.unlp.edu.ar/users/api/v1.0/usuarios/{}'.format(self.id))
+        if r.ok:
+            return r.json()
+        else:
+            return None
