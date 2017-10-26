@@ -9,6 +9,13 @@ class Cargo(Base):
 
     nombre = Column(String)
     tipo = Column(String)
+    
+    __mapper_args__ = {
+        'polymorphic_on':nombre,
+        'polymorphic_identity':'cargo'
+    }
+
+
 
     """
         ejemplos de tipo
@@ -32,3 +39,9 @@ class Cargo(Base):
         Contrato de Servicio
         Contrato de Gestión
     """
+
+class CumpleFunciones(Cargo):
+
+    __mapper_args__ = {
+        'polymorphic_identity':'Cumple Funciones'
+    }

@@ -13,40 +13,89 @@ class SilegModel:
     usuarios_url = os.environ['USERS_API_URL']
 
     @staticmethod
-    def api(api):
-        r = requests.get(api)
+    def api(api, params=None):
+        r = None
+        if not params:
+            r = requests.get(api)
+        else:
+            r = requests.get(api, params=params)
+
         if not r.ok:
             return None
         return r.json()
 
-
     @classmethod
-    def usuarios(cls, usuario=None, dni=None, offset=None, limit=None):
+    def usuario(cls, uid, retornarClave=False):
+        query = cls.usuarios_url + '/usuarios/' + uid
+        query = query + '?c=True' if retornarClave else query
+        usr = cls.api(query)
+        if not usr:
+            return []
+
         session = Session()
         try:
-            usr = None
-            if dni and not usuario:
-                usr = cls.api(cls.usuarios_url + '/usuarios/?d=' + dni)
-                if not usr:
-                    return []
-                usr = usr[0]
+            susr = session.query(Usuario).filter(Usuario.id == uid).one_or_none()
+            if susr:
+                return {
+                    'usuario': usr,
+                    'sileg': susr
+                }
+            else:
+                return {
+                    'usuario': usr
+                }
 
-            q = session.query(Usuario)
-            q = q.filter(Usuario.id == usuario) if usuario else q
-            q = q.filter(Usuario.id == usr['id']) if usr else q
-            q = cls._agregar_filtros_comunes(q, offset=offset, limit=limit)
-            usuarios = []
-            for u in q:
-                if not usr:
-                    usr = cls.api(cls.usuarios_url + '/usuarios/' + u.id)
-                if not usr:
-                    continue
-                usuarios.append({
-                    'usuario':usr,
-                    'sileg':u
-                })
-                usr = None
-            return usuarios
+        finally:
+            session.close()
+
+
+    @classmethod
+    def usuarios(cls, search=None, retornarClave=False, fecha=None, offset=None, limit=None):
+        query = cls.usuarios_url + '/usuarios/'
+        params = {}
+        if search:
+            params['q'] = search
+        if offset:
+            params['offset'] = offset
+        if limit:
+            params['limit'] = limit
+        if fecha:
+            params['f'] = fecha
+        if retornarClave:
+            params['c'] = True
+        usrs = cls.api(query, params)
+
+        if not usrs:
+            return []
+
+        idsProcesados = {}
+        session = Session()
+        try:
+            rusers = []
+            for u in usrs:
+                uid = u['id']
+                idsProcesados[uid] = u
+                surs = session.query(Usuario).filter(Usuario.id == uid).one_or_none()
+                if surs:
+                    rusers.append({
+                        'usuario': u,
+                        'sileg': surs
+                    })
+
+            """ tengo en cuenta los que se pudieron haber agregado al sileg despues """
+            for u in session.query(Usuario).filter(or_(Usuario.creado >= fecha, Usuario.actualizado >= fecha)).all():
+                if u.id not in idsProcesados.keys():
+                    query = '{}/{}/{}'.format(cls.usuarios_url, 'usuarios', u.id)
+                    usr = cls.api(query)
+                    if usr:
+                        rusers.append({
+                            'agregado': True,
+                            'usuario': usr,
+                            'sileg': u
+                        })
+
+            return rusers
+
         finally:
             session.close()
 
@@ -102,7 +151,6 @@ class SilegModel:
         #q = q.options(joinedload('lugar').joinedload('padre'))
         q = q.order_by(Designacion.desde.desc())
         return q.all()
-
 
     @classmethod
     def cargos(cls):

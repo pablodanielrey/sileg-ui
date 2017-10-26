@@ -36,7 +36,9 @@ setup(name='sileg',
                             'SQLAlchemy',
                             'google-api-python-client',
                             'httplib2',
-                            'pyjwt'],
+                            'pyjwt',
+                            'microservices_common',
+                            'gunicorn'],
           entry_points={
             'console_scripts': [
                 'wamp=sileg.api.wamp.main:main',
