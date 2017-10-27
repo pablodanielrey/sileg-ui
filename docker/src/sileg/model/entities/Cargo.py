@@ -9,9 +9,9 @@ class Cargo(Base):
 
     nombre = Column(String)
     tipo = Column(String)
-    
+
     __mapper_args__ = {
-        'polymorphic_on':nombre,
+        'polymorphic_on':tipo,
         'polymorphic_identity':'cargo'
     }
 
@@ -40,8 +40,22 @@ class Cargo(Base):
         Contrato de Gestión
     """
 
-class CumpleFunciones(Cargo):
+
+class Docente(Cargo):
 
     __mapper_args__ = {
-        'polymorphic_identity':'Cumple Funciones'
+        'polymorphic_identity':'Docente'
     }
+
+class NoDocente(Cargo):
+
+    __mapper_args__ = {
+        'polymorphic_identity':'No Docente'
+    }
+
+
+class CumpleFunciones(NoDocente):
+
+    def __init__(self):
+        self.id = '245eae51-28c4-4c6b-9085-354606399666'
+        self.nombre = 'Cumple Funciones'
