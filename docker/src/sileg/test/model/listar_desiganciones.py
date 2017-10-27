@@ -2,6 +2,7 @@ import sys
 import logging
 logging.getLogger().setLevel(logging.INFO)
 import os
+import datetime
 import json
 from sqlalchemy import create_engine
 from sqlalchemy.schema import CreateSchema
@@ -69,19 +70,29 @@ if __name__ == '__main__':
             logging.info(d.cargo.__json__())
     """
 
+    ahora = datetime.datetime.now().date()
 
-    logging.info('------------------------------------------')
-    ''' listo los usuarios con sus designaciones '''
-    for u in s.query(Usuario).options(joinedload('designaciones')).all():
-        logging.info('\n\n-------------------------------------\n\n')
-        juser = u.resolveUser()
-        user = juser['dni'] + ' ' + juser['nombre'] + ' ' + juser['apellido']
-        logging.info(user)
-        #logging.info(u.__json__())
-        for d in u.designaciones:
-            logging.info("""{:10};{:50};{};{}""".format(
-                d.cargo.nombre,
-                d.lugar.getNombre if d.lugar else '',
-                d.desde,
-                d.hasta))
-        logging.info('\n\n-------------------------------------\n\n')
+    with open('/tmp/designaciones.csv', 'w') as f:
+
+        ''' listo los usuarios con sus designaciones '''
+        for u in s.query(Usuario).options(joinedload('designaciones')).all():
+            juser = u.resolveUser()
+            #user = juser['dni'] + ' ' + juser['nombre'] + ' ' + juser['apellido']
+            #logging.info(user)
+            #logging.info(u.__json__())
+            vistas = []
+            for d in u.designaciones:
+                if not d.lugar or not d.cargo:
+                    continue
+                if not d.hasta or d.hasta >= ahora:
+                    if d.lugar.getNombre not in vistas:
+                        vistas.append(d.lugar.getNombre)
+                        linea = """{};{};{};{};{};{};{}\n""".format(
+                            juser['dni'],
+                            juser['nombre'],
+                            juser['apellido'],
+                            d.cargo.nombre,
+                            d.lugar.getNombre if d.lugar else '',
+                            d.desde,
+                            d.hasta)
+                        f.write(linea)
