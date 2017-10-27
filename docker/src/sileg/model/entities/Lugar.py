@@ -23,6 +23,10 @@ class Lugar(Base):
     def __init__(self, nombre):
         self.nombre = nombre
 
+    @property
+    def getNombre(self):
+        return self.nombre
+
     @classmethod
     def find(cls, session):
         return session.query(cls)
@@ -35,6 +39,11 @@ class Catedra(Lugar):
     id = Column(String, ForeignKey('sileg.lugar.id'), primary_key=True, default=generateId)
     materia_id = Column(String, ForeignKey('sileg.materia.id'))
     materia = relationship("Materia")
+
+    @property
+    def getNombre(self):
+        return self.nombre + ' ' + self.materia.nombre
+
 
     __mapper_args__ = {
         'polymorphic_identity':'catedra'

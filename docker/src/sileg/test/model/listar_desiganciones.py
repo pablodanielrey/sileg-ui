@@ -5,7 +5,7 @@ import os
 import json
 from sqlalchemy import create_engine
 from sqlalchemy.schema import CreateSchema
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, joinedload
 
 from model_utils import Base
 
@@ -13,8 +13,10 @@ from sileg.model.entities import Usuario, Designacion, Cargo, Lugar
 
 
 def resolverUltima(d):
-    if d.designacion == None:
-        return d
+    did = d.id
+    desig = s.query(Designacion).filter(Designacion.id == did).options(joinedload('designacion')).one()
+    if desig.designacion == None:
+        return desig
     else:
         return resolverUltima(d.designacion)
 
@@ -70,14 +72,16 @@ if __name__ == '__main__':
 
     logging.info('------------------------------------------')
     ''' listo los usuarios con sus designaciones '''
-    for u in s.query(Usuario).all():
+    for u in s.query(Usuario).options(joinedload('designaciones')).all():
         logging.info('\n\n-------------------------------------\n\n')
         juser = u.resolveUser()
         user = juser['dni'] + ' ' + juser['nombre'] + ' ' + juser['apellido']
         logging.info(user)
         #logging.info(u.__json__())
         for d in u.designaciones:
-            desig = resolverUltima(d)
-            logging.info(d.cargo.nombre)
-            logging.info(d.lugar.nombre)
+            logging.info("""{:10};{:50};{};{}""".format(
+                d.cargo.nombre,
+                d.lugar.getNombre if d.lugar else '',
+                d.desde,
+                d.hasta))
         logging.info('\n\n-------------------------------------\n\n')
