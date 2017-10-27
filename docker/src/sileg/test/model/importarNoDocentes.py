@@ -7,9 +7,6 @@ import psycopg2
 
 if __name__ == '__main__':
 
-    if len(sys.argv) <= 1:
-        logging.warn('Debe especificar el archivo')
-        sys.exit(1)
 
     host = os.environ['SILEG_DB_HOST']
     user = os.environ['SILEG_DB_USER']
@@ -17,18 +14,23 @@ if __name__ == '__main__':
     base = os.environ['SILEG_DB_NAME']
 
     con = psycopg2.connect(host=host, user=user, password=passwd, database=base)
+
+    # COPY(select dni, lastname, name  from (select distinct(user_id) from assistance.schedules) as s inner join profile.users u on (u.id = s.user_id) order by lastname, name) TO '/tmp/users.csv' DELIMITER ',' CSV HEADER;
+
     try:
-
-        archivo = sys.argv[1]
-        with open(archivo,'r') as f, open('/tmp/usuarios.csv','w') as f2:
-            for l in f:
-                row = l.split(',')
-                dni = row[0]
-                lastname = row[1]
-                name = row[2][:-1]
-
-                cur = con.cursor()
-                try:
+        cur = con.cursor()
+        try:
+            with open('/tmp/usuarios.csv','w') as f2:
+                cur.execute("""
+                    SELECT distinct(dni), lastname, name
+                    FROM assistance.attlog  a inner join profile.users u on (u.id = a.user_id)
+                    WHERE log > '2017-01-01' order by lastname, name;
+                """);
+                usuarios = cur.fetchall()
+                for u in usuarios:
+                    dni = u[0]
+                    lastname = u[1]
+                    name = u[2]
                     cur.execute("""
                        SELECT u.name, u.lastname, o.id, o.name, d.sstart, d.send, o.type, o.assistance
                        FROM profile.users u inner join designations.designations d on (u.id = d.User_id) inner join offices.offices o on (o.id = d.office_id)
@@ -41,12 +43,12 @@ if __name__ == '__main__':
 
                     else:
                         for d in datos:
-                            f2.write('{},{},{},{},{}\n'.format(dni, lastname, name, d[3],d[6]))
+                            f2.write('{},{},{},{},{}\n'.format(dni, lastname, name, d[3],d[2]))
 
-                except Exception as e:
-                    print (e)
-                finally:
-                    cur.close()
+        except Exception as e:
+            print (e)
+        finally:
+            cur.close()
 
     finally:
         con.close()
