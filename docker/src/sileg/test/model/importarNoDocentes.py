@@ -3,52 +3,70 @@ logging.getLogger().setLevel(logging.DEBUG)
 
 import sys
 import os
-import psycopg2
+from sqlalchemy import create_engine
+from sqlalchemy.schema import CreateSchema
+from sqlalchemy.orm import sessionmaker
+
+from model_utils import Base
+
+from sileg.model.entities import *
 
 if __name__ == '__main__':
 
+    engine = create_engine('postgresql://{}:{}@{}:5432/{}'.format(
+        os.environ['SILEG_DB_USER'],
+        os.environ['SILEG_DB_PASSWORD'],
+        os.environ['SILEG_DB_HOST'],
+        os.environ['SILEG_DB_NAME']
+    ))
 
-    host = os.environ['SILEG_DB_HOST']
-    user = os.environ['SILEG_DB_USER']
-    passwd = os.environ['SILEG_DB_PASSWORD']
-    base = os.environ['SILEG_DB_NAME']
+    Session = sessionmaker(bind=engine)
 
-    con = psycopg2.connect(host=host, user=user, password=passwd, database=base)
+    s = Session()
 
-    # COPY(select dni, lastname, name  from (select distinct(user_id) from assistance.schedules) as s inner join profile.users u on (u.id = s.user_id) order by lastname, name) TO '/tmp/users.csv' DELIMITER ',' CSV HEADER;
+    with open('usuarios.csv','r') as f:
+        for line in f:
+            row = line.split(',')
+            uid = row[0]
+            dni = row[1]
+            oficina = row[4]
+            oficinaId = row[5].rstrip('\n')
+            # logging.info("Procesando -> Dni: {} Oficina: {} id oficina: {}".format(dni, oficina, oficinaId))
+            l = s.query(Lugar).filter(Lugar.id == oficinaId).one_or_none()
 
-    try:
-        cur = con.cursor()
-        try:
-            with open('/tmp/usuarios.csv','w') as f2:
-                cur.execute("""
-                    SELECT distinct(dni), lastname, name
-                    FROM assistance.attlog  a inner join profile.users u on (u.id = a.user_id)
-                    WHERE log > '2017-01-01' order by lastname, name;
-                """);
-                usuarios = cur.fetchall()
-                for u in usuarios:
-                    dni = u[0]
-                    lastname = u[1]
-                    name = u[2]
-                    cur.execute("""
-                       SELECT u.name, u.lastname, o.id, o.name, d.sstart, d.send, o.type, o.assistance
-                       FROM profile.users u inner join designations.designations d on (u.id = d.User_id) inner join offices.offices o on (o.id = d.office_id)
-                       WHERE dni = %s and send is  null and assistance
-                    """,(dni, ));
+            # creo los lugares que no existen
+            if l is None:
+                logging.info('la oficina {} no existe'.format(oficina))
 
-                    datos = cur.fetchall()
-                    if len(datos) <= 0:
-                        f2.write('{},{},{},{},{}\n'.format(dni, lastname, name, 'No posee',''))
+                if 'departamento' in oficina.strip().lower():
+                    lugar = Departamento(nombre=oficina)
+                    lugar.id = oficinaId
+                    s.add(lugar)
+                    s.commit()
+                    logging.info("Se creo el departamento: {} id: {}".format(oficina, oficinaId))
 
-                    else:
-                        for d in datos:
-                            f2.write('{},{},{},{},{}\n'.format(dni, lastname, name, d[3],d[2]))
+                elif 'dirección' in oficina.strip().lower():
+                    lugar = Direccion(nombre=oficina)
+                    lugar.id = oficinaId
+                    s.add(lugar)
+                    s.commit()
+                    logging.info("Se crea la dirección: {} id: {}".format(oficina, oficinaId))
 
-        except Exception as e:
-            print (e)
-        finally:
-            cur.close()
+                elif 'secretaría' in oficina.strip().lower():
+                    lugar = Secretaria(nombre=oficina)
+                    lugar.id = oficinaId
+                    s.add(lugar)
+                    s.commit()
+                    logging.info("Se crea la secretaría: {} id: {}".format(oficina, oficinaId))
+                else:
+                    lugar = Lugar(nombre=oficina)
+                    lugar.id = oficinaId
+                    s.add(lugar)
+                    s.commit()
+                    logging.info("Se crea el lugar: {} id: {}".format(oficina, oficinaId))
 
-    finally:
-        con.close()
+            u = s.query(Usuario).filter(Usuario.id == uid).one_or_none()
+            if u is None:
+                logging.info('El usuario {} no existe'.format(row[2] + ', ' + row[3]))
+            else:
+                logging.info('El usuario {} ya existe'.format(row[2] + ', ' + row[3]))
