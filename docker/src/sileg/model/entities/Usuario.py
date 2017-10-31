@@ -1,6 +1,9 @@
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
+
 from model_utils import Base
+
+#from .Designacion import Designacion
 
 import json
 import requests
@@ -9,6 +12,8 @@ class Usuario(Base):
 
     __tablename__ = 'usuario'
     __table_args__ = {'schema':'sileg'}
+
+    designaciones = relationship('Designacion', back_populates='designacion')
 
     def resolveUser(self):
         ''' se hace la llamada rest a la api de usuarios '''
