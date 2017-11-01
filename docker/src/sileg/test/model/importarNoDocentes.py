@@ -18,7 +18,7 @@ if __name__ == '__main__':
         os.environ['SILEG_DB_PASSWORD'],
         os.environ['SILEG_DB_HOST'],
         os.environ['SILEG_DB_NAME']
-    ), echo=True)
+    ))
 
     Session = sessionmaker(bind=engine)
 
@@ -67,13 +67,7 @@ if __name__ == '__main__':
 
             l = s.query(Lugar).filter(Lugar.id == oficinaId).one()
 
-            print("==========================================================")
-            cf = s.query(CumpleFunciones).one_or_none()
-            print("==========================================================")
-            if cf is None:
-                print('No existe el cargo')
-            else:
-                print(cf.nombre)
+            cf = s.query(Cargo).filter(Cargo.id == '245eae51-28c4-4c6b-9085-354606399666').one()
 
             u = s.query(Usuario).filter(Usuario.id == uid).one_or_none()
             if u is None:
@@ -84,3 +78,15 @@ if __name__ == '__main__':
                 s.commit()
 
             u = s.query(Usuario).filter(Usuario.id == uid).one()
+
+            d = s.query(Designacion).filter(Designacion.usuario_id == uid, Designacion.lugar_id == oficinaId).all()
+            if d is None or len(d) < 1:
+                logging.info('Creando designacion al usuario {} con id {} al lugar con id {}'.format(dni, uid, l.id))
+                d = Designacion()
+                d.usuario = u
+                d.cargo = cf
+                d.lugar = l
+                s.add(d)
+                s.commit()
+            else:
+                logging.info('El usuario {} ya posee designacion'.format(dni))
