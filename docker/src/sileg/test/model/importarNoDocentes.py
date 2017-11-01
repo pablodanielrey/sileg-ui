@@ -18,7 +18,7 @@ if __name__ == '__main__':
         os.environ['SILEG_DB_PASSWORD'],
         os.environ['SILEG_DB_HOST'],
         os.environ['SILEG_DB_NAME']
-    ))
+    ), echo=True)
 
     Session = sessionmaker(bind=engine)
 
@@ -65,8 +65,22 @@ if __name__ == '__main__':
                     s.commit()
                     logging.info("Se crea el lugar: {} id: {}".format(oficina, oficinaId))
 
+            l = s.query(Lugar).filter(Lugar.id == oficinaId).one()
+
+            print("==========================================================")
+            cf = s.query(CumpleFunciones).one_or_none()
+            print("==========================================================")
+            if cf is None:
+                print('No existe el cargo')
+            else:
+                print(cf.nombre)
+
             u = s.query(Usuario).filter(Usuario.id == uid).one_or_none()
             if u is None:
-                logging.info('El usuario {} no existe'.format(row[2] + ', ' + row[3]))
-            else:
-                logging.info('El usuario {} ya existe'.format(row[2] + ', ' + row[3]))
+                logging.info('Creando al usuario {} con id {}'.format(row[2] + ', ' + row[3], uid))
+                u = Usuario()
+                u.id = uid
+                s.add(u)
+                s.commit()
+
+            u = s.query(Usuario).filter(Usuario.id == uid).one()
