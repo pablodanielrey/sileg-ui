@@ -58,6 +58,13 @@ if __name__ == '__main__':
                     s.add(lugar)
                     s.commit()
                     logging.info("Se crea la secretaría: {} id: {}".format(oficina, oficinaId))
+
+                elif 'centro' in oficina.strip().lower():
+                    lugar = Centro(nombre=oficina)
+                    lugar.id = oficinaId
+                    s.add(lugar)
+                    s.commit()
+                    logging.info("Se crea el centro : {} id: {}".format(oficina, oficinaId))
                 else:
                     lugar = Lugar(nombre=oficina)
                     lugar.id = oficinaId
