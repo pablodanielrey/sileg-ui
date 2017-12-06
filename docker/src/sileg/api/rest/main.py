@@ -38,7 +38,9 @@ def designaciones():
     lugar = request.args.get('l',None)
     persona = request.args.get('p',None)
     historico = request.args.get('h',False,bool)
-    return SilegModel.designaciones(offset=offset, limit=limit, lugar=lugar, persona=persona, historico=historico)
+    designaciones = SilegModel.designaciones(offset=offset, limit=limit, lugar=lugar, persona=persona, historico=historico)
+    designaciones.append('cantidad:{}'.format(len(designaciones)))
+    return designaciones
 
 @app.route('/sileg/api/v1.0/prorrogas/<designacion>', methods=['GET', 'POST'])
 @jsonapi

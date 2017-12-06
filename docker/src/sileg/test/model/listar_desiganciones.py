@@ -84,15 +84,19 @@ if __name__ == '__main__':
             for d in u.designaciones:
                 if not d.lugar or not d.cargo:
                     continue
-                if not d.hasta or d.hasta >= ahora:
-                    if d.lugar.getNombre not in vistas:
-                        vistas.append(d.lugar.getNombre)
-                        linea = """{};{};{};{};{};{};{}\n""".format(
-                            juser['dni'],
-                            juser['nombre'],
-                            juser['apellido'],
-                            d.cargo.nombre,
-                            d.lugar.getNombre if d.lugar else '',
-                            d.desde,
-                            d.hasta)
-                        f.write(linea)
+                #if not d.hasta or d.hasta >= ahora:
+                if d.lugar.getNombre not in vistas:
+                    vistas.append(d.lugar.getNombre)
+                    if not juser:
+                        logging.info('Falta usuario en la designacion : {}'.format(d.id))
+                        continue
+                        
+                    linea = """{};{};{};{};{};{};{}\n""".format(
+                        juser['dni'],
+                        juser['nombre'],
+                        juser['apellido'],
+                        d.cargo.nombre,
+                        d.lugar.getNombre if d.lugar else '',
+                        d.desde,
+                        d.hasta)
+                    f.write(linea)
