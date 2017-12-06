@@ -143,8 +143,7 @@ class SilegModel:
         q = q.filter(Designacion.designacion_id == None, Designacion.tipo == 'original')
 
         if not historico:
-            ahora = datetime.datetime.now().date()
-            q = q.filter(or_(Designacion.hasta == None, Designacion.hasta >= ahora))
+            q = q.filter(or_(Designaciones.historico == None, Designacion.historico == False))
 
         q = cls._agregar_filtros_comunes(q, offset, limit, persona, lugar)
         #q = q.options(joinedload('usuario'), joinedload('cargo'))
