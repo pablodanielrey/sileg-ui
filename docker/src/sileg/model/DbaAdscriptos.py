@@ -34,5 +34,16 @@ class DbaAdscriptos:
           conn.close()
         
         
+        
+if __name__ == '__main__':
+  rows = DbaAdscriptos.periodos();
+  with open('adscripciones.csv', 'w', newline='') as csvfile:
+  
+    csvw = csv.writer(csvfile, delimiter=',', quotechar='\"', quoting=csv.QUOTE_NONNUMERIC)
+    csvw.writerow(["id", "desde", "hasta", "estado", "notas", "baja", "nombres", "apellidos", "DNI", "catedra", "departamento"])
+    for row in rows:
+      csvw.writerow(row)
+  return "se ha creado el archivo adscripciones.csv"
+        
    
         
