@@ -5,6 +5,7 @@ logging.getLogger().setLevel(logging.INFO)
 import os
 import psycopg2
 import psycopg2.extras
+import uuid
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -366,7 +367,7 @@ def prorrogasIniciales(tipoDesignacion):
                 resolucion_alta.resolucion_numero AS resolucion,  resolucion_alta.resolucion_expediente AS expediente,
                 resolucion_baja.resolucion_numero AS resolucion_baja, resolucion_baja.resolucion_expediente AS expediente_baja,
                 prorroga_prorroga_de_id AS id_designacion,
-                pers_nombres AS numero, pers_apellidos, pers_nrodoc
+                pers_nombres AS nombres, pers_apellidos AS apellidos, pers_nrodoc AS numero_documento
                 FROM prorroga
                 INNER JOIN empleado ON (prorroga.prorroga_idemp = empleado.empleado_id)  
                 INNER JOIN persona ON (empleado.empleado_pers_id = persona.pers_id)
@@ -405,7 +406,7 @@ def prorrogasDeIds(ids):
                 resolucion_alta.resolucion_numero AS resolucion,  resolucion_alta.resolucion_expediente AS expediente,
                 resolucion_baja.resolucion_numero AS resolucion_baja, resolucion_baja.resolucion_expediente AS expediente_baja,
                 prorroga_prorroga_de_id AS id_designacion,
-                pers_nombres AS numero, pers_apellidos, pers_nrodoc
+                pers_nombres AS nombres, pers_apellidos AS apellidos, pers_nrodoc AS numero_documento
                 FROM prorroga
                 INNER JOIN empleado ON (prorroga.prorroga_idemp = empleado.empleado_id)  
                 INNER JOIN persona ON (empleado.empleado_pers_id = persona.pers_id)
@@ -433,7 +434,7 @@ def prorrogasDeIds(ids):
 
 
 
-
+#consulta de todos los usuarios de profile.users, retorna un array de la forma users[dni] = id
 def users():
     host = os.environ['SILEG_DB_HOST']
     dbname = os.environ['SILEG_DB_NAME']
@@ -458,13 +459,36 @@ def users():
         conn.close()
 
 
+#consulta de todos los usuarios de profile.users, retorna un array de la forma users[dni] = id
+def insertUsuario(dni, nombres, apellidos):
+    host = os.environ['SILEG_DB_HOST']
+    dbname = os.environ['SILEG_DB_NAME']
+    user = os.environ['SILEG_DB_USER']
+    password = os.environ['SILEG_DB_PASSWORD']
+    conn = psycopg2.connect(host=host, dbname=dbname, user=user, password=password)
+    try:
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        try:
+            id = str(uuid.uuid4())
+
+            cur.execute('''
+                INSERT INTO profile.users (id, dni, nombres, apellidos) VALUES (%s, %s, %s, %s)
+            ''', (id, dni, nombres, apellidos))
+            cur.commit()          
+            return id
+        finally:
+          cur.close()
+    finally:
+        conn.close()
+        
+        
+        
 
 
-
-
-
-def setUsuario(dni, users, usuarios_faltantes):
+def setUsuario(datos, users):
     """
+        SI NO EXISTE NO SE CREA DIRECTAMENTE EN LA BASE SIN USAR SQLALCHEMY
+        
         carga el usuario dentro de las tablas internas del sistema chequeando con el sistema de perfiles de usuario principal.
 
         consulta para verificar:
@@ -474,15 +498,20 @@ def setUsuario(dni, users, usuarios_faltantes):
             left join profile.users u on (s.id = u.id)
             left join profile.mails m on (u.id = m.user_id);
     """
-
+    
+    dni = str(datos['numero_documento'])
     if dni not in users:
-        usuarios_faltantes.append(dni)
-        return None
+        print('no existe el usuario: ' + dni + ' se agregara directamente en profile.users\n')
+        userId = insertUsuario(dni, datos['nombres'], datos['apellidos'])
+        users[dni] =id
+    else
+
 
     userId = users[dni]
 
     usuario = session.query(Usuario).filter_by(id=userId).first()
     if not usuario:
+        print('no existe el usuario, se cargara: ' + userId + ' ' + dni + '\n')
         usuario = Usuario(id=userId)
         session.add(usuario)
         session.commit()  
@@ -495,14 +524,15 @@ def setUsuario(dni, users, usuarios_faltantes):
 
 
 def setLugarDocente(datos):
-
+    """
+    Define lugar a partir de las designaciones docentes
+    """
+    
     mat_ = datos["materia"].split("C.U.")
     dep = datos['departamento'].strip().lower()
     cat = datos['catedra'].strip().lower()
 
-    """
-    Define lugar a partir de las designaciones docentes
-    """
+    
     
     mat = None
     lugDic = None
@@ -524,6 +554,7 @@ def setLugarDocente(datos):
         #agregar materia
         materia = session.query(Materia).filter_by(nombre=mat).first()
         if not materia:
+            print('no existe materia, se cargara: ' +  mat  + '\n')
             materia = Materia(nombre=mat)
             session.add(materia)
             session.commit()  
@@ -531,12 +562,14 @@ def setLugarDocente(datos):
         #agregar catedra
         catedra = session.query(Catedra).filter_by(nombre=cat, materia_id=materia.id).first()
         if not catedra:
+            print('no existe catedra, se cargara: ' +  cat  + '\n')
             catedra = Catedra(nombre=cat, materia_id=materia.id)
             session.add(catedra)
             session.commit()  
             
         lugarDictado = session.query(LugarDictado).filter_by(nombre=lugDic, padre_id=catedra.id).first()
         if not lugarDictado:
+            print('no existe lugar dictado, se cargara: ' +  lugDic  + '\n')
             lugarDictado = LugarDictado(nombre=lugDic, padre_id=catedra.id)
             session.add(lugarDictado)
             session.commit()  
@@ -564,6 +597,7 @@ def setLugarDocente(datos):
         #agregar departamento
         departamento = session.query(Departamento).filter_by(nombre=dep).first()
         if not departamento:
+            print('no existe departamento, se cargara: ' +  dep  + '\n')
             departamento = Departamento(nombre=dep)
             session.add(departamento)
             session.commit()  
@@ -571,6 +605,7 @@ def setLugarDocente(datos):
         #agregar materia
         materia = session.query(Materia).filter_by(nombre=mat).first()
         if not materia:
+            print('no existe materia, se cargara: ' +  mat  + '\n')
             materia = Materia(nombre=mat)
             session.add(materia)
             session.commit()  
@@ -578,6 +613,7 @@ def setLugarDocente(datos):
         #agregar catedra
         catedra = session.query(Catedra).filter_by(nombre=cat, materia_id=materia.id).first()
         if not catedra:
+            print('no existe catedra, se cargara: ' +  cat  + '\n')
             catedra = Catedra(nombre=cat, materia_id=materia.id, padre_id=departamento.id)
             session.add(catedra)
             session.commit()  
@@ -607,6 +643,7 @@ def setLugarTrabajo(datos):
             
         lugar = session.query(Secretaria).filter_by(nombre=lug).first() 
         if not lugar:
+            print('no existe secretaria, se cargara: ' +  lug  + '\n')
             lugar = Secretaria(nombre=lug)
             session.add(lugar)
             session.commit()                  
@@ -617,6 +654,7 @@ def setLugarTrabajo(datos):
             
         lugar = session.query(Prosecretaria).filter_by(nombre=lug).first() 
         if not lugar:
+            print('no existe prosecretaria, se cargara: ' +  lug  + '\n')
             lugar = Prosecretaria(nombre=lug)
             session.add(lugar)
             session.commit()            
@@ -627,6 +665,7 @@ def setLugarTrabajo(datos):
             
         lugar = session.query(Maestria).filter_by(nombre=lug).first() 
         if not lugar:
+            print('no existe maestria, se cargara: ' +  lug  + '\n')
             lugar = Maestria(nombre=lug)
             session.add(lugar)
             session.commit()              
@@ -637,6 +676,7 @@ def setLugarTrabajo(datos):
             
         lugar = session.query(Instituto).filter_by(nombre=lug).first() 
         if not lugar:
+            print('no existe instituto, se cargara: ' +  lug  + '\n')
             lugar = Instituto(nombre=lug)
             session.add(lugar)
             session.commit()
@@ -647,6 +687,7 @@ def setLugarTrabajo(datos):
             
         lugar = session.query(Escuela).filter_by(nombre=lug).first() 
         if not lugar:
+            print('no existe escuela, se cargara: ' +  lug  + '\n')
             lugar = Escuela(nombre=lug)
             session.add(lugar)
             session.commit()
@@ -657,6 +698,7 @@ def setLugarTrabajo(datos):
             
         lugar = session.query(Direccion).filter_by(nombre=lug).first() 
         if not lugar:
+            print('no existe direccion, se cargara: ' +  lug  + '\n')       
             lugar = Direccion(nombre=lug)
             session.add(lugar)
             session.commit()
@@ -667,6 +709,7 @@ def setLugarTrabajo(datos):
         
         lugar = session.query(Departamento).filter_by(nombre=lug).first() 
         if not lugar:
+            print('no existe departamento, se cargara: ' +  lug  + '\n')
             lugar = Departamento(nombre=lug)
             session.add(lugar)
             session.commit()
@@ -677,6 +720,7 @@ def setLugarTrabajo(datos):
         
         lugar = session.query(Centro).filter_by(nombre=lug).first() 
         if not lugar:
+            print('no existe centro, se cargara: ' +  lug  + '\n')
             lugar = Centro(nombre=lug)
             session.add(lugar)                
             session.commit()
@@ -686,6 +730,7 @@ def setLugarTrabajo(datos):
           #agregar lugares sin tipo
           lugar = session.query(Lugar).filter_by(nombre="decanato").first() 
           if not lugar:
+              print('no existe lugar, se cargara: decanato\n')
               lugar = Lugar(nombre="decanato")
               session.add(lugar)
               session.commit()
@@ -693,6 +738,7 @@ def setLugarTrabajo(datos):
         elif "prosecr" in lug:           
             lugar = session.query(Prosecretaria).filter_by(nombre=lug).first() 
             if not lugar:
+                print('no existe prosecretaria, se cargara: ' +  lug  + '\n')
                 lugar = Prosecretaria(nombre=lug)
                 session.add(lugar)
                 session.commit()
@@ -700,6 +746,7 @@ def setLugarTrabajo(datos):
         elif "secr" in lug:
             lugar = session.query(Secretaria).filter_by(nombre=lug).first() 
             if not lugar:
+                print('no existe secretaria, se cargara: ' +  lug  + '\n')
                 lugar = Secretaria(nombre=lug)
                 session.add(lugar)                    
                 session.commit()
@@ -726,11 +773,12 @@ def setLugarTrabajo(datos):
     
     
     
-
+#verifica si existe cargo, si no existe lo crea
 def setCargo(car):
 
     cargo = session.query(Cargo).filter_by(nombre=car).first()
     if not cargo:
+        print('no existe cargo, se cargara: ' +  car  + '\n')
         cargo = Cargo(nombre=car, tipo='Docente')
         session.add(cargo)
         session.commit()  
@@ -752,6 +800,7 @@ def setCategorias(datos):
     #dedicacion siempre existe
     dedicacion = session.query(Categoria).filter_by(nombre=ded).first()
     if not dedicacion:
+        print('no existe categoria, se cargara: ' +  ded  + '\n')
         categoria = Categoria(nombre=ded)
         categorias.append(categoria)
            
@@ -760,6 +809,7 @@ def setCategorias(datos):
         carac = datos["caracter"].strip().lower()                               
         caracter = session.query(Categoria).filter_by(nombre=carac).first()
         if not caracter:
+            print('no existe categoria, se cargara: ' +  carac  + '\n')
             categoria = Categoria(nombre=carac)
             categorias.append(categoria)
 
@@ -770,11 +820,13 @@ def setCategorias(datos):
         if "acad" in func:
             categoria = session.query(Categoria).filter_by(nombre="academico").first()
             if not categoria:
+                print('no existe categoria, se define: academico\n')
                 categoria = Categoria(nombre = "academico")   
                 
         if "docente" in func:
             categoria = session.query(Categoria).filter_by(nombre="docente").first()
             if not categoria:
+                print('no existe categoria, se define: docente\n')
                 categoria = Categoria(nombre = "docente")   
         
         
@@ -786,26 +838,31 @@ def setCategorias(datos):
         elif "codir" in func:
             categoria = session.query(Categoria).filter_by(nombre="codirector").first()
             if not categoria:
+                print('no existe categoria, se define: codirector\n')
                 categoria = Categoria(nombre = "codirector")      
         
         elif "coord" in func:
             categoria = session.query(Categoria).filter_by(nombre="coordinador").first()
             if not categoria:
+                print('no existe categoria, se define: coordinador\n')
                 categoria = Categoria(nombre = "coordinador")
 
         elif "director" in func:
             categoria = session.query(Categoria).filter_by(nombre="director").first()
             if not categoria:
+                print('no existe categoria, se define: director\n')
                 categoria = Categoria(nombre = "director")          
 
         elif "investigador" in func:
             categoria = session.query(Categoria).filter_by(nombre="investigador").first()
             if not categoria:
+                print('no existe categoria, se define: investigador\n')
                 categoria = Categoria(nombre = "investigador")
                 
         elif "seminario" in func:
             categoria = session.query(Categoria).filter_by(nombre="seminario").first()
             if not categoria:
+                print('no existe categoria, se define: seminario\n')
                 categoria = Categoria(nombre = "seminario")
         
         else:
@@ -832,6 +889,7 @@ def setDesignacion(datos, cargo, lugar, usuario, categorias):
         
     designacion = session.query(Designacion).filter_by(old_id=old_id).first()
     if not designacion:
+        print('no existe designacion, se cargara: ' + old_id + '\n')
         designacion = Designacion(tipo='original', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo=cargo, lugar=lugar, usuario=usuario, old_id=old_id)
         designacion.categorias = categorias
         session.add(designacion)
@@ -842,6 +900,7 @@ def setDesignacion(datos, cargo, lugar, usuario, categorias):
         old_id_baja = "baja" + old_id
         designacionBaja = session.query(Designacion).filter_by(old_id=old_id_baja).first()
         if not designacionBaja:
+            print('no existe designacion de baja, se cargara: ' + old_id_baja + '\n')
             designacionBaja = Designacion(tipo='baja', desde=desde_baja, expediente=expe_baja, resolucion=res_baja, cargo=cargo, lugar=lugar, usuario=usuario, designacion_id=designacion.id, old_id=old_id_baja)
             session.add(designacionBaja)
             session.commit()  
@@ -874,14 +933,14 @@ def setExtension(datos, lugar, categorias):
     if not extension:
         designacion = session.query(Designacion).filter_by(old_id=old_id_designacion).first()
         if not designacion:
-            print("No esta definida la designacion " + old_id_designacion)
+            print("No esta definida la designacion para agregar la extension" + old_id_designacion)
             return 
          
         usuario_id = designacion.usuario_id
         cargo_id = designacion.cargo_id
     
         
-        
+        print('no existe extension, se cargara: ' + old_id_extension + '\n')
         extension = Designacion(tipo='extension', desde=desde_baja, hasta=hasta, expediente=expe, cargo_id=cargo_id, resolucion=res, lugar=lugar, usuario_id=usuario_id, designacion_id=designacion.id, old_id=old_id_extension)
         extension.categorias = categorias
         session.add(extension)
@@ -893,6 +952,7 @@ def setExtension(datos, lugar, categorias):
             old_id_baja = "baja" + old_id_extension
             designacionBaja = session.query(Designacion).filter_by(old_id=old_id_baja).first()
             if not designacionBaja:
+                print('no existe designacion de baja, se cargara: ' + old_id_baja + '\n')
                 designacionBaja = Designacion(tipo='baja', desde=desde_baja, expediente=expe_baja, resolucion=res_baja, cargo_id=cargo_id, lugar=lugar, usuario_id=usuario_id, designacion_id=designacion.id, old_id=old_id_baja)
                 session.add(designacionBaja)
                 session.commit()  
@@ -915,14 +975,14 @@ def setProrroga(datos, oldIdDesignacion):
     if not prorroga:
         designacion = session.query(Designacion).filter_by(old_id=oldIdDesignacion).first()
         if not designacion:
-            print("No esta definida la designacion " + oldIdDesignacion)
+            print("No esta definida la designacion para agregar prorroga" + oldIdDesignacion)
             return False
          
         usuario_id = designacion.usuario_id
         cargo_id = designacion.cargo_id
         lugar_id = designacion.lugar_id
     
-        
+        print('no existe prorroga, se cargara: ' + old_id_prorroga + '\n')
         prorroga = Designacion(tipo='prorroga', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo_id=cargo_id, lugar_id=lugar_id, usuario_id=usuario_id, designacion_id=designacion.id, old_id=old_id_prorroga)
 
         session.add(prorroga)
@@ -946,16 +1006,17 @@ def setProrrogaDeProrroga(datos, oldIdProrroga):
     if not prorroga:
         designacion = session.query(Designacion).filter_by(old_id=oldIdDesignacion).first()
         if not designacion:
-            print("No esta definida la prorroga " + oldIdProrroga)
+            print("No esta definida la prorroga para agregar prorroga" + oldIdProrroga)
             return False
          
         usuario_id = designacion.usuario_id
         cargo_id = designacion.cargo_id
         lugar_id = designacion.lugar_id
     
-        
+        print('no existe prorroga, se cargara: ' + old_id_prorroga + '\n')
         prorroga = Designacion(tipo='prorroga', desde=desde, hasta=hasta, expediente=expe, resolucion=res, cargo_id=cargo_id, lugar_id=lugar_id, usuario_id=usuario_id, designacion_id=designacion.designacion_id, old_id=old_id_prorroga)
-
+        
+        
         session.add(prorroga)
         session.commit()  
         
@@ -969,11 +1030,11 @@ def setProrrogaDeProrroga(datos, oldIdProrroga):
 if __name__ == '__main__':
     usuarios_faltantes = []
     
-    users = users()
+    users = users() #consulta de todos los usuarios de profile.users (id y dni)
 
     logging.info('designaciones docentes\n')
     for datos in designacionesDocentes():
-        usuario = setUsuario(str(datos['numero_documento']), users, usuarios_faltantes)
+        usuario = setUsuario(datos, users)
         cargo = setCargo(datos["cargo"].strip().lower())
         lugar = setLugarDocente(datos)
         categorias = setCategorias(datos)
@@ -982,7 +1043,7 @@ if __name__ == '__main__':
     
     logging.info('designaciones lugar\n')
     for datos in designacionesLugares():
-        usuario = setUsuario(str(datos['numero_documento']), users, usuarios_faltantes)
+        usuario = setUsuario(datos, users)
         cargo = setCargo(datos["cargo"].strip().lower())
         lugar = setLugarTrabajo(datos)
         categorias = setCategorias(datos)
