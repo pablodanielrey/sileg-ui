@@ -32,10 +32,10 @@ session = Session();
 
 def designacionesDocentes():
     """ conexion con la base antigua del sileg para obtener las designaciones docentes """
-    host = os.environ['SILEG_OLD_DB_HOST']
-    dbname = os.environ['SILEG_OLD_DB_NAME']
-    user = os.environ['SILEG_OLD_DB_USER']
-    password = os.environ['SILEG_OLD_DB_PASSWORD']
+    host = os.environ['SILEG_VIEJO_DB_HOST']
+    dbname = os.environ['SILEG_VIEJO_DB_NAME']
+    user = os.environ['SILEG_VIEJO_DB_USER']
+    password = os.environ['SILEG_VIEJO_DB_PASSWORD']
     conn = psycopg2.connect(host=host, dbname=dbname, user=user, password=password)
     try:
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -85,10 +85,10 @@ def designacionesDocentes():
 
 def designacionesLugares():
     """ conexion con la base antigua del sileg para obtener las designaciones a un lugar de trabajo """
-    host = os.environ['SILEG_OLD_DB_HOST']
-    dbname = os.environ['SILEG_OLD_DB_NAME']
-    user = os.environ['SILEG_OLD_DB_USER']
-    password = os.environ['SILEG_OLD_DB_PASSWORD']
+    host = os.environ['SILEG_VIEJO_DB_HOST']
+    dbname = os.environ['SILEG_VIEJO_DB_NAME']
+    user = os.environ['SILEG_VIEJO_DB_USER']
+    password = os.environ['SILEG_VIEJO_DB_PASSWORD']
     conn = psycopg2.connect(host=host, dbname=dbname, user=user, password=password)
     try:
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -138,10 +138,10 @@ def designacionesLugares():
 
 def extensionesDocentesDeDesignacionesDocentes():
     """ conexion con la base antigua del sileg para obtener las designaciones docentes """
-    host = os.environ['SILEG_OLD_DB_HOST']
-    dbname = os.environ['SILEG_OLD_DB_NAME']
-    user = os.environ['SILEG_OLD_DB_USER']
-    password = os.environ['SILEG_OLD_DB_PASSWORD']
+    host = os.environ['SILEG_VIEJO_DB_HOST']
+    dbname = os.environ['SILEG_VIEJO_DB_NAME']
+    user = os.environ['SILEG_VIEJO_DB_USER']
+    password = os.environ['SILEG_VIEJO_DB_PASSWORD']
     conn = psycopg2.connect(host=host, dbname=dbname, user=user, password=password)
     try:
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -193,10 +193,10 @@ def extensionesDocentesDeDesignacionesDocentes():
 
 def extensionesDocentesDeDesignacionesLugares():
     """ conexion con la base antigua del sileg para obtener las designaciones docentes """
-    host = os.environ['SILEG_OLD_DB_HOST']
-    dbname = os.environ['SILEG_OLD_DB_NAME']
-    user = os.environ['SILEG_OLD_DB_USER']
-    password = os.environ['SILEG_OLD_DB_PASSWORD']
+    host = os.environ['SILEG_VIEJO_DB_HOST']
+    dbname = os.environ['SILEG_VIEJO_DB_NAME']
+    user = os.environ['SILEG_VIEJO_DB_USER']
+    password = os.environ['SILEG_VIEJO_DB_PASSWORD']
     conn = psycopg2.connect(host=host, dbname=dbname, user=user, password=password)
     try:
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -246,10 +246,10 @@ def extensionesDocentesDeDesignacionesLugares():
 
 def extensionesLugaresDeDesignacionesDocentes():
     """ conexion con la base antigua del sileg para obtener las designaciones docentes """
-    host = os.environ['SILEG_OLD_DB_HOST']
-    dbname = os.environ['SILEG_OLD_DB_NAME']
-    user = os.environ['SILEG_OLD_DB_USER']
-    password = os.environ['SILEG_OLD_DB_PASSWORD']
+    host = os.environ['SILEG_VIEJO_DB_HOST']
+    dbname = os.environ['SILEG_VIEJO_DB_NAME']
+    user = os.environ['SILEG_VIEJO_DB_USER']
+    password = os.environ['SILEG_VIEJO_DB_PASSWORD']
     conn = psycopg2.connect(host=host, dbname=dbname, user=user, password=password)
     try:
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -300,10 +300,10 @@ def extensionesLugaresDeDesignacionesDocentes():
 
 def extensionesLugaresDeDesignacionesLugares():
     """ conexion con la base antigua del sileg para obtener las designaciones """
-    host = os.environ['SILEG_OLD_DB_HOST']
-    dbname = os.environ['SILEG_OLD_DB_NAME']
-    user = os.environ['SILEG_OLD_DB_USER']
-    password = os.environ['SILEG_OLD_DB_PASSWORD']
+    host = os.environ['SILEG_VIEJO_DB_HOST']
+    dbname = os.environ['SILEG_VIEJO_DB_NAME']
+    user = os.environ['SILEG_VIEJO_DB_USER']
+    password = os.environ['SILEG_VIEJO_DB_PASSWORD']
     conn = psycopg2.connect(host=host, dbname=dbname, user=user, password=password)
     try:
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -350,10 +350,10 @@ def extensionesLugaresDeDesignacionesLugares():
 
 def prorrogasIniciales(tipoDesignacion):
     """ tipoDesignacion = 'des' | 'ext' | 'pro' """
-    host = os.environ['SILEG_OLD_DB_HOST']
-    dbname = os.environ['SILEG_OLD_DB_NAME']
-    user = os.environ['SILEG_OLD_DB_USER']
-    password = os.environ['SILEG_OLD_DB_PASSWORD']
+    host = os.environ['SILEG_VIEJO_DB_HOST']
+    dbname = os.environ['SILEG_VIEJO_DB_NAME']
+    user = os.environ['SILEG_VIEJO_DB_USER']
+    password = os.environ['SILEG_VIEJO_DB_PASSWORD']
     conn = psycopg2.connect(host=host, dbname=dbname, user=user, password=password)
     try:
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -389,10 +389,10 @@ def prorrogasIniciales(tipoDesignacion):
 
 
 def prorrogasDeIds(ids):
-    host = os.environ['SILEG_OLD_DB_HOST']
-    dbname = os.environ['SILEG_OLD_DB_NAME']
-    user = os.environ['SILEG_OLD_DB_USER']
-    password = os.environ['SILEG_OLD_DB_PASSWORD']
+    host = os.environ['SILEG_VIEJO_DB_HOST']
+    dbname = os.environ['SILEG_VIEJO_DB_NAME']
+    user = os.environ['SILEG_VIEJO_DB_USER']
+    password = os.environ['SILEG_VIEJO_DB_PASSWORD']
     conn = psycopg2.connect(host=host, dbname=dbname, user=user, password=password)
     try:
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -472,7 +472,7 @@ def insertUsuario(dni, nombres, apellidos):
             id = str(uuid.uuid4())
 
             cur.execute('''
-                INSERT INTO profile.users (id, dni, nombres, apellidos) VALUES (%s, %s, %s, %s)
+                INSERT INTO profile.users (id, dni, name, lastname) VALUES (%s, %s, %s, %s)
             ''', (id, dni, nombres, apellidos))
             cur.commit()          
             return id
@@ -501,17 +501,15 @@ def setUsuario(datos, users):
     
     dni = str(datos['numero_documento'])
     if dni not in users:
-        print('no existe el usuario: ' + dni + ' se agregara directamente en profile.users\n')
+        print('no existe el usuario dni ' + dni + ', se agregara directamente en profile.users\n')
         userId = insertUsuario(dni, datos['nombres'], datos['apellidos'])
         users[dni] =id
-    else
-
-
-    userId = users[dni]
+    else:
+        userId = users[dni]
 
     usuario = session.query(Usuario).filter_by(id=userId).first()
     if not usuario:
-        print('no existe el usuario, se cargara: ' + userId + ' ' + dni + '\n')
+        print('no existe el usuario en el sileg nuevo, se cargara: ' + userId + ' ' + dni + '\n')
         usuario = Usuario(id=userId)
         session.add(usuario)
         session.commit()  
@@ -800,7 +798,6 @@ def setCategorias(datos):
     #dedicacion siempre existe
     dedicacion = session.query(Categoria).filter_by(nombre=ded).first()
     if not dedicacion:
-        print('no existe categoria, se cargara: ' +  ded  + '\n')
         categoria = Categoria(nombre=ded)
         categorias.append(categoria)
            
@@ -809,7 +806,6 @@ def setCategorias(datos):
         carac = datos["caracter"].strip().lower()                               
         caracter = session.query(Categoria).filter_by(nombre=carac).first()
         if not caracter:
-            print('no existe categoria, se cargara: ' +  carac  + '\n')
             categoria = Categoria(nombre=carac)
             categorias.append(categoria)
 
@@ -820,13 +816,11 @@ def setCategorias(datos):
         if "acad" in func:
             categoria = session.query(Categoria).filter_by(nombre="academico").first()
             if not categoria:
-                print('no existe categoria, se define: academico\n')
                 categoria = Categoria(nombre = "academico")   
                 
         if "docente" in func:
             categoria = session.query(Categoria).filter_by(nombre="docente").first()
             if not categoria:
-                print('no existe categoria, se define: docente\n')
                 categoria = Categoria(nombre = "docente")   
         
         
@@ -838,31 +832,26 @@ def setCategorias(datos):
         elif "codir" in func:
             categoria = session.query(Categoria).filter_by(nombre="codirector").first()
             if not categoria:
-                print('no existe categoria, se define: codirector\n')
                 categoria = Categoria(nombre = "codirector")      
         
         elif "coord" in func:
             categoria = session.query(Categoria).filter_by(nombre="coordinador").first()
             if not categoria:
-                print('no existe categoria, se define: coordinador\n')
                 categoria = Categoria(nombre = "coordinador")
 
         elif "director" in func:
             categoria = session.query(Categoria).filter_by(nombre="director").first()
             if not categoria:
-                print('no existe categoria, se define: director\n')
                 categoria = Categoria(nombre = "director")          
 
         elif "investigador" in func:
             categoria = session.query(Categoria).filter_by(nombre="investigador").first()
             if not categoria:
-                print('no existe categoria, se define: investigador\n')
                 categoria = Categoria(nombre = "investigador")
                 
         elif "seminario" in func:
             categoria = session.query(Categoria).filter_by(nombre="seminario").first()
             if not categoria:
-                print('no existe categoria, se define: seminario\n')
                 categoria = Categoria(nombre = "seminario")
         
         else:
@@ -1028,7 +1017,7 @@ def setProrrogaDeProrroga(datos, oldIdProrroga):
 
 
 if __name__ == '__main__':
-    usuarios_faltantes = []
+
     
     users = users() #consulta de todos los usuarios de profile.users (id y dni)
 
@@ -1123,7 +1112,3 @@ if __name__ == '__main__':
     logging.info("no se procesan mas prorrogas, quedaron sin cargar " + str(cantidad))   
         
         
-      
-
-    logging.info('Usuarios Faltantes\n')
-    logging.info(usuarios_faltantes)

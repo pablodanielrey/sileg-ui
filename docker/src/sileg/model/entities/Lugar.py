@@ -40,6 +40,12 @@ class Catedra(Lugar):
     materia_id = Column(String, ForeignKey('sileg.materia.id'))
     materia = relationship("Materia")
 
+    def __init__(self, nombre, materia_id, padre_id):
+        self.nombre = nombre
+        self.materia_id = materia_id
+        self.padre_id = padre_id
+
+
     @property
     def getNombre(self):
         return self.nombre + ' ' + self.materia.nombre
