@@ -91,7 +91,10 @@ if __name__ == '__main__':
                         logging.info('Falta usuario en la designacion : {}'.format(d.id))
                         continue
 
-                    email = [m['email'] for m in juser['mails'] if 'econo' in m['email']][0]
+                    emails = [m['email'] for m in juser['mails'] if 'econo' in m['email']]
+                    email = 'No tiene'
+                    if len(emails) > 0:
+                        email = emails[0]
 
                     linea = """{};{};{};{};{};{};{}\n""".format(
                         juser['dni'],
