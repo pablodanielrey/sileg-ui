@@ -90,11 +90,14 @@ if __name__ == '__main__':
                     if not juser:
                         logging.info('Falta usuario en la designacion : {}'.format(d.id))
                         continue
-                        
+
+                    email = [m['email'] for m in juser['mails'] if 'econo' in m['email']][0]
+
                     linea = """{};{};{};{};{};{};{}\n""".format(
                         juser['dni'],
                         juser['nombre'],
                         juser['apellido'],
+                        email,
                         d.cargo.nombre,
                         d.lugar.getNombre if d.lugar else '',
                         d.desde,
