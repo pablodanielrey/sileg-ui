@@ -1,4 +1,0 @@
-psycopg2
-dateutils
-python-redmine==2.0.2
-pyqrcode>=1.2.1
