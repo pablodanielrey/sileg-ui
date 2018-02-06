@@ -8,10 +8,10 @@ class Lugar(Base):
     nombre = Column(String)
     tipo = Column(String)
 
-    padre_id = Column(String, ForeignKey('sileg.lugar.id'))
+    padre_id = Column(String, ForeignKey('lugar.id'))
     hijos = relationship("Lugar",  foreign_keys=[padre_id], backref=backref('padre', remote_side="Lugar.id"))
 
-    cambio_id = Column(String, ForeignKey('sileg.lugar.id'))
+    cambio_id = Column(String, ForeignKey('lugar.id'))
     cambios = relationship("Lugar",  foreign_keys=[cambio_id], backref=backref('cambio', remote_side="Lugar.id"))
 
     __mapper_args__ = {
@@ -34,8 +34,8 @@ class Lugar(Base):
 class Catedra(Lugar):
     __tablename__ = 'catedra'
 
-    id = Column(String, ForeignKey('sileg.lugar.id'), primary_key=True, default=generateId)
-    materia_id = Column(String, ForeignKey('sileg.materia.id'))
+    id = Column(String, ForeignKey('lugar.id'), primary_key=True, default=generateId)
+    materia_id = Column(String, ForeignKey('materia.id'))
     materia = relationship("Materia")
 
     def __init__(self, nombre, materia_id, padre_id):

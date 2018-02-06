@@ -7,8 +7,8 @@ from .Lugar import Lugar
 from .Usuario import Usuario
 
 categoria_designacion_table = Table('categoria_designacion', Base.metadata,
-    Column('designacion_id', String, ForeignKey('sileg.designacion.id')),
-    Column('categoria_id', String, ForeignKey('sileg.categoria.id'))
+    Column('designacion_id', String, ForeignKey('designacion.id')),
+    Column('categoria_id', String, ForeignKey('categoria.id'))
 )
 
 class Designacion(Base):
@@ -25,19 +25,19 @@ class Designacion(Base):
     tipo = Column(String)
     categorias = relationship('Categoria', secondary=categoria_designacion_table, back_populates='designaciones')
 
-    designacion_id = Column(String, ForeignKey('sileg.designacion.id'))
+    designacion_id = Column(String, ForeignKey('designacion.id'))
     designacion = relationship('Designacion', foreign_keys=[designacion_id])
     #designacion = relationship('Designacion', back_populates='designaciones')
 
     #designaciones = relationship('Designacion', back_populates='designacion')
 
-    usuario_id = Column(String, ForeignKey('sileg.usuario.id'))
+    usuario_id = Column(String, ForeignKey('usuario.id'))
     usuario = relationship('Usuario', back_populates='designaciones')
 
-    cargo_id = Column(String, ForeignKey('sileg.cargo.id'))
+    cargo_id = Column(String, ForeignKey('cargo.id'))
     cargo = relationship('Cargo', back_populates='designaciones')
 
-    lugar_id = Column(String, ForeignKey('sileg.lugar.id'))
+    lugar_id = Column(String, ForeignKey('lugar.id'))
     lugar = relationship('Lugar', back_populates='designaciones')
 
     old_id = Column(String)
