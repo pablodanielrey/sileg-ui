@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Sileg</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+
+
+
+  <script src="/lib/angular/angular-1.6.4/angular.min.js"></script>
+  <script src="/lib/angular/angular-1.6.4/angular-route.min.js"></script>
+  <script src="/lib/angular/angular-1.6.4/angular-animate.min.js"></script>
+  <script src="/lib/angular/angular-1.6.4/i18n/angular-locale_es-ar.js"></script>
+  <script src="/lib/angular/ui-bootstrap-tpls-2.5.0/ui-bootstrap-tpls-2.5.0.min.js"></script>
+
+
+  <script src="/config/Angular.js"></script>
+  <script src="/route.js"></script>
+
+  <script src="/service/Server.js"></script>
+
+  <script src="/index.js"></script>
+  
+  
+  <script src="/component/grillaDesignaciones/Controller.js"></script>
+ 
+  
+
+</head>
+<body class="container-fluid" ng-app="MainApp" ng-controller="IndexCtrl">
+
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-include="'/component/menu/adminMenu.html?r='+nocache"></nav>
+
+  <header ng-show="mainTitle" class="well text-info text-center"><h2>{{mainTitle}}</h2></header>
+
+  <div ng-view></div>
+
+</body>
+</html>
