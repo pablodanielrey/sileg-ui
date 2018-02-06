@@ -11,7 +11,6 @@ import requests
 class Usuario(Base):
 
     __tablename__ = 'usuario'
-    __table_args__ = {'schema':'sileg'}
 
     designaciones = relationship('Designacion', back_populates='designacion')
 

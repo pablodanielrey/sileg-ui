@@ -8,14 +8,12 @@ from .Usuario import Usuario
 
 categoria_designacion_table = Table('categoria_designacion', Base.metadata,
     Column('designacion_id', String, ForeignKey('sileg.designacion.id')),
-    Column('categoria_id', String, ForeignKey('sileg.categoria.id')),
-    schema='sileg'
+    Column('categoria_id', String, ForeignKey('sileg.categoria.id'))
 )
 
 class Designacion(Base):
 
     __tablename__ = 'designacion'
-    __table_args__ = {'schema':'sileg'}
 
     desde = Column(Date)
     hasta = Column(Date)
@@ -70,7 +68,6 @@ class BajaDesignacion(Designacion):
 class Categoria(Base):
 
     __tablename__ = 'categoria'
-    __table_args__ = {'schema':'sileg'}
 
     nombre = Column(String, unique=True)
 

@@ -4,7 +4,6 @@ from model_utils import Base, generateId
 
 class Lugar(Base):
     __tablename__ = 'lugar'
-    __table_args__ = {'schema':'sileg'}
 
     nombre = Column(String)
     tipo = Column(String)
@@ -34,7 +33,6 @@ class Lugar(Base):
 
 class Catedra(Lugar):
     __tablename__ = 'catedra'
-    __table_args__ = {'schema':'sileg'}
 
     id = Column(String, ForeignKey('sileg.lugar.id'), primary_key=True, default=generateId)
     materia_id = Column(String, ForeignKey('sileg.materia.id'))
