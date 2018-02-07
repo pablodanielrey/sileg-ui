@@ -20,6 +20,7 @@ class SilegModel:
         else:
             r = requests.get(api, params=params)
 
+        logging.debug(r)
         if not r.ok:
             return None
         return r.json()
