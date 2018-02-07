@@ -1,5 +1,5 @@
 import logging
-logging.getLogger().setLevel(logging.INFO)
+logging.getLogger().setLevel(logging.DEBUG)
 import sys
 from dateutil import parser
 
@@ -28,6 +28,7 @@ def usuarios(uid=None):
     else:
         fecha_str = request.args.get('f', None)
         fecha = parser.parse(fecha_str) if fecha_str else None
+        logging.debug('usuarios')
         return SilegModel.usuarios(search=search, retornarClave=c, offset=offset, limit=limit, fecha=fecha)
 
 @app.route('/sileg/api/v1.0/designaciones/', methods=['GET', 'POST'])

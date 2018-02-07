@@ -20,7 +20,7 @@ class SilegModel:
     client_secret = os.environ['OIDC_CLIENT_SECRET']
 
     @classmethod
-    def api(api, params=None):
+    def api(cls, api, params=None):
         ''' obtengo un token mediante el flujo client_credentials para poder llamar a la api de usuarios '''
         grant = ClientCredentialsGrant(cls.client_id, cls.client_secret)
         token = grant.get_token(grant.access_token())
@@ -31,8 +31,8 @@ class SilegModel:
         headers = {
             'Authorization': 'Bearer {}'.format(token)
         }
-        r = requests.post(api, verify=cls.verify, headers=headers, params=params)
-        loggging.debug(r)
+        r = requests.get(api, verify=cls.verify, headers=headers, params=params)
+        logging.debug(r)
         return r
 
     @classmethod
@@ -75,10 +75,15 @@ class SilegModel:
             params['f'] = fecha
         if retornarClave:
             params['c'] = True
+
+        logging.debug(query)
         r = cls.api(query, params)
         if not r.ok:
             return []
 
+        if not fecha:
+            fecha = datetime.datetime.now()
+            
         usrs = r.json()
         idsProcesados = {}
         session = Session()
