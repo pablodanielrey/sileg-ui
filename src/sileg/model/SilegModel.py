@@ -5,35 +5,45 @@ import requests
 import os
 import logging
 
+import oidc
+from oidc.oidc import ClientCredentialsGrant
+
 from .entities import *
 from . import Session
 
 
 class SilegModel:
 
+    verify = True
     usuarios_url = os.environ['USERS_API_URL']
+    client_id = os.environ['OIDC_CLIENT_ID']
+    client_secret = os.environ['OIDC_CLIENT_SECRET']
 
-    @staticmethod
+    @classmethod
     def api(api, params=None):
-        r = None
-        if not params:
-            r = requests.get(api)
-        else:
-            r = requests.get(api, params=params)
+        ''' obtengo un token mediante el flujo client_credentials para poder llamar a la api de usuarios '''
+        grant = ClientCredentialsGrant(cls.client_id, cls.client_secret)
+        token = grant.get_token(grant.access_token())
+        if not token:
+            raise LoginError()
 
-        logging.debug(r)
-        if not r.ok:
-            return None
-        return r.json()
+        ''' se deben cheqeuar intentos de login, y disparar : SeguridadError en el caso de que se haya alcanzado el máximo de intentos '''
+        headers = {
+            'Authorization': 'Bearer {}'.format(token)
+        }
+        r = requests.post(api, verify=cls.verify, headers=headers, params=params)
+        loggging.debug(r)
+        return r
 
     @classmethod
     def usuario(cls, uid, retornarClave=False):
         query = cls.usuarios_url + '/usuarios/' + uid
         query = query + '?c=True' if retornarClave else query
-        usr = cls.api(query)
-        if not usr:
+        r = cls.api(query)
+        if not r.ok:
             return []
 
+        usr = r.json()
         session = Session()
         try:
             susr = session.query(Usuario).filter(Usuario.id == uid).one_or_none()
@@ -65,11 +75,11 @@ class SilegModel:
             params['f'] = fecha
         if retornarClave:
             params['c'] = True
-        usrs = cls.api(query, params)
-
-        if not usrs:
+        r = cls.api(query, params)
+        if not r.ok:
             return []
 
+        usrs = r.json()
         idsProcesados = {}
         session = Session()
         try:
@@ -88,7 +98,10 @@ class SilegModel:
             for u in session.query(Usuario).filter(or_(Usuario.creado >= fecha, Usuario.actualizado >= fecha)).all():
                 if u.id not in idsProcesados.keys():
                     query = '{}/{}/{}'.format(cls.usuarios_url, 'usuarios', u.id)
-                    usr = cls.api(query)
+                    r = cls.api(query)
+                    if not r.ok:
+                        continue
+                    usr = r.json()
                     if usr:
                         rusers.append({
                             'agregado': True,
