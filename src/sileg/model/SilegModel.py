@@ -20,12 +20,18 @@ class SilegModel:
     client_secret = os.environ['OIDC_CLIENT_SECRET']
 
     @classmethod
-    def api(cls, api, params=None):
+    def _get_token(cls):
         ''' obtengo un token mediante el flujo client_credentials para poder llamar a la api de usuarios '''
         grant = ClientCredentialsGrant(cls.client_id, cls.client_secret)
         token = grant.get_token(grant.access_token())
         if not token:
-            raise LoginError()
+            raise Exception()
+        return token
+
+    @classmethod
+    def api(cls, api, params=None, token=None):
+        if not token:
+            token = cls._get_token()
 
         ''' se deben cheqeuar intentos de login, y disparar : SeguridadError en el caso de que se haya alcanzado el máximo de intentos '''
         headers = {
@@ -83,7 +89,7 @@ class SilegModel:
 
         if not fecha:
             fecha = datetime.datetime.now()
-            
+
         usrs = r.json()
         idsProcesados = {}
         session = Session()
@@ -100,10 +106,11 @@ class SilegModel:
                     })
 
             """ tengo en cuenta los que se pudieron haber agregado al sileg despues """
+            token = cls._get_token()
             for u in session.query(Usuario).filter(or_(Usuario.creado >= fecha, Usuario.actualizado >= fecha)).all():
                 if u.id not in idsProcesados.keys():
                     query = '{}/{}/{}'.format(cls.usuarios_url, 'usuarios', u.id)
-                    r = cls.api(query)
+                    r = cls.api(query, params=None, token=token)
                     if not r.ok:
                         continue
                     usr = r.json()
