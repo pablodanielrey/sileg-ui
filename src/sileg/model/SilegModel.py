@@ -3,6 +3,7 @@ from sqlalchemy.orm import joinedload
 import datetime
 import requests
 import os
+import logging
 
 from .entities import *
 from . import Session
