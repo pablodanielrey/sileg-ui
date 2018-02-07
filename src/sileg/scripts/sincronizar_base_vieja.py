@@ -210,7 +210,7 @@ if __name__ == '__main__':
         try:
             ''' sinc usuarios '''
             cur2.execute('select id, creado, actualizado from sileg.usuario')
-            for u in cu2.fetchall():
+            for u in cur2.fetchall():
                 logging.info('sincronizando: {}'.format(u))
                 try:
                     cur.execute('select id from usuario where id = %(id)s', u)
@@ -227,7 +227,7 @@ if __name__ == '__main__':
 
             ''' sinc cargo '''
             cur2.execute('select id, creado, actualizado, nombre, tipo from sileg.cargo')
-            for c in cu2.fetchall():
+            for c in cur2.fetchall():
                 logging.info('sincronizando: {}'.format(c))
                 try:
                     cur.execute('select id from cargo where id = %(id)s', c)
@@ -244,7 +244,7 @@ if __name__ == '__main__':
 
             ''' sinc categoria '''
             cur2.execute('select id, creado, actualizado, nombre from sileg.categoria')
-            for c in cu2.fetchall():
+            for c in cur2.fetchall():
                 logging.info('sincronizando: {}'.format(c))
                 try:
                     cur.execute('select id from categoria where id = %(id)s', c)
@@ -261,7 +261,7 @@ if __name__ == '__main__':
 
             ''' sinc lugar '''
             cur2.execute('select id, creado, actualizado, nombre, tipo, padre_id, cambio_id from sileg.lugar')
-            for l in cu2.fetchall():
+            for l in cur2.fetchall():
                 logging.info('sincronizando: {}'.format(l))
                 try:
                     cur.execute('select id, creado, actualizado, nombre, tipo, padre_id, cambio_id from lugar where id = %(id)s', l)
@@ -278,7 +278,7 @@ if __name__ == '__main__':
 
             ''' sinc materia '''
             cur2.execute('select id, creado, actualizado, nombre from sileg.materia')
-            for l in cu2.fetchall():
+            for l in cur2.fetchall():
                 logging.info('sincronizando: {}'.format(l))
                 try:
                     cur.execute('select id, creado, actualizado, nombre from materia where id = %(id)s', l)
@@ -295,7 +295,7 @@ if __name__ == '__main__':
 
             ''' sinc catedra '''
             cur2.execute('select id, materia_id from sileg.catedra')
-            for c in cu2.fetchall():
+            for c in cur2.fetchall():
                 logging.info('sincronizando: {}'.format(c))
                 try:
                     cur.execute('select id, materia_id from catedra where id = %(id)s', c)
@@ -312,14 +312,14 @@ if __name__ == '__main__':
 
             ''' sinc designacion '''
             cur2.execute('select id, creado, actualizado, desde, hasta, historico, expediente, resolucion, tipo, designacion_id, usuario_id, cargo_id, lugar_id, old_id from sileg.designacion')
-            for d in cu2.fetchall():
+            for d in cur2.fetchall():
                 logging.info('sincronizando: {}'.format(d))
                 try:
                     cur.execute('select id from designacion where id = %(id)s', d)
                     if cur.rowcount <= 0:
                         logging.info('insertando designacion')
                         cur.execute("""insert into designacion (id,creado,actualizado,desde,hasta,historico,expediente,resolucion,tipo,designacion_id,usuario_id,cargo_id,lugar_id,old_id) \
-                                    values (%(id)s,(%(creado)s,(%(actualizado)s,(%(desde)s,(%(hasta)s,(%(historico)s,(%(expediente)s,(%(resolucion)s,(%(tipo)s,(%(designacion_id)s,(%(usuario_id)s,(%(cargo_id)s,(%(lugar_id)s,(%(old_id)s)""", d)
+                                    values (%(id)s,%(creado)s,%(actualizado)s,%(desde)s,%(hasta)s,%(historico)s,%(expediente)s,%(resolucion)s,%(tipo)s,%(designacion_id)s,%(usuario_id)s,%(cargo_id)s,%(lugar_id)s,%(old_id)s)""", d)
                         conn.commit()
                     else:
                         logging.info('la designacion ya existe')
@@ -330,7 +330,7 @@ if __name__ == '__main__':
 
             ''' sinc categoria designacion '''
             cur2.execute('select designacion_id, categoria_id from sileg.categoria_designacion')
-            for c in cu2.fetchall():
+            for c in cur2.fetchall():
                 logging.info('sincronizando: {}'.format(c))
                 try:
                     cur.execute('select designacion_id, categoria_id from categoria_designacion where designacion_id = %(designacion_id)s and categoria_id = %(categoria_id)s', c)
