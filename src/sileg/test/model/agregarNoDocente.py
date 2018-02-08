@@ -34,13 +34,14 @@ if __name__ == '__main__':
     uid = sys.argv[1]
     lid = sys.argv[2]
 
-    cf = s.query(CumpleFunciones).one_or_none()
+    # cf = s.query(CumpleFunciones).one_or_none()
+    cf = s.query(Cargo).filter(Cargo.id == '245eae51-28c4-4c6b-9085-354606399666').one_or_none()
     if not cf:
         cf = CumpleFunciones()
         s.add(cf)
         s.commit()
 
-    cf = s.query(CumpleFunciones).one()
+    # cf = s.query(CumpleFunciones).one()
 
     l = s.query(Lugar).filter(Lugar.id == lid).one()
 

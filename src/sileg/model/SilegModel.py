@@ -69,6 +69,7 @@ class SilegModel:
 
     @classmethod
     def usuarios(cls, search=None, retornarClave=False, fecha=None, offset=None, limit=None):
+        logging.debug(fecha)
         query = cls.usuarios_url + '/usuarios/'
         params = {}
         if search:
@@ -87,9 +88,6 @@ class SilegModel:
         if not r.ok:
             return []
 
-        if not fecha:
-            fecha = datetime.datetime.now()
-
         usrs = r.json()
         idsProcesados = {}
         session = Session()
@@ -107,7 +105,12 @@ class SilegModel:
 
             """ tengo en cuenta los que se pudieron haber agregado al sileg despues """
             token = cls._get_token()
-            for u in session.query(Usuario).filter(or_(Usuario.creado >= fecha, Usuario.actualizado >= fecha)).all():
+            q = None
+            if not fecha:
+                q = session.query(Usuario).all()
+            else:
+                q = session.query(Usuario).filter(or_(Usuario.creado >= fecha, Usuario.actualizado >= fecha)).all()
+            for u in q:
                 if u.id not in idsProcesados.keys():
                     query = '{}/{}/{}'.format(cls.usuarios_url, 'usuarios', u.id)
                     r = cls.api(query, params=None, token=token)

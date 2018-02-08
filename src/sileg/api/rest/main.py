@@ -17,6 +17,8 @@ register_encoder(app)
 
 @app.route('/sileg/api/v1.0/usuarios/', methods=['GET', 'POST'], defaults={'uid':None})
 @app.route('/sileg/api/v1.0/usuarios/<uid>', methods=['GET', 'POST'])
+@app.route('/sileg/api_test/v1.0/usuarios/', methods=['GET', 'POST'], defaults={'uid':None})
+@app.route('/sileg/api_test/v1.0/usuarios/<uid>', methods=['GET', 'POST'])
 @jsonapi
 def usuarios(uid=None):
     search = request.args.get('q',None)
@@ -28,7 +30,6 @@ def usuarios(uid=None):
     else:
         fecha_str = request.args.get('f', None)
         fecha = parser.parse(fecha_str) if fecha_str else None
-        logging.debug('usuarios')
         return SilegModel.usuarios(search=search, retornarClave=c, offset=offset, limit=limit, fecha=fecha)
 
 @app.route('/sileg/api/v1.0/designaciones/', methods=['GET', 'POST'])
