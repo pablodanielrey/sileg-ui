@@ -17,8 +17,8 @@ register_encoder(app)
 
 @app.route('/sileg/api/v1.0/usuarios/', methods=['GET', 'POST'], defaults={'uid':None})
 @app.route('/sileg/api/v1.0/usuarios/<uid>', methods=['GET', 'POST'])
-@app.route('/sileg/api_test/v1.0/usuarios/', methods=['GET', 'POST'], defaults={'uid':None})
-@app.route('/sileg/api_test/v1.0/usuarios/<uid>', methods=['GET', 'POST'])
+#@app.route('/sileg/api_test/v1.0/usuarios/', methods=['GET', 'POST'], defaults={'uid':None})
+#@app.route('/sileg/api_test/v1.0/usuarios/<uid>', methods=['GET', 'POST'])
 @jsonapi
 def usuarios(uid=None):
     search = request.args.get('q',None)
