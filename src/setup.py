@@ -26,7 +26,7 @@ setup(name='sileg-api',
             'Programming Language :: Python :: 3.5'
           ],
           packages=find_packages(exclude=['contrib', 'docs', 'test*']),
-          install_requires=['psycopg2>=2.7.1',
+          install_requires=['psycopg2',
                             'dateutils>=0.6.6',
                             'requests',
                             'redis',
