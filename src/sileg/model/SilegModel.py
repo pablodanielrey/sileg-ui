@@ -113,7 +113,7 @@ class SilegModel:
             for u in q:
                 if u.id not in idsProcesados.keys():
                     query = '{}/{}/{}'.format(cls.usuarios_url, 'usuarios', u.id)
-                    r = cls.api(query, params=None, token=token)
+                    r = cls.api(query, params={'c':True}, token=token)
                     if not r.ok:
                         continue
                     usr = r.json()
