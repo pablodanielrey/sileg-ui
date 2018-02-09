@@ -1,6 +1,7 @@
 import logging
 logging.getLogger().setLevel(logging.DEBUG)
 import sys
+import os
 from dateutil import parser
 
 from flask import Flask, abort, make_response, jsonify, url_for, request, json
@@ -15,10 +16,10 @@ from rest_utils import register_encoder
 app = Flask(__name__, static_url_path='/src/sileg/web')
 register_encoder(app)
 
-@app.route('/sileg/api/v1.0/usuarios/', methods=['GET', 'POST'], defaults={'uid':None})
-@app.route('/sileg/api/v1.0/usuarios/<uid>', methods=['GET', 'POST'])
-#@app.route('/sileg/api_test/v1.0/usuarios/', methods=['GET', 'POST'], defaults={'uid':None})
-#@app.route('/sileg/api_test/v1.0/usuarios/<uid>', methods=['GET', 'POST'])
+API_BASE = os.environ['API_BASE']
+
+@app.route(API_BASE + '/usuarios/', methods=['GET', 'POST'], defaults={'uid':None})
+@app.route(API_BASE + '/usuarios/<uid>', methods=['GET', 'POST'])
 @jsonapi
 def usuarios(uid=None):
     search = request.args.get('q',None)
@@ -32,7 +33,7 @@ def usuarios(uid=None):
         fecha = parser.parse(fecha_str) if fecha_str else None
         return SilegModel.usuarios(search=search, retornarClave=c, offset=offset, limit=limit, fecha=fecha)
 
-@app.route('/sileg/api/v1.0/designaciones/', methods=['GET', 'POST'])
+@app.route(API_BASE + '/designaciones/', methods=['GET', 'POST'])
 @jsonapi
 def designaciones():
     offset = request.args.get('offset',None,int)
@@ -44,7 +45,7 @@ def designaciones():
     designaciones.append('cantidad:{}'.format(len(designaciones)))
     return designaciones
 
-@app.route('/sileg/api/v1.0/prorrogas/<designacion>', methods=['GET', 'POST'])
+@app.route(API_BASE + '/prorrogas/<designacion>', methods=['GET', 'POST'])
 @jsonapi
 def prorrogas(designacion):
     offset = request.args.get('offset',None,int)
@@ -54,31 +55,31 @@ def prorrogas(designacion):
     historico = request.args.get('h',False,bool)
     return SilegModel.prorrogas(offset=offset, limit=limit, designacion=designacion, lugar=lugar, persona=persona, historico=historico)
 
-@app.route('/sileg/api/v1.0/cargos/', methods=['GET', 'POST'])
+@app.route(API_BASE + '/cargos/', methods=['GET', 'POST'])
 @jsonapi
 def cargos():
     return SilegModel.cargos()
 
-@app.route('/sileg/api/v1.0/lugares/', methods=['GET'])
+@app.route(API_BASE + '/lugares/', methods=['GET'])
 @jsonapi
 def lugares():
     return SilegModel.lugares()
 
-@app.route('/sileg/api/v1.0/departamentos/', methods=['GET', 'POST'])
+@app.route(API_BASE + '/departamentos/', methods=['GET', 'POST'])
 @jsonapi
 def departamentos():
     return SilegModel.departamentos()
 
-@app.route('/sileg/api/v1.0/materias/', methods=['GET', 'POST'], defaults={'materia':None})
-@app.route('/sileg/api/v1.0/materias/<materia>', methods=['GET', 'POST'])
+@app.route(API_BASE + '/materias/', methods=['GET', 'POST'], defaults={'materia':None})
+@app.route(API_BASE + '/materias/<materia>', methods=['GET', 'POST'])
 @jsonapi
 def materias(materia=None):
     catedra = request.args.get('c',None)
     departamento = request.args.get('d',None)
     return SilegModel.materias(materia=materia, catedra=catedra, departamento=departamento)
 
-@app.route('/sileg/api/v1.0/catedras/', methods=['GET', 'POST'], defaults={'catedra':None})
-@app.route('/sileg/api/v1.0/catedras/<catedra>', methods=['GET', 'POST'])
+@app.route(API_BASE + '/catedras/', methods=['GET', 'POST'], defaults={'catedra':None})
+@app.route(API_BASE + '/catedras/<catedra>', methods=['GET', 'POST'])
 @jsonapi
 def catedras(catedra=None):
     materia = request.args.get('m',None)
