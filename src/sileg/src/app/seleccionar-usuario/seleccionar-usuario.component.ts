@@ -14,6 +14,7 @@ export class SeleccionarUsuarioComponent implements OnInit {
   usuarios: Usuario[] = [];
   busqueda:string = "";
   usuarioSeleccionado: Usuario;
+  busquedaActivada: boolean = false;
 
   constructor(private service: SilegService) {
   }
@@ -22,8 +23,13 @@ export class SeleccionarUsuarioComponent implements OnInit {
     this.buscarUsuarios();
   }
 
+  actualizarBusqueda() : void {
+    this.busquedaActivada = (this.busqueda.length > 3);
+  }
+
   buscarUsuarios(): void {
-    console.log('buscando : ' + this.busqueda);
+    this.usuarioSeleccionado = null;
+    this.usuarios = null;
     this.service.buscarUsuarios(this.busqueda)
       .then(usuarios => {
         console.log(usuarios);

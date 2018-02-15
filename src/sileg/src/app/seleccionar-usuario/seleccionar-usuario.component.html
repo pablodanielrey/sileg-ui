@@ -1,7 +1,7 @@
 
 término a buscar : {{busqueda}}<br>
-<input [(ngModel)]='busqueda'/>
-<button (click)='buscarUsuarios()'>buscar</button>
+<input [(ngModel)]='busqueda' (keyup)='actualizarBusqueda()'/>
+<button (click)='buscarUsuarios()' [disabled]='!busquedaActivada'>buscar</button>
 
 <h2>Usuarios</h2>
 <ul class="usuarios">
