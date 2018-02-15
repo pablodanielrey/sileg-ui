@@ -10,7 +10,6 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/toPromise';
 
-
 import { Usuario } from './entities/usuario';
 import { Sileg, DatosSileg } from './entities/sileg';
 
@@ -23,11 +22,6 @@ export class SilegService {
   constructor(private http: HttpClient) { }
 
   buscarUsuarios(texto: string): Promise<DatosSileg[]> {
-    if (!texto) {
-      return new Promise<DatosSileg>() {
-        resolve(null);
-      }
-    }
     return new Promise((resolve, reject) => {
       const options = { params: new HttpParams().set('q', texto ? texto : '') };
       let apiUrl = `${SILEG_API_URL}/usuarios`;

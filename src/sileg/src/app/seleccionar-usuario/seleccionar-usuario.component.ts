@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { SilegService } from '../sileg.service'
 
 import { Usuario } from '../entities/usuario';
+import { DatosSileg, Sileg } from '../entities/sileg';
 
 @Component({
   selector: 'app-seleccionar-usuario',
