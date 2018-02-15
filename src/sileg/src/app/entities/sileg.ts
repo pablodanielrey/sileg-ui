@@ -10,4 +10,12 @@ export class DatosSileg {
   agregado: boolean;
   sileg: Sileg;
   usuario: Usuario;
+
+  constructor(o:Object) {
+    try {
+      Object.assign(this, o);
+    } catch(e) {
+      console.log(e);
+    }
+  }
 }

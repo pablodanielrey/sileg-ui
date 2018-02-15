@@ -19,10 +19,10 @@ const SILEG_API_URL = environment.silegApiUrl;
 @Injectable()
 export class SilegService {
 
-  usuarios: Usuario[] = [];
+  //usuarios: Usuario[] = [];
   constructor(private http: HttpClient) { }
 
-  buscarUsuarios(texto: string): Promise<DatosSileg[]> {
+  buscarUsuarios(texto: string): Promise<Usuario[]> {
     return new Promise((resolve, reject) => {
       const options = { params: new HttpParams().set('q', texto ? texto : 'pais') };
       let apiUrl = `${SILEG_API_URL}/usuarios`;
@@ -31,8 +31,9 @@ export class SilegService {
       .toPromise()
       .then(
         res => {
-          console.log(res);
-          resolve(res.map(u => new DatosSileg(u)));
+          let datos = res.map(d => new DatosSileg(d));
+          let usuarios = datos.map(d => new Usuario(d.usuario));
+          resolve(usuarios);
         }
       )
     });
