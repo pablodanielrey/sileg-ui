@@ -19,7 +19,7 @@ export class SeleccionarUsuarioComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.service.buscarUsuarios(this.busqueda).then( usuarios.map(d => new Usuario(d.usuario)) => usuarios => {
+    this.service.buscarUsuarios(this.busqueda).then( datos => datos.map(d => new Usuario(d.usuario)) => usuarios => {
       this.usuarios = usuarios;
     });
   }
