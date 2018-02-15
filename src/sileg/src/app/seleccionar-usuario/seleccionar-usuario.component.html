@@ -1,3 +1,10 @@
-<p>
-  seleccionar-usuario works!
-</p>
+<h2>Usuarios</h2>
+<ul class="usuarios">
+  <li *ngFor="let usuario of usuarios" (click)="onSelect(usuario)">
+    <span> {{usuario.apellido}}, {{usuario.nombre}} ({{usuario.dni}})</span>
+  </li>
+</ul>
+
+<div *ngIf="usuarioSeleccionado">
+  <app-detalle-usuario [usuario]="usuarioSeleccionado"></app-detalle-usuario>
+</div>
