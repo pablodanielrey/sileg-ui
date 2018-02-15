@@ -15,6 +15,7 @@ export class Usuario {
 
 
   constructor(o:Object) {
+    console.log("const usuarios");
     try {
       Object.assign(this, o);
       this.creado = (this.creado == null ? null : new Date(this.creado));

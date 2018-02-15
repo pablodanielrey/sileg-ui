@@ -23,12 +23,15 @@ export class SilegService {
 
   buscarUsuarios(texto: string): Promise<Usuario[]> {
     return new Promise((resolve, reject) => {
-      let apiUrl = `${SILEG_API_URL}/usuarios`
+      let apiUrl = `${SILEG_API_URL}/usuarios`;
+      console.log(apiUrl);
       this.http.get<string[]>(apiUrl)
       .toPromise()
       .then(
+
         res => {
-          resolve(res.map(u => new Usuario(u)));
+          console.log(res);
+          // resolve(res.map(u => new Usuario(u)));
         }
       )
     });
