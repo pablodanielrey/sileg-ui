@@ -12,5 +12,15 @@ export class Usuario {
   dni: string;
   claves: Array<Clave>;
   mails: Array<Mail>;
-  
+
+
+  constructor(o:Object) {
+    try {
+      Object.assign(this, o);
+      this.creado = (this.creado == null ? null : new Date(this.creado));
+      this.actualizado = (this.actualizado == null ? null : new Date(this.actualizado));
+    } catch(e) {
+      console.log(e);
+    }
+  }
 }

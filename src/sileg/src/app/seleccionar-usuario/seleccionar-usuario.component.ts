@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
+import { SilegService } from '../sileg.service'
+
 import { Usuario } from '../entities/usuario';
 
 @Component({
@@ -9,17 +12,17 @@ import { Usuario } from '../entities/usuario';
 export class SeleccionarUsuarioComponent implements OnInit {
 
   usuarios: Usuario[] = [];
-  busqueda:String = "";
+  busqueda:string = "";
   usuarioSeleccionado: Usuario;
 
-  constructor() {
+  constructor(private service: SilegService) {
   }
 
   ngOnInit() {
-    let u = new Usuario(); u.nombre = "Nombre1"; u.apellido = "Apellido1";
-    this.usuarios.push(u);
-    u = new Usuario(); u.nombre = "Nombre2"; u.apellido = "Apellido2";
-    this.usuarios.push(u);
+    this.service.buscarUsuarios(this.busqueda).then( usuarios => {
+        console.log(usuarios);
+        this.usuarios = usuarios;
+    });
   }
 
   onSelect(usuario: Usuario): void {

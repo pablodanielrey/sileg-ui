@@ -1,0 +1,37 @@
+import { Injectable } from '@angular/core';
+import { environment } from 'environments/environment';
+
+import {HttpClient, HttpParams} from '@angular/common/http';
+
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/toPromise';
+
+
+import { Usuario } from './entities/usuario'
+
+const SILEG_API_URL = environment.silegApiUrl;
+
+@Injectable()
+export class SilegService {
+
+  usuarios: Usuario[] = [];
+  constructor(private http: HttpClient) { }
+
+  buscarUsuarios(texto: string): Promise<Usuario[]> {
+    return new Promise((resolve, reject) => {
+      let apiUrl = `${SILEG_API_URL}/usuarios`
+      this.http.get<string[]>(apiUrl)
+      .toPromise()
+      .then(
+        res => {
+          resolve(res.map(u => new Usuario(u)));
+        }
+      )
+    });
+  }
+
+}
