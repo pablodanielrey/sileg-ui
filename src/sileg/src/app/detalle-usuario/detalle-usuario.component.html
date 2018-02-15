@@ -1,3 +1,5 @@
-<p>
-  detalle-usuario works!
-</p>
+<h2>{{usuario.apellido}}, {{usuario.nombre}} ({{usuario.dni}})</h2>
+
+<div><label>Nombre:</label><input [(ngModel)]="usuario.nombre" placeholder="nombre"></div>
+<div><label>Apellido:</label><input [(ngModel)]="usuario.apellido" placeholder="apellido"></div>
+<div><label>DNI:</label><input [(ngModel)]="usuario.dni" placeholder="dni"></div>
