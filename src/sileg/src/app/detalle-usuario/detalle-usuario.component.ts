@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Usuario } from '../entities/usuario';
-
 
 @Component({
   selector: 'app-detalle-usuario',
@@ -9,7 +8,7 @@ import { Usuario } from '../entities/usuario';
 })
 export class DetalleUsuarioComponent implements OnInit {
 
-  usuario: Usuario = new Usuario();
+  @Input() usuario: Usuario;
 
   constructor() { }
 
