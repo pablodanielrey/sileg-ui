@@ -11,7 +11,8 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/toPromise';
 
 
-import { Usuario } from './entities/usuario'
+import { Usuario } from './entities/usuario';
+import { Sileg, DatosSileg } from './entities/sileg';
 
 const SILEG_API_URL = environment.silegApiUrl;
 
@@ -23,16 +24,15 @@ export class SilegService {
 
   buscarUsuarios(texto: string): Promise<Usuario[]> {
     return new Promise((resolve, reject) => {
-      const options = { params: new HttpParams().set('q', texto) };
+      const options = { params: new HttpParams().set('q', texto ? texto : 'pais') };
       let apiUrl = `${SILEG_API_URL}/usuarios`;
       console.log(apiUrl);
       this.http.get<string[]>(apiUrl, options)
       .toPromise()
       .then(
-
         res => {
           console.log(res);
-          // resolve(res.map(u => new Usuario(u)));
+          resolve(res.map(u => new DatosSileg(u)));
         }
       )
     });
