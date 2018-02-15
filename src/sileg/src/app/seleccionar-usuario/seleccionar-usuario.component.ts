@@ -19,6 +19,11 @@ export class SeleccionarUsuarioComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.buscarUsuarios();
+  }
+
+  buscarUsuarios(): void {
+    console.log('buscando : ' + this.busqueda);
     this.service.buscarUsuarios(this.busqueda)
       .then(usuarios => {
         console.log(usuarios);
