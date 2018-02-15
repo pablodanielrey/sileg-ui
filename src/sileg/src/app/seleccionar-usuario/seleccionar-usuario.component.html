@@ -5,8 +5,8 @@ término a buscar : {{busqueda}}<br>
 
 <h2>Usuarios</h2>
 <ul class="usuarios">
-  <li *ngFor="let usuario of usuarios" (click)="onSelect(usuario)">
-    <span> {{usuario.apellido}}, {{usuario.nombre}} ({{usuario.dni}})</span>
+  <li *ngFor="let datos of usuarios" (click)="onSelect(datos.usuario)">
+    <span> {{datos.usuario.apellido}}, {{datos.usuario.nombre}} ({{datos.usuario.dni}}) {{datos.sileg != null ? 'tiene' : 'no tiene'}}</span>
   </li>
 </ul>
 

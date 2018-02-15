@@ -22,9 +22,9 @@ export class SilegService {
   //usuarios: Usuario[] = [];
   constructor(private http: HttpClient) { }
 
-  buscarUsuarios(texto: string): Promise<Usuario[]> {
+  buscarUsuarios(texto: string): Promise<DatosSileg[]> {
     if (!texto) {
-      return new Promise<Usuario>() {
+      return new Promise<DatosSileg>() {
         resolve(null);
       }
     }
@@ -37,8 +37,9 @@ export class SilegService {
       .then(
         res => {
           let datos = res.map(d => new DatosSileg(d));
-          let usuarios = datos.map(d => new Usuario(d.usuario));
-          resolve(usuarios);
+          resolve(datos);
+          //let usuarios = datos.map(d => new Usuario(d.usuario));
+          //resolve(usuarios);
         }
       )
     });

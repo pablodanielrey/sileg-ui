@@ -11,7 +11,7 @@ import { Usuario } from '../entities/usuario';
 })
 export class SeleccionarUsuarioComponent implements OnInit {
 
-  usuarios: Usuario[] = [];
+  usuarios: DatosSileg[] = [];
   busqueda:string = "";
   usuarioSeleccionado: Usuario;
   busquedaActivada: boolean = false;
