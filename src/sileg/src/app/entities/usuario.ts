@@ -11,5 +11,6 @@ export class Usuario {
   apellido: string;
   dni: string;
   claves: Array<Clave>;
-  mails: Array<Mail>
+  mails: Array<Mail>;
+  
 }
