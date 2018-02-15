@@ -11,7 +11,7 @@ import { Usuario } from '../entities/usuario';
 })
 export class SeleccionarUsuarioComponent implements OnInit {
 
-  usuarios: Usuario[] = [];
+  usuarios: usuarios[] = [];
   busqueda:string = "";
   usuarioSeleccionado: Usuario;
 
@@ -19,9 +19,8 @@ export class SeleccionarUsuarioComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.service.buscarUsuarios(this.busqueda).then( usuarios => {
-        console.log(usuarios);
-        this.usuarios = usuarios;
+    this.service.buscarUsuarios(this.busqueda).then( usuarios.map(d => new Usuario(d.usuario)) => usuarios => {
+      this.usuarios = usuarios;
     });
   }
 

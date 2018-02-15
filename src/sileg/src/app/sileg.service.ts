@@ -22,7 +22,7 @@ export class SilegService {
   usuarios: Usuario[] = [];
   constructor(private http: HttpClient) { }
 
-  buscarUsuarios(texto: string): Promise<Usuario[]> {
+  buscarUsuarios(texto: string): Promise<DatosSileg[]> {
     return new Promise((resolve, reject) => {
       const options = { params: new HttpParams().set('q', texto ? texto : 'pais') };
       let apiUrl = `${SILEG_API_URL}/usuarios`;
