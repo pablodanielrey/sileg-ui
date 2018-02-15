@@ -1,3 +1,6 @@
+import { Clave } from '../entities/clave';
+import { Mail } from '../entities/mail';
+
 export class Usuario {
 
   id: string = null;
@@ -7,5 +10,6 @@ export class Usuario {
   nombre: string = null;
   apellido: string;
   dni: string;
-  
+  claves: Array<Clave>;
+  mails: Array<Mail>
 }
