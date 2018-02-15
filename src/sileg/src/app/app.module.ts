@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-import { DetalleUsuarioComponent } from './detalle-usuario/detalle-usuario/detalle-usuario.component';
+import { DetalleUsuarioComponent } from './detalle-usuario/detalle-usuario.component';
 
 
 @NgModule({
