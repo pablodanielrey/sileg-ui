@@ -5,4 +5,7 @@ export class Usuario {
   actualizado: Date = null;
 
   nombre: string = null;
+  apellido: string;
+  dni: string;
+  
 }
