@@ -5,6 +5,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 
 
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
@@ -21,6 +22,17 @@ export class SilegService {
   //usuarios: Usuario[] = [];
   constructor(private http: HttpClient) { }
 
+  buscarUsuarios(texto:string): Observable<DatosSileg[]> {
+    const options = { params: new HttpParams()
+              .set('q', texto ? texto : 'algoquenoexiste')
+              //.set('limit', 10)
+              //.set('offset',0)
+          };
+    let apiUrl = `${SILEG_API_URL}/usuarios`;
+    return this.http.get<DatosSileg[]>(apiUrl, options).map(datos => datos.map(d => new DatosSileg(d)));
+  }
+
+  /*
   buscarUsuarios(texto: string): Promise<DatosSileg[]> {
     return new Promise((resolve, reject) => {
       const options = { params: new HttpParams().set('q', texto ? texto : '') };
@@ -38,5 +50,6 @@ export class SilegService {
       )
     });
   }
+  */
 
 }
