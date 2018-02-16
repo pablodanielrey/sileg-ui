@@ -1,4 +1,6 @@
 #!/bin/bash
+cd /src
+npm install @angular/cli
 npm install
-cd sileg
+cd /src/sileg
 npm install
