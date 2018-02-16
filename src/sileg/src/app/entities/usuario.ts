@@ -1,6 +1,20 @@
 export class Clave {
 }
 
+export class ResetClave {
+  uid: string = null;
+  clave: string = null;
+
+
+  constructor(o:Object) {
+    try {
+      Object.assign(this, o);
+    } catch(e) {
+      console.log(e);
+    }
+  }
+}
+
 export class Mail {
   id: string;
   email: string;

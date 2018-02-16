@@ -6,7 +6,7 @@ import { GenerarClaveComponent } from './generar-clave/generar-clave.component';
 
 const routes: Routes = [
     { path:'buscar',component: SeleccionarUsuarioComponent },
-    { path:'reset-clave',component: GenerarClaveComponent },
+    { path:'reset-clave/:id',component: GenerarClaveComponent },
     { path: '', redirectTo: '/buscar', pathMatch: 'full' }
 ];
 

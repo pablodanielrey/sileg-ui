@@ -17,6 +17,6 @@ Detalle usuario
   </li>
 </p>
 <!-- <button (click)='crearClaveTemporal()'>Crear Clave Temporal</button> -->
-<button routerLink="/reset-clave">Crear Clave Temporal</button>
+<button routerLink="/reset-clave/{{datos.sileg.id}}">Crear Clave Temporal</button>
 <button (click)='crearDesignacion()' [disabled]='tieneDesignacion()'>Crear Designacion</button>
 <button (click)='crearCorreo()' [disabled]='!tieneDesignacion() || tieneCorreoInstitucional()'>Crear Correo</button>

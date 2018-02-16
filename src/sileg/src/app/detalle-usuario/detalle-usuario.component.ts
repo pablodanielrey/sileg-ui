@@ -20,13 +20,7 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
   crearClaveTemporal(): void {
-    let uid = this.datos.sileg.id;
-    this.service.generarClave(uid)
-      .subscribe(data => this.dataClave = {
-          uid: data['uid'],
-          clave: data['clave']
-        }
-    );
+
   }
 
   crearCorreo(): void {
