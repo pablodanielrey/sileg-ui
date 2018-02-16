@@ -1,7 +1,10 @@
 Detalle usuario
 <p>
-  {{usuario.id}}<br>
-  {{usuario.dni}}<br>
-  {{usuario.nombre}}<br>
-  {{usuario.apellido}}<br>
+  {{datos.usuario.id}}<br>
+  {{datos.usuario.dni}}<br>
+  {{datos.usuario.nombre}}<br>
+  {{datos.usuario.apellido}}<br>
 </p>
+<button (click)='crearClaveTemporal()'>Crear Clave Temporal</button>
+<button (click)='crearDesignacion()' [disabled]='tieneDesignacion()'>Crear Designacion</button>
+<button (click)='crearCorreo()' [disabled]='tieneCorreoInstitucional()'>Crear Correo</button>

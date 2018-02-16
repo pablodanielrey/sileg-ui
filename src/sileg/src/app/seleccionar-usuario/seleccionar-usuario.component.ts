@@ -14,7 +14,7 @@ export class SeleccionarUsuarioComponent implements OnInit {
 
   usuarios: DatosSileg[] = [];
   busqueda:string = "";
-  usuarioSeleccionado: Usuario = null;
+  usuarioSeleccionado: DatosSileg = null;
   busquedaActivada: boolean = false;
 
   constructor(private service: SilegService) {
@@ -38,7 +38,7 @@ export class SeleccionarUsuarioComponent implements OnInit {
       });
   }
 
-  onSelect(usuario: Usuario): void {
+  onSelect(usuario: DatosSileg): void {
     this.usuarioSeleccionado = usuario;
   }
 
