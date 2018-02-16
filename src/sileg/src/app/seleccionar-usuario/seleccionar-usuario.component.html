@@ -1,18 +1,29 @@
 
-término a buscar : {{busqueda}}<br>
-<input [(ngModel)]='busqueda' (keyup)='actualizarBusqueda()'/>
+<!-- término a buscar : {{busqueda}}<br> -->
+<input type='search' [(ngModel)]='busqueda' (keyup)='actualizarBusqueda()'/>
 
-<button mat-button (click)='buscarUsuarios()' [disabled]='!busquedaActivada'><mat-icon>home</mat-icon> buscar</button>
+<button mat-button  (click)='buscarUsuarios()' [disabled]='!busquedaActivada'><mat-icon>home</mat-icon> buscar</button>
 
-<h2>Usuarios ({{usuarios.length}})</h2>
+<p> <b>{{usuarios.length}}</b>  Usuarios encontrados</p>
 <mat-list>
   <mat-list-item *ngFor="let datos of usuarios" (click)="onSelect(datos)" class="mdc-list-item">
-    <h3>{{datos.usuario.apellido}}</h3>
-    <h3>{{datos.usuario.nombre}}</h3>
-    <h3>({{datos.usuario.dni}}) {{datos.sileg != null ? 'tiene' : 'no tiene'}}</h3>
+    <span> {{datos.usuario.nombre }} &nbsp;</span>
+    <span> {{datos.usuario.apellido}}</span><br>
+    <span> ({{datos.usuario.dni}}) {{datos.sileg != null ? 'tiene' : 'no tiene'}}</span>
   </mat-list-item>
 </mat-list>
 
 <div *ngIf="usuarioSeleccionado">
   <app-detalle-usuario [datos]="usuarioSeleccionado"></app-detalle-usuario>
 </div>
+
+
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Favorite food" value="Sushi">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <textarea matInput placeholder="Leave a comment"></textarea>
+  </mat-form-field>
+</form>
