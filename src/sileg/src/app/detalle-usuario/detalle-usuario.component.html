@@ -16,4 +16,4 @@ Detalle usuario
 </p>
 <button (click)='crearClaveTemporal()'>Crear Clave Temporal</button>
 <button (click)='crearDesignacion()' [disabled]='tieneDesignacion()'>Crear Designacion</button>
-<button (click)='crearCorreo()' [disabled]='tieneCorreoInstitucional()'>Crear Correo</button>
+<button (click)='crearCorreo()' [disabled]='!tieneDesignacion() || tieneCorreoInstitucional()'>Crear Correo</button>
