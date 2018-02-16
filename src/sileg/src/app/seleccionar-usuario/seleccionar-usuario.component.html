@@ -1,17 +1,15 @@
-<h2>Usuarios</h2>
 
-<div>
-  <label>Buscar: </label>
-  <input [(ngModel)]="busqueda" placeholder="Ingrese el texto a buscar">
-  <button (click)="buscar()">Buscar</button>
-</div>
+término a buscar : {{busqueda}}<br>
+<input [(ngModel)]='busqueda' (keyup)='actualizarBusqueda()'/>
+<button (click)='buscarUsuarios()' [disabled]='!busquedaActivada'>buscar</button>
 
-<ul class="usuarios">
-  <li *ngFor="let usuario of usuarios" (click)="onSelect(usuario)">
-    <span> {{usuario.apellido}}, {{usuario.nombre}} ({{usuario.dni}})</span>
+<h2>Usuarios ({{usuarios.length}})</h2>
+<ul class="mdc-list">
+  <li *ngFor="let datos of usuarios" (click)="onSelect(datos)" class="mdc-list-item">
+    <span> {{datos.usuario.apellido}}, {{datos.usuario.nombre}} ({{datos.usuario.dni}}) {{datos.sileg != null ? 'tiene' : 'no tiene'}}</span>
   </li>
 </ul>
 
 <div *ngIf="usuarioSeleccionado">
-  <app-detalle-usuario [usuario]="usuarioSeleccionado"></app-detalle-usuario>
+  <app-detalle-usuario [datos]="usuarioSeleccionado"></app-detalle-usuario>
 </div>

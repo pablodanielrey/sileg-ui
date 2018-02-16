@@ -1,7 +1,21 @@
 Detalle usuario
 <p>
-  {{usuario.id}}<br>
-  {{usuario.dni}}<br>
-  {{usuario.nombre}}<br>
-  {{usuario.apellido}}<br>
+  {{datos.usuario.id}}<br>
+  {{datos.usuario.dni}}<br>
+  {{datos.usuario.nombre}}<br>
+  {{datos.usuario.apellido}}<br>
+  {{datos.usuario.genero}}<br>
+  {{datos.usuario.nacimiento}}<br>
+  Correos<br>
+  <li *ngFor='let m of datos.usuario.mails'>
+    <ul>
+      correo: <span>{{m.email}}</span><br>
+      confirmado: <span>{{m.confirmado}}</span><br>
+      eliminado: <span>{{m.eliminado}}</span><br>
+      <button (click)='eliminarCorreo(m)' [disabled]='m.eliminado != null'>X</button>
+    </ul>
+  </li>
 </p>
+<button (click)='crearClaveTemporal()'>Crear Clave Temporal</button>
+<button (click)='crearDesignacion()' [disabled]='tieneDesignacion()'>Crear Designacion</button>
+<button (click)='crearCorreo()' [disabled]='!tieneDesignacion() || tieneCorreoInstitucional()'>Crear Correo</button>
