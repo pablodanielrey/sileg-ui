@@ -21,7 +21,7 @@ export class SeleccionarUsuarioComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.buscarUsuarios();
+
   }
 
   actualizarBusqueda() : void {

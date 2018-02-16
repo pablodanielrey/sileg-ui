@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 
 import {HttpClient, HttpParams} from '@angular/common/http';
+import { Http } from '@angular/http'
 
 
 import { Observable } from 'rxjs/Observable';
@@ -15,6 +16,7 @@ import { Usuario } from './entities/usuario';
 import { Sileg, DatosSileg } from './entities/sileg';
 
 const SILEG_API_URL = environment.silegApiUrl;
+const USER_API_URL = environment.userApiUrl;
 
 @Injectable()
 export class SilegService {
@@ -31,6 +33,14 @@ export class SilegService {
     let apiUrl = `${SILEG_API_URL}/usuarios`;
     return this.http.get<DatosSileg[]>(apiUrl, options).map(datos => datos.map(d => new DatosSileg(d)));
   }
+
+  generarClave(uid:string):Observable<Response> {
+    let apiUrl = `${USER_API_URL}/generar_clave/${uid}`;
+    return this.http.get(apiUrl)
+                .map((res: Response) => res.json())
+                .catch((error:any) => Observable.throw(error.error || 'Server Error'));
+  }
+
 
   /*
   buscarUsuarios(texto: string): Promise<DatosSileg[]> {
