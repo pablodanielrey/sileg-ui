@@ -1,4 +1,11 @@
 <h2>Usuarios</h2>
+
+<div>
+  <label>Buscar: </label>
+  <input [(ngModel)]="busqueda" placeholder="Ingrese el texto a buscar">
+  <button (click)="buscar()">Buscar</button>
+</div>
+
 <ul class="usuarios">
   <li *ngFor="let usuario of usuarios" (click)="onSelect(usuario)">
     <span> {{usuario.apellido}}, {{usuario.nombre}} ({{usuario.dni}})</span>
