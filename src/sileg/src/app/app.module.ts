@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 
 import {HttpClientModule} from '@angular/common/http';
 
+// aca se importa todo lo de material
+import { MyMaterialModule } from './material.module';
+
 
 import { AppComponent } from './app.component';
 import { SilegService } from './sileg.service';
@@ -24,6 +27,7 @@ import { GenerarClaveComponent } from './generar-clave/generar-clave.component';
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    MyMaterialModule,
     AppRoutingModule
   ],
   providers: [SilegService],
