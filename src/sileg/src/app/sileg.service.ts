@@ -12,11 +12,10 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/toPromise';
 
-import { Usuario } from './entities/usuario';
+import { Usuario, ResetClave } from './entities/usuario';
 import { Sileg, DatosSileg } from './entities/sileg';
 
 const SILEG_API_URL = environment.silegApiUrl;
-const USER_API_URL = environment.userApiUrl;
 
 @Injectable()
 export class SilegService {
@@ -34,11 +33,9 @@ export class SilegService {
     return this.http.get<DatosSileg[]>(apiUrl, options).map(datos => datos.map(d => new DatosSileg(d)));
   }
 
-  generarClave(uid:string):Observable<Response> {
-    let apiUrl = `${USER_API_URL}/generar_clave/${uid}`;
-    return this.http.get(apiUrl)
-                .map((res: Response) => res.json())
-                .catch((error:any) => Observable.throw(error.error || 'Server Error'));
+  generarClave(uid:string):Observable<ResetClave> {
+    let apiUrl = `${SILEG_API_URL}/generar_clave/${uid}`;
+    return this.http.get<ResetClave>(apiUrl).map(res => new ResetClave(res));
   }
 
 
