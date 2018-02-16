@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Usuario } from '../entities/usuario';
+import { Usuario, Mail } from '../entities/usuario';
 import { DatosSileg, Sileg } from '../entities/sileg';
 
 @Component({
@@ -25,7 +25,7 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
   eliminarCorreo(m:Mail): void {
-    
+
   }
 
   crearDesignacion(): void {

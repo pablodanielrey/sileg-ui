@@ -1,5 +1,14 @@
-import { Clave } from '../entities/clave';
-import { Mail } from '../entities/mail';
+export class Clave {
+}
+
+export class Mail {
+  id: string;
+  email: string;
+  eliminado: boolean;
+  confirmado: string;
+  actualizado: string;
+  creado: string;
+}
 
 export class Usuario {
 
