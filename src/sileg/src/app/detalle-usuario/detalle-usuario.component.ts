@@ -24,6 +24,10 @@ export class DetalleUsuarioComponent implements OnInit {
 
   }
 
+  eliminarCorreo(m:Mail): void {
+    
+  }
+
   crearDesignacion(): void {
 
   }
@@ -35,7 +39,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
   tieneCorreoInstitucional(): boolean {
     let encontrado: boolean = false;
-    this.datos.usuario.mails.forEach(m => { if (m.email.search('econo.unlp.edu.ar') != -1) { encontrado = true } })
+    this.datos.usuario.mails.forEach(m => { if (m.email.search('econo.unlp.edu.ar') != -1 && m.confirmado != null && m.eliminado == null) { encontrado = true } })
     return encontrado;
   }
 }
