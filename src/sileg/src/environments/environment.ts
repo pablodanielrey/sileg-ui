@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  silegApiUrl: 'https://api.econo.unlp.edu.ar/sileg/api/v1.0'
+  silegApiUrl: 'https://api.econo.unlp.edu.ar/sileg/api/v1.0',
+  userApiUrl: 'https://api.econo.unlp.edu.ar/users/api/v1.0'
 };

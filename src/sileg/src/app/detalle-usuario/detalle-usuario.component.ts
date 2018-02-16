@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Usuario, Mail } from '../entities/usuario';
 import { DatosSileg, Sileg } from '../entities/sileg';
+import { SilegService } from '../sileg.service'
+
 
 @Component({
   selector: 'app-detalle-usuario',
@@ -10,14 +12,21 @@ import { DatosSileg, Sileg } from '../entities/sileg';
 export class DetalleUsuarioComponent implements OnInit {
 
   @Input() datos: DatosSileg;
+  dataClave = {};
 
-  constructor() { }
+  constructor(private service: SilegService) { }
 
   ngOnInit() {
   }
 
   crearClaveTemporal(): void {
-
+    let uid = this.datos.sileg.id;
+    this.service.generarClave(uid)
+      .subscribe(data => this.dataClave = {
+          uid: data['uid'],
+          clave: data['clave']
+        }
+    );
   }
 
   crearCorreo(): void {
