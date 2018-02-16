@@ -6,18 +6,22 @@ import { MatButtonModule,
          MatListModule
        } from '@angular/material';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   imports: [
     MatButtonModule,
     MatIconModule,
     MatInputModule,
-    MatListModule
+    MatListModule,
+    BrowserAnimationsModule
   ],
   exports: [
     MatButtonModule,
     MatIconModule,
     MatInputModule,
-    MatListModule
+    MatListModule,
+    BrowserAnimationsModule
   ],
 })
 export class MyMaterialModule { }
