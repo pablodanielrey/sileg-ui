@@ -4,8 +4,8 @@ término a buscar : {{busqueda}}<br>
 <button (click)='buscarUsuarios()' [disabled]='!busquedaActivada'>buscar</button>
 
 <h2>Usuarios ({{usuarios.length}})</h2>
-<ul class="usuarios">
-  <li *ngFor="let datos of usuarios" (click)="onSelect(datos)">
+<ul class="mdc-list">
+  <li *ngFor="let datos of usuarios" (click)="onSelect(datos)" class="mdc-list-item">
     <span> {{datos.usuario.apellido}}, {{datos.usuario.nombre}} ({{datos.usuario.dni}}) {{datos.sileg != null ? 'tiene' : 'no tiene'}}</span>
   </li>
 </ul>
