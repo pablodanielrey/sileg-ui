@@ -33,12 +33,13 @@
   <mat-step>
     Está seguro que desea generar la designacion:
     <div *ngIf='lugarSeleccionado'>
+      IMPORTANTE!!! Los Datos ingresados NO SE PUEDEN MODIFICAR una vez creada la designación.
       Responsable de la designación: Persona Responsable<br>
       Lugar: {{lugarSeleccionado.nombre}} {{lugarSeleccionado.tipo}}<br>
       Persona: Nombre Apellido Dni<br>
       Tipo: Cumpliendo Funciones<br>
       Fecha: ahora<br>
-      Correo Institucional: {{correo}} - NO SE PUEDE MODIFICAR UNA VEZ CREADA!!<br> 
+      Correo Institucional: {{correo}}<br>
       Correo Confirmado: Sí
     </div>
     <button mat-button matStepperPrevious>Anterior</button>
