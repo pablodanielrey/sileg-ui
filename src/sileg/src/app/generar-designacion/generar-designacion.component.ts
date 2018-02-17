@@ -17,6 +17,8 @@ export class GenerarDesignacionComponent implements OnInit {
   lugarSeleccionado: Lugar = null;
   busqueda: string = '';
   busquedaActivada: boolean = false;
+  correo: string = '';
+  disponible: boolean = false;
 
   constructor(private route: ActivatedRoute,
               private location: Location,
@@ -37,6 +39,14 @@ export class GenerarDesignacionComponent implements OnInit {
         console.log(datos);
         this.lugares = datos;
       });
+  }
+
+  desactivar(): void {
+    this.disponible = false;
+  }
+
+  verificarDisponibilidad(): void {
+    this.disponible = true;
   }
 
   onSelect(stepper:any, lugar:Lugar): void {
