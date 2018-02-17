@@ -17,5 +17,4 @@ Detalle usuario
   </li>
 </p>
 <button mat-button routerLink='/reset-clave/{{datos.usuario.id}}'>Crear Clave Temporal</button>
-<button mat-button routerLink='/generar-desig/{{datos.usuario.id}}' [disabled]='tieneDesignacion()'>Crear Designacion</button>
-<button mat-button (click)='crearCorreo()' [disabled]='!tieneDesignacion() || tieneCorreoInstitucional()'>Crear Correo</button>
+<button mat-button routerLink='/generar-desig/{{datos.usuario.id}}' [disabled]='tieneDesignacion()'>Crear Correo Institucional</button>
