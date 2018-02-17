@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+
+import { MatDialog } from '@angular/material';
+import { ConfirmarGenerarClaveComponent } from '../generar-clave/confirmar-generar-clave.component'
+
 import { SilegService } from '../sileg.service'
 import { ResetClave } from '../entities/usuario'
 
@@ -13,13 +17,22 @@ import { ResetClave } from '../entities/usuario'
 export class GenerarClaveComponent implements OnInit {
 
   id: string = "";
-  mensaje: string = "";
   dataClave: ResetClave;
-  constructor(private route: ActivatedRoute, private location: Location, private service: SilegService) { }
+
+  constructor(private route: ActivatedRoute,
+              private location: Location,
+              private service: SilegService,
+              public dialog: MatDialog) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.generarClave(this.id);
+    //this.generarClave(this.id);
+    setTimeout(() => {
+      let dialogRef = this.dialog.open(ConfirmarGenerarClaveComponent, {
+          width: '250px'
+      });
+      dialogRef.afterClosed().subscribe(r => { r == 1 ? this.generarClave(this.id) : this.volver() });
+    });
   }
 
   volver(): void {
@@ -27,9 +40,6 @@ export class GenerarClaveComponent implements OnInit {
   }
 
   generarClave(uid:string): void {
-    this.service.generarClave(uid)
-      // .subscribe(data => this.mensaje = "Clave:" + clave: data['clave']);
-      .subscribe(data => this.dataClave = data );
-
+    this.service.generarClave(uid).subscribe(data => this.dataClave = data );
   }
 }

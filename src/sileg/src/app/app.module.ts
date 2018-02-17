@@ -13,7 +13,9 @@ import { SilegService } from './sileg.service';
 import { SeleccionarUsuarioComponent } from './seleccionar-usuario/seleccionar-usuario.component';
 import { DetalleUsuarioComponent } from './detalle-usuario/detalle-usuario.component';
 import { AppRoutingModule } from './/app-routing.module';
-import { GenerarClaveComponent } from './generar-clave/generar-clave.component';
+import { ConfirmarGenerarClaveComponent } from './generar-clave/confirmar-generar-clave.component';
+import { GenerarClaveComponent   } from './generar-clave/generar-clave.component';
+
 
 
 @NgModule({
@@ -21,7 +23,11 @@ import { GenerarClaveComponent } from './generar-clave/generar-clave.component';
     AppComponent,
     SeleccionarUsuarioComponent,
     DetalleUsuarioComponent,
+    ConfirmarGenerarClaveComponent,
     GenerarClaveComponent
+  ],
+  entryComponents: [
+    ConfirmarGenerarClaveComponent
   ],
   imports: [
     BrowserModule,
