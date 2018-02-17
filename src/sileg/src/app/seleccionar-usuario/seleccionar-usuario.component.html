@@ -2,7 +2,7 @@
 <!-- término a buscar : {{busqueda}}<br> -->
 <input type='search' [(ngModel)]='busqueda' (keyup)='actualizarBusqueda()'/>
 
-<button mat-button  (click)='buscarUsuarios()' [disabled]='!busquedaActivada'><mat-icon>home</mat-icon> buscar</button>
+<button mat-button (click)='buscarUsuarios()' [disabled]='!busquedaActivada'><mat-icon>home</mat-icon> buscar</button>
 
 <p> <b>{{usuarios.length}}</b>  Usuarios encontrados</p>
 <mat-list>

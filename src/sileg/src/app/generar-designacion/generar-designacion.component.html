@@ -1,0 +1,39 @@
+<mat-horizontal-stepper linear='true' #stepper>
+  <mat-step>
+    <div>Lugar asociado a la designación:</div>
+    <div>
+      <input type='search' [(ngModel)]='busqueda' (keyup)='actualizarBusqueda()'/>
+      <button mat-button (click)='buscarLugares()' [disabled]='!busquedaActivada'><mat-icon>home</mat-icon> buscar</button>
+    </div>
+
+    <div>
+      <p><b>{{lugares.length}}</b>  Lugares encontrados</p>
+      <mat-list>
+        <mat-list-item *ngFor="let lugar of lugares" (click)="onSelect(stepper, lugar)" class="mdc-list-item">
+          <span> {{lugar.nombre }} &nbsp;</span>
+          <span> {{lugar.tipo }} &nbsp;</span>
+        </mat-list-item>
+      </mat-list>
+    </div>
+
+    <div>
+      <button mat-button (click)='location.back()'>Volver</button>
+      <!-- <button mat-button matStepperNext>Siguiente</button> -->
+    </div>
+  </mat-step>
+
+  <mat-step>
+    Está seguro que desea generar la designacion:
+    <div *ngIf='lugarSeleccionado'>
+      Lugar: {{lugarSeleccionado.nombre}} {{lugarSeleccionado.tipo}}<br>
+      Persona: Nombre Apellido Dni<br>
+      Tipo: Cumpliendo Funciones<br>
+      Fecha: ahora<br>
+      Responsable de la designación: Persona Responsable<br>
+    </div>
+    <button mat-button matStepperPrevious>Anterior</button>
+    <button mat-button (ckick)='generarDesignacion()'>Generar</button>
+  </mat-step>
+
+
+</mat-horizontal-stepper>

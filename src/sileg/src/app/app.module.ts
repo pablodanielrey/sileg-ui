@@ -15,6 +15,7 @@ import { DetalleUsuarioComponent } from './detalle-usuario/detalle-usuario.compo
 import { AppRoutingModule } from './/app-routing.module';
 import { ConfirmarGenerarClaveComponent } from './generar-clave/confirmar-generar-clave.component';
 import { GenerarClaveComponent   } from './generar-clave/generar-clave.component';
+import { GenerarDesignacionComponent } from './generar-designacion/generar-designacion.component';
 
 
 
@@ -24,7 +25,8 @@ import { GenerarClaveComponent   } from './generar-clave/generar-clave.component
     SeleccionarUsuarioComponent,
     DetalleUsuarioComponent,
     ConfirmarGenerarClaveComponent,
-    GenerarClaveComponent
+    GenerarClaveComponent,
+    GenerarDesignacionComponent
   ],
   entryComponents: [
     ConfirmarGenerarClaveComponent

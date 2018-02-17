@@ -19,10 +19,6 @@ export class DetalleUsuarioComponent implements OnInit {
   ngOnInit() {
   }
 
-  crearClaveTemporal(): void {
-
-  }
-
   crearCorreo(): void {
 
   }
@@ -30,11 +26,6 @@ export class DetalleUsuarioComponent implements OnInit {
   eliminarCorreo(m:Mail): void {
 
   }
-
-  crearDesignacion(): void {
-
-  }
-
 
   tieneDesignacion(): boolean {
     return this.datos.sileg != null;

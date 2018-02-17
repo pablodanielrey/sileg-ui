@@ -13,7 +13,7 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/toPromise';
 
 import { Usuario, ResetClave } from './entities/usuario';
-import { Sileg, DatosSileg } from './entities/sileg';
+import { Sileg, DatosSileg, Lugar } from './entities/sileg';
 
 const SILEG_API_URL = environment.silegApiUrl;
 
@@ -31,6 +31,16 @@ export class SilegService {
           };
     let apiUrl = `${SILEG_API_URL}/usuarios`;
     return this.http.get<DatosSileg[]>(apiUrl, options).map(datos => datos.map(d => new DatosSileg(d)));
+  }
+
+  buscarLugares(texto:string): Observable<Lugar[]> {
+    const options = { params: new HttpParams()
+              .set('q', texto ? texto : 'algoquenoexiste')
+              //.set('limit', 10)
+              //.set('offset',0)
+          };
+    let apiUrl = `${SILEG_API_URL}/lugares`;
+    return this.http.get<Lugar[]>(apiUrl, options).map(datos => datos.map(d => new Lugar(d)));
   }
 
   generarClave(uid:string):Observable<ResetClave> {

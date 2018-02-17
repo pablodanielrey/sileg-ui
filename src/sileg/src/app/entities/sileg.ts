@@ -19,3 +19,18 @@ export class DatosSileg {
     }
   }
 }
+
+
+export class Lugar {
+  id: string;
+  tipo: string;
+  nombre: string;
+
+  constructor(o:Object) {
+    try {
+      Object.assign(this, o);
+    } catch(e) {
+      console.log(e);
+    }
+  }
+}
