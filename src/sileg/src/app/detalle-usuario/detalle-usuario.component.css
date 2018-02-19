@@ -1,0 +1,4 @@
+.detalle-usuario {
+  display: flex;
+  flex-direction: row;
+}

@@ -1,5 +1,14 @@
 .seleccionar-usuarios {
     padding: 20px;
+    height: 100%;
+    /*background-color: red;*/
+    height: calc(100% - 100px);
+
+}
+
+.pantalla {
+  display: flex;
+  flex-direction: row;
 }
 
 .itemUser {
@@ -7,11 +16,14 @@
   flex-direction: row;
   align-items: center;
   width: 100%;
+  background-color: white;
+  width: 400px;
 }
 
 .itemUser:hover {
-  background-color: rgba(0,0,0,.03);
+  background-color: #4186E1;
   cursor: pointer;
+  color: white;
 }
 
 .ico {
@@ -19,6 +31,17 @@
   margin-right: 30px;
 }
 
-.textDNI {
-  color:#444444;
+
+
+.search {
+  margin-left: 20px;
+  color: #4186E1;
+  font-size: 1.3em;
+}
+
+.lista {
+  height:400px;
+  overflow-y: auto;
+  /*background-color: red;*/
+  width: 400px;
 }
