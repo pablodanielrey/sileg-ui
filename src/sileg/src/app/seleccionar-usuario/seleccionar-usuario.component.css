@@ -1,1 +1,24 @@
+.seleccionar-usuarios {
+    padding: 20px;
+}
 
+.itemUser {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+.itemUser:hover {
+  background-color: rgba(0,0,0,.03);
+  cursor: pointer;
+}
+
+.ico {
+  font-size: 40px;
+  margin-right: 30px;
+}
+
+.textDNI {
+  color:#444444;
+}

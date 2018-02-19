@@ -1,18 +1,32 @@
-
+<div class="seleccionar-usuarios">
 <!-- término a buscar : {{busqueda}}<br> -->
-<input type='search' [(ngModel)]='busqueda' (keyup)='actualizarBusqueda()'/>
+<mat-form-field>
 
-<button mat-button  (click)='buscarUsuarios()' [disabled]='!busquedaActivada'><mat-icon>home</mat-icon> buscar</button>
+<input matInput type='search' placeholder="Buscar Usuario"  [(ngModel)]='busqueda' (keyup)='actualizarBusqueda()'/>
+</mat-form-field>
 
-<p> <b>{{usuarios.length}}</b>  Usuarios encontrados</p>
+<button mat-raised-button (click)='buscarUsuarios()' [disabled]='!busquedaActivada'><mat-icon>search</mat-icon></button>
+<!-- <p> <b>{{usuarios.length}}</b>  Usuarios encontrados</p> -->
+
+
 <mat-list>
   <mat-list-item *ngFor="let datos of usuarios" (click)="onSelect(datos)" class="mdc-list-item">
-    <span> {{datos.usuario.nombre }} &nbsp;</span>
-    <span> {{datos.usuario.apellido}}</span><br>
-    <span> ({{datos.usuario.dni}}) {{datos.sileg != null ? 'tiene' : 'no tiene'}}</span>
+    <div class=itemUser>
+        <div>
+            <mat-icon class="ico">account_circle</mat-icon>
+        </div>
+        <div>
+            <div>{{datos.usuario.nombre }} {{datos.usuario.apellido}}</div>
+            <div class="textDNI">{{datos.usuario.dni}}</div>
+            <!-- <div>{{datos.usuario.dni}} {{datos.sileg != null ? 'tiene' : 'no tiene'}}</div> -->
+        </div>
+    </div>
+    <mat-divider></mat-divider>
   </mat-list-item>
 </mat-list>
 
 <div *ngIf="usuarioSeleccionado">
   <app-detalle-usuario [datos]="usuarioSeleccionado"></app-detalle-usuario>
+</div>
+
 </div>
