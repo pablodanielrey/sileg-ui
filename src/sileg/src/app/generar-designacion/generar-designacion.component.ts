@@ -19,6 +19,7 @@ export class GenerarDesignacionComponent implements OnInit {
   busquedaActivada: boolean = false;
   correo: string = '';
   disponible: boolean = false;
+  mensaje: string = null;
 
   constructor(private route: ActivatedRoute,
               private location: Location,
@@ -46,7 +47,13 @@ export class GenerarDesignacionComponent implements OnInit {
   }
 
   verificarDisponibilidad(): void {
-    this.disponible = true;
+    this.mensaje = null;
+    this.service.chequearDisponibilidadCorreo(this.correo)
+      .subscribe(existe => {
+        console.log(existe);
+        this.disponible=!existe;
+        this.disponible ? this.mensaje=null : this.mensaje='Cuenta No Disponible';
+      });
   }
 
   onSelect(stepper:any, lugar:Lugar): void {

@@ -43,6 +43,11 @@ export class SilegService {
     return this.http.get<Lugar[]>(apiUrl, options).map(datos => datos.map(d => new Lugar(d)));
   }
 
+  chequearDisponibilidadCorreo(cuenta:string): Observable<boolean> {
+    let apiUrl = `${SILEG_API_URL}/correo/${cuenta}`;
+    return this.http.get<any>(apiUrl).map(res => res.existe);
+  }
+
   generarClave(uid:string):Observable<ResetClave> {
     let apiUrl = `${SILEG_API_URL}/generar_clave/${uid}`;
     return this.http.get<ResetClave>(apiUrl).map(res => new ResetClave(res));
