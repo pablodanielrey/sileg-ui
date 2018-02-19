@@ -52,7 +52,7 @@ export class GenerarDesignacionComponent implements OnInit {
       .subscribe(existe => {
         console.log(existe);
         this.disponible=!existe;
-        this.disponible ? this.mensaje=null : this.mensaje='Cuenta No Disponible';
+        this.disponible ? this.mensaje='Cuenta Disponible' : this.mensaje='Cuenta No Disponible';
       });
   }
 
