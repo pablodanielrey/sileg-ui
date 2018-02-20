@@ -1,34 +1,64 @@
-<div *ngIf='datos'>
-    Detalle usuario
-    {{datos.usuario.id}}<br>
-    {{datos.usuario.dni}}<br>
-    {{datos.usuario.nombre}}<br>
-    {{datos.usuario.apellido}}<br>
-    {{datos.usuario.genero}}<br>
-    {{datos.usuario.nacimiento}}<br>
-  </div>
+<div *ngIf='datos' class="contenedor-detalle-usuario">
+    <div class="detalle-de-usuario">
+    <h4>Detalle del usuario</h4>
 
-  <mat-list *ngIf='designaciones'>
-    <mat-list-item *ngFor='let d of designaciones'>
-      {{d.cargo.nombre}} {{d.lugar.nombre}} {{d.desde}}
-    </mat-list-item>
-  </mat-list>
+    <form class="example-form contentDetailUSer">
+        <mat-form-field>
+          <input matInput placeholder="Nombre" value="{{datos.usuario.nombre}}">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Apellido" value="{{datos.usuario.apellido}}">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="DNI" value="{{datos.usuario.dni}}">
+        </mat-form-field>
 
-  <br>
-  <div *ngIf='datos'>
-    Correos<br>
-    <li *ngFor='let m of datos.usuario.mails'>
-      <ul>
-        correo: <span>{{m.email}}</span><br>
-        confirmado: <span>{{m.confirmado}}</span><br>
-        eliminado: <span>{{m.eliminado}}</span><br>
-        <button (click)='eliminarCorreo(m)' [disabled]='m.eliminado != null'>X</button>
-      </ul>
-    </li>
-  </div>
+        <mat-button-toggle [(ngModel)]='ocultos'>Mostrar Ocultos</mat-button-toggle>
+        <mat-form-field *ngFor='let m of datos.usuario.mails'>
+          <div *ngIf='ocultos ? m.eliminado != null : true'>
+            <input type="email" matInput placeholder="Correo eléctronico" value="{{m.email}}">
+            <mat-icon *ngIf="m.confirmado != null" matSuffix title="Verificado el {{m.confirmado}}">verified_user</mat-icon>
+            <mat-icon class="icoSinVerificar" *ngIf="m.confirmado == null"  matSuffix title="Sin verificar">verified_user</mat-icon>
+            <button mat-icon-button (click)='eliminarCorreo(m)' [disabled]='m.eliminado != null'>
+              <mat-icon aria-label="Eliminar correo">delete</mat-icon>
+            </button>
+          </div>
+        </mat-form-field>
 
-  <div *ngIf='datos'>
-    <button mat-button routerLink='/reset-clave/{{datos.usuario.id}}'>Crear Clave Temporal</button>
-    <button mat-button routerLink='/generar-desig/{{datos.usuario.id}}' [disabled]='tieneDesignacion()'>Crear Correo Institucional</button>
-  </div>
-  <button mat-button routerLink='/buscar'>Volver</button>
+        <mat-list *ngIf='designaciones'>
+          <mat-list-item *ngFor='let d of designaciones'>
+            {{d.cargo.nombre}} {{d.lugar.nombre}} {{d.desde}}
+          </mat-list-item>
+        </mat-list>
+
+    </form>
+
+
+      <!-- {{datos.usuario.id}}<br> -->
+      <!-- {{datos.usuario.dni}}<br> -->
+      <!-- {{datos.usuario.nombre}}<br> -->
+      <!-- {{datos.usuario.apellido}}<br> -->
+      <!-- {{datos.usuario.genero}}<br> -->
+      <!-- {{datos.usuario.nacimiento}}<br> -->
+      <!-- <li *ngFor='let m of datos.usuario.mails'>
+        <ul>
+          correo: <span>{{m.email}}</span><br>
+          confirmado: <span>{{m.confirmado}}</span><br>
+          eliminado: <span>{{m.eliminado}}</span><br>
+          <button (click)='eliminarCorreo(m)' [disabled]='m.eliminado != null'>X</button>
+        </ul>
+      </li> -->
+
+    </div>
+
+    <div *ngIf='datos' class="contenedorBotones">
+    <!-- <button (click)='crearClaveTemporal()'>Crear Clave Temporal</button> -->
+      <button class="btn" mat-raised-button routerLink="/reset-clave/{{datos.sileg.id}}"><mat-icon>lock</mat-icon> CREAR CLAVE TEMPORAL</button>
+      <button class="btn" mat-raised-button routerLink='/generar-desig/{{datos.usuario.id}}' [disabled]='tieneDesignacion()'><mat-icon>assignment-ind</mat-icon> CREAR DESIGNACIÓN</button>
+      <button mat-button routerLink='/buscar'>Volver</button>
+
+    <!-- <button routerLink="/reset-clave/{{datos.sileg.id}}">Crear Clave Temporal</button>
+    <button (click)='crearDesignacion()' [disabled]='tieneDesignacion()'>Crear Designacion</button>
+    <button (click)='crearCorreo()' [disabled]='!tieneDesignacion() || tieneCorreoInstitucional()'>Crear Correo</button> -->
+    </div>
+</div>
