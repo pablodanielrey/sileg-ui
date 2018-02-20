@@ -1,20 +1,34 @@
-Detalle usuario
-<p>
-  {{datos.usuario.id}}<br>
-  {{datos.usuario.dni}}<br>
-  {{datos.usuario.nombre}}<br>
-  {{datos.usuario.apellido}}<br>
-  {{datos.usuario.genero}}<br>
-  {{datos.usuario.nacimiento}}<br>
-  Correos<br>
-  <li *ngFor='let m of datos.usuario.mails'>
-    <ul>
-      correo: <span>{{m.email}}</span><br>
-      confirmado: <span>{{m.confirmado}}</span><br>
-      eliminado: <span>{{m.eliminado}}</span><br>
-      <button (click)='eliminarCorreo(m)' [disabled]='m.eliminado != null'>X</button>
-    </ul>
-  </li>
-</p>
-<button mat-button routerLink='/reset-clave/{{datos.usuario.id}}'>Crear Clave Temporal</button>
-<button mat-button routerLink='/generar-desig/{{datos.usuario.id}}' [disabled]='tieneDesignacion()'>Crear Correo Institucional</button>
+<div *ngIf='datos'>
+    Detalle usuario
+    {{datos.usuario.id}}<br>
+    {{datos.usuario.dni}}<br>
+    {{datos.usuario.nombre}}<br>
+    {{datos.usuario.apellido}}<br>
+    {{datos.usuario.genero}}<br>
+    {{datos.usuario.nacimiento}}<br>
+  </div>
+
+  <mat-list *ngIf='designaciones'>
+    <mat-list-item *ngFor='let d of designaciones'>
+      {{d.cargo.nombre}} {{d.lugar.nombre}} {{d.desde}}
+    </mat-list-item>
+  </mat-list>
+
+  <br>
+  <div *ngIf='datos'>
+    Correos<br>
+    <li *ngFor='let m of datos.usuario.mails'>
+      <ul>
+        correo: <span>{{m.email}}</span><br>
+        confirmado: <span>{{m.confirmado}}</span><br>
+        eliminado: <span>{{m.eliminado}}</span><br>
+        <button (click)='eliminarCorreo(m)' [disabled]='m.eliminado != null'>X</button>
+      </ul>
+    </li>
+  </div>
+
+  <div *ngIf='datos'>
+    <button mat-button routerLink='/reset-clave/{{datos.usuario.id}}'>Crear Clave Temporal</button>
+    <button mat-button routerLink='/generar-desig/{{datos.usuario.id}}' [disabled]='tieneDesignacion()'>Crear Correo Institucional</button>
+  </div>
+  <button mat-button routerLink='/buscar'>Volver</button>

@@ -1,5 +1,16 @@
 <mat-horizontal-stepper linear='true' #stepper>
   <mat-step>
+    <div *ngIf='usuarioSeleccionado'>
+      Usuario Seleccionado:
+      <div>
+        <div>{{usuarioSeleccionado.dni}}</div>
+        <div>{{usuarioSeleccionado.nombre}}</div>
+        <div>{{usuarioSeleccionado.apellido}}</div>
+      </div>
+    </div>
+    <br>
+    <br>
+
     <div>Lugar asociado a la designación:</div>
     <div>
       <input type='search' [(ngModel)]='busqueda' (keyup)='actualizarBusqueda()'/>
@@ -10,8 +21,15 @@
       <p><b>{{lugares.length}}</b>  Lugares encontrados</p>
       <mat-list>
         <mat-list-item *ngFor="let lugar of lugares" (click)="onSelect(stepper, lugar)" class="mdc-list-item">
-          <span> {{lugar.nombre }} &nbsp;</span>
-          <span> {{lugar.tipo }} &nbsp;</span>
+          <div *ngIf='lugar.materia'>
+            <span> {{lugar.tipo }} &nbsp;</span>
+            <span> {{lugar.nombre }} &nbsp;</span>
+            <span> {{lugar.materia.nombre }} &nbsp;</span>
+          </div>
+          <div *ngIf='!lugar.materia'>
+            <span> {{lugar.tipo }} &nbsp;</span>
+            <span> {{lugar.nombre }} &nbsp;</span>
+          </div>
         </mat-list-item>
       </mat-list>
     </div>
@@ -23,29 +41,97 @@
   </mat-step>
 
   <mat-step>
-    Debe Seleccionar el correo a generar:
-    Correo:<input [(ngModel)]='correo' (keyup)='desactivar()' type='email'/>
-    <div *ngIf='mensaje'>{{mensaje}}</div>
-    <button mat-button matStepperPrevious>Anterior</button>
-    <button *ngIf='!disponible' mat-button (click)='verificarDisponibilidad()' [disabled]='correo.length <= 0'>Verificar Disponibilidad</button>
-    <button *ngIf='disponible' mat-button matStepperNext [disabled]='!disponible'>Siguiente</button>
+    <div *ngIf='usuarioSeleccionado'>
+      Usuario Seleccionado:
+      <div>
+        <div>{{usuarioSeleccionado.dni}}</div>
+        <div>{{usuarioSeleccionado.nombre}}</div>
+        <div>{{usuarioSeleccionado.apellido}}</div>
+      </div>
+    </div>
+    <br>
+    <br>
+
+    <div *ngIf='lugarSeleccionado'>
+      Lugar Seleccionado:
+      <div *ngIf='lugarSeleccionado.materia'>
+        <span> {{lugarSeleccionado.tipo }} &nbsp;</span>
+        <span> {{lugarSeleccionado.nombre }} &nbsp;</span>
+        <span> {{lugarSeleccionado.materia.nombre }} &nbsp;</span>
+      </div>
+      <div *ngIf='!lugarSeleccionado.materia'>
+        <span> {{lugarSeleccionado.tipo }} &nbsp;</span>
+        <span> {{lugarSeleccionado.nombre }} &nbsp;</span>
+      </div>
+    </div>
+    <br>
+    <br>
+
+    <div>
+      Debe Seleccionar el correo a generar:
+      Correo:<input [(ngModel)]='correo' (keyup)='desactivar()' type='email'/>
+      <div *ngIf='mensaje'>{{mensaje}}</div>
+    </div>
+    <div>
+      <button mat-button matStepperPrevious>Anterior</button>
+      <button *ngIf='!disponible' mat-button (click)='verificarDisponibilidad()' [disabled]='correo.length <= 0'>Verificar Disponibilidad</button>
+      <button *ngIf='disponible' mat-button matStepperNext [disabled]='!disponible'>Siguiente</button>
+    </div>
   </mat-step>
 
   <mat-step>
     Está seguro que desea generar la designacion:
-    <div *ngIf='lugarSeleccionado'>
-      IMPORTANTE!!! Los Datos ingresados NO SE PUEDEN MODIFICAR una vez creada la designación.
-      Responsable de la designación: Persona Responsable<br>
-      Lugar: {{lugarSeleccionado.nombre}} {{lugarSeleccionado.tipo}}<br>
-      Persona: Nombre Apellido Dni<br>
-      Tipo: Cumpliendo Funciones<br>
-      Fecha: ahora<br>
-      Correo Institucional: {{correo}}<br>
-      Correo Confirmado: Sí
+    <div>
+      <div>
+        IMPORTANTE!!! Los Datos ingresados NO SE PUEDEN MODIFICAR una vez creada la designación.
+        Responsable de la designación: Persona Responsable<br>
+      </div>
+
+      <div *ngIf='usuarioSeleccionado'>
+        Usuario Seleccionado:
+        <div>
+          <div>{{usuarioSeleccionado.dni}}</div>
+          <div>{{usuarioSeleccionado.nombre}}</div>
+          <div>{{usuarioSeleccionado.apellido}}</div>
+        </div>
+      </div>
+      <br>
+      <br>
+
+      <div *ngIf='lugarSeleccionado'>
+        Lugar Seleccionado:
+        <div *ngIf='lugarSeleccionado.materia'>
+          <span> {{lugarSeleccionado.tipo }} &nbsp;</span>
+          <span> {{lugarSeleccionado.nombre }} &nbsp;</span>
+          <span> {{lugarSeleccionado.materia.nombre }} &nbsp;</span>
+        </div>
+        <div *ngIf='!lugarSeleccionado.materia'>
+          <span> {{lugarSeleccionado.tipo }} &nbsp;</span>
+          <span> {{lugarSeleccionado.nombre }} &nbsp;</span>
+        </div>
+      </div>
+      <br>
+      <br>
+
+      <div>
+        Tipo: Cumpliendo Funciones
+      </div>
+      <br>
+      <div>
+        Correo Institucional: {{correo}}
+      </div>
+      <br>
     </div>
     <button mat-button matStepperPrevious>Anterior</button>
-    <button mat-button (ckick)='generarDesignacion()'>Generar</button>
+    <button mat-button (click)='generarDesignacion(stepper)'>Generar</button>
   </mat-step>
 
+  <mat-step>
+    La designación se ha generado con éxito.
+    Debe esperar el período de sincronización (puede tardar hasta 1 hora en activarse en los sistemas).
+    Atte.
+          Equipo de desarrollo DiTESI.
+    <button mat-button routerLink='/buscar'>Aceptar</button>
+  </mat-step>
 
 </mat-horizontal-stepper>

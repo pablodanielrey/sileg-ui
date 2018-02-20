@@ -14,8 +14,8 @@ export class SeleccionarUsuarioComponent implements OnInit {
 
   usuarios: DatosSileg[] = [];
   busqueda:string = "";
-  usuarioSeleccionado: DatosSileg = null;
   busquedaActivada: boolean = false;
+  subscriptions: any[] = [];
 
   constructor(private service: SilegService) {
   }
@@ -24,22 +24,22 @@ export class SeleccionarUsuarioComponent implements OnInit {
 
   }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+    this.subscriptions = [];
+  }
+
   actualizarBusqueda() : void {
     this.busquedaActivada = (this.busqueda.length > 3);
   }
 
   buscarUsuarios(): void {
-    this.usuarioSeleccionado = null;
     this.usuarios = [];
-    this.service.buscarUsuarios(this.busqueda)
+    this.subscriptions.push(this.service.buscarUsuarios(this.busqueda)
       .subscribe(usuarios => {
         console.log(usuarios);
         this.usuarios = usuarios;
-      });
-  }
-
-  onSelect(usuario: DatosSileg): void {
-    this.usuarioSeleccionado = usuario;
+      }));
   }
 
 }

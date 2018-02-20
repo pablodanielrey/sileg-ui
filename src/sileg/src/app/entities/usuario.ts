@@ -17,6 +17,7 @@ export class ResetClave {
 
 export class Mail {
   id: string;
+  usuario_id: string;
   email: string;
   eliminado: boolean;
   confirmado: string;

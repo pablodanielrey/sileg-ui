@@ -4,15 +4,11 @@
 
 <button mat-button (click)='buscarUsuarios()' [disabled]='!busquedaActivada'><mat-icon>home</mat-icon> buscar</button>
 
-<p> <b>{{usuarios.length}}</b>  Usuarios encontrados</p>
+<p><b>{{usuarios.length}}</b>  Usuarios encontrados</p>
 <mat-list>
-  <mat-list-item *ngFor="let datos of usuarios" (click)="onSelect(datos)" class="mdc-list-item">
+  <mat-list-item *ngFor="let datos of usuarios" routerLink='/detalle/{{datos.usuario.id}}' class="mdc-list-item">
     <span> {{datos.usuario.nombre }} &nbsp;</span>
     <span> {{datos.usuario.apellido}}</span><br>
     <span> ({{datos.usuario.dni}}) {{datos.sileg != null ? 'tiene' : 'no tiene'}}</span>
   </mat-list-item>
 </mat-list>
-
-<div *ngIf="usuarioSeleccionado">
-  <app-detalle-usuario [datos]="usuarioSeleccionado"></app-detalle-usuario>
-</div>

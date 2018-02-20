@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+
 import { Usuario, Mail } from '../entities/usuario';
-import { DatosSileg, Sileg } from '../entities/sileg';
+import { DatosSileg, Sileg, Designacion } from '../entities/sileg';
 import { SilegService } from '../sileg.service'
 
 
@@ -11,12 +14,33 @@ import { SilegService } from '../sileg.service'
 })
 export class DetalleUsuarioComponent implements OnInit {
 
-  @Input() datos: DatosSileg;
-  dataClave = {};
+  usuario_id: string = null;
+  datos: DatosSileg = null;
+  designaciones: Designacion[] = null;
+  subscriptions: any[] = [];
 
-  constructor(private service: SilegService) { }
+  constructor(private route: ActivatedRoute,
+              private location: Location,
+              private service: SilegService) { }
 
   ngOnInit() {
+    this.usuario_id = this.route.snapshot.paramMap.get('id');
+    this.subscriptions.push(this.service.buscarUsuario(this.usuario_id).subscribe(
+      datos => {
+        this.datos = datos;
+        console.log(datos);
+      }));
+    this.subscriptions.push(this.service.buscarDesignaciones(this.usuario_id).subscribe(
+      designaciones => {
+        this.designaciones = designaciones;
+        console.log(designaciones);
+      }));
+
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+    this.subscriptions = [];
   }
 
   crearCorreo(): void {
@@ -24,11 +48,14 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
   eliminarCorreo(m:Mail): void {
-
+    this.subscriptions.push(this.service.eliminarCorreo(m.usuario_id, m.id).subscribe(
+      res => { location.reload(); },
+      err => { console.log(err); }
+    ));
   }
 
   tieneDesignacion(): boolean {
-    return this.datos.sileg != null;
+    return this.designaciones != null && this.designaciones.length > 0;
   }
 
   tieneCorreoInstitucional(): boolean {

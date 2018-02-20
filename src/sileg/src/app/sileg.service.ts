@@ -13,7 +13,7 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/toPromise';
 
 import { Usuario, ResetClave } from './entities/usuario';
-import { Sileg, DatosSileg, Lugar } from './entities/sileg';
+import { Sileg, DatosSileg, Lugar, PedidoDesignacion, Designacion } from './entities/sileg';
 
 const SILEG_API_URL = environment.silegApiUrl;
 
@@ -22,6 +22,16 @@ export class SilegService {
 
   //usuarios: Usuario[] = [];
   constructor(private http: HttpClient) { }
+
+  buscarUsuario(uid:string): Observable<DatosSileg> {
+    let apiUrl = `${SILEG_API_URL}/usuarios/${uid}`;
+    return this.http.get<DatosSileg>(apiUrl).map(datos => new DatosSileg(datos));
+  }
+
+  buscarDesignaciones(uid:string): Observable<Designacion[]> {
+    let apiUrl = `${SILEG_API_URL}/usuarios/${uid}/designaciones`;
+    return this.http.get<Designacion[]>(apiUrl).map(res => res.map(d => new Designacion(d)));
+  }
 
   buscarUsuarios(texto:string): Observable<DatosSileg[]> {
     const options = { params: new HttpParams()
@@ -53,6 +63,20 @@ export class SilegService {
     return this.http.get<ResetClave>(apiUrl).map(res => new ResetClave(res));
   }
 
+  generarDesignacion(pedido:PedidoDesignacion):Observable<any> {
+    const options = { params: new HttpParams()
+              .set('q','algoquenoexiste')
+              //.set('limit', 10)
+              //.set('offset',0)
+          };
+    let apiUrl = `${SILEG_API_URL}/designacion`;
+    return this.http.post<any>(apiUrl, pedido);
+  }
+
+  eliminarCorreo(uid:string, cid:string):Observable<string> {
+    let apiUrl = `${SILEG_API_URL}/usuarios/${uid}/correos/${cid}`;
+    return this.http.delete<string>(apiUrl);
+  }
 
   /*
   buscarUsuarios(texto: string): Promise<DatosSileg[]> {

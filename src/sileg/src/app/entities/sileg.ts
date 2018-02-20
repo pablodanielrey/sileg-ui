@@ -34,3 +34,25 @@ export class Lugar {
     }
   }
 }
+
+export class PedidoDesignacion {
+  lugar_id: string;
+  usuario_id: string;
+  correo: string;
+}
+
+export class Designacion {
+  designacion_id: string;
+  usuario_id: string;
+  cargo_id: string;
+  lugar_id: string;
+  historico: boolean;
+
+  constructor(o:Object) {
+    try {
+      Object.assign(this, o);
+    } catch(e) {
+      console.log(e);
+    }
+  }  
+}
