@@ -1,4 +1,30 @@
-.detalle-usuario {
+.contenedor-detalle-usuario {
   display: flex;
   flex-direction: row;
+}
+
+.contentDetailUSer {
+  display: flex;
+  flex-direction: column;
+}
+
+.detalle-de-usuario {
+  width: 400px;
+}
+
+.contenedorBotones {
+  display: flex;
+  flex-direction: column;
+  margin-left: 40px;
+}
+
+.icoSinVerificar {
+  color: #e2e2e2;
+}
+
+
+.btn {
+  margin: 5px;
+  padding: 10px;
+  text-align: left;
 }

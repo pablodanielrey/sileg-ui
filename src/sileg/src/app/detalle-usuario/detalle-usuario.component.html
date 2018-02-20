@@ -1,28 +1,57 @@
-<div class="detalle-usuario">
-    <div>
-    Detalle usuario
-    <p>
-      {{datos.usuario.id}}<br>
-      {{datos.usuario.dni}}<br>
-      {{datos.usuario.nombre}}<br>
-      {{datos.usuario.apellido}}<br>
-      {{datos.usuario.genero}}<br>
-      {{datos.usuario.nacimiento}}<br>
-      Correos<br>
-      <li *ngFor='let m of datos.usuario.mails'>
+<div class="contenedor-detalle-usuario">
+    <div class="detalle-de-usuario">
+    <h4>Detalle del usuario</h4>
+
+    <form class="example-form contentDetailUSer">
+        <mat-form-field>
+          <input matInput placeholder="Nombre" value="{{datos.usuario.nombre}}">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Apellido" value="{{datos.usuario.apellido}}">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="DNI" value="{{datos.usuario.dni}}">
+        </mat-form-field>
+        <mat-form-field *ngFor='let m of datos.usuario.mails'>
+          <input type="email" matInput placeholder="Correo eléctronico" value="{{m.email}}">
+          <mat-icon *ngIf="m.confirmado != null" matSuffix title="Verificado el {{m.confirmado}}">verified_user</mat-icon>
+          <mat-icon class="icoSinVerificar" *ngIf="m.confirmado == null"  matSuffix title="Sin verificar">verified_user</mat-icon>
+          <button mat-icon-button (click)='eliminarCorreo(m)' [disabled]='m.eliminado != null'>
+            <mat-icon aria-label="Eliminar correo">delete</mat-icon>
+          </button>
+          <button (click)='eliminarCorreo(m)' [disabled]='m.eliminado != null'>X</button>
+
+        </mat-form-field>
+
+    </form>
+
+
+      <!-- {{datos.usuario.id}}<br> -->
+      <!-- {{datos.usuario.dni}}<br> -->
+      <!-- {{datos.usuario.nombre}}<br> -->
+      <!-- {{datos.usuario.apellido}}<br> -->
+      <!-- {{datos.usuario.genero}}<br> -->
+      <!-- {{datos.usuario.nacimiento}}<br> -->
+      <!-- <li *ngFor='let m of datos.usuario.mails'>
         <ul>
           correo: <span>{{m.email}}</span><br>
           confirmado: <span>{{m.confirmado}}</span><br>
           eliminado: <span>{{m.eliminado}}</span><br>
           <button (click)='eliminarCorreo(m)' [disabled]='m.eliminado != null'>X</button>
         </ul>
-      </li>
-    </p>
+      </li> -->
+
     </div>
-    <div>
+
+    <div class="contenedorBotones">
     <!-- <button (click)='crearClaveTemporal()'>Crear Clave Temporal</button> -->
-    <button routerLink="/reset-clave/{{datos.sileg.id}}">Crear Clave Temporal</button>
+    <button class="btn" mat-raised-button routerLink="/reset-clave/{{datos.sileg.id}}"><mat-icon>lock</mat-icon> CREAR CLAVE TEMPORAL</button>
+    <button class="btn" mat-raised-button (click)='crearDesignacion()' [disabled]='tieneDesignacion()'><mat-icon>assignment-ind</mat-icon> CREAR DESIGNACIÓN</button>
+    <button class="btn" mat-raised-button (click)='crearCorreo()' [disabled]='!tieneDesignacion() || tieneCorreoInstitucional()'><mat-icon>mail-outline</mat-icon> CREAR CORREO FCE</button>
+
+
+    <!-- <button routerLink="/reset-clave/{{datos.sileg.id}}">Crear Clave Temporal</button>
     <button (click)='crearDesignacion()' [disabled]='tieneDesignacion()'>Crear Designacion</button>
-    <button (click)='crearCorreo()' [disabled]='!tieneDesignacion() || tieneCorreoInstitucional()'>Crear Correo</button>
+    <button (click)='crearCorreo()' [disabled]='!tieneDesignacion() || tieneCorreoInstitucional()'>Crear Correo</button> -->
     </div>
 </div>
