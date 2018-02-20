@@ -1,8 +1,6 @@
 .component {
-  /*background-color: blue;*/
-  height: calc(100% - 0px);
+  height:100%;
 }
-
 
 .headerApp {
   background-color: #222222;
