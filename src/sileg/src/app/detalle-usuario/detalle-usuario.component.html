@@ -4,14 +4,15 @@
 
       <form class="example-form contentDetailUSer">
           <mat-form-field>
-            <input matInput placeholder="Nombre" value="{{datos.usuario.nombre}}">
+            <input matInput readonly placeholder="Nombre" value="{{datos.usuario.nombre}}">
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Apellido" value="{{datos.usuario.apellido}}">
+            <input matInput readonly placeholder="Apellido" value="{{datos.usuario.apellido}}">
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="DNI" value="{{datos.usuario.dni}}">
+            <input matInput readonly placeholder="DNI" value="{{datos.usuario.dni}}">
           </mat-form-field>
+      </form>
 
           <mat-button-toggle (click)='eliminados = !eliminados' value='{{eliminados}}'>Mostrar Eliminados</mat-button-toggle>
           <div *ngFor='let m of datos.usuario.mails'>
@@ -27,10 +28,9 @@
 
           <mat-list *ngIf='designaciones'>
             <mat-list-item *ngFor='let d of designaciones'>
-              {{d.cargo.nombre}} {{d.lugar.nombre}} {{d.desde}}
+              <div>{{d.cargo.nombre}}</div><div>{{d.lugar.nombre}}</div><div>{{d.desde}}</div>
             </mat-list-item>
           </mat-list>
-      </form>
     </div>
 
     <div *ngIf='datos' class="contenedorBotones">

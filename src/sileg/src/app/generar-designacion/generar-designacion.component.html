@@ -13,7 +13,7 @@
 
     <div>Lugar asociado a la designación:</div>
     <div>
-      <input type='search' [(ngModel)]='busqueda' (keyup)='actualizarBusqueda()'/>
+      <input matInput type='search' [(ngModel)]='busqueda' (keyup)='actualizarBusqueda()'/>
       <button mat-button (click)='buscarLugares()' [disabled]='!busquedaActivada'><mat-icon>home</mat-icon> buscar</button>
     </div>
 
@@ -69,7 +69,7 @@
 
     <div>
       Debe Seleccionar el correo a generar:
-      Correo:<input [(ngModel)]='correo' (keyup)='desactivar()' type='email'/>
+      Correo:<input matInput [(ngModel)]='correo' (keyup)='desactivar()' type='email'/>
       <div *ngIf='mensaje'>{{mensaje}}</div>
     </div>
     <div>

@@ -34,6 +34,7 @@ export class GenerarDesignacionComponent implements OnInit {
     this.subscriptions.push(this.service.buscarUsuario(this.usuario_id).subscribe(
       usuario => {
         this.usuarioSeleccionado = usuario.usuario;
+        //this.correo = usuario.usuario.nombre.toLowerCase().replace(' ','.') + '.' + usuario.usuario.apellido.toLowerCase().replace(' ','') + '@econo.unlp.edu.ar';
         console.log(usuario);
       }));
   }
