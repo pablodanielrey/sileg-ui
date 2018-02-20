@@ -17,6 +17,7 @@ export class DetalleUsuarioComponent implements OnInit {
   usuario_id: string = null;
   datos: DatosSileg = null;
   designaciones: Designacion[] = null;
+  eliminados: boolean = false;
   subscriptions: any[] = [];
 
   constructor(private route: ActivatedRoute,
