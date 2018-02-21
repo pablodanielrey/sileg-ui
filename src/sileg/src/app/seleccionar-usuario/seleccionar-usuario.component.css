@@ -24,7 +24,9 @@
 }
 
 
-
+.btnNuevoUsuario {
+  margin-left: 25px;
+}
 
 
 
@@ -56,7 +58,7 @@
   margin-left: 20px;
   color: #4186E1;
   font-size: 1.3em;
-  width: 24%;
+  width: 16%;
 }
 
 
@@ -71,6 +73,9 @@
     width: 85%;
   }
   .search {
-    width: 60%;
+    width:40%;
+  }
+  .btnNuevoUsuario {
+    margin-left: 0px;
   }
 }

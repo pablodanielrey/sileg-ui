@@ -1,6 +1,7 @@
-.contenedor-detalle-usuario {
+.detalleDeUsuario {
   display: flex;
   flex-direction: row;
+  padding: 20px;
 }
 
 .contentDetailUSer {
@@ -10,6 +11,15 @@
 
 .detalle-de-usuario {
   width: 400px;
+}
+
+.btnVolver {
+  margin: 0 20px 20px 0;
+}
+
+.textoTitulo {
+  color: #4186E1;
+    font-size: 1.3em;
 }
 
 .contenedorBotones {

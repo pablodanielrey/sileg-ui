@@ -1,6 +1,7 @@
-<div *ngIf='datos' class="contenedor-detalle-usuario">
+<div *ngIf='datos' class="detalleDeUsuario">
     <div class="detalle-de-usuario">
-      <h4>Detalle del usuario</h4>
+      <button mat-raised-button routerLink='/buscar' class="btnVolver"><mat-icon>navigate_before</mat-icon> VOLVER</button>
+       <span class="textoTitulo">Detalle del usuario</span>
 
       <form class="example-form contentDetailUSer">
           <mat-form-field>
@@ -12,9 +13,9 @@
           <mat-form-field>
             <input matInput readonly placeholder="DNI" value="{{datos.usuario.dni}}">
           </mat-form-field>
+
       </form>
 
-          <mat-button-toggle (click)='eliminados = !eliminados' value='{{eliminados}}'>Mostrar Eliminados</mat-button-toggle>
           <div *ngFor='let m of datos.usuario.mails'>
             <div *ngIf='eliminados ? true : m.eliminado == null'>
               <input type="email" matInput placeholder="Correo eléctronico" value="{{m.email}}">
@@ -25,6 +26,8 @@
               </button>
             </div>
           </div>
+          <mat-button-toggle (click)='eliminados = !eliminados' value='{{eliminados}}'>Mostrar Eliminados</mat-button-toggle>
+
 
           <mat-list *ngIf='designaciones'>
             <mat-list-item *ngFor='let d of designaciones'>
@@ -37,7 +40,6 @@
     <!-- <button (click)='crearClaveTemporal()'>Crear Clave Temporal</button> -->
       <button class="btn" mat-raised-button routerLink="/reset-clave/{{datos.usuario.id}}"><mat-icon>lock</mat-icon> CREAR CLAVE TEMPORAL</button>
       <button class="btn" mat-raised-button routerLink='/generar-desig/{{datos.usuario.id}}' [disabled]='tieneDesignacion()'><mat-icon>assignment-ind</mat-icon> CREAR DESIGNACIÓN</button>
-      <button mat-button routerLink='/buscar'>Volver</button>
 
     <!-- <button routerLink="/reset-clave/{{datos.sileg.id}}">Crear Clave Temporal</button>
     <button (click)='crearDesignacion()' [disabled]='tieneDesignacion()'>Crear Designacion</button>
