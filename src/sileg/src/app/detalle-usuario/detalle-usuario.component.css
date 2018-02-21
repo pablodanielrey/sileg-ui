@@ -13,9 +13,32 @@
   width: 400px;
 }
 
+.ContenedorCorreos {
+  width: 400px;
+}
+
+.contenedorDesignaciones {
+  width: 400px;
+}
+
 .btnVolver {
   margin: 0 20px 20px 0;
 }
+
+.btnVerificado {
+    /*color: #4186E1;*/
+    font-size:1em;
+}
+.btnVerificado {
+    /*color: #4186E1;*/
+    font-size:1em;
+}
+
+.btnNoVerificado {
+  color: #e2e2e2;
+    font-size:1em;
+}
+
 
 .textoTitulo {
   color: #4186E1;
@@ -28,9 +51,6 @@
   margin-left: 40px;
 }
 
-.icoSinVerificar {
-  color: #e2e2e2;
-}
 
 
 .btn {
