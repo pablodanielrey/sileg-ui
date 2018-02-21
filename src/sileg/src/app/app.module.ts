@@ -16,6 +16,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { ConfirmarGenerarClaveComponent } from './generar-clave/confirmar-generar-clave.component';
 import { GenerarClaveComponent   } from './generar-clave/generar-clave.component';
 import { GenerarDesignacionComponent } from './generar-designacion/generar-designacion.component';
+import { CreateComponent } from './create/create.component';
 
 
 
@@ -26,7 +27,8 @@ import { GenerarDesignacionComponent } from './generar-designacion/generar-desig
     DetalleUsuarioComponent,
     ConfirmarGenerarClaveComponent,
     GenerarClaveComponent,
-    GenerarDesignacionComponent
+    GenerarDesignacionComponent,
+    CreateComponent
   ],
   entryComponents: [
     ConfirmarGenerarClaveComponent

@@ -1,0 +1,13 @@
+<form>
+  <mat-form-field>
+    <input matInput type='text'  placeholder="Nombre"  [(ngModel)]='nombre'/>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type='text'  placeholder="Apellido"  [(ngModel)]='apellido'/>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type='text'  placeholder="Dni"  [(ngModel)]='dni'/>
+  </mat-form-field>
+  <button mat-button (click)='crearPersona()'>Crear</button>
+  <button mat-button routerLink='/buscar'>Volver</button>
+</form>
