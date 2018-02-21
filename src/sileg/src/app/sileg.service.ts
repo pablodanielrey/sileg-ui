@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'environments/environment';
+import { environment } from '../environments/environment';
 
 import {HttpClient, HttpParams} from '@angular/common/http';
 import { Http } from '@angular/http'
@@ -12,7 +12,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/toPromise';
 
-import { Usuario, ResetClave } from './entities/usuario';
+import { Mail, Usuario, ResetClave } from './entities/usuario';
 import { Sileg, DatosSileg, Lugar, PedidoDesignacion, Designacion } from './entities/sileg';
 
 const SILEG_API_URL = environment.silegApiUrl;
@@ -71,6 +71,11 @@ export class SilegService {
           };
     let apiUrl = `${SILEG_API_URL}/designacion`;
     return this.http.post<any>(apiUrl, pedido);
+  }
+
+  generarCorreo(uid: string, correo: string):Observable<any> {
+    let apiUrl = `${SILEG_API_URL}/usuarios/${uid}/correos`;
+    return this.http.post<any>(apiUrl, {'correo':correo});
   }
 
   eliminarCorreo(uid:string, cid:string):Observable<string> {

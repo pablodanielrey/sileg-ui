@@ -42,6 +42,7 @@
     <!-- <button (click)='crearClaveTemporal()'>Crear Clave Temporal</button> -->
       <button class="btn" mat-raised-button routerLink="/reset-clave/{{datos.usuario.id}}"><mat-icon>lock</mat-icon> CREAR CLAVE TEMPORAL</button>
       <button class="btn" mat-raised-button routerLink='/generar-desig/{{datos.usuario.id}}' [disabled]='tieneDesignacion()'><mat-icon>assignment-ind</mat-icon> CREAR DESIGNACIÓN</button>
+      <button class="btn" mat-raised-button routerLink='/crear-correo/{{datos.usuario.id}}' [disabled]='!tieneDesignacion()'><mat-icon>assignment-ind</mat-icon> CREAR CORREO ECONO</button>
       <mat-button-toggle (click)='eliminados = !eliminados' value='{{eliminados}}'>Mostrar Eliminados</mat-button-toggle>
 
     <!-- <button routerLink="/reset-clave/{{datos.sileg.id}}">Crear Clave Temporal</button>

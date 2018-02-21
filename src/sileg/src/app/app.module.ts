@@ -17,6 +17,7 @@ import { ConfirmarGenerarClaveComponent } from './generar-clave/confirmar-genera
 import { GenerarClaveComponent   } from './generar-clave/generar-clave.component';
 import { GenerarDesignacionComponent } from './generar-designacion/generar-designacion.component';
 import { CreateComponent } from './create/create.component';
+import { CrearCorreoComponent } from './crear-correo/crear-correo.component';
 
 
 
@@ -28,7 +29,8 @@ import { CreateComponent } from './create/create.component';
     ConfirmarGenerarClaveComponent,
     GenerarClaveComponent,
     GenerarDesignacionComponent,
-    CreateComponent
+    CreateComponent,
+    CrearCorreoComponent
   ],
   entryComponents: [
     ConfirmarGenerarClaveComponent
