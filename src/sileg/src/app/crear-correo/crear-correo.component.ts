@@ -45,6 +45,11 @@ export class CrearCorreoComponent implements OnInit {
   }
 
   verificarDisponibilidad(): void {
+    if (this.correo.indexOf('econo.unlp.edu.ar') == -1) {
+      this.mensaje = 'Debe ser cuenta @econo.unlp.edu.ar';
+      return;
+    }
+
     this.mensaje = null;
     this.subscriptions.push(this.service.chequearDisponibilidadCorreo(this.correo)
       .subscribe(existe => {
