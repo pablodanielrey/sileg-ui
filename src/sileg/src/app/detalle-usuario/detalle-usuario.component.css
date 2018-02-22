@@ -10,15 +10,15 @@
 }
 
 .detalle-de-usuario {
-  width: 400px;
+  width: 450px;
 }
 
 .ContenedorCorreos {
-  width: 400px;
+  width: 450px;
 }
 
 .contenedorDesignaciones {
-  width: 400px;
+  width: 450px;
 }
 
 .btnVolver {
@@ -55,6 +55,45 @@
 
 .btn {
   margin: 5px;
-  padding: 10px;
   text-align: left;
+}
+
+.btnCorreosEliminados {
+  text-align: left;
+  margin: 5px;
+}
+
+.btnGuardar {
+  margin: 5px;
+  background-color: #4186E1;
+  color: white;
+  padding: 5px;
+}
+
+@media screen and (max-width: 769px) {
+  .detalleDeUsuario {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+  .detalle-de-usuario {
+    width: 85%;
+  }
+
+  .ContenedorCorreos {
+    width: 100%;
+  }
+
+  .contenedorDesignaciones {
+    width: 100%;
+  }
+  .contenedorBotones {
+
+    margin-left: 0px;
+  }
+  .textoTitulo {
+    font-size: 1.0em;
+  }
+
+
 }

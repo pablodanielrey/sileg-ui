@@ -1,7 +1,13 @@
-<p>
+<div class=generarClave *ngIf="dataClave">
+  <div class="contenedorNuevaClave">
+    <div>Contraseña Temporal</div>
+    <div class="contrasena"><b>{{dataClave.clave}}</b></div>
+    <p class="textContrasena">La contraseña temporal expira en 24 horas, luego de este periodo si la contraseña no fue modificada deberá generar una nueva contraseña.</p>
+    <button mat-raised-button class="btnGuardar" (click)="volver()"> ACEPTAR</button>
+<!-- <button (click)="volver()">Volver</button> -->
+<!-- <p>
   ID:{{id}}
-</p>
-<p *ngIf="dataClave" >
-  Clave generada: {{dataClave.clave}}
-</p>
-<button (click)="volver()">Volver</button>
+</p> -->
+
+  </div>
+</div>

@@ -78,4 +78,7 @@
   .btnNuevoUsuario {
     margin-left: 0px;
   }
+  .btn {
+    width: 100%;
+  }
 }
