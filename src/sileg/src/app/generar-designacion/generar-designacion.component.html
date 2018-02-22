@@ -1,102 +1,90 @@
-<mat-horizontal-stepper linear='true' #stepper>
+<div class=designaciones *ngIf='usuarioSeleccionado'>
+
+  <button mat-raised-button (click)='location.back()' class="btnVolver"><mat-icon>navigate_before</mat-icon> VOLVER</button>
+   <span class="textoTitulo">Crear Designación</span>
+   <span>&nbsp; para &nbsp;</span>
+   <span><b>{{usuarioSeleccionado.nombre}} {{usuarioSeleccionado.apellido}}</b></span>
+
+
+
+
+
+<mat-horizontal-stepper class="contenedorStepper" linear='true' #stepper>
+
   <mat-step>
-    <div *ngIf='usuarioSeleccionado'>
-      Usuario Seleccionado:
-      <div>
-        <div>{{usuarioSeleccionado.dni}}</div>
-        <div>{{usuarioSeleccionado.nombre}}</div>
-        <div>{{usuarioSeleccionado.apellido}}</div>
-      </div>
-    </div>
-    <br>
-    <br>
+    <ng-template matStepLabel>Seleccionar lugar</ng-template>
 
-    <div>Lugar asociado a la designación:</div>
-    <div>
-      <input matInput type='search' [(ngModel)]='busqueda' (keyup)='actualizarBusqueda()'/>
-      <button mat-button (click)='buscarLugares()' [disabled]='!busquedaActivada'><mat-icon>home</mat-icon> buscar</button>
-    </div>
+    <mat-form-field class="search">
+        <input matInput type='search'  placeholder="Buscar lugar"  [(ngModel)]='busqueda' (keyup)='actualizarBusqueda()'/>
+    </mat-form-field>
+
+    <button mat-raised-button (click)='buscarLugares()' [disabled]='!busquedaActivada' title="Buscar usuario"><mat-icon>search</mat-icon> </button>
+
+    <div class="textoResultadoDeBusqueda"> Lugares encontrados: <b>{{lugares.length}}</b>  </div>
 
     <div>
-      <p><b>{{lugares.length}}</b>  Lugares encontrados</p>
-      <mat-list>
-        <mat-list-item *ngFor="let lugar of lugares" (click)="onSelect(stepper, lugar)" class="mdc-list-item">
+        <div *ngFor="let lugar of lugares" (click)="onSelect(stepper, lugar)" class="itemLista" >
           <div *ngIf='lugar.materia'>
-            <span> {{lugar.tipo }} &nbsp;</span>
-            <span> {{lugar.nombre }} &nbsp;</span>
-            <span> {{lugar.materia.nombre }} &nbsp;</span>
+            <div class="tipoLugar"> {{lugar.tipo }} </div>
+            <div> {{lugar.materia.nombre }} </div>
+            <div class="textoLinea3">cátedra {{lugar.nombre }}  </div>
           </div>
           <div *ngIf='!lugar.materia'>
-            <span> {{lugar.tipo }} &nbsp;</span>
-            <span> {{lugar.nombre }} &nbsp;</span>
+            <div class="tipoLugar"> {{lugar.tipo }} </div>
+            <div> {{lugar.nombre }} </div>
           </div>
-        </mat-list-item>
-      </mat-list>
+        </div>
     </div>
 
-    <div>
-      <button mat-button (click)='location.back()'>Volver</button>
-      <!-- <button mat-button matStepperNext>Siguiente</button> -->
-    </div>
   </mat-step>
 
   <mat-step>
-    <div *ngIf='usuarioSeleccionado'>
-      Usuario Seleccionado:
+
+    <ng-template matStepLabel>Crear correo Econo</ng-template>
+    <div>
+
+      <mat-form-field class="search">
+        <span matSuffix>@econo.unlp.edu.ar &nbsp;</span>
+        <input [(ngModel)]='correo' (keyup)='desactivar()' type="email" matInput placeholder="nombre.apellido">
+        <mat-hint class="textoDisponibilidad">
+          <div *ngIf='disponible' class="textoDisponibilidad"><div *ngIf='mensaje'>{{mensaje}}</div></div>
+          <div *ngIf='!disponible' class="textoNoDisponibilidad"><div *ngIf='mensaje'>{{mensaje}}</div></div>
+        </mat-hint>
+      </mat-form-field>
+
       <div>
-        <div>{{usuarioSeleccionado.dni}}</div>
-        <div>{{usuarioSeleccionado.nombre}}</div>
-        <div>{{usuarioSeleccionado.apellido}}</div>
+        <button class="btnDisponibilidad" *ngIf='!disponible' mat-button (click)='verificarDisponibilidad()' [disabled]='correo.length <= 0'>VERIFICAR DISPONIBILIDAD</button>
+        <button class="btnSiguiente" *ngIf='disponible' mat-button matStepperNext [disabled]='!disponible'>SIGUIENTE</button>
       </div>
-    </div>
-    <br>
-    <br>
 
-    <div *ngIf='lugarSeleccionado'>
-      Lugar Seleccionado:
-      <div *ngIf='lugarSeleccionado.materia'>
-        <span> {{lugarSeleccionado.tipo }} &nbsp;</span>
-        <span> {{lugarSeleccionado.nombre }} &nbsp;</span>
-        <span> {{lugarSeleccionado.materia.nombre }} &nbsp;</span>
-      </div>
-      <div *ngIf='!lugarSeleccionado.materia'>
-        <span> {{lugarSeleccionado.tipo }} &nbsp;</span>
-        <span> {{lugarSeleccionado.nombre }} &nbsp;</span>
-      </div>
     </div>
-    <br>
-    <br>
 
-    <div>
-      Debe Seleccionar el correo a generar:
-      Correo:<input matInput [(ngModel)]='correo' (keyup)='desactivar()' type='email'/>
-      <div *ngIf='mensaje'>{{mensaje}}</div>
-    </div>
-    <div>
-      <button mat-button matStepperPrevious>Anterior</button>
-      <button *ngIf='!disponible' mat-button (click)='verificarDisponibilidad()' [disabled]='correo.length <= 0'>Verificar Disponibilidad</button>
-      <button *ngIf='disponible' mat-button matStepperNext [disabled]='!disponible'>Siguiente</button>
-    </div>
   </mat-step>
 
   <mat-step>
-    Está seguro que desea generar la designacion:
+
+    <ng-template matStepLabel>Confirmar Designación</ng-template>
+
     <div>
-      <div>
-        IMPORTANTE!!! Los Datos ingresados NO SE PUEDEN MODIFICAR una vez creada la designación.
-        Responsable de la designación: Persona Responsable<br>
+
+      <div class="textoTitulo">
+        Confirmar Designación
       </div>
 
-      <div *ngIf='usuarioSeleccionado'>
+      <div>
+        <b>Importante!!!</b> Los Datos ingresados NO PODRÁN SER MODIFICADOS una vez creada la designación.<br>
+        Responsable de la designación: Persona Responsable.<br>
+      </div>
+
+      <!-- <div *ngIf='usuarioSeleccionado'>
         Usuario Seleccionado:
         <div>
           <div>{{usuarioSeleccionado.dni}}</div>
           <div>{{usuarioSeleccionado.nombre}}</div>
           <div>{{usuarioSeleccionado.apellido}}</div>
         </div>
-      </div>
-      <br>
-      <br>
+      </div> -->
+
 
       <div *ngIf='lugarSeleccionado'>
         Lugar Seleccionado:
@@ -127,6 +115,9 @@
   </mat-step>
 
   <mat-step>
+
+    <ng-template matStepLabel>Fin</ng-template>
+
     La designación se ha generado con éxito.
     Debe esperar el período de sincronización (puede tardar hasta 1 hora en activarse en los sistemas).
     Atte.
@@ -135,3 +126,4 @@
   </mat-step>
 
 </mat-horizontal-stepper>
+</div>

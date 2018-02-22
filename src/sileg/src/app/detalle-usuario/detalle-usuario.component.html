@@ -30,7 +30,7 @@
 
           <div *ngIf='designaciones'>
             <mat-form-field class="contenedorDesignaciones" *ngFor='let d of designaciones'>
-                <input matInput readonly placeholder="Designaciones" value="{{d.cargo.nombre}} {{d.lugar.nombre}} {{d.desde}}">
+                <textarea matInput readonly placeholder="Designacion" value="{{d.cargo.nombre}} {{d.lugar.nombre}} {{d.desde}}" ></textarea>
               <!-- <div>{{d.cargo.nombre}}</div><div>{{d.lugar.nombre}}</div><div>{{d.desde}}</div> -->
 
             </mat-form-field>
@@ -40,12 +40,14 @@
 
     <div *ngIf='datos' class="contenedorBotones">
     <!-- <button (click)='crearClaveTemporal()'>Crear Clave Temporal</button> -->
-      <button class="btn" mat-raised-button ><mat-icon>lock</mat-icon> Guardar Cambios</button>
 
-      <button class="btn" mat-raised-button routerLink="/reset-clave/{{datos.usuario.id}}"><mat-icon>lock</mat-icon> CREAR CLAVE TEMPORAL</button>
-      <button class="btn" mat-raised-button routerLink='/generar-desig/{{datos.usuario.id}}' [disabled]='tieneDesignacion()'><mat-icon>assignment-ind</mat-icon> CREAR DESIGNACIÓN</button>
-      <button class="btn" mat-raised-button routerLink='/crear-correo/{{datos.usuario.id}}' [disabled]='!tieneDesignacion()'><mat-icon>assignment-ind</mat-icon> CREAR CORREO ECONO</button>
-      <mat-button-toggle (click)='eliminados = !eliminados' value='{{eliminados}}'>Mostrar Eliminados</mat-button-toggle>
+      <button mat-raised-button class="btn" routerLink="/reset-clave/{{datos.usuario.id}}"><mat-icon>add</mat-icon> CREAR CLAVE TEMPORAL</button>
+      <button mat-raised-button class="btn" routerLink='/generar-desig/{{datos.usuario.id}}' [disabled]='tieneDesignacion()'><mat-icon>add</mat-icon> CREAR DESIGNACIÓN</button>
+      <button mat-raised-button class="btn" routerLink='/crear-correo/{{datos.usuario.id}}' [disabled]='!tieneDesignacion()'><mat-icon>add</mat-icon> CREAR CORREO ECONO</button>
+      <button mat-raised-button class="btn" (click)='eliminados = !eliminados' value='{{eliminados}}'><mat-icon>add</mat-icon> VER CORREOS ELIMINADOS</button>
+
+      <button mat-raised-button class="btnGuardar"> GUARDAR CAMBIOS</button>
+
 
     <!-- <button routerLink="/reset-clave/{{datos.sileg.id}}">Crear Clave Temporal</button>
     <button (click)='crearDesignacion()' [disabled]='tieneDesignacion()'>Crear Designacion</button>
