@@ -17,8 +17,8 @@ const routes: Routes = [
     { path:'reset-clave/:id', component: GenerarClaveComponent },
     { path:'generar-desig/:id', component: GenerarDesignacionComponent},
     { path:'crear-correo/:id', component: CrearCorreoComponent},
-    // { path: '', redirectTo: '/buscar', pathMatch: 'full' }
-    { path: '', component: AppComponent }
+    { path: '', redirectTo: '/buscar', pathMatch: 'full' }
+    // { path: '', component: AppComponent }
 ];
 
 @NgModule({
