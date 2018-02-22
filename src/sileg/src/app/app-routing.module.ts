@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AppComponent } from './app.component';
 import { CreateComponent } from './create/create.component';
 import { CrearCorreoComponent } from './crear-correo/crear-correo.component';
 import { SeleccionarUsuarioComponent } from './seleccionar-usuario/seleccionar-usuario.component';
@@ -16,7 +17,8 @@ const routes: Routes = [
     { path:'reset-clave/:id', component: GenerarClaveComponent },
     { path:'generar-desig/:id', component: GenerarDesignacionComponent},
     { path:'crear-correo/:id', component: CrearCorreoComponent},
-    { path: '', redirectTo: '/buscar', pathMatch: 'full' }
+    // { path: '', redirectTo: '/buscar', pathMatch: 'full' }
+    { path: '', component: AppComponent }
 ];
 
 @NgModule({

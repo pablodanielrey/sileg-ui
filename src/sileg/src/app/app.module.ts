@@ -4,6 +4,11 @@ import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 
 import {HttpClientModule} from '@angular/common/http';
 
+
+// configuro la autentificacion
+import { OAuthModule } from 'angular-oauth2-oidc';
+
+
 // aca se importa todo lo de material
 import { MyMaterialModule } from './material.module';
 
@@ -20,6 +25,7 @@ import { CreateComponent } from './create/create.component';
 import { CrearCorreoComponent } from './crear-correo/crear-correo.component';
 import { DesignacionesComponent } from './designaciones/designaciones.component';
 import { LugaresComponent } from './lugares/lugares.component';
+
 
 
 
@@ -44,7 +50,8 @@ import { LugaresComponent } from './lugares/lugares.component';
     HttpClientModule,
     FormsModule,
     MyMaterialModule,
-    AppRoutingModule
+    AppRoutingModule,
+    OAuthModule.forRoot()
   ],
   providers: [SilegService],
   bootstrap: [AppComponent]
