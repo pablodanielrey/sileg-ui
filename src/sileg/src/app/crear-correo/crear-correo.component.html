@@ -17,9 +17,9 @@
         <div *ngIf='mensaje'>{{mensaje}}</div>
       </div>
       <div>
-        <button mat-button matStepperPrevious>Anterior</button>
+        <button mat-button routerLink='/buscar'>Anterior</button>
         <button *ngIf='!disponible' mat-button (click)='verificarDisponibilidad()' [disabled]='correo.length <= 0'>Verificar Disponibilidad</button>
-        <button *ngIf='disponible' mat-button matStepperNext [disabled]='!disponible'>Generar</button>
+        <button *ngIf='disponible' mat-button matStepperNext [disabled]='!disponible'>Siguiente</button>
       </div>
     </mat-step>
 
