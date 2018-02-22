@@ -69,13 +69,13 @@ export class GenerarDesignacionComponent implements OnInit {
   }
 
   verificarDisponibilidad(): void {
-    if (this.correo.indexOf('econo.unlp.edu.ar') == -1) {
-      this.mensaje = 'Debe ser cuenta @econo.unlp.edu.ar';
-      return;
-    }
+    //if (this.correo.indexOf('econo.unlp.edu.ar') == -1) {
+    //  this.mensaje = 'Debe ser cuenta @econo.unlp.edu.ar';
+    //  return;
+    //}
 
     this.mensaje = null;
-    this.subscriptions.push(this.service.chequearDisponibilidadCorreo(this.correo)
+    this.subscriptions.push(this.service.chequearDisponibilidadCorreo(this.correo + '@econo.unlp.edu.ar')
       .subscribe(existe => {
         console.log(existe);
         this.disponible=!existe;
@@ -87,7 +87,7 @@ export class GenerarDesignacionComponent implements OnInit {
     let d = new PedidoDesignacion();
     d.lugar_id = this.lugarSeleccionado.id;
     d.usuario_id = this.usuario_id;
-    d.correo = this.correo;
+    d.correo = this.correo + '@econo.unlp.edu.ar';
     this.subscriptions.push(this.service.generarDesignacion(d)
       .subscribe(
         res => {
