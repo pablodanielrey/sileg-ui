@@ -18,6 +18,8 @@ import { GenerarClaveComponent   } from './generar-clave/generar-clave.component
 import { GenerarDesignacionComponent } from './generar-designacion/generar-designacion.component';
 import { CreateComponent } from './create/create.component';
 import { CrearCorreoComponent } from './crear-correo/crear-correo.component';
+import { DesignacionesComponent } from './designaciones/designaciones.component';
+import { LugaresComponent } from './lugares/lugares.component';
 
 
 
@@ -30,7 +32,9 @@ import { CrearCorreoComponent } from './crear-correo/crear-correo.component';
     GenerarClaveComponent,
     GenerarDesignacionComponent,
     CreateComponent,
-    CrearCorreoComponent
+    CrearCorreoComponent,
+    DesignacionesComponent,
+    LugaresComponent
   ],
   entryComponents: [
     ConfirmarGenerarClaveComponent
