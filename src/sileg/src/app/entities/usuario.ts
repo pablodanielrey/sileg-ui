@@ -32,8 +32,9 @@ export class Usuario {
   actualizado: Date = null;
 
   nombre: string = null;
-  apellido: string;
-  dni: string;
+  apellido: string = null;
+  dni: string = null;
+  genero: string = null;
   legajo: string = null;
   claves: Array<Clave>;
   mails: Array<Mail>;

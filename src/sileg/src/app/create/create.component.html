@@ -13,6 +13,10 @@
   <mat-form-field>
     <input matInput type='text'  placeholder="Legajo" name='legajo' [(ngModel)]='usuario.legajo'/>
   </mat-form-field>
+  <mat-form-field>
+    <input matInput type='text'  placeholder="Género" name='genero' [(ngModel)]='usuario.genero'/>
+  </mat-form-field>
+
 
   <button mat-button (click)='crearPersona()'>Crear</button>
   <button mat-button routerLink='/buscar'>Volver</button>
