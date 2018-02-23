@@ -1,60 +1,76 @@
-<mat-horizontal-stepper linear='true' #stepper>
+<div class=designaciones *ngIf='usuarioSeleccionado'>
+
+  <button mat-raised-button (click)='location.back()' class="btnVolver"><mat-icon>navigate_before</mat-icon> VOLVER</button>
+   <span class="textoTitulo">Crear Correo</span>
+   <span>&nbsp; para &nbsp;</span>
+   <span><b>{{usuarioSeleccionado.nombre}} {{usuarioSeleccionado.apellido}}</b></span>
+
+
+
+<mat-horizontal-stepper class="contenedorStepper" linear='true' #stepper>
+
   <mat-step>
-      <div *ngIf='usuarioSeleccionado'>
-        Usuario Seleccionado:
-        <div>
-          <div>{{usuarioSeleccionado.dni}}</div>
-          <div>{{usuarioSeleccionado.nombre}}</div>
-          <div>{{usuarioSeleccionado.apellido}}</div>
-        </div>
+
+    <div>
+      <div class="textoTitulo">
+        Crear correo Institucional
       </div>
-      <br>
-      <br>
+
+      <mat-form-field class="search">
+        <span matSuffix>@econo.unlp.edu.ar &nbsp;</span>
+        <input [(ngModel)]='correo' (keyup)='desactivar()' type="email" matInput placeholder="nombre.apellido">
+        <mat-hint class="textoDisponibilidad">
+          <div *ngIf='disponible' class="textoDisponibilidad"><div *ngIf='mensaje'>{{mensaje}}</div></div>
+          <div *ngIf='!disponible' class="textoNoDisponibilidad"><div *ngIf='mensaje'>{{mensaje}}</div></div>
+        </mat-hint>
+      </mat-form-field>
 
       <div>
-        Debe Seleccionar el correo a crear:
-        Correo:<input matInput [(ngModel)]='correo' (keyup)='desactivar()' type='email'/>
-        <div *ngIf='mensaje'>{{mensaje}}</div>
+        <button class="btnDisponibilidad" *ngIf='!disponible' mat-button (click)='verificarDisponibilidad()' [disabled]='correo.length <= 0'>VERIFICAR DISPONIBILIDAD</button>
+        <button class="btnSiguiente" *ngIf='disponible' mat-button matStepperNext [disabled]='!disponible'>SIGUIENTE</button>
       </div>
-      <div>
-        <button mat-button routerLink='/buscar'>Anterior</button>
-        <button *ngIf='!disponible' mat-button (click)='verificarDisponibilidad()' [disabled]='correo.length <= 0'>Verificar Disponibilidad</button>
-        <button *ngIf='disponible' mat-button matStepperNext [disabled]='!disponible'>Siguiente</button>
+      
+    </div>
+
+  </mat-step>
+
+  <mat-step>
+
+
+    <div>
+
+      <div class="textoTitulo">
+        Confirmar
       </div>
-    </mat-step>
 
-    <mat-step>
-      Está seguro que desea generar la designacion:
-      <div>
-        <div>
-          IMPORTANTE!!! Los Datos ingresados NO SE PUEDEN MODIFICAR una vez creada la designación.
-          Responsable de la designación: Persona Responsable<br>
-        </div>
-        <div *ngIf='usuarioSeleccionado'>
-          Usuario Seleccionado:
-          <div>
-            <div>{{usuarioSeleccionado.dni}}</div>
-            <div>{{usuarioSeleccionado.nombre}}</div>
-            <div>{{usuarioSeleccionado.apellido}}</div>
-          </div>
-        </div>
-        <br>
-        <br>
-        <div>
-          Correo Institucional: {{correo}}
-        </div>
-        <br>
+      <div class="textoAviso">
+        <b>Importante!!!</b> Los Datos ingresados NO PODRÁN SER MODIFICADOS una vez creada la designación.<br>
+        Responsable de la designación: Persona Responsable.<br>
       </div>
-      <button mat-button matStepperPrevious>Anterior</button>
-      <button mat-button (click)='generarCorreo(stepper)'>Generar</button>
-    </mat-step>
 
-    <mat-step>
-      La designación se ha generado con éxito.
-      Debe esperar el período de sincronización (puede tardar hasta 1 hora en activarse en los sistemas).
-      Atte.
-            Equipo de desarrollo DiTESI.
-      <button mat-button routerLink='/buscar'>Aceptar</button>
-    </mat-step>
+      <div class=subTitulo><b>Correo Institucional</b></div>
+      <div class="correo">{{correo}}@econo.unlp.edu.ar</div>
 
-  </mat-horizontal-stepper>
+    </div>
+
+    <div><button class="btnSiguiente" mat-button (click)='generarCorreo(stepper)'>CREAR CORREO</button></div>
+    <div> <button class="btnAnterior" mat-button matStepperPrevious>Anterior</button> </div>
+
+
+  </mat-step>
+
+  <mat-step>
+
+
+    <div class="textoTitulo">
+      Correo creado correctamente
+    </div>
+
+    <div class="textoAviso">Debe esperar el período de sincronización, este proceso puede llegar a demorar hasta una hora</div>
+
+    <button class="btnSiguiente" mat-button routerLink='/buscar'>Aceptar</button>
+
+  </mat-step>
+
+</mat-horizontal-stepper>
+</div>
