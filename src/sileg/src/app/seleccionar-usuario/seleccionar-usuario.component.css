@@ -58,7 +58,7 @@
   margin-left: 20px;
   color: #4186E1;
   font-size: 1.3em;
-  width: 16%;
+  width: 24%;
 }
 
 
@@ -70,10 +70,10 @@
 
 @media screen and (max-width: 769px) {
   .listaDeUsuarios {
-    width: 85%;
+    width: 84%;
   }
   .search {
-    width:40%;
+    width:64%;
   }
   .btnNuevoUsuario {
     margin-left: 0px;

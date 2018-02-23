@@ -12,7 +12,10 @@
 <mat-horizontal-stepper class="contenedorStepper" linear='true' #stepper>
 
   <mat-step>
-    <ng-template matStepLabel>Seleccionar lugar</ng-template>
+
+    <div class="textoTitulo">
+      Seleccionar lugar
+    </div>
 
     <mat-form-field class="search">
         <input matInput type='search'  placeholder="Buscar lugar"  [(ngModel)]='busqueda' (keyup)='actualizarBusqueda()'/>
@@ -40,8 +43,10 @@
 
   <mat-step>
 
-    <ng-template matStepLabel>Crear correo Econo</ng-template>
     <div>
+      <div class="textoTitulo">
+        Crear correo Institucional
+      </div>
 
       <mat-form-field class="search">
         <span matSuffix>@econo.unlp.edu.ar &nbsp;</span>
@@ -56,6 +61,8 @@
         <button class="btnDisponibilidad" *ngIf='!disponible' mat-button (click)='verificarDisponibilidad()' [disabled]='correo.length <= 0'>VERIFICAR DISPONIBILIDAD</button>
         <button class="btnSiguiente" *ngIf='disponible' mat-button matStepperNext [disabled]='!disponible'>SIGUIENTE</button>
       </div>
+      <div> <button class="btnAnterior" mat-button matStepperPrevious>Anterior</button> </div>
+
 
     </div>
 
@@ -63,7 +70,6 @@
 
   <mat-step>
 
-    <ng-template matStepLabel>Confirmar Designación</ng-template>
 
     <div>
 
@@ -71,58 +77,50 @@
         Confirmar Designación
       </div>
 
-      <div>
+      <div class="textoAviso">
         <b>Importante!!!</b> Los Datos ingresados NO PODRÁN SER MODIFICADOS una vez creada la designación.<br>
         Responsable de la designación: Persona Responsable.<br>
       </div>
 
-      <!-- <div *ngIf='usuarioSeleccionado'>
-        Usuario Seleccionado:
-        <div>
-          <div>{{usuarioSeleccionado.dni}}</div>
-          <div>{{usuarioSeleccionado.nombre}}</div>
-          <div>{{usuarioSeleccionado.apellido}}</div>
-        </div>
-      </div> -->
-
-
-      <div *ngIf='lugarSeleccionado'>
-        Lugar Seleccionado:
-        <div *ngIf='lugarSeleccionado.materia'>
-          <span> {{lugarSeleccionado.tipo }} &nbsp;</span>
-          <span> {{lugarSeleccionado.nombre }} &nbsp;</span>
-          <span> {{lugarSeleccionado.materia.nombre }} &nbsp;</span>
-        </div>
-        <div *ngIf='!lugarSeleccionado.materia'>
-          <span> {{lugarSeleccionado.tipo }} &nbsp;</span>
-          <span> {{lugarSeleccionado.nombre }} &nbsp;</span>
-        </div>
-      </div>
-      <br>
-      <br>
+      <div class=subTitulo><b>Designación</b></div>
 
       <div>
-        Tipo: Cumpliendo Funciones
+          <div *ngIf='lugarSeleccionado' >
+            <div *ngIf='lugarSeleccionado.materia'>
+              <span class="textoLinea3"> <b>{{lugarSeleccionado.tipo}}</b> | </span>
+              <span> {{lugarSeleccionado.materia.nombre }} </span>
+              <span class="textoLinea3"> | cátedra {{lugarSeleccionado.nombre }}  </span>
+            </div>
+            <div *ngIf='!lugarSeleccionado.materia'>
+              <span class="textoLinea3"> <b>{{lugarSeleccionado.tipo }}</b> </span>
+              <span> | {{lugarSeleccionado.nombre }} </span>
+            </div>
+          </div>
       </div>
-      <br>
-      <div>
-        Correo Institucional: {{correo}}
-      </div>
-      <br>
+
+      <div class=subTitulo><b>Correo Institucional</b></div>
+
+      <div class="correo">{{correo}}@econo.unlp.edu.ar</div>
+
     </div>
-    <button mat-button matStepperPrevious>Anterior</button>
-    <button mat-button (click)='generarDesignacion(stepper)'>Generar</button>
+
+    <div><button class="btnSiguiente" mat-button (click)='generarDesignacion(stepper)'>CREAR DESIGNACIÓN</button></div>
+    <div> <button class="btnAnterior" mat-button matStepperPrevious>Anterior</button> </div>
+
+
   </mat-step>
 
   <mat-step>
 
-    <ng-template matStepLabel>Fin</ng-template>
 
-    La designación se ha generado con éxito.
-    Debe esperar el período de sincronización (puede tardar hasta 1 hora en activarse en los sistemas).
-    Atte.
-          Equipo de desarrollo DiTESI.
-    <button mat-button routerLink='/buscar'>Aceptar</button>
+    <div class="textoTitulo">
+      Designación creada con éxito
+    </div>
+
+    <div class="textoAviso">Debe esperar el período de sincronización, este proceso puede llegar a demorar hasta una hora</div>
+
+    <button class="btnSiguiente" mat-button routerLink='/buscar'>Aceptar</button>
+
   </mat-step>
 
 </mat-horizontal-stepper>
