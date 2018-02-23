@@ -48,6 +48,13 @@ export class DetalleUsuarioComponent implements OnInit {
 
   }
 
+  actualizarDatos(): void {
+    this.service.actualizarDatos(this.datos.usuario).subscribe(
+      res => {
+        console.log(res);
+      });
+  }
+
   eliminarCorreo(m:Mail): void {
     this.subscriptions.push(this.service.eliminarCorreo(m.usuario_id, m.id).subscribe(
       res => { location.reload(); },

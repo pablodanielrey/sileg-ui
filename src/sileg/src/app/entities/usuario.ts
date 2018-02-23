@@ -34,6 +34,7 @@ export class Usuario {
   nombre: string = null;
   apellido: string;
   dni: string;
+  legajo: string = null;
   claves: Array<Clave>;
   mails: Array<Mail>;
 

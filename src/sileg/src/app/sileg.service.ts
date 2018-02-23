@@ -43,6 +43,16 @@ export class SilegService {
     return this.http.get<DatosSileg[]>(apiUrl, options).map(datos => datos.map(d => new DatosSileg(d)));
   }
 
+  crearUsuario(usuario: Usuario): Observable<any> {
+    let apiUrl = `${SILEG_API_URL}/usuarios`;
+    return this.http.put<any>(apiUrl, usuario);
+  }
+
+  actualizarDatos(usuario: Usuario): Observable<any> {
+    let apiUrl = `${SILEG_API_URL}/usuarios/${usuario.id}`;
+    return this.http.post<any>(apiUrl, usuario);
+  }
+
   buscarLugares(texto:string): Observable<Lugar[]> {
     const options = { params: new HttpParams()
               .set('q', texto ? texto : 'algoquenoexiste')
@@ -64,11 +74,6 @@ export class SilegService {
   }
 
   generarDesignacion(pedido:PedidoDesignacion):Observable<any> {
-    const options = { params: new HttpParams()
-              .set('q','algoquenoexiste')
-              //.set('limit', 10)
-              //.set('offset',0)
-          };
     let apiUrl = `${SILEG_API_URL}/designacion`;
     return this.http.post<any>(apiUrl, pedido);
   }

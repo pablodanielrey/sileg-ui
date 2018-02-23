@@ -5,13 +5,16 @@
 
       <form class="contentDetailUSer">
           <mat-form-field>
-            <input matInput readonly placeholder="Nombre" value="{{datos.usuario.nombre}}">
+            <input matInput placeholder="Nombre" name='nombre' [(ngModel)]="datos.usuario.nombre">
           </mat-form-field>
           <mat-form-field>
-            <input matInput readonly placeholder="Apellido" value="{{datos.usuario.apellido}}">
+            <input matInput placeholder="Apellido" name='apellido' [(ngModel)]="datos.usuario.apellido">
           </mat-form-field>
           <mat-form-field>
             <input matInput readonly placeholder="DNI" value="{{datos.usuario.dni}}">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Legajo" name='legajo' [(ngModel)]="datos.usuario.legajo">
           </mat-form-field>
       </form>
 
@@ -46,7 +49,7 @@
       <button mat-raised-button class="btn" routerLink='/crear-correo/{{datos.usuario.id}}' [disabled]='!tieneDesignacion()'><mat-icon>add</mat-icon> CREAR CORREO ECONO</button>
       <button mat-raised-button class="btn" (click)='eliminados = !eliminados' value='{{eliminados}}'><mat-icon>add</mat-icon> VER CORREOS ELIMINADOS</button>
 
-      <button mat-raised-button class="btnGuardar"> GUARDAR CAMBIOS</button>
+      <button mat-raised-button class="btnGuardar" (click)='actualizarDatos()'> GUARDAR CAMBIOS</button>
 
 
     <!-- <button routerLink="/reset-clave/{{datos.sileg.id}}">Crear Clave Temporal</button>

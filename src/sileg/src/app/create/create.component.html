@@ -1,13 +1,19 @@
-<form>
+
+<div *ngIf='mensaje'>{{mensaje}}</div>
+<form *ngIf='usuario'>
   <mat-form-field>
-    <input matInput type='text'  placeholder="Nombre"  [(ngModel)]='nombre'/>
+    <input matInput type='text'  placeholder="Nombre" name='nombre' [(ngModel)]='usuario.nombre'/>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type='text'  placeholder="Apellido"  [(ngModel)]='apellido'/>
+    <input matInput type='text'  placeholder="Apellido" name='apellido' [(ngModel)]='usuario.apellido'/>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type='text'  placeholder="Dni"  [(ngModel)]='dni'/>
+    <input matInput type='text'  placeholder="Dni" name='dni' [(ngModel)]='usuario.dni'/>
   </mat-form-field>
+  <mat-form-field>
+    <input matInput type='text'  placeholder="Legajo" name='legajo' [(ngModel)]='usuario.legajo'/>
+  </mat-form-field>
+
   <button mat-button (click)='crearPersona()'>Crear</button>
   <button mat-button routerLink='/buscar'>Volver</button>
 </form>
