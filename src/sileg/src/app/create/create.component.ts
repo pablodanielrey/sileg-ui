@@ -43,8 +43,6 @@ export class CreateComponent implements OnInit {
   }
 
   crearPersona(): void {
-    this.mensaje = 'Prueba';
-    return;
     this.mensaje = null;
     console.log(this.usuario);
     this.service.crearUsuario(this.usuario).subscribe(res => {

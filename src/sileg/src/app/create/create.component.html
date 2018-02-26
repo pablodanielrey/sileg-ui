@@ -1,8 +1,18 @@
 <div class="create">
-    <div class="textoTitulo">Crear Usuario</div>
-    <div *ngIf='mensaje'>{{mensaje}}</div>
+    <div *ngIf='mensaje'>
+
+      <div class="contenedorNuevoUsuario">
+        <div>Crear Usuario</div>
+        <div class="textCreado"><b>Usuario Creado</b></div>
+        <p class="textSubCreado">Importante! para crear un correo institucional al usuario deberá crearle una asignación. </p>
+        <button mat-raised-button class="btnGuardar" routerLink='/buscar'> ACEPTAR</button>
+      </div>
+
+    </div>
 
     <div *ngIf='!mensaje' class="detalleDeUsuario">
+      <div class="textoTitulo">Crear Usuario</div>
+
         <form *ngIf='usuario' class="contentDetailUSer">
           <mat-form-field>
             <input matInput type='text'  placeholder="Nombre" name='nombre' [(ngModel)]='usuario.nombre'/>
@@ -11,7 +21,7 @@
             <input matInput type='text'  placeholder="Apellido" name='apellido' [(ngModel)]='usuario.apellido'/>
           </mat-form-field>
           <mat-form-field>
-            <input matInput type='text'  placeholder="Dni" name='dni' [(ngModel)]='usuario.dni'/>
+            <input matInput type='text'  placeholder="DNI" name='dni' [(ngModel)]='usuario.dni'/>
           </mat-form-field>
           <mat-form-field>
             <input matInput type='text'  placeholder="Legajo" name='legajo' [(ngModel)]='usuario.legajo'/>
@@ -23,7 +33,7 @@
 
         <button mat-button class="btnSiguiente" (click)='verificarCrearPersona()'>CREAR USUARIO</button>
         <button mat-button class="btnAnterior" routerLink='/buscar'>Volver</button>
-        
+
       </div>
 
 
