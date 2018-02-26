@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
+import { MatDialog } from '@angular/material'
+import  { CreateConfirmacionComponent } from './create-confirmacion.component';
+
 import { SilegService } from '../sileg.service'
 
 import { Usuario } from '../entities/usuario';
@@ -19,15 +22,29 @@ export class CreateComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private location: Location,
-              private service: SilegService) { }
+              private service: SilegService,
+              public dialog: MatDialog) { }
 
 
   ngOnInit() {
     this.usuario = new Usuario({});
-    this.mensaje = 'id asdadasds';
+    this.mensaje = null;
+  }
+
+  verificarCrearPersona(): void {
+    let dialogRef = this.dialog.open(CreateConfirmacionComponent, {
+        width: '250px'
+    });
+    dialogRef.afterClosed().subscribe(r => { r == 1 ? this.crearPersona() : this.volver() });
+  }
+
+  volver():void {
+    this.mensaje = null;
   }
 
   crearPersona(): void {
+    this.mensaje = 'Prueba';
+    return;
     this.mensaje = null;
     console.log(this.usuario);
     this.service.crearUsuario(this.usuario).subscribe(res => {

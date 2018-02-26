@@ -17,11 +17,12 @@ import { AppComponent } from './app.component';
 import { SilegService } from './sileg.service';
 import { SeleccionarUsuarioComponent } from './seleccionar-usuario/seleccionar-usuario.component';
 import { DetalleUsuarioComponent } from './detalle-usuario/detalle-usuario.component';
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { ConfirmarGenerarClaveComponent } from './generar-clave/confirmar-generar-clave.component';
 import { GenerarClaveComponent   } from './generar-clave/generar-clave.component';
 import { GenerarDesignacionComponent } from './generar-designacion/generar-designacion.component';
 import { CreateComponent } from './create/create.component';
+import { CreateConfirmacionComponent } from './create/create-confirmacion.component';
 import { CrearCorreoComponent } from './crear-correo/crear-correo.component';
 import { DesignacionesComponent } from './designaciones/designaciones.component';
 import { LugaresComponent } from './lugares/lugares.component';
@@ -38,12 +39,14 @@ import { LugaresComponent } from './lugares/lugares.component';
     GenerarClaveComponent,
     GenerarDesignacionComponent,
     CreateComponent,
+    CreateConfirmacionComponent,
     CrearCorreoComponent,
     DesignacionesComponent,
     LugaresComponent
   ],
   entryComponents: [
-    ConfirmarGenerarClaveComponent
+    ConfirmarGenerarClaveComponent,
+    CreateConfirmacionComponent
   ],
   imports: [
     BrowserModule,

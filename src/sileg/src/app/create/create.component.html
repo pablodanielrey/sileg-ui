@@ -1,7 +1,8 @@
 <div class="create">
     <div class="textoTitulo">Crear Usuario</div>
-    <!-- <div *ngIf='mensaje'>{{mensaje}}</div> -->
-    <div class="detalleDeUsuario">
+    <div *ngIf='mensaje'>{{mensaje}}</div>
+
+    <div *ngIf='!mensaje' class="detalleDeUsuario">
         <form *ngIf='usuario' class="contentDetailUSer">
           <mat-form-field>
             <input matInput type='text'  placeholder="Nombre" name='nombre' [(ngModel)]='usuario.nombre'/>
@@ -19,9 +20,11 @@
             <input matInput type='text'  placeholder="Género" name='genero' [(ngModel)]='usuario.genero'/>
           </mat-form-field>
         </form>
+
+        <button mat-button class="btnSiguiente" (click)='verificarCrearPersona()'>CREAR USUARIO</button>
+        <button mat-button class="btnAnterior" routerLink='/buscar'>Volver</button>
+        
       </div>
 
 
-      <button mat-button class="btnSiguiente" (click)='crearPersona()'>CREAR USUARIO</button>
-      <button mat-button class="btnAnterior" routerLink='/buscar'>Volver</button>
 </div>
