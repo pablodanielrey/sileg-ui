@@ -1,23 +1,27 @@
+<div class="create">
+    <div class="textoTitulo">Crear Usuario</div>
+    <!-- <div *ngIf='mensaje'>{{mensaje}}</div> -->
+    <div class="detalleDeUsuario">
+        <form *ngIf='usuario' class="contentDetailUSer">
+          <mat-form-field>
+            <input matInput type='text'  placeholder="Nombre" name='nombre' [(ngModel)]='usuario.nombre'/>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type='text'  placeholder="Apellido" name='apellido' [(ngModel)]='usuario.apellido'/>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type='text'  placeholder="Dni" name='dni' [(ngModel)]='usuario.dni'/>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type='text'  placeholder="Legajo" name='legajo' [(ngModel)]='usuario.legajo'/>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type='text'  placeholder="Género" name='genero' [(ngModel)]='usuario.genero'/>
+          </mat-form-field>
+        </form>
+      </div>
 
-<div *ngIf='mensaje'>{{mensaje}}</div>
-<form *ngIf='usuario'>
-  <mat-form-field>
-    <input matInput type='text'  placeholder="Nombre" name='nombre' [(ngModel)]='usuario.nombre'/>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput type='text'  placeholder="Apellido" name='apellido' [(ngModel)]='usuario.apellido'/>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput type='text'  placeholder="Dni" name='dni' [(ngModel)]='usuario.dni'/>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput type='text'  placeholder="Legajo" name='legajo' [(ngModel)]='usuario.legajo'/>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput type='text'  placeholder="Género" name='genero' [(ngModel)]='usuario.genero'/>
-  </mat-form-field>
 
-
-  <button mat-button (click)='crearPersona()'>Crear</button>
-  <button mat-button routerLink='/buscar'>Volver</button>
-</form>
+      <button mat-button class="btnSiguiente" (click)='crearPersona()'>CREAR USUARIO</button>
+      <button mat-button class="btnAnterior" routerLink='/buscar'>Volver</button>
+</div>

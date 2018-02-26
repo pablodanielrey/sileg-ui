@@ -1,0 +1,37 @@
+.create {
+  padding: 20px;
+}
+
+.detalleDeUsuario {
+  width: 450px;
+}
+
+.contentDetailUSer {
+  display: flex;
+  flex-direction: column;
+}
+
+.textoTitulo {
+  color: #4186E1;
+    font-size: 1.3em;
+    margin-bottom: 10px;
+}
+
+.btnSiguiente {
+  background-color: #4186E1;
+  color: white;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.btnAnterior {
+  background-color: #D1D1D1;
+  margin-top: 10px;
+  margin-top: 10px;
+}
+
+  @media screen and (max-width: 769px) {
+      .detalleDeUsuario {
+        width: 99%;
+      }
+  }

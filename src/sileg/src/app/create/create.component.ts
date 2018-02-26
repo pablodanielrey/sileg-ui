@@ -24,6 +24,7 @@ export class CreateComponent implements OnInit {
 
   ngOnInit() {
     this.usuario = new Usuario({});
+    this.mensaje = 'id asdadasds';
   }
 
   crearPersona(): void {

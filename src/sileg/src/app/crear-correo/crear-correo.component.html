@@ -17,8 +17,8 @@
       </div>
 
       <mat-form-field class="search">
-        <span matSuffix>@econo.unlp.edu.ar &nbsp;</span>
-        <input [(ngModel)]='correo' (keyup)='desactivar()' type="email" matInput placeholder="nombre.apellido">
+        <span class="matSuffixEcono" matSuffix>@econo.unlp.edu.ar &nbsp;</span>
+        <input class="inputCorreo" [(ngModel)]='correo' (keyup)='desactivar()' type="email" matInput placeholder="nombre.apellido">
         <mat-hint class="textoDisponibilidad">
           <div *ngIf='disponible' class="textoDisponibilidad"><div *ngIf='mensaje'>{{mensaje}}</div></div>
           <div *ngIf='!disponible' class="textoNoDisponibilidad"><div *ngIf='mensaje'>{{mensaje}}</div></div>
@@ -29,7 +29,7 @@
         <button class="btnDisponibilidad" *ngIf='!disponible' mat-button (click)='verificarDisponibilidad()' [disabled]='correo.length <= 0'>VERIFICAR DISPONIBILIDAD</button>
         <button class="btnSiguiente" *ngIf='disponible' mat-button matStepperNext [disabled]='!disponible'>SIGUIENTE</button>
       </div>
-      
+
     </div>
 
   </mat-step>

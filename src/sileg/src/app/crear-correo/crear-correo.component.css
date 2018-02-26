@@ -94,3 +94,9 @@
   /*font-size: 1.3em;*/
   color: #4186E1;
 }
+
+@media screen and (max-width: 769px) {
+  .matSuffixEcono {
+    font-size: 0.6em;
+    }
+}
