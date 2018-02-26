@@ -8,13 +8,17 @@
 
 .contentDetailUSer {
   display: flex;
+  -webkit-display: flex;
+  -moz-display: flex;
   flex-direction: column;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
 }
 
 .textoTitulo {
   color: #4186E1;
-    font-size: 1.3em;
-    margin-bottom: 10px;
+  font-size: 1.3em;
+  margin-bottom: 10px;
 }
 
 .btnSiguiente {

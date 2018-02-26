@@ -1,12 +1,20 @@
 .detalleDeUsuario {
   display: flex;
+  -webkit-display: flex;
+  -moz-display: flex;
   flex-direction: row;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
   padding: 20px;
 }
 
 .contentDetailUSer {
   display: flex;
+  -webkit-display: flex;
+  -moz-display: flex;
   flex-direction: column;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
 }
 
 .detalle-de-usuario {
@@ -73,7 +81,11 @@
 @media screen and (max-width: 769px) {
   .detalleDeUsuario {
     display: flex;
+    -webkit-display: flex;
+    -moz-display: flex;
     flex-direction: column;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
     padding: 20px;
   }
   .detalle-de-usuario {
