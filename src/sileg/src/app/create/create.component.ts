@@ -53,7 +53,7 @@ export class CreateComponent implements OnInit {
     },
     err => {
       console.log(err);
-      this.mensaje = 'Error creando el usuario';
+      this.mensaje = null;
     });
   }
 
