@@ -6,7 +6,7 @@
       </mat-form-field>
 
       <button mat-raised-button (click)='buscarUsuarios()' [disabled]='!busquedaActivada' title="Buscar usuario"><mat-icon>search</mat-icon> </button>
-      <!-- <button *ngIf='false' mat-raised-button routerLink='/crear' class="btnNuevoUsuario" title="Crear usuario nuevo"><mat-icon>person_add</mat-icon> </button> -->
+      <button mat-raised-button routerLink='/crear' class="btnNuevoUsuario" title="Crear usuario nuevo"><mat-icon>person_add</mat-icon> </button>
 
       <div class="textoResultadoDeBusqueda"> Resultado de búqueda: <b>{{usuarios.length}}</b>  </div>
 

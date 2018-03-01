@@ -27,5 +27,5 @@ RUN cd /src/sileg && ng build --prod --build-optimizer
 
 EXPOSE 80
 
-#ENTRYPOINT ["/entrypoint.sh"]
-ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf",  "--nodaemon"]
+ENTRYPOINT ["/entrypoint.sh"]
+#ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf",  "--nodaemon"]
