@@ -20,6 +20,11 @@ export const authConfig: AuthConfig = {
 import { OAuthService } from 'angular-oauth2-oidc';
 import { NullValidationHandler, JwksValidationHandler } from 'angular-oauth2-oidc';
 
+interface Profile {
+  username: string;
+}
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -50,7 +55,7 @@ export class AppComponent {
         let habilitados = ['8700794','21968942','31433408','94656241'];
 
         let permiso = false;
-        let dni = r.username;
+        let dni = (<Profile>r).username;
         if (ditesi.includes(dni)) {
           permiso = true;
         }
