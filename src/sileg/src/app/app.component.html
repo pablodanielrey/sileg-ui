@@ -1,7 +1,3 @@
-<div class="component">
-    <div class="headerApp">
-      <div class="tituloApp">Administración de Usuarios | FCE</div>
-      <div class="btnApp"><button class="btn" mat-button (click)="salir()"><mat-icon>exit_to_app</mat-icon> Salir</button></div>
-    </div>
-    <router-outlet class="pantalla"></router-outlet>
-</div>
+<app-header (menu)='onMenu($event)'></app-header>
+<app-menu class="contenido" (onItem)='onItem($event)' [menu_abierto]='menu_abierto'></app-menu>
+<app-footer ></app-footer>

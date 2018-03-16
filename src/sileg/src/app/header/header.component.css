@@ -1,0 +1,35 @@
+.cabecera .toolbar {
+  display: flex;
+  -webkit-display: flex;
+  -moz-display: flex;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+  -moz-justify-content: space-between;
+  background-color: #4186e1;
+  /*color: white;*/
+}
+
+.cabecera .cabeceraIzquierda {
+  display: flex;
+  -webkit-display: flex;
+  -moz-display: flex;
+  align-items: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+}
+
+.cabecera .tituloSistema {
+  font-size: 0.8em;
+  margin-left: 10px;
+}
+
+.cabecera .btnFullScreen {
+  color:rgba(255, 255, 255, 0.5);
+}
+
+
+@media screen and (max-width: 769px) {
+  .cabecera .tituloSistema {
+    display: none;
+  }
+}

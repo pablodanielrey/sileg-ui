@@ -26,6 +26,13 @@ import { CreateConfirmacionComponent } from './create/create-confirmacion.compon
 import { CrearCorreoComponent } from './crear-correo/crear-correo.component';
 import { DesignacionesComponent } from './designaciones/designaciones.component';
 import { LugaresComponent } from './lugares/lugares.component';
+import { ToogleFullscreenDirective } from './toogle-fullscreen.directive';
+import { MenuComponent } from './menu/menu.component';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
+import { BuscarLugaresComponent } from './buscar-lugares/buscar-lugares.component';
+import { DetalleLugarComponent } from './detalle-lugar/detalle-lugar.component';
+import { CrearLugarComponent } from './crear-lugar/crear-lugar.component';
 
 
 
@@ -42,7 +49,14 @@ import { LugaresComponent } from './lugares/lugares.component';
     CreateConfirmacionComponent,
     CrearCorreoComponent,
     DesignacionesComponent,
-    LugaresComponent
+    LugaresComponent,
+    ToogleFullscreenDirective,
+    MenuComponent,
+    FooterComponent,
+    HeaderComponent,
+    BuscarLugaresComponent,
+    DetalleLugarComponent,
+    CrearLugarComponent
   ],
   entryComponents: [
     ConfirmarGenerarClaveComponent,

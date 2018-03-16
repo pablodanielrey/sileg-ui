@@ -7,6 +7,16 @@ import { MatButtonModule,
          MatListModule,
          MatDialogModule,
          MatStepperModule,
+         MatMenuModule,
+         MatSidenavModule,
+         MatToolbarModule,
+         MatDatepickerModule,
+         MatCardModule,
+         MatSlideToggleModule,
+         MatTableModule,
+         MatTabsModule,
+         MatSortModule,
+         MatNativeDateModule
        } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,6 +30,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatListModule,
     MatDialogModule,
     MatStepperModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCardModule,
+    MatSlideToggleModule,
+    MatTableModule,
+    MatTabsModule,
+    MatSortModule,
     BrowserAnimationsModule
   ],
   exports: [
@@ -30,6 +50,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatListModule,
     MatDialogModule,
     MatStepperModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCardModule,
+    MatSlideToggleModule,
+    MatTableModule,
+    MatTabsModule,
+    MatSortModule,
     BrowserAnimationsModule
   ],
 })
