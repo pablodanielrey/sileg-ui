@@ -34,6 +34,7 @@ import { BuscarLugaresComponent } from './buscar-lugares/buscar-lugares.componen
 import { DetalleLugarComponent } from './detalle-lugar/detalle-lugar.component';
 import { CrearLugarComponent } from './crear-lugar/crear-lugar.component';
 
+import { OidpGuard } from './oidp.guard';
 
 
 
@@ -70,7 +71,7 @@ import { CrearLugarComponent } from './crear-lugar/crear-lugar.component';
     AppRoutingModule,
     OAuthModule.forRoot()
   ],
-  providers: [SilegService],
+  providers: [SilegService, OidpGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

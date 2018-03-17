@@ -12,18 +12,32 @@ import { BuscarLugaresComponent } from './buscar-lugares/buscar-lugares.componen
 import { CrearLugarComponent } from './crear-lugar/crear-lugar.component';
 import { DetalleLugarComponent } from './detalle-lugar/detalle-lugar.component';
 
+import { OidpGuard } from './oidp.guard';
+
 const routes: Routes = [
-    { path:'buscar', component: SeleccionarUsuarioComponent },
-    { path:'detalle/:id', component: DetalleUsuarioComponent },
-    { path:'crear', component: CreateComponent },
-    { path:'reset-clave/:id', component: GenerarClaveComponent },
-    { path:'generar-desig/:id', component: GenerarDesignacionComponent },
-    { path:'crear-correo/:id', component: CrearCorreoComponent },
-    { path:'lugares', component: BuscarLugaresComponent },
-    { path:'lugar/:id', component: DetalleLugarComponent },
-    { path:'crear_lugar', component: CrearLugarComponent },
-    { path: '', redirectTo: '/buscar', pathMatch: 'full' }
-    // { path: '', component: AppComponent }
+    {
+      path:'usuario',
+      canActivate: [OidpGuard],
+      children: [
+        { path:'crear', component: CreateComponent },
+        { path:'buscar', component: SeleccionarUsuarioComponent },
+        { path:'detalle/:id', component: DetalleUsuarioComponent },
+        { path:'reset-clave/:id', component: GenerarClaveComponent },
+        { path:'generar-desig/:id', component: GenerarDesignacionComponent },
+        { path:'crear-correo/:id', component: CrearCorreoComponent }
+      ]
+    },
+    {
+      path:'lugar',
+      canActivate: [OidpGuard],
+      children: [
+        { path:'crear', component: CrearLugarComponent },
+        { path:'buscar', component: BuscarLugaresComponent }
+        { path:'detalle/:id', component: DetalleLugarComponent, canActivate: [OidpGuard] }
+      ]
+    },
+    { path: '', redirectTo: '/usuario/buscar', pathMatch: 'full' }
+    //{ path: '' }
 ];
 
 @NgModule({

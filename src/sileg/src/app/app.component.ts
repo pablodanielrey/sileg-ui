@@ -9,11 +9,11 @@ export const authConfig: AuthConfig = {
   userinfoEndpoint: 'https://oidp.econo.unlp.edu.ar/userinfo',
   loginUrl: 'https://oidp.econo.unlp.edu.ar/oauth2/auth',
   logoutUrl: 'https://consent.econo.unlp.edu.ar/logout',
-  oidc: false,
+  oidc: true,
   requireHttps: false,
   clientId: 'sileg-ui',
   dummyClientSecret: 'sileg-ui',
-  scope: 'openid profile email',
+  scope: 'openid profile email session_state',
   showDebugInformation: true
 }
 
@@ -36,7 +36,7 @@ export class AppComponent {
     this.configureWithNewConfigApi();
   }
 
-  private menu_abierto: boolean = false;
+  public menu_abierto: boolean = false;
 
   onMenu(abierto: boolean):void {
     this.menu_abierto = !this.menu_abierto;
@@ -49,6 +49,19 @@ export class AppComponent {
   onItem(v:boolean):void {
     this.menu_abierto = v;
   }
+
+  /*
+  private tryLogin() {
+    this.oauthService.configure(authConfig);
+    this.oauthService.tokenValidationHandler = new NullValidationHandler();
+    this.oauthService.loadDiscoveryDocument().then(() => {
+       this.oauthService.tryLogin();
+       if (this.oauthService.getAccessToken() == null) {
+         this.oauthService.initImplicitFlow();
+       }
+     });
+  }
+  */
 
   private configureWithNewConfigApi() {
     console.log('configurando oauth2');
@@ -63,27 +76,33 @@ export class AppComponent {
       console.log('No se obtuvo ningun access token asi que inicio el flujo de auth');
       this.oauthService.initImplicitFlow();
     } else {
-      this.oauthService.loadUserProfile().then(r => {
-        // chequeo que tengan permitido ingresar a la app
-        let ditesi = ['30001823', '27294557', '31381082', '29694757', '34928857', '34770038', '31073351', '27821597'];
-        let habilitados = ['8700794','21968942','31433408','94656241'];
+      let s = this.oauthService;
+      console.log(s.getAccessToken());
+      console.log(s.getIdentityClaims());
+      console.log(s.getIdToken());
+      console.log(s.hasValidAccessToken());
+      console.log(s.hasValidIdToken());
+      this.chequearPermisos(s.getIdentityClaims());
+    }
+  }
 
-        let permiso = false;
-        let dni = (<Profile>r).username;
-        if (ditesi.includes(dni)) {
-          permiso = true;
-        }
+  chequearPermisos(r:any):void {
+    // chequeo que tengan permitido ingresar a la app
+    let ditesi = ['30001823', '27294557', '31381082', '29694757', '34928857', '34770038', '31073351', '27821597'];
+    let habilitados = ['8700794','21968942','31433408','94656241'];
 
-        if (habilitados.includes(dni)) {
-          permiso = true;
-        }
+    let permiso = false;
+    let dni = (<Profile>r).username;
+    if (ditesi.includes(dni)) {
+      permiso = true;
+    }
 
-        if (!permiso) {
-          this.salir();
-        }
+    if (habilitados.includes(dni)) {
+      permiso = true;
+    }
 
-      });
-
+    if (!permiso) {
+      this.salir();
     }
   }
 
