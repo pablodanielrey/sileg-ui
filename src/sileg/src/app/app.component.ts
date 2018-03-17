@@ -13,7 +13,7 @@ export const authConfig: AuthConfig = {
   requireHttps: false,
   clientId: 'sileg-ui',
   dummyClientSecret: 'sileg-ui',
-  scope: 'openid profile email session_state',
+  scope: 'openid profile email',
   showDebugInformation: true
 }
 
