@@ -1,6 +1,23 @@
-.create {
-  padding: 20px;
+/* ---- CSS BASICO PARA CADA PANTALLA ----*/
+
+
+.crearUsuario .seccionSistema {
+  color: #4186e1;
+  padding: 5px;
+
 }
+
+.crearUsuario .btnVolverSeccion {
+  color: grey;
+}
+
+.crearUsuario .contenidoPantalla {
+  padding: 20px;
+  max-width: 400px;
+
+}
+
+/* ---------------------------------------*/
 
 .detalleDeUsuario {
   width: 450px;
