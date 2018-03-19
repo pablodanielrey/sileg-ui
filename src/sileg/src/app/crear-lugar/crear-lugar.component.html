@@ -8,7 +8,30 @@
   <mat-divider></mat-divider>
 
   <div class="contenidoPantalla">
-    CREAR LUGAR
+      <form>
+          <mat-form-field class="itemFormulario">
+              <input matInput placeholder="Nombre" value="">
+          </mat-form-field>
+          <mat-form-field class="itemFormulario">
+              <input matInput placeholder="Descripción" value="">
+          </mat-form-field>
+          <mat-form-field class="itemFormulario">
+              <mat-select placeholder="Tipo de Lugar">
+              <mat-option *ngFor="let t of tipos" [value]="t.id">
+                {{ t.nombre }}
+              </mat-option>
+              </mat-select>
+          </mat-form-field>
+          <mat-form-field class="">
+              <input matInput placeholder="Nº de Oficina" value="">
+          </mat-form-field>
+          <mat-form-field class="">
+              <input matInput placeholder="Teléfono / Interno" value="">
+          </mat-form-field>
+          <mat-form-field class="itemFormulario">
+              <input matInput placeholder="Correo Eléctronico" value="">
+          </mat-form-field>
+      </form>
   </div>
 
 </div>

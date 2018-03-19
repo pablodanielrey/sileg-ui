@@ -7,6 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CrearLugarComponent implements OnInit {
 
+  tipos = [
+    {id:'', nombre:'Centro', descripcion:''},
+    {id:'', nombre:'Deparatmento', descripcion:''},
+    {id:'', nombre:'Dirección', descripcion:''},
+    {id:'', nombre:'Instituto', descripcion:''},
+    {id:'', nombre:'Unidad', descripcion:''},
+    {id:'', nombre:'Secretaria', descripcion:''}
+  ]
+
+  nuidad, instituto, centro, secretaria, direccion, depto,
   constructor() { }
 
   ngOnInit() {
