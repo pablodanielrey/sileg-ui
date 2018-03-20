@@ -15,24 +15,29 @@ import { MyMaterialModule } from './material.module';
 
 import { AppComponent } from './app.component';
 import { SilegService } from './sileg.service';
-import { SeleccionarUsuarioComponent } from './seleccionar-usuario/seleccionar-usuario.component';
-import { DetalleUsuarioComponent } from './detalle-usuario/detalle-usuario.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ConfirmarGenerarClaveComponent } from './generar-clave/confirmar-generar-clave.component';
-import { GenerarClaveComponent   } from './generar-clave/generar-clave.component';
-import { GenerarDesignacionComponent } from './generar-designacion/generar-designacion.component';
-import { CreateComponent } from './create/create.component';
-import { CreateConfirmacionComponent } from './create/create-confirmacion.component';
-import { CrearCorreoComponent } from './crear-correo/crear-correo.component';
-import { DesignacionesComponent } from './designaciones/designaciones.component';
-import { LugaresComponent } from './lugares/lugares.component';
-import { ToogleFullscreenDirective } from './toogle-fullscreen.directive';
-import { MenuComponent } from './menu/menu.component';
-import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
-import { BuscarLugaresComponent } from './buscar-lugares/buscar-lugares.component';
-import { DetalleLugarComponent } from './detalle-lugar/detalle-lugar.component';
-import { CrearLugarComponent } from './crear-lugar/crear-lugar.component';
+
+import { SeleccionarUsuarioComponent } from './usuarios/seleccionar-usuario/seleccionar-usuario.component';
+import { DetalleUsuarioComponent } from './usuarios/detalle-usuario/detalle-usuario.component';
+import { ConfirmarGenerarClaveComponent } from './usuarios/generar-clave/confirmar-generar-clave.component';
+import { GenerarClaveComponent   } from './usuarios/generar-clave/generar-clave.component';
+import { GenerarDesignacionComponent } from './usuarios/generar-designacion/generar-designacion.component';
+import { CreateComponent } from './usuarios/create/create.component';
+import { CreateConfirmacionComponent } from './usuarios/create/create-confirmacion.component';
+import { CrearCorreoComponent } from './usuarios/crear-correo/crear-correo.component';
+import { DesignacionesComponent } from './usuarios/designaciones/designaciones.component';
+
+import { ToogleFullscreenDirective } from './menu/toogle-fullscreen.directive';
+import { MenuComponent } from './menu/menu/menu.component';
+import { FooterComponent } from './menu/footer/footer.component';
+import { HeaderComponent } from './menu/header/header.component';
+
+import { LugaresComponent } from './lugares/lugares/lugares.component';
+import { BuscarLugaresComponent } from './lugares/buscar-lugares/buscar-lugares.component';
+import { DetalleLugarComponent } from './lugares/detalle-lugar/detalle-lugar.component';
+import { CrearLugarComponent } from './lugares/crear-lugar/crear-lugar.component';
+import { UsuariosPorOficinaComponent } from './lugares/usuarios-por-oficina/usuarios-por-oficina.component';
+import { AgregarQuitarUsuariosComponent } from './lugares/agregar-quitar-usuarios/agregar-quitar-usuarios.component';
 
 
 
@@ -56,7 +61,9 @@ import { CrearLugarComponent } from './crear-lugar/crear-lugar.component';
     HeaderComponent,
     BuscarLugaresComponent,
     DetalleLugarComponent,
-    CrearLugarComponent
+    CrearLugarComponent,
+    UsuariosPorOficinaComponent,
+    AgregarQuitarUsuariosComponent
   ],
   entryComponents: [
     ConfirmarGenerarClaveComponent,

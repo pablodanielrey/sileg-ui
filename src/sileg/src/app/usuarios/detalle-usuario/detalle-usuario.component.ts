@@ -2,9 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { Usuario, Mail } from '../entities/usuario';
-import { DatosSileg, Sileg, Designacion } from '../entities/sileg';
-import { SilegService } from '../sileg.service'
+import { Usuario, Mail } from '../../entities/usuario';
+import { DatosSileg, Sileg, Designacion } from '../../entities/sileg';
+import { SilegService } from '../../sileg.service'
 
 
 @Component({

@@ -5,9 +5,9 @@ import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material'
 import  { CreateConfirmacionComponent } from './create-confirmacion.component';
 
-import { SilegService } from '../sileg.service'
+import { SilegService } from '../../sileg.service'
 
-import { Usuario } from '../entities/usuario';
+import { Usuario } from '../../entities/usuario';
 
 @Component({
   selector: 'app-create',

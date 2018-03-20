@@ -16,7 +16,6 @@ export class CrearLugarComponent implements OnInit {
     {id:'', nombre:'Secretaria', descripcion:''}
   ]
 
-  nuidad, instituto, centro, secretaria, direccion, depto,
   constructor() { }
 
   ngOnInit() {

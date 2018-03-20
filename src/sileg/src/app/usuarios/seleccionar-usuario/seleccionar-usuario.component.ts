@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 
-import { SilegService } from '../sileg.service'
+import { SilegService } from '../../sileg.service'
 
-import { Usuario } from '../entities/usuario';
-import { DatosSileg, Sileg } from '../entities/sileg';
+import { Usuario } from '../../entities/usuario';
+import { DatosSileg, Sileg } from '../../entities/sileg';
 
 @Component({
   selector: 'app-seleccionar-usuario',
@@ -28,7 +28,7 @@ export class SeleccionarUsuarioComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.oauthService.loadUserProfile().then(r => { this.logueado = r; });
+    //this.oauthService.loadUserProfile().then(r => { this.logueado = r; });
   }
 
   salir():void {
@@ -64,7 +64,6 @@ export class SeleccionarUsuarioComponent implements OnInit {
         } else {
           this.usuarios = usuarios;
         }
-
       }));
   }
 

@@ -1,0 +1,14 @@
+<mat-sidenav-container  class="menu">
+  <mat-sidenav #sidenav mode="over" (openedChange)='onOpenedChange($event)' [disableClose]='false' [(opened)]="menu_abierto">
+      <button class="btn" mat-button (click)='onInternalItem()' routerLink="/usuario/buscar"><mat-icon class="icoMenu">search</mat-icon> Buscar Usuario</button><br>
+      <button class="btn" mat-button (click)='onInternalItem()' routerLink="/usuario/crear"><mat-icon class="icoMenu">person_outline</mat-icon> Crear Usuario</button><br>
+      <button class="btn" mat-button (click)='onInternalItem()' routerLink="/lugares/buscar"><mat-icon class="icoMenu">search</mat-icon> Buscar Lugares</button><br>
+      <button class="btn" mat-button (click)='onInternalItem()' routerLink="/lugares/crear"><mat-icon class="icoMenu">add_to_queue</mat-icon> Crear Lugar</button><br>
+      <button class="btn" mat-button (click)='onInternalItem()' routerLink="/lugares/lugares"><mat-icon class="icoMenu">device_hub</mat-icon> Organigrama</button><br>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet class="pantalla"></router-outlet>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

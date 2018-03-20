@@ -63,6 +63,7 @@ export class AppComponent {
       console.log('No se obtuvo ningun access token asi que inicio el flujo de auth');
       this.oauthService.initImplicitFlow();
     } else {
+      /*
       this.oauthService.loadUserProfile().then(r => {
         // chequeo que tengan permitido ingresar a la app
         let ditesi = ['30001823', '27294557', '31381082', '29694757', '34928857', '34770038', '31073351', '27821597'];
@@ -83,6 +84,7 @@ export class AppComponent {
         }
 
       });
+      */
 
     }
   }

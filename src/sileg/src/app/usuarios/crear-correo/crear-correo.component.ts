@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { SilegService } from '../sileg.service';
+import { SilegService } from '../../sileg.service';
 
-import { Usuario } from '../entities/usuario';
+import { Usuario } from '../../entities/usuario';
 
 @Component({
   selector: 'app-crear-correo',
