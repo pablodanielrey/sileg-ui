@@ -1,0 +1,93 @@
+/* ---- CSS BASICO PARA CADA PANTALLA ----*/
+
+
+.detalleLugar .seccionSistema {
+  color: #4186e1;
+  padding: 5px;
+
+}
+
+.detalleLugar .btnVolverSeccion {
+  color: grey;
+}
+
+.detalleLugar .contenidoPantalla {
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* ---------------------------------------*/
+
+.contenedorDetalleLuga {
+    max-width: 400px;
+    margin-right: 40px;
+}
+
+.contenedorAccionesLugar {
+  max-width: 250px;
+}
+
+.formulario {
+}
+
+.itemFormulario {
+  width: 100%;
+}
+
+.contenedorItemsFormulario {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.itemFormularioMedio {
+  width: 48%;
+}
+
+.btnCrear {
+  background-color: #4186E1;
+  color: white;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.btnAcciones {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 10px;
+  padding: 5px 10px 5px 15px;
+  background-color: white;
+  border: solid 1px #E0E0E0;
+}
+
+.icoMenu {
+  color: rgba(0,0,0,.54);
+  margin-right: 10px;
+}
+
+
+@media screen and (max-width: 769px) {
+  .detalleLugar .contenidoPantalla {
+    width: 100%;
+  }
+
+  .contenedorDetalleLuga {
+      max-width: 100%;
+      margin-right: 0px;
+  }
+
+  .contenedorAccionesLugar {
+    max-width: 100%;
+  }
+
+  .contenedorAccionesLugar {
+    width: 100%;
+  }
+
+  .btnCrear {
+    width: 100%;
+    padding: 5px;
+  }
+
+}

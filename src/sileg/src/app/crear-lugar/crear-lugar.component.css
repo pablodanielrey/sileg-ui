@@ -25,3 +25,31 @@
 .itemFormulario {
   width: 100%;
 }
+
+.contenedorItemsFormulario {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.itemFormularioMedio {
+  width: 48%;
+}
+
+.btnCrear {
+  background-color: #4186E1;
+  color: white;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+@media screen and (max-width: 769px) {
+  .crearLugar .contenidoPantalla {
+    width: 100%;
+  }
+  .btnCrear {
+    width: 100%;
+    padding: 5px;
+  }
+
+}

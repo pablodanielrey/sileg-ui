@@ -20,7 +20,7 @@
 /* ---------------------------------------*/
 
 .detalleDeUsuario {
-  width: 450px;
+
 }
 
 .contentDetailUSer {
@@ -83,5 +83,9 @@
       }
       .contenedorNuevoUsuario {
         width: 88%;
+      }
+      .btnSiguiente {
+      padding: 5px;
+      width: 100%;
       }
   }

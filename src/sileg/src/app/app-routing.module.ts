@@ -22,7 +22,9 @@ const routes: Routes = [
     { path:'lugares', component: BuscarLugaresComponent },
     { path:'lugar/:id', component: DetalleLugarComponent },
     { path:'crear_lugar', component: CrearLugarComponent },
-    { path: '', redirectTo: '/buscar', pathMatch: 'full' }
+    { path: '', redirectTo: '/buscar', pathMatch: 'full' },
+    { path:'detalle_lugar', component: DetalleLugarComponent }
+
     // { path: '', component: AppComponent }
 ];
 
