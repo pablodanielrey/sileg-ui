@@ -1,0 +1,46 @@
+<div class="detalleLugar">
+
+  <div class="seccionSistema">
+      <button mat-button class="btnVolverSeccion"><mat-icon>keyboard_arrow_left</mat-icon> volver</button>
+        | Detalle Lugar
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="contenidoPantalla">
+      <div class="contenedorDetalleLuga">
+          <form>
+              <mat-form-field class="itemFormulario">
+                  <input matInput placeholder="Nombre" value="">
+              </mat-form-field>
+              <mat-form-field class="itemFormulario">
+                  <input matInput placeholder="Descripción" value="">
+              </mat-form-field>
+              <mat-form-field class="itemFormulario">
+                  <mat-select placeholder="Tipo de Lugar">
+                  <mat-option *ngFor="let t of tipos" [value]="t.id">
+                    {{ t.nombre }}
+                  </mat-option>
+                  </mat-select>
+              </mat-form-field>
+              <div class="contenedorItemsFormulario">
+                  <mat-form-field class="itemFormularioMedio">
+                      <input matInput placeholder="Nº de Oficina" value="">
+                  </mat-form-field>
+                  <mat-form-field class="itemFormularioMedio">
+                      <input matInput placeholder="Teléfono / Interno" value="">
+                  </mat-form-field>
+              </div>
+              <mat-form-field class="itemFormulario">
+                  <input matInput placeholder="Correo Eléctronico" value="">
+              </mat-form-field>
+          </form>
+      </div>
+      <div class="contenedorAccionesLugar">
+        <button mat-button class="btnAcciones" routerLink=''> <mat-icon class="icoMenu">people</mat-icon> USUARIOS DEL LUGAR</button>
+        <button mat-button class="btnAcciones" routerLink=''> <mat-icon class="icoMenu">delete</mat-icon> ELIMINAR LUGAR</button>
+        <button mat-button class="btnCrear"> GUARDAR CAMBIOS</button>
+      </div>
+  </div>
+
+</div>

@@ -1,0 +1,72 @@
+<div *ngIf='datos' class="detalleDeUsuario">
+
+  <div class="seccionSistema">
+      <button mat-button class="btnVolverSeccion" routerLink='/buscar'><mat-icon>keyboard_arrow_left</mat-icon> volver</button>
+        | Detalle de Usuario
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="contenidoPantalla">
+
+
+      <div class="detalle-de-usuario">
+
+
+        <form class="contentDetailUSer">
+            <mat-form-field>
+              <input matInput placeholder="Nombre" name='nombre' [(ngModel)]="datos.usuario.nombre">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Apellido" name='apellido' [(ngModel)]="datos.usuario.apellido">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput readonly placeholder="DNI" value="{{datos.usuario.dni}}">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Legajo" name='legajo' [(ngModel)]="datos.usuario.legajo">
+            </mat-form-field>
+        </form>
+
+            <div *ngFor='let m of datos.usuario.mails'>
+              <div *ngIf='eliminados ? true : m.eliminado == null'>
+                <mat-form-field class="ContenedorCorreos">
+                    <input type="email" matInput placeholder="Correo eléctronico" value="{{m.email}}">
+                    <mat-icon class="btnVerificado" *ngIf="m.confirmado != null" matSuffix title="Verificado el {{m.confirmado}}">verified_user</mat-icon>
+                    <mat-icon class="btnNoVerificado" *ngIf="m.confirmado == null"  matSuffix title="Sin verificar">verified_user</mat-icon>
+                    <button  mat-button (click)='eliminarCorreo(m)' [disabled]='m.eliminado != null' matSuffix>
+                      <mat-icon aria-label="Eliminar correo">delete</mat-icon>
+                    </button>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div *ngIf='designaciones'>
+              <mat-form-field class="contenedorDesignaciones" *ngFor='let d of designaciones'>
+                  <textarea matInput readonly placeholder="Designacion" value="{{d.cargo.nombre}} {{d.lugar.nombre}} {{d.desde}}" ></textarea>
+                <!-- <div>{{d.cargo.nombre}}</div><div>{{d.lugar.nombre}}</div><div>{{d.desde}}</div> -->
+
+              </mat-form-field>
+            </div>
+
+      </div>
+
+      <div *ngIf='datos' class="contenedorBotones">
+      <!-- <button (click)='crearClaveTemporal()'>Crear Clave Temporal</button> -->
+
+        <button mat-button class="btn" routerLink="/reset-clave/{{datos.usuario.id}}"><mat-icon>add</mat-icon> CREAR CLAVE TEMPORAL</button>
+        <button mat-button class="btn" routerLink='/generar-desig/{{datos.usuario.id}}' [disabled]='tieneDesignacion()'><mat-icon>add</mat-icon> CREAR DESIGNACIÓN</button>
+        <button mat-button class="btn" routerLink='/crear-correo/{{datos.usuario.id}}' [disabled]='!tieneDesignacion()'><mat-icon>add</mat-icon> CREAR CORREO ECONO</button>
+        <button mat-button class="btn" (click)='eliminados = !eliminados' value='{{eliminados}}'><mat-icon>add</mat-icon> VER CORREOS ELIMINADOS</button>
+
+        <button mat-button class="btnGuardar" (click)='actualizarDatos()'> GUARDAR CAMBIOS</button>
+
+
+      <!-- <button routerLink="/reset-clave/{{datos.sileg.id}}">Crear Clave Temporal</button>
+      <button (click)='crearDesignacion()' [disabled]='tieneDesignacion()'>Crear Designacion</button>
+      <button (click)='crearCorreo()' [disabled]='!tieneDesignacion() || tieneCorreoInstitucional()'>Crear Correo</button> -->
+      </div>
+
+
+  </div>
+</div>

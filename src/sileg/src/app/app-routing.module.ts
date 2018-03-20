@@ -2,15 +2,19 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { CreateComponent } from './create/create.component';
-import { CrearCorreoComponent } from './crear-correo/crear-correo.component';
-import { SeleccionarUsuarioComponent } from './seleccionar-usuario/seleccionar-usuario.component';
-import { DetalleUsuarioComponent } from './detalle-usuario/detalle-usuario.component';
-import { GenerarClaveComponent } from './generar-clave/generar-clave.component';
-import { GenerarDesignacionComponent } from './generar-designacion/generar-designacion.component';
-import { BuscarLugaresComponent } from './buscar-lugares/buscar-lugares.component';
-import { CrearLugarComponent } from './crear-lugar/crear-lugar.component';
-import { DetalleLugarComponent } from './detalle-lugar/detalle-lugar.component';
+
+import { CreateComponent } from './usuarios/create/create.component';
+import { CrearCorreoComponent } from './usuarios/crear-correo/crear-correo.component';
+import { SeleccionarUsuarioComponent } from './usuarios/seleccionar-usuario/seleccionar-usuario.component';
+import { DetalleUsuarioComponent } from './usuarios/detalle-usuario/detalle-usuario.component';
+import { GenerarClaveComponent } from './usuarios/generar-clave/generar-clave.component';
+import { GenerarDesignacionComponent } from './usuarios/generar-designacion/generar-designacion.component';
+
+import { BuscarLugaresComponent } from './lugares/buscar-lugares/buscar-lugares.component';
+import { CrearLugarComponent } from './lugares/crear-lugar/crear-lugar.component';
+import { DetalleLugarComponent } from './lugares/detalle-lugar/detalle-lugar.component';
+import { UsuariosPorOficinaComponent } from './lugares/usuarios-por-oficina/usuarios-por-oficina.component';
+import { AgregarQuitarUsuariosComponent } from './lugares/agregar-quitar-usuarios/agregar-quitar-usuarios.component';
 
 import { OidpGuard } from './oidp.guard';
 
@@ -19,25 +23,25 @@ const routes: Routes = [
       path:'usuario',
       canActivate: [OidpGuard],
       children: [
-        { path:'crear', component: CreateComponent },
         { path:'buscar', component: SeleccionarUsuarioComponent },
-        { path:'detalle/:id', component: DetalleUsuarioComponent },
-        { path:'reset-clave/:id', component: GenerarClaveComponent },
-        { path:'generar-desig/:id', component: GenerarDesignacionComponent },
-        { path:'crear-correo/:id', component: CrearCorreoComponent }
+        { path:'crear', component: CreateComponent },
+        { path:'usuario/:id', component: DetalleUsuarioComponent },
+        { path:'usuario/:id/reset-clave', component: GenerarClaveComponent },
+        { path:'usuario/:id/generar-desig', component: GenerarDesignacionComponent },
+        { path:'usuario/:id/crear-correo', component: CrearCorreoComponent }
       ]
     },
     {
-      path:'lugar',
-      canActivate: [OidpGuard],
+      path:'lugares',
       children: [
+        { path:'buscar', component: BuscarLugaresComponent },
+        { path:'lugar/:id', component: DetalleLugarComponent, canActivate: [OidpGuard] },
         { path:'crear', component: CrearLugarComponent },
-        { path:'buscar', component: BuscarLugaresComponent }
-        { path:'detalle/:id', component: DetalleLugarComponent, canActivate: [OidpGuard] }
+        { path:'lugar/:id/usuarios', component: UsuariosPorOficinaComponent },
+        { path:'lugar/:id/usuarios/abm', component: AgregarQuitarUsuariosComponent }
       ]
     },
-    { path: '', redirectTo: '/usuario/buscar', pathMatch: 'full' }
-    //{ path: '' }
+    { path: '', redirectTo: '/lugares/buscar', pathMatch: 'full' }
 ];
 
 @NgModule({

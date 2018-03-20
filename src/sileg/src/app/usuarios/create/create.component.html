@@ -1,0 +1,52 @@
+<div class="crearUsuario">
+
+  <div class="seccionSistema">
+      <button mat-button class="btnVolverSeccion" routerLink='/buscar'><mat-icon>keyboard_arrow_left</mat-icon> volver</button>
+        | Crear Usuario
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="contenidoPantalla">
+
+      <div class="create">
+          <div *ngIf='mensaje'>
+
+            <div class="contenedorNuevoUsuario">
+              <div>Crear Usuario</div>
+              <div class="textCreado"><b>Usuario Creado</b></div>
+              <p class="textSubCreado">Importante! para crear un correo institucional al usuario deberá crearle una asignación. </p>
+              <button mat-raised-button class="btnGuardar" routerLink='/buscar'> ACEPTAR</button>
+            </div>
+
+          </div>
+
+          <div *ngIf='!mensaje' class="detalleDeUsuario">
+
+              <form *ngIf='usuario' class="contentDetailUSer">
+                <mat-form-field>
+                  <input matInput type='text'  placeholder="Nombre" name='nombre' [(ngModel)]='usuario.nombre'/>
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput type='text'  placeholder="Apellido" name='apellido' [(ngModel)]='usuario.apellido'/>
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput type='text'  placeholder="DNI" name='dni' [(ngModel)]='usuario.dni'/>
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput type='text'  placeholder="Legajo" name='legajo' [(ngModel)]='usuario.legajo'/>
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput type='text'  placeholder="Género" name='genero' [(ngModel)]='usuario.genero'/>
+                </mat-form-field>
+              </form>
+
+              <button mat-button class="btnSiguiente" (click)='verificarCrearPersona()'>CREAR USUARIO</button>
+
+            </div>
+
+
+      </div>
+
+    </div>
+</div>

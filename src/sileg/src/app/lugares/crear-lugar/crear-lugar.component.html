@@ -1,0 +1,40 @@
+<div class="crearLugar">
+
+  <div class="seccionSistema">
+      <button mat-button class="btnVolverSeccion"><mat-icon>keyboard_arrow_left</mat-icon> volver</button>
+        | Crear Lugar
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="contenidoPantalla">
+      <form>
+          <mat-form-field class="itemFormulario">
+              <input matInput placeholder="Nombre" value="">
+          </mat-form-field>
+          <mat-form-field class="itemFormulario">
+              <input matInput placeholder="Descripción" value="">
+          </mat-form-field>
+          <mat-form-field class="itemFormulario">
+              <mat-select placeholder="Tipo de Lugar">
+              <mat-option *ngFor="let t of tipos" [value]="t.id">
+                {{ t.nombre }}
+              </mat-option>
+              </mat-select>
+          </mat-form-field>
+          <div class="contenedorItemsFormulario">
+              <mat-form-field class="itemFormularioMedio">
+                  <input matInput placeholder="Nº de Oficina" value="">
+              </mat-form-field>
+              <mat-form-field class="itemFormularioMedio">
+                  <input matInput placeholder="Teléfono / Interno" value="">
+              </mat-form-field>
+          </div>
+          <mat-form-field class="itemFormulario">
+              <input matInput placeholder="Correo Eléctronico" value="">
+          </mat-form-field>
+      </form>
+      <button mat-button class="btnCrear"> CREAR LUGAR</button>
+  </div>
+
+</div>

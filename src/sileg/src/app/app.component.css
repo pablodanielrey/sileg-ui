@@ -1,27 +1,8 @@
-.component {
-  height:100%;
-}
-
-.headerApp {
+.contenido {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  -webkit-display: flex;
+  -moz-display: flex;
   width: 100%;
-  height: 55px;
-  background-color: #222222;
-  color: white;
-  /*padding: 20px;*/
-}
-
-.tituloApp {
-  margin-left: 20px;
-}
-
-.btnApp {
-  margin-right: 20px;
-}
-
-.btnApp:hover {
-  background-color: #4186E1;
+  height: 100%;
+  background-color: #EEEEEE;
 }

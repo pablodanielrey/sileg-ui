@@ -1,0 +1,20 @@
+/* ---- CSS BASICO PARA CADA PANTALLA ----*/
+
+
+.organigrama .seccionSistema {
+  color: #4186e1;
+  padding: 5px;
+
+}
+
+.organigrama .btnVolverSeccion {
+  color: grey;
+}
+
+.organigrama .contenidoPantalla {
+  padding: 20px;
+  max-width: 400px;
+
+}
+
+/* ---------------------------------------*/

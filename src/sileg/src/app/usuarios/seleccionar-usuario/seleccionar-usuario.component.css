@@ -1,0 +1,64 @@
+/* ---- CSS BASICO PARA CADA PANTALLA ----*/
+
+
+.seleccionarUsuario .seccionSistema {
+  color: #4186e1;
+  padding: 5px;
+
+}
+
+.seleccionarUsuario .btnVolverSeccion {
+  color: grey;
+}
+
+.seleccionarUsuario .contenidoPantalla {
+  padding: 20px;
+  max-width: 400px;
+
+}
+
+/* ---------------------------------------*/
+
+
+.inputSearch {
+  width: 100%;
+  color:#4186e1;
+  font-size: 1.1em;
+}
+
+.btnBuscar {
+  background-color: #4186e1;
+  color: white;
+}
+
+.btnBuscar:disabled {
+  color: rgba(255, 255, 255, 0.8);;
+}
+
+
+
+
+.itemLista {
+  background-color: white;
+  border: solid 1px #E0E0E0;
+  margin-top: 5px;
+}
+
+.itemLista:hover {
+    background-color: #E0E0E0;
+    cursor: pointer;
+}
+
+
+.itemTextoSubtitulo {
+  color: grey;
+}
+
+
+
+@media screen and (max-width: 769px) {
+  .seleccionarUsuario .contenidoPantalla {
+    max-width: 100%;
+  }
+
+}

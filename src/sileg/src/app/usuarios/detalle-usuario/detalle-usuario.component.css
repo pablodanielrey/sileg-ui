@@ -1,0 +1,123 @@
+/* ---- CSS BASICO PARA CADA PANTALLA ----*/
+
+
+.detalleDeUsuario .seccionSistema {
+  color: #4186e1;
+  padding: 5px;
+
+}
+
+.detalleDeUsuario .btnVolverSeccion {
+  color: grey;
+}
+
+.detalleDeUsuario .contenidoPantalla {
+  padding: 20px;
+  display: flex;
+  -webkit-display: flex;
+  -moz-display: flex;
+  flex-direction: row;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+
+}
+
+/* ---------------------------------------*/
+
+
+
+.detalle-de-usuario {
+  width: 450px;
+}
+
+.ContenedorCorreos {
+  width: 450px;
+}
+
+.contenedorDesignaciones {
+  width: 450px;
+}
+
+.btnVolver {
+  margin: 0 20px 20px 0;
+}
+
+.btnVerificado {
+    /*color: #4186E1;*/
+    font-size:1em;
+}
+.btnVerificado {
+    /*color: #4186E1;*/
+    font-size:1em;
+}
+
+.btnNoVerificado {
+  color: #e2e2e2;
+    font-size:1em;
+}
+
+
+.textoTitulo {
+  color: #4186E1;
+    font-size: 1.3em;
+}
+
+.contenedorBotones {
+  display: flex;
+  flex-direction: column;
+  margin-left: 40px;
+}
+
+
+
+.btn {
+  margin: 5px;
+  text-align: left;
+  background-color: white;
+  border: solid 1px #E0E0E0;
+}
+
+.btnCorreosEliminados {
+  text-align: left;
+  margin: 5px;
+}
+
+.btnGuardar {
+  margin: 5px;
+  background-color: #4186E1;
+  color: white;
+  padding: 5px;
+}
+
+@media screen and (max-width: 769px) {
+  .detalleDeUsuario .contenidoPantalla {
+    padding: 20px;
+    display: flex;
+    -webkit-display: flex;
+    -moz-display: flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+
+  }
+  .detalle-de-usuario {
+    width: 99%;
+  }
+
+  .ContenedorCorreos {
+    width: 100%;
+  }
+
+  .contenedorDesignaciones {
+    width: 100%;
+  }
+  .contenedorBotones {
+
+    margin-left: 0px;
+  }
+  .textoTitulo {
+    font-size: 1.0em;
+  }
+
+
+}

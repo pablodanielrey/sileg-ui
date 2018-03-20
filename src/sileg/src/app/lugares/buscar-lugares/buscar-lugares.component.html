@@ -1,0 +1,34 @@
+<div class="buscarLugares">
+
+  <div class="seccionSistema">
+      <button mat-button class="btnVolverSeccion"><mat-icon>keyboard_arrow_left</mat-icon> volver</button>
+        | Buscar Lugares
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="contenidoPantalla">
+
+
+
+    <form>
+      <mat-form-field class="inputSearch">
+          <mat-placeholder>Buscar Lugar</mat-placeholder>
+          <input matInput type='search'  class="inputSearch"/>
+          <mat-hint><strong>15</strong> Lugares encontrados </mat-hint>
+          <button type="submit" mat-button matSuffix class="btnBuscar" title="Buscar usuario"><mat-icon>search</mat-icon> BUSCAR</button>
+      </mat-form-field>
+    </form>
+
+
+      <mat-list>
+          <mat-list-item routerLink='/lugares/lugar/r9i23r0932-24234-wfefwe' class="itemLista">
+            <div matListAvatar class="avatar">D</div>
+            <h3 matLine> DiTeSI </h3>
+            <p matLine> <span class="itemTextoSubtitulo">Dirección de Técnologia y Servicios Informáticos</span> </p>
+          </mat-list-item>
+      </mat-list>
+
+  </div>
+
+</div>
