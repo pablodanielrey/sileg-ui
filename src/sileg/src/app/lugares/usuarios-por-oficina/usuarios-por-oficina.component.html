@@ -9,48 +9,69 @@
 
   <div class="contenidoPantalla">
 
-        <mat-table #table [dataSource]="usuarios" matSort>
+    <div class="contenedorUsuariosDelLugar">
 
-          <ng-container matColumnDef='nombre'>
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
-            <mat-cell *matCellDef='let u'> {{u.nombre}}</mat-cell>
-          </ng-container>
+        <mat-list>
+            <mat-list-item routerLink='/lugares/lugar/r9i23r0932-24234-wfefwe' class="itemLista">
+              <div matListAvatar class="avatar">D</div>
+              <h3 matLine> DiTeSI </h3>
+              <p matLine> <span class="itemTextoSubtitulo">Dirección de Técnologia y Servicios Informáticos</span> </p>
+            </mat-list-item>
+        </mat-list>
 
-          <ng-container matColumnDef='apellido'>
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Apellido </mat-header-cell>
-            <mat-cell *matCellDef='let u'> {{u.apellido}}</mat-cell>
-          </ng-container>
+            <mat-table #table [dataSource]="usuarios" matSort>
 
-          <ng-container matColumnDef='dni'>
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Dni </mat-header-cell>
-            <mat-cell *matCellDef='let u'> {{u.dni}}</mat-cell>
-          </ng-container>
+              <ng-container matColumnDef='nombre'>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+                <mat-cell *matCellDef='let u'> {{u.apellido}} {{u.nombre}}</mat-cell>
+              </ng-container>
 
-          <ng-container matColumnDef='cargo'>
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Cargo </mat-header-cell>
-            <mat-cell *matCellDef='let u'>
-              <mat-select [value]='u.cargo' (selectionChange)='cargoCambiado()'>
-                <mat-option *ngFor="let c of cargos" [value]="c.id">
-                  {{ c.nombre }}
-                </mat-option>
-              </mat-select>
-            </mat-cell>
-          </ng-container>
+              <ng-container matColumnDef='dni'>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> DNI </mat-header-cell>
+                <mat-cell *matCellDef='let u'> {{u.dni}}</mat-cell>
+              </ng-container>
 
-          <ng-container matColumnDef='fecha'>
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>
-            <mat-cell *matCellDef='let u'> {{u.fecha | date: 'dd/MM/yyyy'}}</mat-cell>
-          </ng-container>
+              <ng-container matColumnDef='cargo'>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Cargo </mat-header-cell>
+                <mat-cell  *matCellDef='let u'>
+                  <mat-select class="selectCargo" [value]='u.cargo' (selectionChange)='cargoCambiado()'>
+                    <mat-option *ngFor="let c of cargos" [value]="c.id">
+                      {{ c.nombre }}
+                    </mat-option>
+                  </mat-select>
+                </mat-cell>
+              </ng-container>
 
 
-          <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: columnas;"></mat-row>
+              <ng-container matColumnDef='fecha'>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Asignación </mat-header-cell>
+                <mat-cell *matCellDef='let u'> {{u.fecha | date: 'dd/MM/yyyy'}}</mat-cell>
+              </ng-container>
 
-          <!-- VISTA PC -->
-          <!-- <mat-header-row *matHeaderRowDef="['position','name','weight','symbol']"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: ['position','name','weight','symbol']"></mat-row> -->
+              <ng-container matColumnDef='acciones'>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </mat-header-cell>
+                <mat-cell *matCellDef='let u'>
+                  <button mat-button class="btnEliminar">  Eliminar </button>
+                </mat-cell>
+              </ng-container>
 
-        </mat-table>
+
+              <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: columnas;"></mat-row>
+
+              <!-- VISTA PC -->
+              <!-- <mat-header-row *matHeaderRowDef="['position','name','weight','symbol']"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: ['position','name','weight','symbol']"></mat-row> -->
+
+            </mat-table>
+
+        </div>
+
+
+        <div class="contenedorAccionesLugar">
+          <button mat-button class="btnAcciones" routerLink='/lugares/lugar/2309u3024-3454353-3543453/usuarios/abm'> <mat-icon class="icoMenu">person_add</mat-icon> AGREGAR USUARIO</button>
+          <button mat-button class="btnCrear"> GUARDAR CAMBIOS</button>
+        </div>
 
 
   </div>

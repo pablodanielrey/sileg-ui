@@ -13,8 +13,95 @@
 
 .usuariosLugar .contenidoPantalla {
   padding: 20px;
-  max-width: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  /*background-color: blue;*/
 
 }
 
+
 /* ---------------------------------------*/
+
+.mat-list {
+    padding-top: 0px;
+
+}
+
+.btnCrear {
+  background-color: #4186E1;
+  color: white;
+  margin-right: 10px;
+}
+
+
+.contenedorUsuariosDelLugar {
+  width: 70%;
+  margin-right: 40px;
+}
+
+.contenedorAccionesLugar {
+  width: 300px;
+  /*background-color: red;*/
+}
+
+.btnAcciones {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 10px;
+  padding: 5px 10px 5px 15px;
+  background-color: white;
+  border: solid 1px #E0E0E0;
+}
+
+.icoMenu {
+  color: rgba(0,0,0,.54);
+  margin-right: 10px;
+}
+
+
+.itemLista {
+  background-color: white;
+  border: solid 1px #E0E0E0;
+  margin-bottom: 10px;
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: grey;
+  font-size: 1.5em;
+  color: white;
+  border: solid 1px #E0E0E0;
+}
+
+.itemTextoSubtitulo {
+  color: grey;
+}
+
+.selectCargo {
+  width: 130px;
+}
+
+.btnEliminar {
+  background-color: #EEEEEE;
+}
+
+
+@media screen and (max-width: 769px) {
+  .contenedorUsuariosDelLugar {
+    width: 100%;
+    margin-right: 0px;
+  }
+  .contenedorAccionesLugar {
+    width: 100%;
+    margin-top: 10px;
+    /*background-color: red;*/
+  }
+  .btnCrear {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+  }
+
+}
