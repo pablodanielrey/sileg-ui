@@ -8,42 +8,49 @@
   <mat-divider></mat-divider>
 
   <div class="contenidoPantalla">
-    <mat-tab-group >
 
-            <mat-table #table [dataSource]="dataSource" matSort>
+        <mat-table #table [dataSource]="usuarios" matSort>
 
-              <ng-container matColumnDef='position'>
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </mat-header-cell>
-                <mat-cell *matCellDef='let element'> {{element.position}} </mat-cell>
-              </ng-container>
+          <ng-container matColumnDef='nombre'>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+            <mat-cell *matCellDef='let u'> {{u.nombre}}</mat-cell>
+          </ng-container>
 
-              <ng-container matColumnDef='name'>
-                <mat-header-cell *matHeaderCellDef mat-sort-header> DNI </mat-header-cell>
-                <mat-cell *matCellDef='let element' class="textFecha"> {{element.name}}</mat-cell>
-              </ng-container>
+          <ng-container matColumnDef='apellido'>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Apellido </mat-header-cell>
+            <mat-cell *matCellDef='let u'> {{u.apellido}}</mat-cell>
+          </ng-container>
 
-              <ng-container matColumnDef='weight'>
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Cargo </mat-header-cell>
-                <mat-cell *matCellDef='let element'>{{element.weight}}  </mat-cell>
-              </ng-container>
+          <ng-container matColumnDef='dni'>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Dni </mat-header-cell>
+            <mat-cell *matCellDef='let u'> {{u.dni}}</mat-cell>
+          </ng-container>
 
-              <ng-container matColumnDef='symbol'>
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>
-                <mat-cell *matCellDef='let element'> {{element.symbol}} </mat-cell>
-              </ng-container>
+          <ng-container matColumnDef='cargo'>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Cargo </mat-header-cell>
+            <mat-cell *matCellDef='let u'>
+              <mat-select [value]='u.cargo' (selectionChange)='cargoCambiado()'>
+                <mat-option *ngFor="let c of cargos" [value]="c.id">
+                  {{ c.nombre }}
+                </mat-option>
+              </mat-select>
+            </mat-cell>
+          </ng-container>
 
-              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          <ng-container matColumnDef='fecha'>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>
+            <mat-cell *matCellDef='let u'> {{u.fecha | date: 'dd/MM/yyyy'}}</mat-cell>
+          </ng-container>
 
 
-              <!-- VISTA PC -->
-              <!-- <mat-header-row *matHeaderRowDef="['position','name','weight','symbol']"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: ['position','name','weight','symbol']"></mat-row> -->
+          <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: columnas;"></mat-row>
 
+          <!-- VISTA PC -->
+          <!-- <mat-header-row *matHeaderRowDef="['position','name','weight','symbol']"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: ['position','name','weight','symbol']"></mat-row> -->
 
-
-            </mat-table>
-    </mat-tab-group>
+        </mat-table>
 
 
   </div>
