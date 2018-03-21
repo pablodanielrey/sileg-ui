@@ -8,6 +8,44 @@
   <mat-divider></mat-divider>
 
   <div class="contenidoPantalla">
+    <mat-tab-group >
+
+            <mat-table #table [dataSource]="dataSource" matSort>
+
+              <ng-container matColumnDef='position'>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </mat-header-cell>
+                <mat-cell *matCellDef='let element'> {{element.position}} </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef='name'>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> DNI </mat-header-cell>
+                <mat-cell *matCellDef='let element' class="textFecha"> {{element.name}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef='weight'>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Cargo </mat-header-cell>
+                <mat-cell *matCellDef='let element'>{{element.weight}}  </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef='symbol'>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>
+                <mat-cell *matCellDef='let element'> {{element.symbol}} </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+
+              <!-- VISTA PC -->
+              <!-- <mat-header-row *matHeaderRowDef="['position','name','weight','symbol']"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: ['position','name','weight','symbol']"></mat-row> -->
+
+
+
+            </mat-table>
+    </mat-tab-group>
+
+
   </div>
-  
+
 </div>
