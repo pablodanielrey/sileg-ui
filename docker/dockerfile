@@ -10,25 +10,21 @@ RUN apt-get update && apt-get install -y \
 ENV TZ=America/Argentina/Buenos_Aires
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN a2enmod rewrite
-ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/src/node_modules/.bin/
-
-#para evitar problemas con la instalacion del angular
-#USER node
-RUN mkdir -p /home/node/.npm-global
-ENV PATH=/home/node/.npm-global/bin:$PATH
-ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
-RUN npm install -g --unsafe @angular/cli
 
 COPY docker/supervisor/apache.conf /etc/supervisor/conf.d
 COPY docker/apache/000-default.conf /etc/apache2/sites-available
 COPY docker/entrypoint.sh /
 
+ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/src/node_modules/.bin/
+
+RUN yarn global add @angular/cli
+RUN ng set --global packageManager=yarn
+
 COPY src /src
 WORKDIR /src
 
-#RUN cd /src && npm install @angular/cli
-RUN cd /src/sileg && npm install
-RUN cd /src/sileg && ng build --prod --build-optimizer
+RUN cd /src/sileg && yarn install
+RUN cd /src/sileg && ng build --prod --build-optimizer --aot --locale es
 
 EXPOSE 80
 
