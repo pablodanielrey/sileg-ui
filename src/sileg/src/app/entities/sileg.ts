@@ -25,6 +25,11 @@ export class Lugar {
   id: string;
   tipo: string;
   nombre: string;
+  descripcion: string;
+  nro: string;
+  telefono: string;
+  email: string;
+
 
   constructor(o:Object) {
     try {
@@ -54,5 +59,5 @@ export class Designacion {
     } catch(e) {
       console.log(e);
     }
-  }  
+  }
 }

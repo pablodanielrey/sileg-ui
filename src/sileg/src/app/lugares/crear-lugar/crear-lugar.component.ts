@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Lugar } from '../../entities/sileg';
+
+
 @Component({
   selector: 'app-crear-lugar',
   templateUrl: './crear-lugar.component.html',
@@ -15,10 +18,16 @@ export class CrearLugarComponent implements OnInit {
     {id:'', nombre:'Unidad', descripcion:''},
     {id:'', nombre:'Secretaria', descripcion:''}
   ]
+  lugar: Lugar = null;
 
   constructor() { }
 
   ngOnInit() {
+    this.lugar = new Lugar({});
+  }
+
+  crear() {
+    console.log("creado");
   }
 
 }

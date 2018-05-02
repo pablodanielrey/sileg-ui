@@ -8,33 +8,38 @@
   <mat-divider></mat-divider>
 
   <div class="contenidoPantalla">
-      <form>
+      <form (ngSubmit)="crear()" #lugarForm="ngForm">
+
           <mat-form-field class="itemFormulario">
-              <input matInput placeholder="Nombre" value="">
+              <input  matInput placeholder="Nombre" required name="name" [(ngModel)]='lugar.nombre'>
           </mat-form-field>
           <mat-form-field class="itemFormulario">
-              <input matInput placeholder="Descripción" value="">
+              <input matInput placeholder="Descripción" name="descripction" [(ngModel)]='lugar.descripcion'>
           </mat-form-field>
           <mat-form-field class="itemFormulario">
-              <mat-select placeholder="Tipo de Lugar">
-              <mat-option *ngFor="let t of tipos" [value]="t.id">
-                {{ t.nombre }}
-              </mat-option>
+              <mat-select placeholder="Tipo de Lugar" required [(ngModel)]='lugar.tipo' name='type'>
+                <mat-option *ngFor="let t of tipos" [value]="t.id">
+                  {{ t.nombre }}
+                </mat-option>
               </mat-select>
           </mat-form-field>
           <div class="contenedorItemsFormulario">
               <mat-form-field class="itemFormularioMedio">
-                  <input matInput placeholder="Nº de Oficina" value="">
+                  <input matInput placeholder="Nº de Oficina" [(ngModel)]='lugar.nro' name="number">
               </mat-form-field>
               <mat-form-field class="itemFormularioMedio">
-                  <input matInput placeholder="Teléfono / Interno" value="">
+                  <input matInput placeholder="Teléfono / Interno" [(ngModel)]='lugar.telefono' name="telephone">
               </mat-form-field>
           </div>
           <mat-form-field class="itemFormulario">
-              <input matInput placeholder="Correo Eléctronico" value="">
+              <input matInput placeholder="Correo Eléctronico" [(ngModel)]='lugar.email' name="email">
           </mat-form-field>
+
+          <button type="submit" mat-button class="btnCrear" [disabled]="!lugarForm.form.valid"> CREAR LUGAR</button>
+
       </form>
-      <button mat-button class="btnCrear"> CREAR LUGAR</button>
+
+
   </div>
 
 </div>
