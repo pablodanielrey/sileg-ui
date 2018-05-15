@@ -11,21 +11,20 @@
 
 
 
-    <form>
+    <form (ngSubmit)="buscar()" #lugarForm="ngForm">
       <mat-form-field class="inputSearch">
           <mat-placeholder>Buscar Lugar</mat-placeholder>
-          <input matInput type='search'  class="inputSearch"/>
+          <input matInput type='search'  class="inputSearch" [(ngModel)]="texto" name="texto" required/>
           <mat-hint><strong>15</strong> Lugares encontrados </mat-hint>
-          <button type="submit" mat-button matSuffix class="btnBuscar" title="Buscar usuario"><mat-icon>search</mat-icon> BUSCAR</button>
+          <button type="submit" mat-button matSuffix class="btnBuscar" title="Buscar usuario" [disabled]="!lugarForm.form.valid"><mat-icon>search</mat-icon> BUSCAR</button>
       </mat-form-field>
     </form>
 
-
       <mat-list>
-          <mat-list-item routerLink='/lugares/lugar/r9i23r0932-24234-wfefwe' class="itemLista">
+          <mat-list-item *ngFor="let l of lugares" routerLink='/lugares/lugar/{{l.id}}' class="itemLista">
             <div matListAvatar class="avatar">D</div>
-            <h3 matLine> DiTeSI </h3>
-            <p matLine> <span class="itemTextoSubtitulo">Dirección de Técnologia y Servicios Informáticos</span> </p>
+            <h3 matLine> {{l.nombre}} </h3>
+            <p matLine> <span class="itemTextoSubtitulo">{{l.descripcion}}</span> </p>
           </mat-list-item>
       </mat-list>
 
