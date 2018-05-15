@@ -26,7 +26,7 @@ export class Lugar {
   tipo: string;
   nombre: string;
   descripcion: string;
-  nro: string;
+  numero: string;
   telefono: string;
   email: string;
 

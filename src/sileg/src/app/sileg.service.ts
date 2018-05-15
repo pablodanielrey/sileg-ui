@@ -63,6 +63,11 @@ export class SilegService {
     return this.http.get<Lugar[]>(apiUrl, options).map(datos => datos.map(d => new Lugar(d)));
   }
 
+  crearLugar(lugar: Lugar): Observable<any> {
+    let apiUrl = `${SILEG_API_URL}/lugares`;
+    return this.http.put<any>(apiUrl, lugar);
+  }
+
   chequearDisponibilidadCorreo(cuenta:string): Observable<boolean> {
     let apiUrl = `${SILEG_API_URL}/correo/${cuenta}`;
     return this.http.get<any>(apiUrl).map(res => res.existe);

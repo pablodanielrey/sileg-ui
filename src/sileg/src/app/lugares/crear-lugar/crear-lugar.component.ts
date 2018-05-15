@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { SilegService } from '../../sileg.service';
 import { Lugar } from '../../entities/sileg';
 
 
@@ -11,23 +12,23 @@ import { Lugar } from '../../entities/sileg';
 export class CrearLugarComponent implements OnInit {
 
   tipos = [
-    {id:'', nombre:'Centro', descripcion:''},
-    {id:'', nombre:'Deparatmento', descripcion:''},
-    {id:'', nombre:'Dirección', descripcion:''},
-    {id:'', nombre:'Instituto', descripcion:''},
-    {id:'', nombre:'Unidad', descripcion:''},
-    {id:'', nombre:'Secretaria', descripcion:''}
+    {nombre: 'Oficina', value: 'oficina'}
   ]
-  lugar: Lugar = null;
 
-  constructor() { }
+  lugar: Lugar = null;
+  subscriptions: any[] = [];
+  
+  constructor(private service: SilegService) { }
 
   ngOnInit() {
     this.lugar = new Lugar({});
   }
 
   crear() {
-    console.log("creado");
+    this.subscriptions.push(this.service.crearLugar(this.lugar)
+      .subscribe(datos => {
+        console.log(datos);
+      }));
   }
 
 }

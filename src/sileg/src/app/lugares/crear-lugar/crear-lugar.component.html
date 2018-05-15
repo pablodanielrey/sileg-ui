@@ -18,21 +18,21 @@
           </mat-form-field>
           <mat-form-field class="itemFormulario">
               <mat-select placeholder="Tipo de Lugar" required [(ngModel)]='lugar.tipo' name='type'>
-                <mat-option *ngFor="let t of tipos" [value]="t.id">
+                <mat-option *ngFor="let t of tipos" [value]="t.value">
                   {{ t.nombre }}
                 </mat-option>
               </mat-select>
           </mat-form-field>
           <div class="contenedorItemsFormulario">
               <mat-form-field class="itemFormularioMedio">
-                  <input matInput placeholder="Nº de Oficina" [(ngModel)]='lugar.nro' name="number">
+                  <input matInput placeholder="Nº de Oficina" [(ngModel)]='lugar.numero' name="number">
               </mat-form-field>
               <mat-form-field class="itemFormularioMedio">
                   <input matInput placeholder="Teléfono / Interno" [(ngModel)]='lugar.telefono' name="telephone">
               </mat-form-field>
           </div>
           <mat-form-field class="itemFormulario">
-              <input matInput placeholder="Correo Eléctronico" [(ngModel)]='lugar.email' name="email">
+              <input type="email" matInput placeholder="Correo Eléctronico" [(ngModel)]='lugar.email' name="email" [email]="true">
           </mat-form-field>
 
           <button type="submit" mat-button class="btnCrear" [disabled]="!lugarForm.form.valid"> CREAR LUGAR</button>
