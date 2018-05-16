@@ -29,6 +29,7 @@ export class Lugar {
   numero: string;
   telefono: string;
   email: string;
+  eliminado: Date;
 
 
   constructor(o:Object) {

@@ -74,7 +74,20 @@ export class DetalleLugarComponent implements OnInit {
       .subscribe(r => {
         console.log(r);
       }));
+  }
 
+  eliminarLugar() {
+    this.subscriptions.push(this.service.eliminarLugar(this.lugar.id)
+      .subscribe(r => {
+        this.lugar.eliminado = new Date(r);
+      }));
+  }
+
+  restaurarLugar() {
+    this.subscriptions.push(this.service.restaurarLugar(this.lugar.id)
+      .subscribe(r => {
+        this.lugar.eliminado = null;
+      }));
   }
 
 }

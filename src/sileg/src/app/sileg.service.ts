@@ -78,6 +78,16 @@ export class SilegService {
     return this.http.post<any>(apiUrl, lugar);
   }
 
+  restaurarLugar(lid: string): Observable<any> {
+    let apiUrl = `${SILEG_API_URL}/lugares/${lid}/restaurar`;
+    return this.http.get<any>(apiUrl);
+  }
+
+  eliminarLugar(lid: string): Observable<any> {
+    let apiUrl = `${SILEG_API_URL}/lugares/${lid}`;
+    return this.http.delete<any>(apiUrl);
+  }
+
   chequearDisponibilidadCorreo(cuenta:string): Observable<boolean> {
     let apiUrl = `${SILEG_API_URL}/correo/${cuenta}`;
     return this.http.get<any>(apiUrl).map(res => res.existe);
