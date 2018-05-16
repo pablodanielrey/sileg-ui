@@ -9,38 +9,42 @@
 
   <div class="contenidoPantalla">
       <div class="contenedorDetalleLuga">
-          <form>
-              <mat-form-field class="itemFormulario">
-                  <input matInput placeholder="Nombre" value="">
+
+      <form (ngSubmit)="guardar()" #lugarForm="ngForm" id="ngForm">
+
+          <mat-form-field class="itemFormulario">
+              <input  matInput placeholder="Nombre" required name="name" [(ngModel)]='lugar.nombre'>
+          </mat-form-field>
+          <mat-form-field class="itemFormulario">
+              <input matInput placeholder="Descripción" name="descripction" [(ngModel)]='lugar.descripcion'>
+          </mat-form-field>
+          <mat-form-field class="itemFormulario">
+              <mat-select placeholder="Tipo de Lugar" required [(ngModel)]='lugar.tipo' name='type'>
+                <mat-option *ngFor="let t of tipos" [value]="t.value">
+                  {{ t.nombre }}
+                </mat-option>
+              </mat-select>
+          </mat-form-field>
+          <div class="contenedorItemsFormulario">
+              <mat-form-field class="itemFormularioMedio">
+                  <input matInput placeholder="Nº de Oficina" [(ngModel)]='lugar.numero' name="number">
               </mat-form-field>
-              <mat-form-field class="itemFormulario">
-                  <input matInput placeholder="Descripción" value="">
+              <mat-form-field class="itemFormularioMedio">
+                  <input matInput placeholder="Teléfono / Interno" [(ngModel)]='lugar.telefono' name="telephone">
               </mat-form-field>
-              <mat-form-field class="itemFormulario">
-                  <mat-select placeholder="Tipo de Lugar">
-                  <mat-option *ngFor="let t of tipos" [value]="t.id">
-                    {{ t.nombre }}
-                  </mat-option>
-                  </mat-select>
-              </mat-form-field>
-              <div class="contenedorItemsFormulario">
-                  <mat-form-field class="itemFormularioMedio">
-                      <input matInput placeholder="Nº de Oficina" value="">
-                  </mat-form-field>
-                  <mat-form-field class="itemFormularioMedio">
-                      <input matInput placeholder="Teléfono / Interno" value="">
-                  </mat-form-field>
-              </div>
-              <mat-form-field class="itemFormulario">
-                  <input matInput placeholder="Correo Eléctronico" value="">
-              </mat-form-field>
-          </form>
-      </div>
+          </div>
+          <mat-form-field class="itemFormulario">
+              <input type="email" matInput placeholder="Correo Eléctronico" [(ngModel)]='lugar.correo' name="email" [email]="lugar.email != '' && lugar.email != null">
+          </mat-form-field>
+
+      </form>
+    </div>
       <div class="contenedorAccionesLugar">
         <button mat-button class="btnAcciones" routerLink='/lugares/lugar/r9i23r0932-24234-wfefwe/usuarios'> <mat-icon class="icoMenu">people</mat-icon> USUARIOS DEL LUGAR</button>
         <button mat-button class="btnAcciones" routerLink=''> <mat-icon class="icoMenu">delete</mat-icon> ELIMINAR LUGAR</button>
-        <button mat-button class="btnCrear"> GUARDAR CAMBIOS</button>
+        <button type="submit" mat-button class="btnCrear" form="ngForm" [disabled]="!lugarForm.form.valid"> GUARDAR CAMBIOS </button>
       </div>
+
   </div>
 
 </div>

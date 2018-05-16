@@ -17,12 +17,17 @@ export class CrearLugarComponent implements OnInit {
 
   lugar: Lugar = null;
   subscriptions: any[] = [];
-  
+
   constructor(private service: SilegService) { }
 
   ngOnInit() {
     this.lugar = new Lugar({});
   }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+    this.subscriptions = [];
+  }  
 
   crear() {
     this.subscriptions.push(this.service.crearLugar(this.lugar)
