@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>{{data.nombre}}</h1>
+<div mat-dialog-content>
+  <p>¿Está seguro que desea eliminar el lugar {{data.nombre}}?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="false" >NO</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>SI</button>
+</div>

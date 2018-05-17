@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { SilegService } from '../../sileg.service';
+import { NotificacionesService } from '../../notificaciones.service';
 import { Lugar } from '../../entities/sileg';
 import { ActivatedRoute } from '@angular/router';
 import {Location} from '@angular/common';
 
-export interface Tipo {
-  nombre: string;
-  id: string;
-}
+import { DialogoEliminarLugarComponent } from '../dialogo-eliminar-lugar/dialogo-eliminar-lugar.component';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 
 @Component({
@@ -38,8 +37,12 @@ export class DetalleLugarComponent implements OnInit {
   lugar: Lugar = new Lugar({});
   subscriptions: any[] = [];
 
+  eliminarLugarDialogRef: MatDialogRef<DialogoEliminarLugarComponent>;
+
   constructor(private service: SilegService,
               private location: Location,
+              private notificaciones: NotificacionesService,
+              private dialog: MatDialog,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -72,21 +75,30 @@ export class DetalleLugarComponent implements OnInit {
   guardar() {
     this.subscriptions.push(this.service.modificarLugar(this.lugar)
       .subscribe(r => {
-        console.log(r);
+        this.notificaciones.show("El lugar ha sido modificado correctamente");
+        this.volver();
       }));
   }
 
   eliminarLugar() {
-    this.subscriptions.push(this.service.eliminarLugar(this.lugar.id)
-      .subscribe(r => {
-        this.lugar.eliminado = new Date(r);
-      }));
+      this.eliminarLugarDialogRef = this.dialog.open(DialogoEliminarLugarComponent, {data: this.lugar});
+      this.eliminarLugarDialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.subscriptions.push(this.service.eliminarLugar(this.lugar.id)
+            .subscribe(r => {
+              this.lugar.eliminado = new Date(r);
+              this.notificaciones.show("El lugar ha sido eliminado");
+              this.volver();
+            }));
+        }
+      });
   }
 
   restaurarLugar() {
     this.subscriptions.push(this.service.restaurarLugar(this.lugar.id)
       .subscribe(r => {
-        this.lugar.eliminado = null;
+        this.notificaciones.show("El lugar ha sido restaurado exitosamente");
+        this.volver();
       }));
   }
 

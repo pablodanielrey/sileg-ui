@@ -40,6 +40,8 @@ import { UsuariosPorOficinaComponent } from './lugares/usuarios-por-oficina/usua
 import { AgregarQuitarUsuariosComponent } from './lugares/agregar-quitar-usuarios/agregar-quitar-usuarios.component';
 
 import { OidpGuard } from './oidp.guard';
+import { NotificacionesService } from './notificaciones.service';
+import { DialogoEliminarLugarComponent } from './lugares/dialogo-eliminar-lugar/dialogo-eliminar-lugar.component';
 
 
 
@@ -64,11 +66,13 @@ import { OidpGuard } from './oidp.guard';
     DetalleLugarComponent,
     CrearLugarComponent,
     UsuariosPorOficinaComponent,
-    AgregarQuitarUsuariosComponent
+    AgregarQuitarUsuariosComponent,
+    DialogoEliminarLugarComponent
   ],
   entryComponents: [
     ConfirmarGenerarClaveComponent,
-    CreateConfirmacionComponent
+    CreateConfirmacionComponent,
+    DialogoEliminarLugarComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +82,7 @@ import { OidpGuard } from './oidp.guard';
     AppRoutingModule,
     OAuthModule.forRoot()
   ],
-  providers: [SilegService, OidpGuard],
+  providers: [SilegService, OidpGuard, NotificacionesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
