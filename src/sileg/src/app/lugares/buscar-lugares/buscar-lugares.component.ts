@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SilegService } from '../../sileg.service';
 import { Lugar } from '../../entities/sileg';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-buscar-lugares',
@@ -13,18 +14,32 @@ export class BuscarLugaresComponent implements OnInit {
   lugares: Lugar[] = [];
   subscriptions: any[] = [];
 
-  constructor(private service: SilegService) { }
+  constructor(private service: SilegService,
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.texto = '';
+    let params = this.route.snapshot.paramMap;
     this.lugares = [];
+    this.texto = '';
+    this.route.params.subscribe(params => {
+      console.log(params);
+      if(params['q'] && params['q'].trim() != '') {
+        this.texto = params['q'].trim();
+        this._buscar();
+      }
+    });
   }
 
   buscar() {
-      this.subscriptions.push(this.service.buscarLugares(this.texto)
-        .subscribe(datos => {
-          this.lugares = datos;
-        }));
+    this.router.navigate(['lugares/buscar', {q: this.texto}]);
+  }
+
+  _buscar() {
+    this.subscriptions.push(this.service.buscarLugares(this.texto)
+      .subscribe(datos => {
+        this.lugares = datos;
+      }));
   }
 
 }
