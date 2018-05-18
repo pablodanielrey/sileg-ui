@@ -1,18 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { SilegService } from '../../sileg.service';
+import { NotificacionesService } from '../../notificaciones.service';
+import { DatosLugarDesignaciones, Cargo } from '../../entities/sileg';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
+import { MatDialog, MatDialogRef } from '@angular/material';
 
-export interface Usuario {
-  nombre: string;
-  apellido: string;
-  dni: string;
-  cargo: string;
-  fecha: Date;
-}
-
-export interface Cargo {
-  nombre: string;
-  id: string;
-}
 
 
 @Component({
@@ -22,37 +16,59 @@ export interface Cargo {
 })
 export class UsuariosPorOficinaComponent implements OnInit {
 
-  usuarios: Usuario[] = [];
+  datos: DatosLugarDesignaciones;
   cargos: Cargo[] = [];
   columnas: string[] = ['nombre','dni','cargo','fecha','acciones'];
+  subscriptions: any[] = [];
+  cargando: boolean;
 
-  constructor() { }
+  constructor(private service: SilegService,
+              private location: Location,
+              private notificaciones: NotificacionesService,
+              private dialog: MatDialog,
+              private route: ActivatedRoute) { }
+
 
   ngOnInit() {
-    this.usuarios = [
-      { nombre:'Walter', apellido:'Blanco', dni:'30001823', cargo:'2', fecha:new Date() },
-      { nombre:'Iván', apellido:'Castañeda', dni:'32025738', cargo:'2', fecha:new Date() },
-      { nombre:'Leonardo', apellido:'Consolini', dni:'35625874', cargo:'8', fecha:new Date() },
-      { nombre:'Miguel', apellido:'Macagno', dni:'35663981', cargo:'8', fecha:new Date() },
-      { nombre:'Emanuel', apellido:'Pais', dni:'31257522', cargo:'5', fecha:new Date() },
-      { nombre:'Pablo Daniel', apellido:'Rey', dni:'27589548', cargo:'6', fecha:new Date() },
-      { nombre:'Maximiliano', apellido:'Saucedo', dni:'32568741', cargo:'7', fecha:new Date() },
-      { nombre:'Alejandro', apellido:'Oporto', dni:'29658319', cargo:'3', fecha:new Date() }
-
-
-
-    ];
-    this.cargos = [
-      { id: '1', nombre:'Cumple Función' },
-      { id: '2', nombre:'E7' },
-      { id: '3', nombre:'E6' },
-      { id: '4', nombre:'E5' },
-      { id: '5', nombre:'E4' },
-      { id: '6', nombre:'A2' },
-      { id: '7', nombre:'Contrato' },
-      { id: '8', nombre:'Beca' }
-    ];
+    let params = this.route.snapshot.paramMap;
+    this.obtenerDesignacionesLugar(params.get('id'));
+    this.obtenerTiposCargos();
   }
+
+  obtenerTiposCargos() {
+    this.cargos = [];
+    this.subscriptions.push(this.service.cargos()
+      .subscribe(r => {
+        console.log(r);
+        this.cargos = r;
+      }));
+  }
+
+  obtenerDesignacionesLugar(id:string) {
+    this.datos = new DatosLugarDesignaciones({});
+    this.cargando = true;
+    this.subscriptions.push(this.service.obtenerDesignacionesLugares(id)
+      .subscribe(r => {
+        this.cargando = false;
+        console.log(r);
+        this.datos = r;
+      }));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+    this.subscriptions = [];
+  }
+
+  volver() {
+    this.location.back();
+  }
+
+  eliminarDesignacion(id: string) {
+
+  }
+
+
 
   cargoCambiado(event:any) {
     console.log('cambiaaaaaadooooo');

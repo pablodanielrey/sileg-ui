@@ -13,7 +13,7 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/toPromise';
 
 import { Mail, Usuario, ResetClave } from './entities/usuario';
-import { Sileg, DatosSileg, Lugar, PedidoDesignacion, Designacion } from './entities/sileg';
+import { Sileg, DatosSileg, Lugar, PedidoDesignacion, Designacion, Cargo, DatosLugarDesignaciones } from './entities/sileg';
 
 const SILEG_API_URL = environment.silegApiUrl;
 
@@ -63,9 +63,19 @@ export class SilegService {
     return this.http.get<Lugar[]>(apiUrl, options).map(datos => datos.map(d => new Lugar(d)));
   }
 
+  cargos(): Observable<Cargo[]> {
+    let apiUrl = `${SILEG_API_URL}/cargos`;
+    return this.http.get<Cargo[]>(apiUrl).map(datos => datos.map(c => new Cargo(c)));
+  }
+
   buscarLugar(id:string): Observable<Lugar> {
     let apiUrl = `${SILEG_API_URL}/lugares/${id}`;
     return this.http.get<Lugar>(apiUrl).map(d => new Lugar(d));
+  }
+
+  obtenerDesignacionesLugares(id: string): Observable<DatosLugarDesignaciones> {
+    let apiUrl = `${SILEG_API_URL}/lugares/${id}/designaciones`;
+    return this.http.get<DatosLugarDesignaciones>(apiUrl).map(d => new DatosLugarDesignaciones(d));
   }
 
   crearLugar(lugar: Lugar): Observable<any> {

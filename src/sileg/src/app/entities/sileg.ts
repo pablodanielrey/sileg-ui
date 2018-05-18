@@ -20,6 +20,34 @@ export class DatosSileg {
   }
 }
 
+export class DatosLugarDesignaciones {
+  lugar: Lugar;
+  desginaciones: Array<DatoDesignacion>;
+
+  constructor(o:Object) {
+    try {
+      Object.assign(this, o);
+      this.lugar = (this.lugar == null ? null : new Lugar(this.lugar));
+      this.desginaciones = (this.desginaciones == null) ? [] : this.desginaciones.map(d => new DatoDesignacion(d));
+    } catch(e) {
+      console.log(e);
+    }
+  }
+}
+
+export class DatoDesignacion {
+  designacion: Designacion;
+  usuario: Usuario;
+
+  constructor(o:Object) {
+    try {
+      Object.assign(this, o);
+      this.designacion = (this.designacion == null ? null : new Designacion(this.designacion));
+    } catch(e) {
+      console.log(e);
+    }
+  }
+}
 
 export class Lugar {
   id: string;
@@ -47,7 +75,23 @@ export class PedidoDesignacion {
   correo: string;
 }
 
+export class Cargo {
+  nombre: string;
+  id: string;
+  tipo: string;
+
+  constructor(o:Object) {
+    try {
+      Object.assign(this, o);
+    } catch(e) {
+      console.log(e);
+    }
+  }
+
+}
+
 export class Designacion {
+  desde: Date;
   designacion_id: string;
   usuario_id: string;
   cargo_id: string;
@@ -57,6 +101,12 @@ export class Designacion {
   constructor(o:Object) {
     try {
       Object.assign(this, o);
+      if (this.desde != null) {
+        // "fecha" = 'yyyy-mm-dd'
+        // el mes del Date empieza desde 0 (0-11)
+        let f = o["desde"].split("-");
+        this.desde = new Date(f[0], f[1] - 1, f[2]);
+      }
     } catch(e) {
       console.log(e);
     }

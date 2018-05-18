@@ -11,30 +11,29 @@
 
     <div class="contenedorUsuariosDelLugar">
 
-        <mat-list>
+        <mat-list *ngIf="datos.lugar">
             <mat-list-item routerLink='/lugares/lugar/r9i23r0932-24234-wfefwe' class="itemLista">
               <div matListAvatar class="avatar">D</div>
-              <h3 matLine> DiTeSI </h3>
-              <p matLine> <span class="itemTextoSubtitulo">Dirección de Técnologia y Servicios Informáticos</span> </p>
+              <h3 matLine> {{datos.lugar.nombre}} </h3>
+              <p matLine> <span class="itemTextoSubtitulo"> {{datos.lugar.descripcion}} </span> </p>
             </mat-list-item>
         </mat-list>
-
-            <mat-table #table [dataSource]="usuarios" matSort>
+            <mat-table #table [dataSource]="datos.designaciones" matSort>
 
               <ng-container matColumnDef='nombre'>
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
-                <mat-cell *matCellDef='let u'> {{u.apellido}} {{u.nombre}}</mat-cell>
+                <mat-cell *matCellDef='let u'> {{u.usuario.apellido}} {{u.usuario.nombre}}</mat-cell>
               </ng-container>
 
               <ng-container matColumnDef='dni'>
                 <mat-header-cell *matHeaderCellDef mat-sort-header> DNI </mat-header-cell>
-                <mat-cell *matCellDef='let u'> {{u.dni}}</mat-cell>
+                <mat-cell *matCellDef='let u'> {{u.usuario.dni}}</mat-cell>
               </ng-container>
 
               <ng-container matColumnDef='cargo'>
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Cargo </mat-header-cell>
                 <mat-cell  *matCellDef='let u'>
-                  <mat-select class="selectCargo" [value]='u.cargo' (selectionChange)='cargoCambiado()'>
+                  <mat-select class="selectCargo" [value]='u.designacion.cargo_id' (selectionChange)='cargoCambiado()'>
                     <mat-option *ngFor="let c of cargos" [value]="c.id">
                       {{ c.nombre }}
                     </mat-option>
@@ -45,7 +44,7 @@
 
               <ng-container matColumnDef='fecha'>
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Asignación </mat-header-cell>
-                <mat-cell *matCellDef='let u'> {{u.fecha | date: 'dd/MM/yyyy'}}</mat-cell>
+                <mat-cell *matCellDef='let u'> {{ (u.designacion.desde | date: 'dd/MM/yyyy') || '-' }}</mat-cell>
               </ng-container>
 
               <ng-container matColumnDef='acciones'>
