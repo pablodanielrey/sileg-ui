@@ -14,6 +14,7 @@ export class DesignacionSource {
   cargo: string;
   fecha: Date;
   id: string;
+  modificado: boolean;
 
   constructor(d: DatoDesignacion) {
     this.fullname = this.capitalize(d.usuario.nombre.trim()) + ' ' + this.capitalize(d.usuario.apellido.trim());
@@ -21,6 +22,7 @@ export class DesignacionSource {
     this.cargo = d.designacion.cargo_id;
     this.fecha = d.designacion.desde;
     this.id = d.designacion.id;
+    this.modificado = false;
   }
 
   capitalize(string) {
@@ -87,14 +89,13 @@ export class UsuariosPorOficinaComponent implements OnInit {
     this.location.back();
   }
 
-  eliminarDesignacion(id: string) {
-
+  eliminar(d: DesignacionSource) {
+    console.log("Eliminado");
   }
 
-
-
-  cargoCambiado(event:any) {
-    console.log('cambiaaaaaadooooo');
+  guardar(d: DesignacionSource) {
+    console.log("Guardado")
   }
+
 
 }

@@ -27,13 +27,13 @@
 
               <ng-container matColumnDef='dni'>
                 <mat-header-cell *matHeaderCellDef mat-sort-header> DNI </mat-header-cell>
-                <mat-cell *matCellDef='let d'> {{d.dni}}</mat-cell>
+                <mat-cell *matCellDef='let d'> {{d.dni}} </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef='cargo'>
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Cargo </mat-header-cell>
                 <mat-cell  *matCellDef='let d'>
-                  <mat-select class="selectCargo" [value]='d.cargo' (selectionChange)='cargoCambiado()'>
+                  <mat-select class="selectCargo"  (selectionChange)='d.modificado=true' [(ngModel)]="d.cargo">
                     <mat-option *ngFor="let c of cargos" [value]="c.id">
                       {{ c.nombre }}
                     </mat-option>
@@ -44,13 +44,20 @@
 
               <ng-container matColumnDef='fecha'>
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Asignación </mat-header-cell>
-                <mat-cell *matCellDef='let d'> {{ (d.fecha | date: 'dd/MM/yyyy') || '-' }}</mat-cell>
+                <mat-cell *matCellDef='let d'>
+                  <mat-form-field>
+                  <input matInput [matDatepicker]="picker" placeholder="" [(ngModel)]="d.fecha" (dateChange)="d.modificado=true">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef='acciones'>
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </mat-header-cell>
-                <mat-cell *matCellDef='let u'>
-                  <button mat-button class="btnEliminar">  Eliminar </button>
+                <mat-cell *matCellDef='let d'>
+                  <button (click)="eliminar(d)" mat-button class="btnEliminar" *ngIf="!d.modificado">  Eliminar </button>
+                  <button (click)="guardar(d)" mat-button class="btnEliminar" *ngIf="d.modificado" >  Aceptar </button>
                 </mat-cell>
               </ng-container>
 
