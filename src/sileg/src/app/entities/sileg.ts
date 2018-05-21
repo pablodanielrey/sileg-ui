@@ -22,13 +22,13 @@ export class DatosSileg {
 
 export class DatosLugarDesignaciones {
   lugar: Lugar;
-  desginaciones: Array<DatoDesignacion>;
+  designaciones: Array<DatoDesignacion>;
 
   constructor(o:Object) {
     try {
       Object.assign(this, o);
       this.lugar = (this.lugar == null ? null : new Lugar(this.lugar));
-      this.desginaciones = (this.desginaciones == null) ? [] : this.desginaciones.map(d => new DatoDesignacion(d));
+      this.designaciones = (this.designaciones == null) ? [] : this.designaciones.map(d => new DatoDesignacion(d));
     } catch(e) {
       console.log(e);
     }
@@ -97,6 +97,7 @@ export class Designacion {
   cargo_id: string;
   lugar_id: string;
   historico: boolean;
+  id: string;
 
   constructor(o:Object) {
     try {

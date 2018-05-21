@@ -1,7 +1,7 @@
 <div class="usuariosLugar">
 
   <div class="seccionSistema">
-      <button mat-button class="btnVolverSeccion"><mat-icon>keyboard_arrow_left</mat-icon> volver</button>
+      <button mat-button class="btnVolverSeccion" (click)="volver()"><mat-icon>keyboard_arrow_left</mat-icon> volver</button>
         | Usuarios de la oficina
   </div>
 
@@ -18,22 +18,22 @@
               <p matLine> <span class="itemTextoSubtitulo"> {{datos.lugar.descripcion}} </span> </p>
             </mat-list-item>
         </mat-list>
-            <mat-table #table [dataSource]="datos.designaciones" matSort>
+            <mat-table #table [dataSource]="dataSource" matSort matSortActive="fullname" matSortDirection="asc" matSortDisableClea>
 
-              <ng-container matColumnDef='nombre'>
+              <ng-container matColumnDef='fullname'>
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
-                <mat-cell *matCellDef='let u'> {{u.usuario.apellido}} {{u.usuario.nombre}}</mat-cell>
+                <mat-cell *matCellDef='let d'> {{d.fullname}} </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef='dni'>
                 <mat-header-cell *matHeaderCellDef mat-sort-header> DNI </mat-header-cell>
-                <mat-cell *matCellDef='let u'> {{u.usuario.dni}}</mat-cell>
+                <mat-cell *matCellDef='let d'> {{d.dni}}</mat-cell>
               </ng-container>
 
               <ng-container matColumnDef='cargo'>
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Cargo </mat-header-cell>
-                <mat-cell  *matCellDef='let u'>
-                  <mat-select class="selectCargo" [value]='u.designacion.cargo_id' (selectionChange)='cargoCambiado()'>
+                <mat-cell  *matCellDef='let d'>
+                  <mat-select class="selectCargo" [value]='d.cargo' (selectionChange)='cargoCambiado()'>
                     <mat-option *ngFor="let c of cargos" [value]="c.id">
                       {{ c.nombre }}
                     </mat-option>
@@ -44,7 +44,7 @@
 
               <ng-container matColumnDef='fecha'>
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Asignación </mat-header-cell>
-                <mat-cell *matCellDef='let u'> {{ (u.designacion.desde | date: 'dd/MM/yyyy') || '-' }}</mat-cell>
+                <mat-cell *matCellDef='let d'> {{ (d.fecha | date: 'dd/MM/yyyy') || '-' }}</mat-cell>
               </ng-container>
 
               <ng-container matColumnDef='acciones'>

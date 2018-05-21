@@ -1,13 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SilegService } from '../../sileg.service';
 import { NotificacionesService } from '../../notificaciones.service';
-import { DatosLugarDesignaciones, Cargo } from '../../entities/sileg';
+import { DatosLugarDesignaciones, Cargo, DatoDesignacion } from '../../entities/sileg';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { MatDialog, MatDialogRef } from '@angular/material';
+import {MatTableDataSource, MatSort} from '@angular/material';
 
+export class DesignacionSource {
+  fullname: string;
+  dni: string;
+  cargo: string;
+  fecha: Date;
+  id: string;
 
+  constructor(d: DatoDesignacion) {
+    this.fullname = this.capitalize(d.usuario.nombre.trim()) + ' ' + this.capitalize(d.usuario.apellido.trim());
+    this.dni = d.usuario.dni;
+    this.cargo = d.designacion.cargo_id;
+    this.fecha = d.designacion.desde;
+    this.id = d.designacion.id;
+  }
+
+  capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+}
 
 @Component({
   selector: 'app-usuarios-por-oficina',
@@ -17,10 +36,13 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 export class UsuariosPorOficinaComponent implements OnInit {
 
   datos: DatosLugarDesignaciones;
+  element_data: DesignacionSource[] = [];
+  dataSource = new MatTableDataSource(this.element_data);
   cargos: Cargo[] = [];
-  columnas: string[] = ['nombre','dni','cargo','fecha','acciones'];
+  columnas: string[] = ['fullname','dni','cargo','fecha','acciones'];
   subscriptions: any[] = [];
   cargando: boolean;
+   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private service: SilegService,
               private location: Location,
@@ -31,6 +53,7 @@ export class UsuariosPorOficinaComponent implements OnInit {
 
   ngOnInit() {
     let params = this.route.snapshot.paramMap;
+    this.dataSource.sort = this.sort;
     this.obtenerDesignacionesLugar(params.get('id'));
     this.obtenerTiposCargos();
   }
@@ -39,7 +62,6 @@ export class UsuariosPorOficinaComponent implements OnInit {
     this.cargos = [];
     this.subscriptions.push(this.service.cargos()
       .subscribe(r => {
-        console.log(r);
         this.cargos = r;
       }));
   }
@@ -50,7 +72,8 @@ export class UsuariosPorOficinaComponent implements OnInit {
     this.subscriptions.push(this.service.obtenerDesignacionesLugares(id)
       .subscribe(r => {
         this.cargando = false;
-        console.log(r);
+        this.element_data = r.designaciones.map(d => new DesignacionSource(d));
+        this.dataSource.data = this.element_data;
         this.datos = r;
       }));
   }
