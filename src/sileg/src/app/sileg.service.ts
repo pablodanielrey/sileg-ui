@@ -128,6 +128,11 @@ export class SilegService {
     return this.http.delete<any>(apiUrl);
   }
 
+  modificarDesignacion(d: Designacion): Observable<any> {
+    let apiUrl = `${SILEG_API_URL}/designacion/${d.id}`;
+    return this.http.put<any>(apiUrl, d);
+  }
+
   /*
   buscarUsuarios(texto: string): Promise<DatosSileg[]> {
     return new Promise((resolve, reject) => {

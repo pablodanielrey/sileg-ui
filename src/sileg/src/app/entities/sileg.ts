@@ -102,7 +102,7 @@ export class Designacion {
   constructor(o:Object) {
     try {
       Object.assign(this, o);
-      if (this.desde != null) {
+      if (this.desde != null && typeof this.desde == "string" ) {
         // "fecha" = 'yyyy-mm-dd'
         // el mes del Date empieza desde 0 (0-11)
         let f = o["desde"].split("-");

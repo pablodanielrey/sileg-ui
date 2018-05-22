@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SilegService } from '../../sileg.service';
 import { NotificacionesService } from '../../notificaciones.service';
-import { DatosLugarDesignaciones, Cargo, DatoDesignacion } from '../../entities/sileg';
+import { DatosLugarDesignaciones, Cargo, DatoDesignacion, Designacion } from '../../entities/sileg';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -28,6 +28,10 @@ export class DesignacionSource {
 
   capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  toDesignacion() {
+    return new Designacion({'id': this.id, 'desde': this.fecha, 'cargo_id':this.cargo});
   }
 }
 
@@ -107,7 +111,11 @@ export class UsuariosPorOficinaComponent implements OnInit {
   }
 
   guardar(d: DesignacionSource) {
-    console.log("Guardado")
+    this.subscriptions.push(this.service.modificarDesignacion(d.toDesignacion())
+      .subscribe(r => {
+        d.modificado = false;
+        this.notificaciones.show("Se ha modificado correctamente");
+      }));
   }
 
 
