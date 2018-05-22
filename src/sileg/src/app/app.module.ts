@@ -42,6 +42,7 @@ import { AgregarQuitarUsuariosComponent } from './lugares/agregar-quitar-usuario
 import { OidpGuard } from './oidp.guard';
 import { NotificacionesService } from './notificaciones.service';
 import { DialogoEliminarLugarComponent } from './lugares/dialogo-eliminar-lugar/dialogo-eliminar-lugar.component';
+import { DialogoEliminarDesignacionComponent } from './lugares/dialogo-eliminar-designacion/dialogo-eliminar-designacion.component';
 
 
 
@@ -67,12 +68,14 @@ import { DialogoEliminarLugarComponent } from './lugares/dialogo-eliminar-lugar/
     CrearLugarComponent,
     UsuariosPorOficinaComponent,
     AgregarQuitarUsuariosComponent,
-    DialogoEliminarLugarComponent
+    DialogoEliminarLugarComponent,
+    DialogoEliminarDesignacionComponent
   ],
   entryComponents: [
     ConfirmarGenerarClaveComponent,
     CreateConfirmacionComponent,
-    DialogoEliminarLugarComponent
+    DialogoEliminarLugarComponent,
+    DialogoEliminarDesignacionComponent
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,7 @@ import { DatosLugarDesignaciones, Cargo, DatoDesignacion } from '../../entities/
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
+import { DialogoEliminarDesignacionComponent } from '../dialogo-eliminar-designacion/dialogo-eliminar-designacion.component';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import {MatTableDataSource, MatSort} from '@angular/material';
 
@@ -44,7 +45,8 @@ export class UsuariosPorOficinaComponent implements OnInit {
   columnas: string[] = ['fullname','dni','cargo','fecha','acciones'];
   subscriptions: any[] = [];
   cargando: boolean;
-   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) sort: MatSort;
+  eliminarDesignacionDialogRef: MatDialogRef<DialogoEliminarDesignacionComponent>;
 
   constructor(private service: SilegService,
               private location: Location,
@@ -90,7 +92,18 @@ export class UsuariosPorOficinaComponent implements OnInit {
   }
 
   eliminar(d: DesignacionSource) {
-    console.log("Eliminado");
+    console.log(d);
+    this.eliminarDesignacionDialogRef = this.dialog.open(DialogoEliminarDesignacionComponent, {data: {'lugar':this.datos.lugar.nombre, 'fullname':d.fullname}});
+    this.eliminarDesignacionDialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.subscriptions.push(this.service.eliminarDesignacion(d.id)
+          .subscribe(r => {
+            this.notificaciones.show("El usuario ha sido removido del lugar");
+            this.element_data.splice(this.element_data.indexOf(d),1);
+            this.dataSource.data = this.element_data;
+          }));
+      }
+    });
   }
 
   guardar(d: DesignacionSource) {
