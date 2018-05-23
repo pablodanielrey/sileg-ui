@@ -12,6 +12,7 @@ import { OAuthModule } from 'angular-oauth2-oidc';
 // aca se importa todo lo de material
 import { MyMaterialModule } from './material.module';
 
+import { ListadoUsuariosComponent } from './listado-usuarios/listado-usuarios.component';
 
 import { AppComponent } from './app.component';
 import { SilegService } from './sileg.service';
@@ -64,6 +65,7 @@ import { DialogoEliminarDesignacionComponent } from './lugares/dialogo-eliminar-
     FooterComponent,
     HeaderComponent,
     BuscarLugaresComponent,
+    ListadoUsuariosComponent,
     DetalleLugarComponent,
     CrearLugarComponent,
     UsuariosPorOficinaComponent,

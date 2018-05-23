@@ -1,7 +1,7 @@
 <div class="agregar-quitar-usuarios">
 
   <div class="seccionSistema">
-      <button mat-button class="btnVolverSeccion"><mat-icon>keyboard_arrow_left</mat-icon> volver</button>
+      <button mat-button class="btnVolverSeccion" (click)="volver()"><mat-icon>keyboard_arrow_left</mat-icon> volver</button>
         | Agregar o Quitar Usuarios
   </div>
 
@@ -9,8 +9,7 @@
 
   <div class="contenidoPantalla">
 
-    IMPORTAR LISTA DE USUARIOS
-
+    <app-listado-usuarios [usuarios]="usuarios" (selected)="seleccionarUsuario($event)" (searchEvent)="buscar($event)"></app-listado-usuarios>
 
   </div>
 

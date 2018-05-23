@@ -13,7 +13,7 @@
 
         <mat-list *ngIf="datos.lugar">
             <mat-list-item routerLink='/lugares/lugar/r9i23r0932-24234-wfefwe' class="itemLista">
-              <div matListAvatar class="avatar">D</div>
+              <div matListAvatar class="avatar">{{datos.lugar.nombre.charAt(0)}}</div>
               <h3 matLine> {{datos.lugar.nombre}} </h3>
               <p matLine> <span class="itemTextoSubtitulo"> {{datos.lugar.descripcion}} </span> </p>
             </mat-list-item>
@@ -74,9 +74,8 @@
         </div>
 
 
-        <div class="contenedorAccionesLugar">
-          <button mat-button class="btnAcciones" routerLink='/lugares/lugar/2309u3024-3454353-3543453/usuarios/abm'> <mat-icon class="icoMenu">person_add</mat-icon> AGREGAR USUARIO</button>
-          <button mat-button class="btnCrear"> GUARDAR CAMBIOS</button>
+        <div class="contenedorAccionesLugar" *ngIf="datos.lugar">
+          <button mat-button class="btnAcciones" routerLink='/lugares/lugar/{{datos.lugar.id}}/usuarios/abm'> <mat-icon class="icoMenu">person_add</mat-icon> AGREGAR USUARIO</button>
         </div>
 
 

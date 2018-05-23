@@ -113,6 +113,11 @@ export class SilegService {
     return this.http.post<any>(apiUrl, pedido);
   }
 
+  generarDesignacionSinCorreo(pedido:PedidoDesignacion):Observable<any> {
+    let apiUrl = `${SILEG_API_URL}/designacion-sin-correo`;
+    return this.http.put<any>(apiUrl, pedido);
+  }
+
   generarCorreo(uid: string, correo: string):Observable<any> {
     let apiUrl = `${SILEG_API_URL}/usuarios/${uid}/correos`;
     return this.http.post<any>(apiUrl, {'correo':correo});

@@ -28,7 +28,7 @@ export class SeleccionarUsuarioComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.oauthService.loadUserProfile().then(r => { this.logueado = r; });
+    // this.oauthService.loadUserProfile().then(r => { this.logueado = r; });
   }
 
   salir():void {
