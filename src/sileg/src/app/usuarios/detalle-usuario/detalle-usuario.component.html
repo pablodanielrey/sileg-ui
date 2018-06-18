@@ -54,9 +54,9 @@
       <div *ngIf='datos' class="contenedorBotones">
       <!-- <button (click)='crearClaveTemporal()'>Crear Clave Temporal</button> -->
 
-        <button mat-button class="btn" routerLink="/reset-clave/{{datos.usuario.id}}"><mat-icon>add</mat-icon> CREAR CLAVE TEMPORAL</button>
-        <button mat-button class="btn" routerLink='/generar-desig/{{datos.usuario.id}}' [disabled]='tieneDesignacion()'><mat-icon>add</mat-icon> CREAR DESIGNACIÓN</button>
-        <button mat-button class="btn" routerLink='/crear-correo/{{datos.usuario.id}}' [disabled]='!tieneDesignacion()'><mat-icon>add</mat-icon> CREAR CORREO ECONO</button>
+        <button mat-button class="btn" routerLink="/usuario/usuario/{{datos.usuario.id}}/reset-clave"><mat-icon>add</mat-icon> CREAR CLAVE TEMPORAL</button>
+        <!-- <button mat-button class="btn" routerLink='/usuario/usuario/{{datos.usuario.id}}/generar-desig' [disabled]='tieneDesignacion()'><mat-icon>add</mat-icon> CREAR DESIGNACIÓN</button> -->
+        <button mat-button class="btn" routerLink='/usuario/usuario/{{datos.usuario.id}}/crear-correo' [disabled]='!tieneDesignacion()'><mat-icon>add</mat-icon> CREAR CORREO ECONO</button>
         <button mat-button class="btn" (click)='eliminados = !eliminados' value='{{eliminados}}'><mat-icon>add</mat-icon> VER CORREOS ELIMINADOS</button>
 
         <button mat-button class="btnGuardar" (click)='actualizarDatos()'> GUARDAR CAMBIOS</button>

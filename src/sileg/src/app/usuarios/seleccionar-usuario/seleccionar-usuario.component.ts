@@ -51,19 +51,7 @@ export class SeleccionarUsuarioComponent implements OnInit {
     this.usuarios = [];
     this.subscriptions.push(this.service.buscarUsuarios(this.busqueda)
       .subscribe(usuarios => {
-        /*
-          TODO: ver como manejar temas de perfiles correctamente.
-        */
-        // chequeo que tengan permitido ingresar a la app
-        let ditesi = ['30001823', '27294557', '31381082', '29694757', '34928857', '34770038', '31073351', '27821597'];
-        let restringidos = ['8700794','21968942','31433408','94656241'];
-
-        let dni = this.logueado.username;
-        if (restringidos.includes(dni)) {
-          this.usuarios = usuarios.filter(u => !ditesi.includes(u.usuario.dni));
-        } else {
-          this.usuarios = usuarios;
-        }
+        this.usuarios = usuarios;
       }));
   }
 
