@@ -38,7 +38,32 @@ export class BuscarLugaresComponent implements OnInit {
   _buscar() {
     this.subscriptions.push(this.service.buscarLugares(this.texto)
       .subscribe(datos => {
-        this.lugares = datos;
+
+        /*
+          TODO: ver si corresponde realmente aca o en otra función del controlador.
+          genero los nombres de materias en la descripción de las cátedras.
+        */
+        interface Materia {
+          nombre: string;
+        };
+        interface Catedra extends Lugar {
+          nombre: string;
+          descripcion: string;
+          materia: Materia;
+        };
+        var d2 = datos.map(l => { 
+          if ('materia' in l) {
+            var c = <Catedra>l;
+            c.descripcion = c.materia.nombre;
+            return c;
+          }
+          return l;
+        });
+        /*
+          /////////////// ver a donde se puede llevar ese código ///////////////
+        */
+
+        this.lugares = d2;
       }));
   }
 

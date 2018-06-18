@@ -18,6 +18,12 @@ export class DesignacionSource {
   modificado: boolean;
 
   constructor(d: DatoDesignacion) {
+    if (d.usuario.nombre == null) {
+      d.usuario.nombre = '';
+    }
+    if (d.usuario.apellido == null) {
+      d.usuario.apellido = '';
+    };
     this.fullname = this.capitalize(d.usuario.nombre.trim()) + ' ' + this.capitalize(d.usuario.apellido.trim());
     this.dni = d.usuario.dni;
     this.cargo = d.designacion.cargo_id;

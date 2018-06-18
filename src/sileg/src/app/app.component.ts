@@ -82,7 +82,7 @@ export class AppComponent {
       console.log(s.getIdToken());
       console.log(s.hasValidAccessToken());
       console.log(s.hasValidIdToken());
-      this.chequearPermisos(s.getIdentityClaims());
+      //this.chequearPermisos(s.getIdentityClaims());
     }
   }
 

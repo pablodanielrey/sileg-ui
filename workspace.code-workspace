@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "/src/github/sileg-api"
+		},
+		{
+			"path": "/src/github/microservices_common"
+		}
+	],
+	"settings": {}
+}
