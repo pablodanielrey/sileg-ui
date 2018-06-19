@@ -2,11 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 
-import {HttpClientModule} from '@angular/common/http';
 
-
-// configuro la autentificacion
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { OAuthModule } from 'angular-oauth2-oidc';
+import { TokenInterceptor } from './auth.service';
 
 
 // aca se importa todo lo de material
@@ -87,7 +86,12 @@ import { DialogoEliminarDesignacionComponent } from './lugares/dialogo-eliminar-
     AppRoutingModule,
     OAuthModule.forRoot()
   ],
-  providers: [SilegService, OidpGuard, NotificacionesService],
+  providers: [
+    SilegService, 
+    OidpGuard, 
+    NotificacionesService,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true } 
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

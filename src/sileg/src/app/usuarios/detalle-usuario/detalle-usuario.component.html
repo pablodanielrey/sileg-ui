@@ -1,7 +1,7 @@
 <div *ngIf='datos' class="detalleDeUsuario">
 
   <div class="seccionSistema">
-      <button mat-button class="btnVolverSeccion" routerLink='/buscar'><mat-icon>keyboard_arrow_left</mat-icon> volver</button>
+      <button mat-button class="btnVolverSeccion" routerLink='/usuario/buscar'><mat-icon>keyboard_arrow_left</mat-icon> volver</button>
         | Detalle de Usuario
   </div>
 
@@ -9,9 +9,7 @@
 
   <div class="contenidoPantalla">
 
-
-      <div class="detalle-de-usuario">
-
+      <div *ngIf='datos' class="detalle-de-usuario">
 
         <form class="contentDetailUSer">
             <mat-form-field>

@@ -68,8 +68,8 @@ export class UsuariosPorOficinaComponent implements OnInit {
   ngOnInit() {
     let params = this.route.snapshot.paramMap;
     this.dataSource.sort = this.sort;
-    this.obtenerDesignacionesLugar(params.get('id'));
     this.obtenerTiposCargos();
+    this.obtenerDesignacionesLugar(params.get('id'));
   }
 
   obtenerTiposCargos() {

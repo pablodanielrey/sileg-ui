@@ -75,36 +75,28 @@ export class AppComponent {
     if (this.oauthService.getAccessToken() == null) {
       console.log('No se obtuvo ningun access token asi que inicio el flujo de auth');
       this.oauthService.initImplicitFlow();
-    } else {
-      let s = this.oauthService;
-      console.log(s.getAccessToken());
-      console.log(s.getIdentityClaims());
-      console.log(s.getIdToken());
-      console.log(s.hasValidAccessToken());
-      console.log(s.hasValidIdToken());
-      //this.chequearPermisos(s.getIdentityClaims());
     }
   }
 
-  chequearPermisos(r:any):void {
-    // chequeo que tengan permitido ingresar a la app
-    let ditesi = ['30001823', '27294557', '31381082', '29694757', '34928857', '34770038', '31073351', '27821597'];
-    let habilitados = ['8700794','21968942','31433408','94656241'];
+  // chequearPermisos(r:any):void {
+  //   // chequeo que tengan permitido ingresar a la app
+  //   let ditesi = ['30001823', '27294557', '31381082', '29694757', '34928857', '34770038', '31073351', '27821597'];
+  //   let habilitados = ['8700794','21968942','31433408','94656241'];
 
-    let permiso = false;
-    let dni = (<Profile>r).username;
-    if (ditesi.includes(dni)) {
-      permiso = true;
-    }
+  //   let permiso = false;
+  //   let dni = (<Profile>r).username;
+  //   if (ditesi.includes(dni)) {
+  //     permiso = true;
+  //   }
 
-    if (habilitados.includes(dni)) {
-      permiso = true;
-    }
+  //   if (habilitados.includes(dni)) {
+  //     permiso = true;
+  //   }
 
-    if (!permiso) {
-      this.salir();
-    }
-  }
+  //   if (!permiso) {
+  //     this.salir();
+  //   }
+  // }
 
   salir():void {
     this.oauthService.logOut(true);
