@@ -43,6 +43,7 @@ import { OidpGuard } from './oidp.guard';
 import { NotificacionesService } from './notificaciones.service';
 import { DialogoEliminarLugarComponent } from './lugares/dialogo-eliminar-lugar/dialogo-eliminar-lugar.component';
 import { DialogoEliminarDesignacionComponent } from './lugares/dialogo-eliminar-designacion/dialogo-eliminar-designacion.component';
+import { LoaderComponent } from './loader/loader.component';
 
 
 
@@ -70,7 +71,8 @@ import { DialogoEliminarDesignacionComponent } from './lugares/dialogo-eliminar-
     UsuariosPorOficinaComponent,
     AgregarQuitarUsuariosComponent,
     DialogoEliminarLugarComponent,
-    DialogoEliminarDesignacionComponent
+    DialogoEliminarDesignacionComponent,
+    LoaderComponent
   ],
   entryComponents: [
     ConfirmarGenerarClaveComponent,

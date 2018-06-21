@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 
+import { LoaderComponent } from './loader/loader.component';
 import { CreateComponent } from './usuarios/create/create.component';
 import { CrearCorreoComponent } from './usuarios/crear-correo/crear-correo.component';
 import { SeleccionarUsuarioComponent } from './usuarios/seleccionar-usuario/seleccionar-usuario.component';
@@ -23,25 +24,27 @@ const routes: Routes = [
       path:'usuario',
       canActivate: [OidpGuard],
       children: [
-        { path:'buscar', component: SeleccionarUsuarioComponent },
-        { path:'crear', component: CreateComponent },
-        { path:'usuario/:id', component: DetalleUsuarioComponent },
-        { path:'usuario/:id/reset-clave', component: GenerarClaveComponent },
-        { path:'usuario/:id/generar-desig', component: GenerarDesignacionComponent },
-        { path:'usuario/:id/crear-correo', component: CrearCorreoComponent }
+        { path:'buscar', component: SeleccionarUsuarioComponent, canActivate: [OidpGuard] },
+        { path:'crear', component: CreateComponent, canActivate: [OidpGuard] },
+        { path:'usuario/:id', component: DetalleUsuarioComponent, canActivate: [OidpGuard] },
+        { path:'usuario/:id/reset-clave', component: GenerarClaveComponent, canActivate: [OidpGuard] },
+        { path:'usuario/:id/generar-desig', component: GenerarDesignacionComponent, canActivate: [OidpGuard] },
+        { path:'usuario/:id/crear-correo', component: CrearCorreoComponent, canActivate: [OidpGuard] }
       ]
     },
     {
       path:'lugares',
+      canActivate: [OidpGuard],
       children: [
-        { path:'buscar', component: BuscarLugaresComponent },
+        { path:'buscar', component: BuscarLugaresComponent, canActivate: [OidpGuard] },
         { path:'lugar/:id', component: DetalleLugarComponent, canActivate: [OidpGuard] },
-        { path:'crear', component: CrearLugarComponent },
-        { path:'lugar/:id/usuarios', component: UsuariosPorOficinaComponent },
-        { path:'lugar/:id/usuarios/abm', component: AgregarQuitarUsuariosComponent }
+        { path:'crear', component: CrearLugarComponent, canActivate: [OidpGuard] },
+        { path:'lugar/:id/usuarios', component: UsuariosPorOficinaComponent, canActivate: [OidpGuard] },
+        { path:'lugar/:id/usuarios/abm', component: AgregarQuitarUsuariosComponent, canActivate: [OidpGuard] }
       ]
     },
-    { path: '', redirectTo: '/lugares/buscar', pathMatch: 'full' }
+    { path: 'loader', component: LoaderComponent },
+    { path: '', redirectTo: '/loader', pathMatch: 'full' }
 ];
 
 @NgModule({

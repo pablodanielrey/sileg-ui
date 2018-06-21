@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthConfig } from 'angular-oauth2-oidc';
+
 
 export const authConfig: AuthConfig = {
   issuer: 'https://oidp.econo.unlp.edu.ar',
@@ -32,7 +34,7 @@ interface Profile {
 })
 export class AppComponent {
 
-  constructor(private oauthService: OAuthService) {
+  constructor(private oauthService: OAuthService, private router: Router) {
     this.configureWithNewConfigApi();
   }
 
@@ -74,7 +76,9 @@ export class AppComponent {
     this.oauthService.tryLogin();
     if (this.oauthService.getAccessToken() == null) {
       console.log('No se obtuvo ningun access token asi que inicio el flujo de auth');
-      this.oauthService.initImplicitFlow();
+      //this.oauthService.initImplicitFlow();
+    } else {
+      this.router.navigateByUrl('loader');
     }
   }
 
@@ -99,8 +103,8 @@ export class AppComponent {
   // }
 
   salir():void {
-    this.oauthService.logOut(true);
-    window.location.href = this.oauthService.logoutUrl;
+    this.oauthService.logOut();
+    //window.location.href = this.oauthService.logoutUrl;
     //window.location.reload();
   }
 }
