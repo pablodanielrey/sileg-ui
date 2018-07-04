@@ -1,0 +1,9 @@
+.sistema {
+    height: calc(100% - 81px) ;
+}
+
+@media screen and (max-width: 719px) {
+  .sistema {
+    height: calc(100% - 73px) ;
+  }
+}

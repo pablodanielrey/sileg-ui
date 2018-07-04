@@ -44,6 +44,7 @@ import { NotificacionesService } from './notificaciones.service';
 import { DialogoEliminarLugarComponent } from './lugares/dialogo-eliminar-lugar/dialogo-eliminar-lugar.component';
 import { DialogoEliminarDesignacionComponent } from './lugares/dialogo-eliminar-designacion/dialogo-eliminar-designacion.component';
 import { LoaderComponent } from './loader/loader.component';
+import { SistemaComponent } from './sistema/sistema.component';
 
 
 
@@ -72,7 +73,8 @@ import { LoaderComponent } from './loader/loader.component';
     AgregarQuitarUsuariosComponent,
     DialogoEliminarLugarComponent,
     DialogoEliminarDesignacionComponent,
-    LoaderComponent
+    LoaderComponent,
+    SistemaComponent
   ],
   entryComponents: [
     ConfirmarGenerarClaveComponent,

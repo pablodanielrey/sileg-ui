@@ -1,0 +1,5 @@
+<div class="sistema">
+  <app-header (menu)='onMenu($event)'></app-header>
+  <app-menu class="contenido" (onItem)='onItem($event)' [menu_abierto]='menu_abierto'></app-menu>
+  <app-footer ></app-footer>
+</div>
