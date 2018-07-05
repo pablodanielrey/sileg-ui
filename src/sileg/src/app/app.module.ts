@@ -45,6 +45,7 @@ import { DialogoEliminarLugarComponent } from './lugares/dialogo-eliminar-lugar/
 import { DialogoEliminarDesignacionComponent } from './lugares/dialogo-eliminar-designacion/dialogo-eliminar-designacion.component';
 import { LoaderComponent } from './loader/loader.component';
 import { SistemaComponent } from './sistema/sistema.component';
+import { PantallaPrincipalComponent } from './pantalla-principal/pantalla-principal.component';
 
 
 
@@ -74,7 +75,8 @@ import { SistemaComponent } from './sistema/sistema.component';
     DialogoEliminarLugarComponent,
     DialogoEliminarDesignacionComponent,
     LoaderComponent,
-    SistemaComponent
+    SistemaComponent,
+    PantallaPrincipalComponent
   ],
   entryComponents: [
     ConfirmarGenerarClaveComponent,

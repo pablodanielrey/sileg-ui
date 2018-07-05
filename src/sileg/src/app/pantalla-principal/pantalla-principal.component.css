@@ -1,0 +1,20 @@
+.pantallaInicio {
+  padding: 20px;
+  height: 100%;
+  background-image: url("/assets/img/logo_gelis_fce.png");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.imgTocaMenu {
+  margin-left: 20px;
+}
+
+
+@media screen and (max-width: 769px) {
+
+.imgTocaMenu {
+  display: none;
+}
+
+}

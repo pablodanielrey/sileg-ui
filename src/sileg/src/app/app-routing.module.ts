@@ -4,6 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { SistemaComponent } from './sistema/sistema.component';
 
+import { PantallaPrincipalComponent } from './pantalla-principal/pantalla-principal.component';
+
+
 import { LoaderComponent } from './loader/loader.component';
 import { CreateComponent } from './usuarios/create/create.component';
 import { CrearCorreoComponent } from './usuarios/crear-correo/crear-correo.component';
@@ -25,6 +28,7 @@ const routes: Routes = [
     path: 'sistema',
     component: SistemaComponent,
     children: [
+      { path: 'inicial', component: PantallaPrincipalComponent },
       {
         path:'usuario',
         canActivate: [OidpGuard],
