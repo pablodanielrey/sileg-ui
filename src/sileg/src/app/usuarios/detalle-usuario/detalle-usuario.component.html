@@ -41,7 +41,7 @@
 
             <div *ngIf='designaciones'>
               <mat-form-field class="contenedorDesignaciones" *ngFor='let d of designaciones'>
-                  <textarea matInput readonly placeholder="Designacion" value="{{d.cargo.nombre}} {{d.lugar.nombre}} {{d.desde}}" ></textarea>
+                  <textarea matInput readonly placeholder="Designacion" value="{{d.cargo.nombre}} {{d.lugar.nombre}} {{d.desde | date: shortDate}}" ></textarea>
                 <!-- <div>{{d.cargo.nombre}}</div><div>{{d.lugar.nombre}}</div><div>{{d.desde}}</div> -->
 
               </mat-form-field>

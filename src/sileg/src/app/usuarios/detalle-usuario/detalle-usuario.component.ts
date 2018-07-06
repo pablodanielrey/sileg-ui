@@ -4,7 +4,8 @@ import { Location } from '@angular/common';
 
 import { Usuario, Mail } from '../../entities/usuario';
 import { DatosSileg, Sileg, Designacion } from '../../entities/sileg';
-import { SilegService } from '../../sileg.service'
+import { SilegService } from '../../sileg.service';
+import { NotificacionesService } from '../../notificaciones.service';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private location: Location,
+              private notificaciones: NotificacionesService,
               private service: SilegService) { }
 
   ngOnInit() {
@@ -50,15 +52,15 @@ export class DetalleUsuarioComponent implements OnInit {
 
   actualizarDatos(): void {
     this.service.actualizarDatos(this.datos.usuario).subscribe(
-      res => {
-        console.log(res);
-      });
+      res => { this.notificaciones.show('Los datos han sidos guardados correctamente') },
+      err => { this.notificaciones.show(err.message) }
+    ));
   }
 
   eliminarCorreo(m:Mail): void {
     this.subscriptions.push(this.service.eliminarCorreo(m.usuario_id, m.id).subscribe(
       res => { location.reload(); },
-      err => { console.log(err); }
+      err => { this.notificaciones.show(err.message) }
     ));
   }
 

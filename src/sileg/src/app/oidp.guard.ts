@@ -9,11 +9,13 @@ export class OidpGuard implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-      return true;
-      /*
-      var hasIdToken = this.oauthService.hasValidIdToken();
-      var hasAccessToken = this.oauthService.hasValidAccessToken();
-      return (hasIdToken && hasAccessToken);
-      */
+        var hasIdToken = this.oauthService.hasValidIdToken();
+        var hasAccessToken = this.oauthService.hasValidAccessToken();
+        // let valid = (hasIdToken && hasAccessToken);
+        let valid = hasAccessToken;
+        if (!valid) {
+          this.oauthService.logOut();
+        }
+        return valid;
     }
 }

@@ -33,9 +33,7 @@ export class HeaderComponent implements OnInit {
 
 
   salir():void {
-    this.oauthService.logOut(true);
-    window.location.href = this.oauthService.logoutUrl;
-    //window.location.reload();
+    this.oauthService.logOut();
   }
 
 }

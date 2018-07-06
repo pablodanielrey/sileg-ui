@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthConfig } from 'angular-oauth2-oidc';
 
@@ -34,7 +34,7 @@ interface Profile {
 })
 export class AppComponent {
 
-  constructor(private oauthService: OAuthService, private router: Router) {
+  constructor(private oauthService: OAuthService, private router: Router, private route:ActivatedRoute) {
     this.configureWithNewConfigApi();
   }
 
@@ -75,10 +75,12 @@ export class AppComponent {
     console.log('tratando de loguearme');
     this.oauthService.tryLogin();
     if (this.oauthService.getAccessToken() == null) {
-      console.log('No se obtuvo ningun access token asi que inicio el flujo de auth');
-      //this.oauthService.initImplicitFlow();
+      // console.log('No se obtuvo ningun access token asi que inicio el flujo de auth');
+      // this.oauthService.initImplicitFlow();
+      this.router.navigate(['/loader']);
     } else {
-      // this.router.navigateByUrl('loader');
+      console.log(this.router.url);
+      // this.router.navigate(['/sistema/inicial']);
     }
   }
 

@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 
@@ -5,12 +7,12 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import { Http } from '@angular/http'
 
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/toPromise';
+
+
+
+
 
 import { Mail, Usuario, ResetClave } from './entities/usuario';
 import { Sileg, DatosSileg, Lugar, PedidoDesignacion, Designacion, Cargo, DatosLugarDesignaciones } from './entities/sileg';
@@ -25,12 +27,12 @@ export class SilegService {
 
   buscarUsuario(uid:string): Observable<DatosSileg> {
     let apiUrl = `${SILEG_API_URL}/usuarios/${uid}`;
-    return this.http.get<DatosSileg>(apiUrl).map(datos => new DatosSileg(datos));
+    return this.http.get<DatosSileg>(apiUrl).pipe(map(datos => new DatosSileg(datos)));
   }
 
   buscarDesignaciones(uid:string): Observable<Designacion[]> {
     let apiUrl = `${SILEG_API_URL}/usuarios/${uid}/designaciones`;
-    return this.http.get<Designacion[]>(apiUrl).map(res => res.map(d => new Designacion(d)));
+    return this.http.get<Designacion[]>(apiUrl).pipe(map(res => res.map(d => new Designacion(d))));
   }
 
   buscarUsuarios(texto:string): Observable<DatosSileg[]> {
@@ -40,7 +42,7 @@ export class SilegService {
               //.set('offset',0)
           };
     let apiUrl = `${SILEG_API_URL}/usuarios`;
-    return this.http.get<DatosSileg[]>(apiUrl, options).map(datos => datos.map(d => new DatosSileg(d)));
+    return this.http.get<DatosSileg[]>(apiUrl, options).pipe(map(datos => datos.map(d => new DatosSileg(d))));
   }
 
   crearUsuario(usuario: Usuario): Observable<any> {
@@ -60,22 +62,22 @@ export class SilegService {
               //.set('offset',0)
           };
     let apiUrl = `${SILEG_API_URL}/lugares`;
-    return this.http.get<Lugar[]>(apiUrl, options).map(datos => datos.map(d => new Lugar(d)));
+    return this.http.get<Lugar[]>(apiUrl, options).pipe(map(datos => datos.map(d => new Lugar(d))));
   }
 
   cargos(): Observable<Cargo[]> {
     let apiUrl = `${SILEG_API_URL}/cargos`;
-    return this.http.get<Cargo[]>(apiUrl).map(datos => datos.map(c => new Cargo(c)));
+    return this.http.get<Cargo[]>(apiUrl).pipe(map(datos => datos.map(c => new Cargo(c))));
   }
 
   buscarLugar(id:string): Observable<Lugar> {
     let apiUrl = `${SILEG_API_URL}/lugares/${id}`;
-    return this.http.get<Lugar>(apiUrl).map(d => new Lugar(d));
+    return this.http.get<Lugar>(apiUrl).pipe(map(d => new Lugar(d)));
   }
 
   obtenerDesignacionesLugares(id: string): Observable<DatosLugarDesignaciones> {
     let apiUrl = `${SILEG_API_URL}/lugares/${id}/designaciones`;
-    return this.http.get<DatosLugarDesignaciones>(apiUrl).map(d => new DatosLugarDesignaciones(d));
+    return this.http.get<DatosLugarDesignaciones>(apiUrl).pipe(map(d => new DatosLugarDesignaciones(d)));
   }
 
   crearLugar(lugar: Lugar): Observable<any> {
@@ -100,12 +102,12 @@ export class SilegService {
 
   chequearDisponibilidadCorreo(cuenta:string): Observable<boolean> {
     let apiUrl = `${SILEG_API_URL}/correo/${cuenta}`;
-    return this.http.get<any>(apiUrl).map(res => res.existe);
+    return this.http.get<any>(apiUrl).pipe(map(res => res.existe));
   }
 
   generarClave(uid:string):Observable<ResetClave> {
     let apiUrl = `${SILEG_API_URL}/generar_clave/${uid}`;
-    return this.http.get<ResetClave>(apiUrl).map(res => new ResetClave(res));
+    return this.http.get<ResetClave>(apiUrl).pipe(map(res => new ResetClave(res)));
   }
 
   generarDesignacion(pedido:PedidoDesignacion):Observable<any> {
