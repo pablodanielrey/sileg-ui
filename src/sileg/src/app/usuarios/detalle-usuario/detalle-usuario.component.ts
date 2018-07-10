@@ -54,7 +54,7 @@ export class DetalleUsuarioComponent implements OnInit {
     this.service.actualizarDatos(this.datos.usuario).subscribe(
       res => { this.notificaciones.show('Los datos han sidos guardados correctamente') },
       err => { this.notificaciones.show(err.message) }
-    ));
+    );
   }
 
   eliminarCorreo(m:Mail): void {

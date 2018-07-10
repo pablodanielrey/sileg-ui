@@ -1,7 +1,7 @@
 <div *ngIf='datos' class="detalleDeUsuario">
 
   <div class="seccionSistema">
-      <button mat-button class="btnVolverSeccion" routerLink='/sistema/usuario/buscar'><mat-icon>keyboard_arrow_left</mat-icon> volver</button>
+      <button mat-button class="btnVolverSeccion" routerLink='../../buscar'><mat-icon>keyboard_arrow_left</mat-icon> volver</button>
         | Detalle de Usuario
   </div>
 
@@ -41,7 +41,7 @@
 
             <div *ngIf='designaciones'>
               <mat-form-field class="contenedorDesignaciones" *ngFor='let d of designaciones'>
-                  <textarea matInput readonly placeholder="Designacion" value="{{d.cargo.nombre}} {{d.lugar.nombre}} {{d.desde | date: shortDate}}" ></textarea>
+                  <textarea matInput readonly placeholder="Designacion" value="{{d.cargo.nombre}} {{d.lugar.nombre}} {{d.desde | date: 'dd/MM/yyyy'}}" ></textarea>
                 <!-- <div>{{d.cargo.nombre}}</div><div>{{d.lugar.nombre}}</div><div>{{d.desde}}</div> -->
 
               </mat-form-field>
@@ -52,10 +52,11 @@
       <div *ngIf='datos' class="contenedorBotones">
       <!-- <button (click)='crearClaveTemporal()'>Crear Clave Temporal</button> -->
 
-        <button mat-button class="btn" routerLink="/usuario/usuario/{{datos.usuario.id}}/reset-clave"><mat-icon>add</mat-icon> CREAR CLAVE TEMPORAL</button>
+        <button mat-button class="btn" routerLink="./reset-clave"><mat-icon>add</mat-icon> CREAR CLAVE TEMPORAL</button>
         <!-- <button mat-button class="btn" routerLink='/usuario/usuario/{{datos.usuario.id}}/generar-desig' [disabled]='tieneDesignacion()'><mat-icon>add</mat-icon> CREAR DESIGNACIÓN</button> -->
-        <button mat-button class="btn" routerLink='/usuario/usuario/{{datos.usuario.id}}/crear-correo' [disabled]='!tieneDesignacion()'><mat-icon>add</mat-icon> CREAR CORREO ECONO</button>
-        <button mat-button class="btn" (click)='eliminados = !eliminados' value='{{eliminados}}'><mat-icon>add</mat-icon> VER CORREOS ELIMINADOS</button>
+        <button mat-button class="btn" routerLink='./crear-correo' [disabled]='!tieneDesignacion()'><mat-icon>add</mat-icon> CREAR CORREO ECONO</button>
+        <button mat-button class="btn" *ngIf="!eliminados" (click)='eliminados = !eliminados' value='{{eliminados}}'><mat-icon>add</mat-icon> VER CORREOS ELIMINADOS</button>
+        <button mat-button class="btn" *ngIf="eliminados" (click)='eliminados = !eliminados' value='{{eliminados}}'><mat-icon>remove</mat-icon> OCULTAR CORREOS ELIMINADOS</button>
 
         <button mat-button class="btnGuardar" (click)='actualizarDatos()'> GUARDAR CAMBIOS</button>
 
