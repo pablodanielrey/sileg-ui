@@ -19,7 +19,7 @@
     </form>
 
       <mat-list>
-          <mat-list-item *ngFor="let l of lugares" routerLink='/lugares/lugar/{{l.id}}' class="itemLista">
+          <mat-list-item *ngFor="let l of lugares" routerLink='../lugar/{{l.id}}' class="itemLista">
             <div matListAvatar class="avatar">D</div>
             <h3 matLine> {{l.nombre}} </h3>
             <p matLine> <span class="itemTextoSubtitulo">{{l.descripcion}}</span> </p>
