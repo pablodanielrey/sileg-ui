@@ -49,7 +49,6 @@ export class CreateComponent implements OnInit {
       console.log(res);
       this.mensaje = 'id: ' + res;
       this.usuario = new Usuario({});
-      this.router.navigate(['/crear']);
     },
     err => {
       console.log(err);
