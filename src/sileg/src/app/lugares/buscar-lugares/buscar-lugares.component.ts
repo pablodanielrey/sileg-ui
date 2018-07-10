@@ -32,7 +32,7 @@ export class BuscarLugaresComponent implements OnInit {
   }
 
   buscar() {
-    this.router.navigate(['lugares/buscar', {q: this.texto}]);
+      this.router.navigate(['/sistema/lugares/buscar', {q: this.texto}]);
   }
 
   _buscar() {
@@ -51,7 +51,7 @@ export class BuscarLugaresComponent implements OnInit {
           descripcion: string;
           materia: Materia;
         };
-        var d2 = datos.map(l => { 
+        var d2 = datos.map(l => {
           if ('materia' in l) {
             var c = <Catedra>l;
             c.descripcion = c.materia.nombre;
