@@ -47,6 +47,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { SistemaComponent } from './sistema/sistema.component';
 import { PantallaPrincipalComponent } from './pantalla-principal/pantalla-principal.component';
 
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
 
 @NgModule({
@@ -93,10 +94,11 @@ import { PantallaPrincipalComponent } from './pantalla-principal/pantalla-princi
     OAuthModule.forRoot()
   ],
   providers: [
-    SilegService, 
-    OidpGuard, 
+    SilegService,
+    OidpGuard,
     NotificacionesService,
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true } 
+    {provide: MAT_DATE_LOCALE, useValue: 'es'},
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
