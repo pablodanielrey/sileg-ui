@@ -35,7 +35,7 @@ export class DetalleUsuarioComponent implements OnInit {
       }));
     this.subscriptions.push(this.service.buscarDesignaciones(this.usuario_id).subscribe(
       designaciones => {
-        this.designaciones = designaciones;
+        this.designaciones = designaciones.filter(designacion => !designacion.historico);
         console.log(designaciones);
       }));
 
