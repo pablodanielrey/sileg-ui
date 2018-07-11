@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { SilegService } from '../../sileg.service';
+import { NotificacionesService } from '../../notificaciones.service';
 import { Lugar } from '../../entities/sileg';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crear-lugar',
@@ -18,7 +19,9 @@ export class CrearLugarComponent implements OnInit {
   lugar: Lugar = null;
   subscriptions: any[] = [];
 
-  constructor(private service: SilegService) { }
+  constructor(private service: SilegService,
+              private router: Router,
+              private notificaciones: NotificacionesService) { }
 
   ngOnInit() {
     this.lugar = new Lugar({});
@@ -27,13 +30,18 @@ export class CrearLugarComponent implements OnInit {
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
     this.subscriptions = [];
-  }  
+  }
 
   crear() {
     this.subscriptions.push(this.service.crearLugar(this.lugar)
       .subscribe(datos => {
-        console.log(datos);
-      }));
+        this.notificaciones.show("El lugar  " + this.lugar.nombre + " ha sido creado exitosamente");
+        this.router.navigate(['/sistema/lugares/crear']);
+      },
+      err => {
+        this.notificaciones.show("Error: " + err);
+      }
+    ));
   }
 
 }
