@@ -22,6 +22,8 @@ export class SeleccionarUsuarioComponent implements OnInit {
   habilitados = ['8700794','21968942','31433408','94656241'];
   logueado: any;
 
+  buscando:boolean = false;
+
 
   constructor(private service: SilegService,
               private oauthService: OAuthService) {
@@ -49,8 +51,10 @@ export class SeleccionarUsuarioComponent implements OnInit {
 
   buscarUsuarios(): void {
     this.usuarios = [];
+    this.buscando = true;
     this.subscriptions.push(this.service.buscarUsuarios(this.busqueda)
       .subscribe(usuarios => {
+        this.buscando = false;
         this.usuarios = usuarios;
       }));
   }

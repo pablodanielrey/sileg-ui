@@ -18,6 +18,7 @@
       </mat-form-field>
     </form>
 
+    <mat-spinner *ngIf="buscando" ></mat-spinner>
 
       <mat-list>
           <mat-list-item class="itemLista" *ngFor="let datos of usuarios" routerLink='../usuario/{{datos.usuario.id}}'>
