@@ -17,6 +17,7 @@ export class AgregarQuitarUsuariosComponent implements OnInit {
   usuarios: Array<DatosSileg> = new Array<DatosSileg>();
   subscriptions: any[] = [];
   id: string = "";
+  cargando: boolean = false;
 
   constructor(private service: SilegService,
               private location: Location,
@@ -51,9 +52,11 @@ export class AgregarQuitarUsuariosComponent implements OnInit {
 
   buscar(event): void {
     this.usuarios = [];
+    this.cargando = true;
     this.subscriptions.push(this.service.buscarUsuarios(event)
       .subscribe(usuarios => {
         this.usuarios = usuarios;
+        this.cargando = false;
       }));
   }
 
