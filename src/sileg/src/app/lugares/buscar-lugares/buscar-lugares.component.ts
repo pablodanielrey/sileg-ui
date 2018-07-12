@@ -13,6 +13,7 @@ export class BuscarLugaresComponent implements OnInit {
   texto: string = '';
   lugares: Lugar[] = [];
   subscriptions: any[] = [];
+  cargando: boolean = false;
 
   constructor(private service: SilegService,
               private router: Router,
@@ -36,6 +37,8 @@ export class BuscarLugaresComponent implements OnInit {
   }
 
   _buscar() {
+    this.lugares = [];
+    this.cargando = true;
     this.subscriptions.push(this.service.buscarLugares(this.texto)
       .subscribe(datos => {
 
@@ -62,7 +65,7 @@ export class BuscarLugaresComponent implements OnInit {
         /*
           /////////////// ver a donde se puede llevar ese código ///////////////
         */
-
+        this.cargando = false;
         this.lugares = d2;
       }));
   }
