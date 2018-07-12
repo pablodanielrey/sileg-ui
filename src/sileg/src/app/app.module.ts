@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 
+import { GlobalErrorHandler } from './error.handler';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { OAuthModule } from 'angular-oauth2-oidc';
@@ -97,6 +98,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
     SilegService,
     OidpGuard,
     NotificacionesService,
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
     {provide: MAT_DATE_LOCALE, useValue: 'es'},
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],

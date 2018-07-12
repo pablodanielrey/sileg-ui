@@ -35,24 +35,19 @@ export class CreateComponent implements OnInit {
     let dialogRef = this.dialog.open(CreateConfirmacionComponent, {
         width: '250px'
     });
-    dialogRef.afterClosed().subscribe(r => { r == 1 ? this.crearPersona() : this.volver() });
+    dialogRef.afterClosed().subscribe(r => { r == 1 ? this.crearPersona() : this.cancelar() });
   }
 
-  volver():void {
+  cancelar():void {
     this.mensaje = null;
   }
 
   crearPersona(): void {
     this.mensaje = null;
-    console.log(this.usuario);
     this.service.crearUsuario(this.usuario).subscribe(res => {
       console.log(res);
       this.mensaje = 'id: ' + res;
       this.usuario = new Usuario({});
-    },
-    err => {
-      console.log(err);
-      this.mensaje = null;
     });
   }
 

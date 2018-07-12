@@ -20,6 +20,7 @@ export class DetalleUsuarioComponent implements OnInit {
   designaciones: Designacion[] = null;
   eliminados: boolean = false;
   subscriptions: any[] = [];
+  cargando: boolean = false;
 
   constructor(private route: ActivatedRoute,
               private location: Location,
@@ -28,16 +29,25 @@ export class DetalleUsuarioComponent implements OnInit {
 
   ngOnInit() {
     this.usuario_id = this.route.snapshot.paramMap.get('id');
+    this.cargando = false;
+
     this.subscriptions.push(this.service.buscarUsuario(this.usuario_id).subscribe(
       datos => {
         this.datos = datos;
-        console.log(datos);
-      }));
+      },
+      err => {
+        this.notificaciones.show(err.message)
+      }
+    ));
+
     this.subscriptions.push(this.service.buscarDesignaciones(this.usuario_id).subscribe(
       designaciones => {
         this.designaciones = designaciones.filter(designacion => !designacion.historico);
-        console.log(designaciones);
-      }));
+      },
+      err => {
+        this.notificaciones.show(err.message)
+      }
+    ));
 
   }
 
@@ -51,16 +61,18 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
   actualizarDatos(): void {
+    this.cargando = true;
     this.service.actualizarDatos(this.datos.usuario).subscribe(
-      res => { this.notificaciones.show('Los datos han sidos guardados correctamente') },
-      err => { this.notificaciones.show(err.message) }
+      res => { this.cargando = false; this.notificaciones.show('Los datos han sidos guardados correctamente'); },
+      err => { this.cargando = false; this.notificaciones.show(err.message); }
     );
   }
 
   eliminarCorreo(m:Mail): void {
+    this.cargando = true;
     this.subscriptions.push(this.service.eliminarCorreo(m.usuario_id, m.id).subscribe(
-      res => { location.reload(); },
-      err => { this.notificaciones.show(err.message) }
+      res => { this.cargando = false; location.reload(); },
+      err => { this.cargando = false; this.notificaciones.show(err.message) }
     ));
   }
 
