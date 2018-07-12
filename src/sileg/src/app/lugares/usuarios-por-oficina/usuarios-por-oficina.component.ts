@@ -106,23 +106,26 @@ export class UsuariosPorOficinaComponent implements OnInit {
   }
 
   eliminar(d: DesignacionSource) {
-    console.log(d);
     this.eliminarDesignacionDialogRef = this.dialog.open(DialogoEliminarDesignacionComponent, {data: {'lugar':this.datos.lugar.nombre, 'fullname':d.fullname}});
     this.eliminarDesignacionDialogRef.afterClosed().subscribe(result => {
-      if (result) {
+      if (result) {        
+        this.cargando = true;
         this.subscriptions.push(this.service.eliminarDesignacion(d.id)
           .subscribe(r => {
             this.notificaciones.show("El usuario ha sido removido del lugar");
             this.element_data.splice(this.element_data.indexOf(d),1);
             this.dataSource.data = this.element_data;
+            this.cargando = false;
           }));
       }
     });
   }
 
   guardar(d: DesignacionSource) {
+    this.cargando = true;
     this.subscriptions.push(this.service.modificarDesignacion(d.toDesignacion())
       .subscribe(r => {
+        this.cargando = false;
         d.modificado = false;
         this.notificaciones.show("Se ha modificado correctamente");
       }));
