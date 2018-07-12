@@ -9,8 +9,9 @@
 
   <div class="contenidoPantalla">
 
-    <div class="contenedorUsuariosDelLugar">
 
+    <div class="contenedorUsuariosDelLugar">
+      <mat-progress-bar mode="indeterminate" *ngIf="cargando"></mat-progress-bar>
         <mat-list *ngIf="datos.lugar">
             <mat-list-item routerLink='../' class="itemLista">
               <div matListAvatar class="avatar">{{datos.lugar.nombre.charAt(0)}}</div>

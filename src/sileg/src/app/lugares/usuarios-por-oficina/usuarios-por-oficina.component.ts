@@ -26,7 +26,7 @@ export class DesignacionSource {
         d.usuario.apellido = '';
       };
       this.fullname = this.capitalize(d.usuario.nombre.trim()) + ' ' + this.capitalize(d.usuario.apellido.trim());
-      this.dni = d.usuario.dni;      
+      this.dni = d.usuario.dni;
     }
 
 
@@ -89,10 +89,10 @@ export class UsuariosPorOficinaComponent implements OnInit {
     this.cargando = true;
     this.subscriptions.push(this.service.obtenerDesignacionesLugares(id)
       .subscribe(r => {
-        this.cargando = false;
         this.element_data = r.designaciones.map(d => new DesignacionSource(d));
         this.dataSource.data = this.element_data;
         this.datos = r;
+        this.cargando = false;
       }));
   }
 
