@@ -18,7 +18,6 @@ export class GlobalErrorHandler implements ErrorHandler {
           ref.dismiss();
         });
       });
-      // throw error;
   }
 
 }

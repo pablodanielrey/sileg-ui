@@ -81,7 +81,7 @@ export class SilegService {
   }
 
   crearLugar(lugar: Lugar): Observable<any> {
-    let apiUrl = `${SILEG_API_URL}/lugares`;
+    let apiUrl = `${SILEG_API_URL}/lugares2`;
     return this.http.put<any>(apiUrl, lugar);
   }
 

@@ -1,5 +1,10 @@
-import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
+// import { Injectable } from '@angular/core';
+import { ErrorHandler, Injectable, Injector, NgZone } from '@angular/core';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material';
+import {catchError} from "rxjs/internal/operators";
+
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
+
 import { Observable } from 'rxjs';
 
 import { OAuthService } from 'angular-oauth2-oidc';
@@ -38,15 +43,37 @@ export class AuthService {
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(public auth: OAuthService) { }
+  constructor(public auth: OAuthService, private injector: Injector) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     request = request.clone({
       setHeaders: {
         Authorization: `Bearer ${this.auth.getAccessToken()}`
       }
-    });
-    return next.handle(request);
+    })
+    return next.handle(request).pipe(catchError((error, caught) => {
+        //intercept the respons error and displace it to the console
+        console.log(error);
+        this.handleAuthError(error);
+        return of(error);
+      }) as any);
   }
+
+  /**
+    * manage errors
+    * @param err
+    * @returns {any}
+    */
+   private handleAuthError(err: HttpErrorResponse): Observable<any> {
+     let zone = <NgZone>this.injector.get(NgZone);
+     const snack = this.injector.get(MatSnackBar);
+     let ref = snack.open(err.message,'Cerrar');
+     ref.onAction().subscribe(() => {
+       zone.run(() => {
+         ref.dismiss();
+       });
+     });
+   }
+
 
 }

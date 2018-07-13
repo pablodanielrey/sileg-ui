@@ -18,6 +18,7 @@ export class CrearLugarComponent implements OnInit {
 
   lugar: Lugar = null;
   subscriptions: any[] = [];
+  cargando:boolean = false;
 
   constructor(private service: SilegService,
               private router: Router,
@@ -33,13 +34,16 @@ export class CrearLugarComponent implements OnInit {
   }
 
   crear() {
+    this.cargando = true;
     this.subscriptions.push(this.service.crearLugar(this.lugar)
       .subscribe(datos => {
+        this.cargando = false;
         this.notificaciones.show("El lugar  " + this.lugar.nombre + " ha sido creado exitosamente");
         this.router.navigate(['/sistema/lugares/crear']);
-      },
-      err => {
-        this.notificaciones.show("Error: " + err);
+      }, error => {
+        this.cargando = false;
+        console.log("Error al crear componente");
+
       }
     ));
   }

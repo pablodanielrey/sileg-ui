@@ -8,6 +8,8 @@
   <mat-divider></mat-divider>
 
   <div class="contenidoPantalla">
+      <mat-progress-bar mode="indeterminate" *ngIf="cargando"></mat-progress-bar>
+      
       <form (ngSubmit)="crear()" #lugarForm="ngForm">
 
           <mat-form-field class="itemFormulario">
