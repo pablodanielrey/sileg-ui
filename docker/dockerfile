@@ -17,6 +17,7 @@ COPY docker/entrypoint.sh /
 
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/src/node_modules/.bin/
 
+RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 RUN yarn global add @angular/cli
 RUN ng set --global packageManager=yarn
 
