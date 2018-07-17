@@ -535,11 +535,12 @@ amqplib@^0.5.2:
     readable-stream "1.x >=1.1.9"
     safe-buffer "^5.0.1"
 
-angular-oauth2-oidc@^3.1.4:
-  version "3.1.4"
-  resolved "https://registry.yarnpkg.com/angular-oauth2-oidc/-/angular-oauth2-oidc-3.1.4.tgz#0779395616d72f15e9dfdf392ddda9c6963742e8"
+angular-oauth2-oidc@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/angular-oauth2-oidc/-/angular-oauth2-oidc-4.0.2.tgz#2edd48a3bf1701d20978f33446aba1bd352ad024"
   dependencies:
-    jsrsasign "^8.0.3"
+    jsrsasign "^8.0.12"
+    tslib "^1.9.0"
 
 ansi-html@0.0.7:
   version "0.0.7"
@@ -3938,9 +3939,9 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
-jsrsasign@^8.0.3:
-  version "8.0.10"
-  resolved "https://registry.yarnpkg.com/jsrsasign/-/jsrsasign-8.0.10.tgz#c92d36ca22e61762dbf57b92cd855c5dce83fca6"
+jsrsasign@^8.0.12:
+  version "8.0.12"
+  resolved "https://registry.yarnpkg.com/jsrsasign/-/jsrsasign-8.0.12.tgz#22abb9656d34a30b9530436720835e89c2e5c316"
 
 karma-chrome-launcher@~2.2.0:
   version "2.2.0"

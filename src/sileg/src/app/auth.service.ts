@@ -5,7 +5,7 @@ import {catchError} from "rxjs/internal/operators";
 
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { OAuthService } from 'angular-oauth2-oidc';
 
@@ -73,6 +73,7 @@ export class TokenInterceptor implements HttpInterceptor {
          ref.dismiss();
        });
      });
+     return of(err);
    }
 
 
