@@ -3,14 +3,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthConfig } from 'angular-oauth2-oidc';
 
+import { environment } from '../environments/environment';
 
 export const authConfig: AuthConfig = {
-  issuer: 'https://oidp.econo.unlp.edu.ar',
+  issuer: environment.oidp_issuer,
   redirectUri: window.location.origin,
-  //tokenEndpoint: 'https://oidp.econo.unlp.edu.ar/oauth2/auth',
-  userinfoEndpoint: 'https://oidp.econo.unlp.edu.ar/userinfo',
-  loginUrl: 'https://oidp.econo.unlp.edu.ar/oauth2/auth',
-  logoutUrl: 'https://consent.econo.unlp.edu.ar/logout',
+  userinfoEndpoint: environment.userinfoEndpoint,
+  loginUrl: environment.loginUrl,
+  logoutUrl: environment.logoutUrl,
   oidc: true,
   requireHttps: false,
   clientId: 'sileg-ui',
