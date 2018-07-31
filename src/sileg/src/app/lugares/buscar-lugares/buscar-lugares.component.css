@@ -63,7 +63,10 @@
   border: solid 1px #E0E0E0;
 }
 
-
+.preload {
+  opacity: 0.2;
+  margin-top: 20px;
+}
 
 
 @media screen and (max-width: 769px) {

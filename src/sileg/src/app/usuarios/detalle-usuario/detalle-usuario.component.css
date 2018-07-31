@@ -22,6 +22,24 @@
 
 }
 
+.itemDesignacion {
+  display: flex;
+  -webkit-display: flex;
+  -moz-display: flex;
+  flex-direction: row;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  align-items: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+}
+
+.textDesignacion {
+  color: #3f3f3f;
+  font-size: 14px;
+  margin-right: 5px;
+}
+
 /* ---------------------------------------*/
 
 

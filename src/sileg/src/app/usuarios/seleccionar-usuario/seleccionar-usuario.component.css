@@ -55,6 +55,11 @@
 }
 
 
+.preload {
+  opacity: 0.2;
+  margin-top: 20px;
+}
+
 
 @media screen and (max-width: 769px) {
   .seleccionarUsuario .contenidoPantalla {

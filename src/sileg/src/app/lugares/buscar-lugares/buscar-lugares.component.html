@@ -25,7 +25,9 @@
             <p matLine> <span class="itemTextoSubtitulo">{{l.descripcion}}</span> </p>
           </mat-list-item>
       </mat-list>
-      <mat-progress-bar mode="indeterminate" *ngIf="cargando"></mat-progress-bar>
+
+
+      <mat-progress-bar mode="indeterminate" *ngIf="cargando" value="10" class="preload"></mat-progress-bar>
 
   </div>
 

@@ -43,9 +43,13 @@
 
             <div *ngIf='designaciones'>
               <mat-form-field class="contenedorDesignaciones" *ngFor='let d of designaciones'>
-                  <textarea matInput readonly placeholder="Designacion" value="{{d.cargo.nombre}} {{d.lugar.nombre}} {{d.desde | date: 'dd/MM/yyyy'}}" ></textarea>
-                <!-- <div>{{d.cargo.nombre}}</div><div>{{d.lugar.nombre}}</div><div>{{d.desde}}</div> -->
-
+                  <input matInput readonly placeholder="Designacion" value="{{d.lugar.nombre}}" >
+                  <div class="itemDesignacion">
+                    <div class="textDesignacion">Cargo:</div><div>{{d.cargo.nombre}}</div>
+                  </div>
+                  <div class="itemDesignacion">
+                    <div class="textDesignacion">Fecha de Designación:</div><div>{{d.desde  | date: 'dd/MM/yyyy'}}</div>
+                  </div>
               </mat-form-field>
             </div>
 
