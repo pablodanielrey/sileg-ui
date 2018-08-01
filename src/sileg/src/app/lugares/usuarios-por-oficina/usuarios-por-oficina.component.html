@@ -9,9 +9,11 @@
 
   <div class="contenidoPantalla">
 
+    <mat-progress-bar *ngIf="cargando" mode="indeterminate" value="10" class="preload"></mat-progress-bar>
+
+
 
     <div class="contenedorUsuariosDelLugar">
-      <mat-progress-bar mode="indeterminate" *ngIf="cargando"></mat-progress-bar>
         <mat-list *ngIf="datos.lugar">
             <mat-list-item routerLink='../' class="itemLista">
               <div matListAvatar class="avatar">{{datos.lugar.nombre.charAt(0)}}</div>
@@ -19,7 +21,9 @@
               <p matLine> <span class="itemTextoSubtitulo"> {{datos.lugar.descripcion}} </span> </p>
             </mat-list-item>
         </mat-list>
-            <mat-table #table [dataSource]="dataSource" matSort matSortActive="fullname" matSortDirection="asc" matSortDisableClea>
+
+
+            <mat-table *ngIf="datos.lugar" #table [dataSource]="dataSource" matSort matSortActive="fullname" matSortDirection="asc" matSortDisableClea>
 
               <ng-container matColumnDef='fullname'>
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
@@ -46,19 +50,23 @@
               <ng-container matColumnDef='fecha'>
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Asignación </mat-header-cell>
                 <mat-cell *matCellDef='let d'>
-                  <mat-form-field>
-                  <input matInput [matDatepicker]="picker" placeholder="" [(ngModel)]="d.fecha" (dateChange)="d.modificado=true">
+                  <mat-form-field class="imputFecha">
+                  <input class="imputFecha2" matInput [matDatepicker]="picker" placeholder="" [(ngModel)]="d.fecha" (dateChange)="d.modificado=true">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-datepicker #picker ></mat-datepicker>
                 </mat-form-field>
                 </mat-cell>
               </ng-container>
 
+
+
+
+
               <ng-container matColumnDef='acciones'>
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </mat-header-cell>
                 <mat-cell *matCellDef='let d'>
-                  <button (click)="eliminar(d)" mat-button class="btnEliminar" *ngIf="!d.modificado">  Eliminar </button>
-                  <button (click)="guardar(d)" mat-button class="btnEliminar" *ngIf="d.modificado" >  Aceptar </button>
+                  <button (click)="eliminar(d)" mat-button class="btnEliminar" *ngIf="!d.modificado"> <i class="material-icons icoAcciones">delete</i>  ELIMINAR </button>
+                  <button (click)="guardar(d)" mat-button class="btnGuardar" *ngIf="d.modificado" >  <i class="material-icons icoAcciones">done</i> GUARDAR </button>
                 </mat-cell>
               </ng-container>
 
@@ -77,6 +85,9 @@
 
         <div class="contenedorAccionesLugar" *ngIf="datos.lugar">
           <button mat-button class="btnAcciones" routerLink='./abm'> <mat-icon class="icoMenu">person_add</mat-icon> AGREGAR USUARIO</button>
+
+
+
         </div>
 
 
