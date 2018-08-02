@@ -10,7 +10,7 @@
   <div class="contenidoPantalla">
 
     <app-listado-usuarios [usuarios]="usuarios" (selected)="seleccionarUsuario($event)" (searchEvent)="buscar($event)"></app-listado-usuarios>
-    <mat-progress-bar mode="indeterminate" *ngIf="cargando"></mat-progress-bar>
+    <mat-progress-bar mode="indeterminate" *ngIf="cargando" class="preload"></mat-progress-bar>
   </div>
 
 </div>

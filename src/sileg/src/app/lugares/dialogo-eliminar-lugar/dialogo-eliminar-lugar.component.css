@@ -1,0 +1,14 @@
+.btnEliminar {
+  font-size: 12px;
+
+  background-color: #DFDFDF;
+}
+
+.btnAceptar {
+  color: white;
+  background-color: #4186E1 !important;
+}
+
+p {
+  margin-bottom: 10px;
+}
