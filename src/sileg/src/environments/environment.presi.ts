@@ -6,10 +6,11 @@ export const environment = {
   loginUrl: 'https://oidp.asistencia.presi.unlp.edu.ar/oauth2/auth',
   logoutUrl: 'https://consent.asistencia.presi.unlp.edu.ar/logout',
   // tokenEndpoint: 'https://oidp.econo.unlp.edu.ar/oauth2/auth'
-  loaderHeader: 'Gelis | FCE',
+  loaderHeader: 'Gelis | Presidencia',
   loaderLogo: '/assets/img/logofce2018.png',
-  loaderFooter1: 'DiTESI | Dirección de tecnologías y Sistemas Informáticos | Facultad de Ciencias Económicas | UNLP | Calle 6 Nº 777',
-  loaderFooter2: 'DiTESI | Dirección de tecnologías y Sistemas Informáticos | FCE',
+  loaderFooter1: 'Dirección General de Personal | Presidencia | UNLP | Calle 7 Nº 776',
+  loaderFooter2: 'Dirección General de Personal | Presidencia | UNLP',
 
-  menuFooter: '  DiTeSI | Dirección de Tecnologías y Sistemas Informáticos | FCE',
+  menuFooter: 'Dirección General de Personal | Presidencia | UNLP',
+
 };

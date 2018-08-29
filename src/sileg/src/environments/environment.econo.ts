@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
+  production: true,
   silegApiUrl: 'https://api.econo.unlp.edu.ar/sileg/api/v1.0',
   oidp_issuer: 'https://oidp.econo.unlp.edu.ar',
   userinfoEndpoint: 'https://oidp.econo.unlp.edu.ar/userinfo',

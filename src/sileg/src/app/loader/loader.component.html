@@ -1,6 +1,6 @@
 <div class="loader">
     <div class="header">
-        <div>Asistencia | FCE</div>
+        <div>{{loaderHeader}}</div>
     </div>
     <div class="contenedorSistema">
       <div class="contenedorAcceso">
@@ -9,12 +9,12 @@
                   <div><img class="logoSistema" src="/assets/img/logo.png"></div>
                   <div class="titulo"> Administración de Usuarios</div>
               </div>
-              <div class="subTitulo">Sistema de control, gestión y administracción de asistencia de personal en tiempo real.</div>
+              <div class="subTitulo">Sistema de gestión de usuarios y designaciones del personal.</div>
               <div> <button class="btnAcceder" (click)="acceder()"> ACCEDER  </button> </div>
           </div>
 
           <div>
-            <img class="logoFce" src="/assets/img/logofce2018.png">
+            <img class="logoFce" src={{loaderLogo}}>
           </div>
       </div>
         <div class="infoSistema">
@@ -26,7 +26,7 @@
             <div class="bloqueInfo">
               <div><mat-icon class="iconos">dvr</mat-icon></div>
               <div class="tituloInfo">Designaciones y Cargos</div>
-              <p class="infoBloque">Gestión de cargos y designaciones para el personal de la FCE.</p>
+              <p class="infoBloque">Gestión de cargos y designaciones para el personal.</p>
             </div>
             <div class="bloqueInfo">
               <div><mat-icon class="iconos">star_border</mat-icon></div>
@@ -41,8 +41,8 @@
         </div>
     </div>
     <div class="footer">
-      <div class="footerPrincipal">DiTESI | Dirección de tecnologías y Sistemas Informáticos | Facultad de Ciencias Económicas | UNLP | Calle 6 Nº 777</div>
-      <div class="footerAlternativo">  DiTESI | Dirección de tecnologías y Sistemas Informáticos | FCE</div>
+      <div class="footerPrincipal">{{loaderFooter1}}</div>
+      <div class="footerAlternativo"> {{loaderFooter2}}</div>
     </div>
 </div>
 
