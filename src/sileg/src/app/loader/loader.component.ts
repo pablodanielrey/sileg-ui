@@ -13,12 +13,15 @@ export class LoaderComponent implements OnInit {
   loaderLogo: string;
   loaderFooter1: string;
   loaderFooter2: string;
+  loaderBackground: string;
 
   constructor(private oauthService: OAuthService) {
     this.loaderHeader= environment.loaderHeader;
     this.loaderLogo= environment.loaderLogo;
     this.loaderFooter1= environment.loaderFooter1;
     this.loaderFooter2= environment.loaderFooter2;
+    let fondo= environment.loaderBackground;
+    this.loaderBackground= 'url('+ fondo +')';
   }
 
   ngOnInit() {

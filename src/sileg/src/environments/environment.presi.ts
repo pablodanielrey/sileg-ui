@@ -7,10 +7,12 @@ export const environment = {
   logoutUrl: 'https://consent.asistencia.presi.unlp.edu.ar/logout',
   // tokenEndpoint: 'https://oidp.econo.unlp.edu.ar/oauth2/auth'
   loaderHeader: 'Gelis | Presidencia',
-  loaderLogo: '/assets/img/logofce2018.png',
+  loaderLogo: '/assets/img/logounlp.png',
   loaderFooter1: 'Dirección General de Personal | Presidencia | UNLP | Calle 7 Nº 776',
   loaderFooter2: 'Dirección General de Personal | Presidencia | UNLP',
+  loaderBackground: '/assets/img/fondo.jpg',
 
   menuFooter: 'Dirección General de Personal | Presidencia | UNLP',
 
+  pantallaPrincipalLogo: '/assets/img/logo_gelis_unlp.png',
 };
