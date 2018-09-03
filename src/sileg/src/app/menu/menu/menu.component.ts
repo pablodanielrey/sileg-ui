@@ -18,7 +18,7 @@ export class MenuComponent implements OnInit {
   modulos: string[] = [];
   subscriptions: any[] = [];
 
-  constructor(private oauthService: OAuthService, private router: Router, private service AssistanceService) { }
+  constructor(private oauthService: OAuthService, private service: SilegService) { }
 
   ngOnInit() {
     this.subscriptions.push(this.service.obtenerAccesoModulos().subscribe(modulos=> {
