@@ -25,6 +25,11 @@ export class SilegService {
   //usuarios: Usuario[] = [];
   constructor(private http: HttpClient) { }
 
+  obtenerAccesoModulos(): Observable<string[]> {
+    let apiUrl = `${SILEG_API_URL}/acceso_modulos`;
+    return this.http.get<string[]>(apiUrl);
+  }
+
   buscarUsuario(uid:string): Observable<DatosSileg> {
     let apiUrl = `${SILEG_API_URL}/usuarios/${uid}`;
     return this.http.get<DatosSileg>(apiUrl).pipe(map(datos => new DatosSileg(datos)));

@@ -2,6 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { OAuthService } from 'angular-oauth2-oidc';
 
+import { SilegService } from '../../sileg.service';
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -13,9 +15,21 @@ export class MenuComponent implements OnInit {
   //@Output() openedChange = new EventEmitter<boolean>();
   @Output() onItem = new EventEmitter<boolean>();
 
-  constructor(private oauthService: OAuthService) { }
+  modulos: string[] = [];
+  subscriptions: any[] = [];
+
+  constructor(private oauthService: OAuthService, private router: Router, private service AssistanceService) { }
 
   ngOnInit() {
+    this.subscriptions.push(this.service.obtenerAccesoModulos().subscribe(modulos=> {
+      this.modulos = modulos;
+      console.log(this.modulos);
+    }));
+  }
+
+  ngOnDestroy(){
+    this.subscriptions.forEach(s => s.unsubscribe());
+    this.subscriptions = [];
   }
 
   onInternalItem():void {
@@ -24,6 +38,16 @@ export class MenuComponent implements OnInit {
 
   onOpenedChange(event: boolean):void {
     this.onItem.emit(event);
+  }
+
+  chequearPerfil(profiles: string[]): boolean {
+    let r = false;
+    profiles.forEach(p => {
+      if (this.modulos.includes(p)){
+        r = true;
+      }
+    });
+    return r;
   }
 
 }
