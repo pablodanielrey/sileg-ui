@@ -38,6 +38,11 @@ export class Usuario {
   legajo: string = null;
   claves: Array<Clave>;
   mails: Array<Mail>;
+  telefono: string= null;
+  pais: string= null;
+  ciudad: string= null;
+  direccion: string= null;
+
 
 
   constructor(o:Object) {

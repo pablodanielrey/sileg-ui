@@ -26,6 +26,23 @@
             <mat-form-field>
               <input matInput placeholder="Legajo" name='legajo' [(ngModel)]="datos.usuario.legajo">
             </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Genero" name='genero' [(ngModel)]="datos.usuario.genero">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Teléfono" name='telefono' [(ngModel)]="datos.usuario.telefono">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Dirección" name='direccion' [(ngModel)]="datos.usuario.direccion">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Ciudad" name='ciudad' [(ngModel)]="datos.usuario.ciudad">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="País" name='pais' [(ngModel)]="datos.usuario.pais">
+            </mat-form-field>
+
+
         </form>
 
             <div *ngFor='let m of datos.usuario.mails'>
@@ -54,6 +71,8 @@
             </div>
 
       </div>
+
+
 
       <div *ngIf='datos' class="contenedorBotones">
       <!-- <button (click)='crearClaveTemporal()'>Crear Clave Temporal</button> -->
