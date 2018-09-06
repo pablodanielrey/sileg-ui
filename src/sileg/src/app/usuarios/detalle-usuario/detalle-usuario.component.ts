@@ -8,6 +8,11 @@ import { SilegService } from '../../sileg.service';
 import { NotificacionesService } from '../../notificaciones.service';
 
 
+export interface Generos {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-detalle-usuario',
   templateUrl: './detalle-usuario.component.html',
@@ -22,6 +27,12 @@ export class DetalleUsuarioComponent implements OnInit {
   subscriptions: any[] = [];
   cargando: boolean = false;
 
+  generos: Generos[] = [
+    {value: 'm', viewValue: 'Masculino'},
+    {value: 'f', viewValue: 'Femenino'},
+    {value: 'o', viewValue: 'Otro'}
+  ];
+
   constructor(private route: ActivatedRoute,
               private location: Location,
               private notificaciones: NotificacionesService,
@@ -29,13 +40,15 @@ export class DetalleUsuarioComponent implements OnInit {
 
   ngOnInit() {
     this.usuario_id = this.route.snapshot.paramMap.get('id');
-    this.cargando = false;
+    this.cargando = true;
 
     this.subscriptions.push(this.service.buscarUsuario(this.usuario_id).subscribe(
       datos => {
+        this.cargando = false;
         this.datos = datos;
       },
       err => {
+        this.cargando = false;
         this.notificaciones.show(err.message)
       }
     ));

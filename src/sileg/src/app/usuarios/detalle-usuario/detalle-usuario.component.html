@@ -6,7 +6,6 @@
   </div>
 
   <mat-divider></mat-divider>
-
   <mat-spinner *ngIf="cargando" ></mat-spinner>
 
   <div class="contenidoPantalla">
@@ -27,10 +26,14 @@
               <input matInput placeholder="Legajo" name='legajo' [(ngModel)]="datos.usuario.legajo">
             </mat-form-field>
             <mat-form-field>
-              <input matInput placeholder="Genero" name='genero' [(ngModel)]="datos.usuario.genero">
+              <mat-select placeholder="Genero" name='genero' [(ngModel)]="datos.usuario.genero">
+                <mat-option *ngFor="let genero of generos" [value]="genero.value">
+                    {{genero.viewValue}}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
             <mat-form-field>
-              <input matInput placeholder="Teléfono" name='telefono' [(ngModel)]="datos.usuario.telefono">
+              <input matInput placeholder="Teléfono" name='telefono' [(ngModel)]="datos.usuario.telefonos[0].tipo">
             </mat-form-field>
             <mat-form-field>
               <input matInput placeholder="Dirección" name='direccion' [(ngModel)]="datos.usuario.direccion">

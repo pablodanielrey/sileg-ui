@@ -14,6 +14,7 @@ export class DatosSileg {
   constructor(o:Object) {
     try {
       Object.assign(this, o);
+      this.usuario = (this.usuario == null) ? null : new Usuario(this.usuario);
     } catch(e) {
       console.log(e);
     }
