@@ -104,7 +104,15 @@
                   "with": "src/environments/environment.presi.ts"
                 }
               ]
-            }
+            },
+            "local-vs": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.vs.ts"
+                }
+              ]
+            }            
           }
         },
         "serve": {
@@ -127,6 +135,9 @@
             },
             "local-presi": {
               "browserTarget": "sileg:build:local-presi"
+            },
+            "local-vs": {
+              "browserTarget": "sileg:build:local-vs"
             }
           }
         },
