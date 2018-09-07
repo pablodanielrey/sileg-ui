@@ -15,4 +15,6 @@ export const environment = {
   menuFooter: '  DiTeSI | Dirección de Tecnologías y Sistemas Informáticos | FCE',
 
   pantallaPrincipalLogo: '/assets/img/logo_gelis_fce.png',
+
+  lugar: 'econo',
 };

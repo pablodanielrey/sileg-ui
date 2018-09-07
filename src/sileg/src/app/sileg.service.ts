@@ -135,6 +135,11 @@ export class SilegService {
     return this.http.delete<string>(apiUrl);
   }
 
+  eliminarTelefono(uid:string, tid:string):Observable<string> {
+    let apiUrl = `${SILEG_API_URL}/usuarios/${uid}/telefonos/${tid}`;
+    return this.http.delete<string>(apiUrl);
+  }
+
   eliminarDesignacion(id: string): Observable<any> {
     let apiUrl = `${SILEG_API_URL}/designacion/${id}`;
     return this.http.delete<any>(apiUrl);

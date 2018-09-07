@@ -25,6 +25,15 @@ export class Mail {
   creado: string;
 }
 
+export class Telefono {
+  id: string;
+  usuario_id: string;
+  numero: string;
+  tipo: string;
+  actualizado: string;
+  creado: string;
+}
+
 export class Usuario {
 
   id: string = null;
@@ -38,8 +47,7 @@ export class Usuario {
   legajo: string = null;
   claves: Array<Clave>;
   mails: Array<Mail>;
-  telefono: string= null;
-  telefonos: Array<any> = [];
+  telefonos: Array<Telefono>;
   pais: string= null;
   ciudad: string= null;
   direccion: string= null;
@@ -50,8 +58,6 @@ export class Usuario {
       Object.assign(this, o);
       this.creado = (this.creado == null ? null : new Date(this.creado));
       this.actualizado = (this.actualizado == null ? null : new Date(this.actualizado));
-      this.telefonos = (this.telefonos.length < 1) ? [{'tipo':'', 'numero':''}] : this.telefonos;
-      this.telefono = this.telefonos[0].tipo;
     } catch(e) {
       console.log(e);
     }

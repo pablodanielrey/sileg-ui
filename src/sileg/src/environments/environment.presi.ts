@@ -15,4 +15,5 @@ export const environment = {
   menuFooter: 'Dirección General de Personal | Presidencia | UNLP',
 
   pantallaPrincipalLogo: '/assets/img/logo_gelis_unlp.png',
+  lugar: 'presi',
 };
