@@ -59,12 +59,23 @@ export class DetalleUsuarioComponent implements OnInit {
           como el telefono fijo y movil se mantienen en distintas variables las mapeamos aca:
         */
         datos.usuario.telefonos.forEach(t => {
-          if (t.tipo == 'fijo' && t.eliminado == null) {
+          /*if (t.tipo == 'fijo' && t.eliminado == null) {
             this.telefono_fijo = t;
-          };
+          }
           if (t.tipo == 'movil' && t.eliminado == null) {
             this.telefono_movil = t;
-          };
+          }
+          */
+         /* TODO: Arreglar esta asquerosidad URGENTE */
+         if (t.eliminado == null){
+           if (t.tipo == 'fijo'){
+             this.telefono_fijo = t;
+           }else{
+             if (t.tipo == 'movil'){
+               this.telefono_movil = t;
+             }
+           }
+          }
         });
         console.log(this.datos);
       },
@@ -130,10 +141,6 @@ export class DetalleUsuarioComponent implements OnInit {
 
   chequearLugar(c: string): boolean {
     return (this.lugar == c) ? true : false;
-  }
-
-  noEstaEliminado(tipo: string): boolean {
-    return (tipo == 'eliminado') ? false : true;
   }
 
 }
