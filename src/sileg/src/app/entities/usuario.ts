@@ -32,6 +32,7 @@ export class Telefono {
   tipo: string;
   actualizado: string;
   creado: string;
+  eliminado: string;
 }
 
 export class Usuario {

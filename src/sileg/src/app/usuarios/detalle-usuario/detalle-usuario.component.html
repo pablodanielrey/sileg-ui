@@ -41,6 +41,22 @@
             <mat-form-field>
               <input matInput placeholder="País" name='pais' [(ngModel)]="datos.usuario.pais">
             </mat-form-field>
+
+
+            <mat-form-field class="ContenedorCorreos">
+                <input matInput placeholder="Teléfono Fijo" name='telefono_fijo' value="{{telefono_fijo.numero}}">
+                <button  mat-button (click)='eliminarTelefono(telefono_fijo)' [disabled]='telefono_fijo == null' matSuffix>
+                  <mat-icon aria-label="Eliminar teléfono">delete</mat-icon>
+                </button>
+            </mat-form-field>
+            <mat-form-field class="ContenedorCorreos">
+                <input matInput placeholder="Teléfono Celular" name='telefono_movil' value="{{telefono_movil.numero}}">
+                <button  mat-button (click)='eliminarTelefono(telefono_movil)' [disabled]='telefono_movil == null' matSuffix>
+                  <mat-icon aria-label="Eliminar teléfono">delete</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <!--
             <div *ngFor='let m of datos.usuario.telefonos'>
               <div *ngIf="noEstaEliminado(m.tipo)">
                 <mat-form-field class="ContenedorCorreos">
@@ -51,7 +67,9 @@
                 </mat-form-field>
               </div>
             </div>
-        </form>
+            -->
+
+          </form>
 
             <div *ngFor='let m of datos.usuario.mails'>
               <div *ngIf='eliminados ? true : m.eliminado == null'>

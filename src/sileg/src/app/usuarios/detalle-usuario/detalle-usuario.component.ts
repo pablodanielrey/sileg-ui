@@ -29,6 +29,8 @@ export class DetalleUsuarioComponent implements OnInit {
   subscriptions: any[] = [];
   cargando: boolean = false;
 
+  telefono_fijo: Telefono = null;
+  telefono_movil: Telefono = null;
 
   generos: Generos[] = [
     {value: 'm', viewValue: 'Masculino'},
@@ -51,6 +53,19 @@ export class DetalleUsuarioComponent implements OnInit {
       datos => {
         this.cargando = false;
         this.datos = datos;
+
+        /*
+          TODO: hack HORRBILE!!!
+          como el telefono fijo y movil se mantienen en distintas variables las mapeamos aca:
+        */
+        datos.usuario.telefonos.forEach(t => {
+          if (t.tipo == 'fijo' && t.eliminado == null) {
+            this.telefono_fijo = t;
+          };
+          if (t.tipo == 'movil' && t.eliminado == null) {
+            this.telefono_movil = t;
+          };
+        });
         console.log(this.datos);
       },
       err => {
