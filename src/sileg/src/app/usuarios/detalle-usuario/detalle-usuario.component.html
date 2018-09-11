@@ -43,17 +43,17 @@
             </mat-form-field>
             <mat-form-field>
               <input matInput placeholder="Teléfono Fijo" name='telefono_fijo' value="{{telefono_fijo.numero}}">
-                <button  mat-button (click)='eliminarTelefono(telefono_fijo)' [disabled]='telefono_fijo == null' matSuffix>
+                <button  mat-button (click)='eliminarTelefono(telefono_fijo)' [disabled]='telefono_fijo.eliminado == "eliminado"' matSuffix>
                   <mat-icon aria-label="Eliminar teléfono">delete</mat-icon>
                 </button>
             </mat-form-field>
             <mat-form-field>
               <input matInput placeholder="Teléfono Celular" name='telefono_movil' value="{{telefono_movil.numero}}">
-                <button  mat-button (click)='eliminarTelefono(telefono_movil)' [disabled]='telefono_movil == null' matSuffix>
+                <button  mat-button (click)='eliminarTelefono(telefono_movil)' [disabled]='telefono_movil.eliminado == "eliminado"' matSuffix>
                   <mat-icon aria-label="Eliminar teléfono">delete</mat-icon>
                 </button>
             </mat-form-field>
-            
+
             <!--
             <div *ngFor='let m of datos.usuario.telefonos'>
               <div *ngIf="noEstaEliminado(m.tipo)">

@@ -59,25 +59,26 @@ export class DetalleUsuarioComponent implements OnInit {
           como el telefono fijo y movil se mantienen en distintas variables las mapeamos aca:
         */
         datos.usuario.telefonos.forEach(t => {
-          /*if (t.tipo == 'fijo' && t.eliminado == null) {
-            this.telefono_fijo = t;
-          }
-          if (t.tipo == 'movil' && t.eliminado == null) {
-            this.telefono_movil = t;
-          }
-          */
-         /* TODO: Arreglar esta asquerosidad URGENTE */
-         if (t.eliminado == null){
-           if (t.tipo == 'fijo'){
-             this.telefono_fijo = t;
-           }else{
-             if (t.tipo == 'movil'){
-               this.telefono_movil = t;
-             }
-           }
+          if (t.eliminado == null){
+            if (t.tipo == 'fijo'){
+              this.telefono_fijo = t;
+            }
+            if (t.tipo == 'movil'){
+              this.telefono_movil = t;
+            }
+          }else{
+            if (t.tipo == 'fijo' && this.telefono_fijo == null){
+              this.telefono_fijo = new Telefono;
+              this.telefono_fijo.numero = '';
+              this.telefono_fijo.eliminado = 'eliminado';
+            }
+            if (t.tipo == 'movil' && this.telefono_movil == null){
+              this.telefono_movil = new Telefono;
+              this.telefono_movil.numero = ''
+              this.telefono_movil.eliminado = 'eliminado';
+            }
           }
         });
-        console.log(this.datos);
       },
       err => {
         this.cargando = false;
