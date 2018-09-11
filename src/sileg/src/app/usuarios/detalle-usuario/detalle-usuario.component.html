@@ -26,12 +26,16 @@
               <input matInput placeholder="Legajo" name='legajo' [(ngModel)]="datos.usuario.legajo">
             </mat-form-field>
             <mat-form-field>
+              <input matInput type="date" placeholder="Nacimiento" name='nacimiento' [(ngModel)]="datos.usuario.nacimiento">
+            </mat-form-field>
+            <mat-form-field>
               <mat-select placeholder="Genero" name='genero' [(ngModel)]="datos.usuario.genero">
                 <mat-option *ngFor="let genero of generos" [value]="genero.value">
                     {{genero.viewValue}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
+            <br>
             <mat-form-field>
               <input matInput placeholder="Dirección" name='direccion' [(ngModel)]="datos.usuario.direccion">
             </mat-form-field>
@@ -41,6 +45,7 @@
             <mat-form-field>
               <input matInput placeholder="País" name='pais' [(ngModel)]="datos.usuario.pais">
             </mat-form-field>
+            <mat-divider></mat-divider>
             <mat-form-field>
               <input matInput placeholder="Teléfono Fijo" name='telefono_fijo' value="{{telefono_fijo.numero}}">
                 <button  mat-button (click)='eliminarTelefono(telefono_fijo)' [disabled]='telefono_fijo.eliminado == "eliminado"' matSuffix>
@@ -53,7 +58,8 @@
                   <mat-icon aria-label="Eliminar teléfono">delete</mat-icon>
                 </button>
             </mat-form-field>
-
+            <mat-divider></mat-divider>
+            <br>
             <!--
             <div *ngFor='let m of datos.usuario.telefonos'>
               <div *ngIf="noEstaEliminado(m.tipo)">
@@ -66,7 +72,6 @@
               </div>
             </div>
             -->
-
           </form>
 
             <div *ngFor='let m of datos.usuario.mails'>
@@ -105,9 +110,8 @@
         <!-- <button mat-button class="btn" routerLink='/usuario/usuario/{{datos.usuario.id}}/generar-desig' [disabled]='tieneDesignacion()'><mat-icon>add</mat-icon> CREAR DESIGNACIÓN</button> -->
         <button *ngIf="chequearLugar('econo')" mat-button class="btn" routerLink='./crear-correo' [disabled]='!tieneDesignacion()'><mat-icon>add</mat-icon> CREAR CORREO ECONO</button>
         <button *ngIf="chequearLugar('presi')" mat-button class="btn" routerLink='./agregar-correo'> <mat-icon>add</mat-icon> AGREGAR CORREO</button>
-        <button *ngIf="chequearLugar('presi')" mat-button class="btn" routerLink='./agregar-telefono'> <mat-icon>add</mat-icon> AGREGAR TELEFONO</button>
-        <button mat-button class="btn" *ngIf="!eliminados" (click)='eliminados = !eliminados' value='{{eliminados}}'><mat-icon>add</mat-icon> VER CORREOS ELIMINADOS</button>
-        <button mat-button class="btn" *ngIf="eliminados" (click)='eliminados = !eliminados' value='{{eliminados}}'><mat-icon>remove</mat-icon> OCULTAR CORREOS ELIMINADOS</button>
+        <button mat-button class="btn" *ngIf="!eliminados && chequearLugar('econo')" (click)='eliminados = !eliminados' value='{{eliminados}}'><mat-icon>add</mat-icon> VER CORREOS ELIMINADOS</button>
+        <button mat-button class="btn" *ngIf="eliminados && chequearLugar('econo')" (click)='eliminados = !eliminados' value='{{eliminados}}'><mat-icon>remove</mat-icon> OCULTAR CORREOS ELIMINADOS</button>
 
         <button mat-button class="btnGuardar" (click)='actualizarDatos()'> GUARDAR CAMBIOS</button>
 

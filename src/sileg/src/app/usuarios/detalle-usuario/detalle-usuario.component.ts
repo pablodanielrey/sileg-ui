@@ -33,6 +33,7 @@ export class DetalleUsuarioComponent implements OnInit {
   telefono_movil: Telefono = null;
 
   generos: Generos[] = [
+    /*{value: '',  viewValue: 'Seleccione...'},*/
     {value: 'm', viewValue: 'Masculino'},
     {value: 'f', viewValue: 'Femenino'},
     {value: 'o', viewValue: 'Otro'}
@@ -43,6 +44,8 @@ export class DetalleUsuarioComponent implements OnInit {
               private notificaciones: NotificacionesService,
               private service: SilegService) {
               this.lugar = environment.lugar;
+              this.telefono_fijo = new Telefono; this.telefono_fijo.eliminado= 'eliminado'; this.telefono_fijo.numero = '';
+              this.telefono_movil = new Telefono; this.telefono_movil.eliminado = 'eliminado'; this.telefono_movil.numero = ''; 
   }
 
   ngOnInit() {
@@ -53,7 +56,7 @@ export class DetalleUsuarioComponent implements OnInit {
       datos => {
         this.cargando = false;
         this.datos = datos;
-
+        console.log(this.datos);
         /*
           TODO: hack HORRBILE!!!
           como el telefono fijo y movil se mantienen en distintas variables las mapeamos aca:
@@ -65,17 +68,6 @@ export class DetalleUsuarioComponent implements OnInit {
             }
             if (t.tipo == 'movil'){
               this.telefono_movil = t;
-            }
-          }else{
-            if (t.tipo == 'fijo' && this.telefono_fijo == null){
-              this.telefono_fijo = new Telefono;
-              this.telefono_fijo.numero = '';
-              this.telefono_fijo.eliminado = 'eliminado';
-            }
-            if (t.tipo == 'movil' && this.telefono_movil == null){
-              this.telefono_movil = new Telefono;
-              this.telefono_movil.numero = ''
-              this.telefono_movil.eliminado = 'eliminado';
             }
           }
         });
