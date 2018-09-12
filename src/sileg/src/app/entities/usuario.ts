@@ -26,13 +26,13 @@ export class Mail {
 }
 
 export class Telefono {
-  id: string;
-  usuario_id: string;
-  numero: string;
-  tipo: string;
-  actualizado: string;
-  creado: string;
-  eliminado: string;
+  id: string = null;
+  usuario_id: string = null;
+  numero: string = null;
+  tipo: string = null;
+  actualizado: string = null;
+  creado: string = null;
+  eliminado: string = null;
 }
 
 export class Usuario {
@@ -52,6 +52,7 @@ export class Usuario {
   pais: string= null;
   ciudad: string= null;
   direccion: string= null;
+  nacimiento: Date = null;
 
   constructor(o:Object) {
     console.log("const usuarios");
@@ -59,6 +60,7 @@ export class Usuario {
       Object.assign(this, o);
       this.creado = (this.creado == null ? null : new Date(this.creado));
       this.actualizado = (this.actualizado == null ? null : new Date(this.actualizado));
+      this.nacimiento = (this.nacimiento == null ? null: new Date(this.nacimiento));
     } catch(e) {
       console.log(e);
     }

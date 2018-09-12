@@ -21,7 +21,7 @@ export interface Generos {
 })
 export class DetalleUsuarioComponent implements OnInit {
 
-  lugar: string;
+  lugar: string = environment.lugar;
   usuario_id: string = null;
   datos: DatosSileg = null;
   designaciones: Designacion[] = null;
@@ -32,8 +32,10 @@ export class DetalleUsuarioComponent implements OnInit {
   telefono_fijo: Telefono = null;
   telefono_movil: Telefono = null;
 
+  minDate: Date = new Date(1900, 0, 1);
+  maxDate: Date = new Date();
+
   generos: Generos[] = [
-    /*{value: '',  viewValue: 'Seleccione...'},*/
     {value: 'm', viewValue: 'Masculino'},
     {value: 'f', viewValue: 'Femenino'},
     {value: 'o', viewValue: 'Otro'}
@@ -43,10 +45,70 @@ export class DetalleUsuarioComponent implements OnInit {
               private location: Location,
               private notificaciones: NotificacionesService,
               private service: SilegService) {
-              this.lugar = environment.lugar;
-              this.telefono_fijo = new Telefono; this.telefono_fijo.eliminado= 'eliminado'; this.telefono_fijo.numero = '';
-              this.telefono_movil = new Telefono; this.telefono_movil.eliminado = 'eliminado'; this.telefono_movil.numero = ''; 
   }
+
+  mostrarEliminarTelefono(t:Telefono) {
+    if (t.id == null) {
+      return false;
+    } else {
+      return t.eliminado == null;
+    }
+  }
+
+  _copiarTelefono(t:Telefono) {
+    let t1 = new Telefono();
+    Object.assign(t1,t);
+    return t1;
+  }
+
+  /*
+    Analizar solución final del tema de datos personales.
+  */
+  inicializarTelefonos(usuario:Usuario) {
+    usuario.telefonos.forEach(t => {
+      if (t.eliminado == null){
+        if (t.tipo == 'fijo'){
+          this.telefono_fijo = this._copiarTelefono(t);
+        }
+        if (t.tipo == 'movil'){
+          this.telefono_movil = this._copiarTelefono(t);
+        }
+      }
+    });
+    if (this.telefono_fijo == null) {
+      this.telefono_fijo = new Telefono();
+      this.telefono_fijo.tipo = 'fijo';
+      this.telefono_fijo.usuario_id = usuario.id;
+    }
+    if (this.telefono_movil == null) {
+      this.telefono_movil = new Telefono();
+      this.telefono_movil.tipo = 'movil';
+      this.telefono_movil.usuario_id = usuario.id;
+    }
+
+  }
+
+  procesarTelefonosUsuario(usuario:Usuario) {
+    let fm = false;
+    let mm = false;
+    usuario.telefonos.forEach(t => {
+      if (t.tipo == 'fijo' && t.eliminado == null && t.numero != this.telefono_fijo.numero) {
+        fm = true;
+      }
+      if (t.tipo == 'movil' && t.eliminado == null && t.numero != this.telefono_fijo.numero) {
+        mm = true;
+      }
+    });
+
+    if (fm) {
+      usuario.telefonos.push(this.telefono_fijo);
+    }
+    if (mm) {
+      usuario.telefonos.push(this.telefono_movil);
+    }
+
+  }
+
 
   ngOnInit() {
     this.usuario_id = this.route.snapshot.paramMap.get('id');
@@ -56,21 +118,17 @@ export class DetalleUsuarioComponent implements OnInit {
       datos => {
         this.cargando = false;
         this.datos = datos;
-        console.log(this.datos);
+        /* Correccion de problema de fecha mostrada en datepicker*/
+        if (datos.usuario.nacimiento != null){
+          let a= new Date(datos.usuario.nacimiento);
+          a.setMinutes(a.getMinutes()+a.getTimezoneOffset());
+          this.datos.usuario.nacimiento = a;
+        }
         /*
           TODO: hack HORRBILE!!!
           como el telefono fijo y movil se mantienen en distintas variables las mapeamos aca:
         */
-        datos.usuario.telefonos.forEach(t => {
-          if (t.eliminado == null){
-            if (t.tipo == 'fijo'){
-              this.telefono_fijo = t;
-            }
-            if (t.tipo == 'movil'){
-              this.telefono_movil = t;
-            }
-          }
-        });
+        this.inicializarTelefonos(datos.usuario);
       },
       err => {
         this.cargando = false;
@@ -100,6 +158,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
   actualizarDatos(): void {
     this.cargando = true;
+    this.procesarTelefonosUsuario(this.datos.usuario);
     this.service.actualizarDatos(this.datos.usuario).subscribe(
       res => { this.cargando = false; this.notificaciones.show('Los datos han sidos guardados correctamente'); },
       err => { this.cargando = false; this.notificaciones.show(err.message); }
