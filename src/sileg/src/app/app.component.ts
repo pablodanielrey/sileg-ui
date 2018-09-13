@@ -8,8 +8,6 @@ import { environment } from '../environments/environment';
 export const authConfig: AuthConfig = {
   issuer: environment.oidp_issuer,
   redirectUri: window.location.origin,
-  userinfoEndpoint: environment.userinfoEndpoint,
-  loginUrl: environment.loginUrl,
   logoutUrl: environment.logoutUrl,
   oidc: true,
   requireHttps: false,
@@ -73,9 +71,11 @@ export class AppComponent {
         console.debug('oauth/oidc event', e);
     })
     console.log('tratando de loguearme');
-    this.oauthService.tryLogin().then(() => {
+    this.oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
       if (this.oauthService.getAccessToken() == null) {
         this.router.navigate(['/loader']);
+      } else {
+        this.router.navigate(['/sistema/inicial']);
       }
     });
   }

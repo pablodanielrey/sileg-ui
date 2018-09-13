@@ -10,14 +10,11 @@ import { Http } from '@angular/http'
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 
-
-
-
-
 import { Mail, Usuario, ResetClave } from './entities/usuario';
 import { Sileg, DatosSileg, Lugar, PedidoDesignacion, Designacion, Cargo, DatosLugarDesignaciones } from './entities/sileg';
 
 const SILEG_API_URL = environment.silegApiUrl;
+const USUARIO_API_URL = environment.usuarioApiUrl;
 
 @Injectable()
 export class SilegService {
@@ -25,15 +22,23 @@ export class SilegService {
   //usuarios: Usuario[] = [];
   constructor(private http: HttpClient) { }
 
-  obtenerAccesoModulos(): Observable<string[]> {
-    let apiUrl = `${SILEG_API_URL}/acceso_modulos`;
-    return this.http.get<string[]>(apiUrl);
-  }
 
   buscarUsuario(uid:string): Observable<DatosSileg> {
     let apiUrl = `${SILEG_API_URL}/usuarios/${uid}`;
     return this.http.get<DatosSileg>(apiUrl).pipe(map(datos => new DatosSileg(datos)));
   }
+
+
+
+
+
+
+  obtenerAccesoModulos(): Observable<string[]> {
+    let apiUrl = `${SILEG_API_URL}/acceso_modulos`;
+    return this.http.get<string[]>(apiUrl);
+  }
+
+
 
   buscarDesignaciones(uid:string): Observable<Designacion[]> {
     let apiUrl = `${SILEG_API_URL}/usuarios/${uid}/designaciones`;
