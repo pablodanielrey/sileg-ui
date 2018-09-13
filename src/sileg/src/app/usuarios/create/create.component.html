@@ -37,7 +37,31 @@
                   <input matInput type='text'  placeholder="Legajo" name='legajo' [(ngModel)]='usuario.legajo'/>
                 </mat-form-field>
                 <mat-form-field>
-                  <input matInput type='text'  placeholder="Género" name='genero' [(ngModel)]='usuario.genero'/>
+                  <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="nac" placeholder="Nacimiento" name='nacimiento' [(ngModel)]="usuario.nacimiento" disabled>
+                  <mat-datepicker-toggle matSuffix [for]="nac"></mat-datepicker-toggle>
+                  <mat-datepicker #nac disabled="false"></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-select placeholder="Genero" name='genero' [(ngModel)]="usuario.genero">
+                    <mat-option *ngFor="let genero of generos" [value]="genero.value">
+                        {{genero.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput placeholder="Dirección" name='direccion' [(ngModel)]="usuario.direccion">
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput placeholder="Ciudad" name='ciudad' [(ngModel)]="usuario.ciudad">
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput placeholder="País" name='pais' [(ngModel)]="usuario.pais">
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput placeholder="Teléfono Fijo" name='telefono_fijo.numero' [(ngModel)]="telefono_fijo.numero">
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput placeholder="Teléfono Celular" name='telefono_movil.numero' [(ngModel)]="telefono_movil.numero">
                 </mat-form-field>
               </form>
 
