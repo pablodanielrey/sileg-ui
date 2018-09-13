@@ -25,13 +25,13 @@
 
               <form *ngIf='usuario' class="contentDetailUSer">
                 <mat-form-field>
-                  <input matInput type='text'  placeholder="Nombre" name='nombre' [(ngModel)]='usuario.nombre'/>
+                  <input matInput required type='text'  placeholder="Nombre" name='nombre' [(ngModel)]='usuario.nombre'/>
                 </mat-form-field>
                 <mat-form-field>
-                  <input matInput type='text'  placeholder="Apellido" name='apellido' [(ngModel)]='usuario.apellido'/>
+                  <input matInput required type='text'  placeholder="Apellido" name='apellido' [(ngModel)]='usuario.apellido'/>
                 </mat-form-field>
                 <mat-form-field>
-                  <input matInput type='text'  placeholder="DNI" name='dni' [(ngModel)]='usuario.dni'/>
+                  <input matInput required type='text'  placeholder="DNI" name='dni' [(ngModel)]='usuario.dni'/>
                 </mat-form-field>
                 <mat-form-field>
                   <input matInput type='text'  placeholder="Legajo" name='legajo' [(ngModel)]='usuario.legajo'/>

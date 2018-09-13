@@ -33,6 +33,16 @@ export class Telefono {
   actualizado: string = null;
   creado: string = null;
   eliminado: string = null;
+  nuevo: boolean = false;
+
+
+  constructor(o:Object) {
+    try {
+      Object.assign(this, o);
+    } catch(e) {
+      console.log(e);
+    }
+  }  
 }
 
 export class Usuario {
@@ -61,6 +71,7 @@ export class Usuario {
       this.creado = (this.creado == null ? null : new Date(this.creado));
       this.actualizado = (this.actualizado == null ? null : new Date(this.actualizado));
       this.nacimiento = (this.nacimiento == null ? null: new Date(this.nacimiento));
+      this.telefonos = (this.telefonos == null) ? []: this.telefonos.map(t => new Telefono(t));
     } catch(e) {
       console.log(e);
     }

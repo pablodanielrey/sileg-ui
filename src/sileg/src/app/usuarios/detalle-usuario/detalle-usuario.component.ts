@@ -55,55 +55,48 @@ export class DetalleUsuarioComponent implements OnInit {
     }
   }
 
-  _copiarTelefono(t:Telefono) {
-    let t1 = new Telefono();
-    Object.assign(t1,t);
-    return t1;
-  }
-
   /*
     Analizar solución final del tema de datos personales.
   */
   inicializarTelefonos(usuario:Usuario) {
     usuario.telefonos.forEach(t => {
-      if (t.eliminado == null){
+      if (t.eliminado == null) {        
         if (t.tipo == 'fijo'){
-          this.telefono_fijo = this._copiarTelefono(t);
+          this.telefono_fijo = new Telefono(t);
         }
         if (t.tipo == 'movil'){
-          this.telefono_movil = this._copiarTelefono(t);
+          this.telefono_movil = new Telefono(t);
         }
       }
     });
     if (this.telefono_fijo == null) {
-      this.telefono_fijo = new Telefono();
-      this.telefono_fijo.tipo = 'fijo';
-      this.telefono_fijo.usuario_id = usuario.id;
+      this.telefono_fijo = new Telefono({'tipo': 'fijo', 'usuario_id': usuario.id, 'nuevo': true});
     }
     if (this.telefono_movil == null) {
-      this.telefono_movil = new Telefono();
-      this.telefono_movil.tipo = 'movil';
-      this.telefono_movil.usuario_id = usuario.id;
+      this.telefono_movil = new Telefono({'tipo': 'movil', 'usuario_id': usuario.id, 'nuevo': true});
     }
 
   }
 
   procesarTelefonosUsuario(usuario:Usuario) {
-    let fm = false;
-    let mm = false;
+    let fm = this.telefono_fijo.nuevo;
+    let mm = this.telefono_movil.nuevo;
     usuario.telefonos.forEach(t => {
-      if (t.tipo == 'fijo' && t.eliminado == null && t.numero != this.telefono_fijo.numero) {
+      
+      if (!fm && t.tipo == 'fijo' && t.eliminado == null && t.numero != this.telefono_fijo.numero ) {
         fm = true;
       }
-      if (t.tipo == 'movil' && t.eliminado == null && t.numero != this.telefono_fijo.numero) {
+      if (!mm && t.tipo == 'movil' && t.eliminado == null && t.numero != this.telefono_movil.numero) {
         mm = true;
       }
     });
 
-    if (fm) {
+    if (fm && this.telefono_fijo.numero.trim() != "") {
+      this.telefono_fijo.id = null;
       usuario.telefonos.push(this.telefono_fijo);
     }
-    if (mm) {
+    if (mm && this.telefono_movil.numero.trim() != "") {
+      this.telefono_movil.id = null;
       usuario.telefonos.push(this.telefono_movil);
     }
 
@@ -113,7 +106,6 @@ export class DetalleUsuarioComponent implements OnInit {
   ngOnInit() {
     this.usuario_id = this.route.snapshot.paramMap.get('id');
     this.cargando = true;
-
     this.subscriptions.push(this.service.buscarUsuario(this.usuario_id).subscribe(
       datos => {
         this.cargando = false;
@@ -144,7 +136,6 @@ export class DetalleUsuarioComponent implements OnInit {
         this.notificaciones.show(err.message)
       }
     ));
-
   }
 
   ngOnDestroy() {

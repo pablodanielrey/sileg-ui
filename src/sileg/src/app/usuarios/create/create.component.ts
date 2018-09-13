@@ -45,8 +45,8 @@ export class CreateComponent implements OnInit {
   ngOnInit() {
     this.usuario = new Usuario({});
     this.mensaje = null;
-    this.telefono_fijo = new Telefono();
-    this.telefono_movil = new Telefono();
+    this.telefono_fijo = new Telefono({});
+    this.telefono_movil = new Telefono({});
   }
 
   _agregarTelefonos(): void {
