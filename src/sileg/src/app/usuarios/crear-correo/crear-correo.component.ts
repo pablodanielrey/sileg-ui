@@ -28,7 +28,7 @@ export class CrearCorreoComponent implements OnInit {
     this.usuario_id = this.route.snapshot.paramMap.get('id');
     this.subscriptions.push(this.service.buscarUsuario(this.usuario_id).subscribe(
       usuario => {
-        this.usuarioSeleccionado = usuario.usuario;
+        this.usuarioSeleccionado = usuario;
         //this.correo = usuario.usuario.nombre.toLowerCase().replace(' ','.') + '.' + usuario.usuario.apellido.toLowerCase().replace(' ','') + '@econo.unlp.edu.ar';
         console.log(usuario);
       }));

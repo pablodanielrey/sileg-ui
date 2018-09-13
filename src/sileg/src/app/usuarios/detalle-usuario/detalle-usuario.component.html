@@ -10,29 +10,29 @@
 
   <div class="contenidoPantalla">
 
-      <div *ngIf='datos' class="detalle-de-usuario">
+      <div *ngIf='usuario' class="detalle-de-usuario">
 
         <form class="contentDetailUSer">
             <mat-form-field>
-              <input matInput placeholder="Nombre" name='nombre' [(ngModel)]="datos.usuario.nombre">
+              <input matInput placeholder="Nombre" name='nombre' [(ngModel)]="usuario.nombre">
             </mat-form-field>
             <mat-form-field>
-              <input matInput placeholder="Apellido" name='apellido' [(ngModel)]="datos.usuario.apellido">
+              <input matInput placeholder="Apellido" name='apellido' [(ngModel)]="usuario.apellido">
             </mat-form-field>
             <mat-form-field>
-              <input matInput readonly placeholder="DNI" value="{{datos.usuario.dni}}">
+              <input matInput readonly placeholder="DNI" value="{{usuario.dni}}">
             </mat-form-field>
             <mat-form-field>
-              <input matInput placeholder="Legajo" name='legajo' [(ngModel)]="datos.usuario.legajo">
+              <input matInput placeholder="Legajo" name='legajo' [(ngModel)]="usuario.legajo">
             </mat-form-field>
             <mat-form-field>
-              <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="nac" placeholder="Nacimiento" name='nacimiento' [(ngModel)]="datos.usuario.nacimiento" disabled>
+              <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="nac" placeholder="Nacimiento" name='nacimiento' [(ngModel)]="usuario.nacimiento" disabled>
               <mat-datepicker-toggle matSuffix [for]="nac"></mat-datepicker-toggle>
               <mat-datepicker #nac disabled="false"></mat-datepicker>
             </mat-form-field>
             <br>
             <mat-form-field>
-              <mat-select placeholder="Genero" name='genero' [(ngModel)]="datos.usuario.genero">
+              <mat-select placeholder="Genero" name='genero' [(ngModel)]="usuario.genero">
                 <mat-option *ngFor="let genero of generos" [value]="genero.value">
                     {{genero.viewValue}}
                 </mat-option>
@@ -40,28 +40,16 @@
             </mat-form-field>
             <br>
             <mat-form-field>
-              <input matInput placeholder="Dirección" name='direccion' [(ngModel)]="datos.usuario.direccion">
+              <input matInput placeholder="Dirección" name='direccion' [(ngModel)]="usuario.direccion">
             </mat-form-field>
             <mat-form-field>
-              <input matInput placeholder="Ciudad" name='ciudad' [(ngModel)]="datos.usuario.ciudad">
+              <input matInput placeholder="Ciudad" name='ciudad' [(ngModel)]="usuario.ciudad">
             </mat-form-field>
             <mat-form-field>
-              <input matInput placeholder="País" name='pais' [(ngModel)]="datos.usuario.pais">
+              <input matInput placeholder="País" name='pais' [(ngModel)]="usuario.pais">
             </mat-form-field>
             <mat-divider></mat-divider>
            
-            <!--
-            <div *ngFor='let m of datos.usuario.telefonos'>
-              <div *ngIf="noEstaEliminado(m.tipo)">
-                <mat-form-field class="ContenedorCorreos">
-                  <input matInput placeholder="Teléfono" name='telefono' value="{{m.numero}}">
-                  <button  mat-button (click)='eliminarTelefono(m)' [disabled]='m.tipo != null' matSuffix>
-                    <mat-icon aria-label="Eliminar teléfono">delete</mat-icon>
-                  </button>
-                </mat-form-field>
-              </div>
-            </div>
-            -->
           </form>
           <mat-form-field *ngIf='telefono_fijo'>
             <input matInput placeholder="Teléfono Fijo" name='telefono_fijo' [(ngModel)]="telefono_fijo.numero">
@@ -77,7 +65,7 @@
           </mat-form-field>
           <mat-divider></mat-divider>
           <br>
-            <div *ngFor='let m of datos.usuario.mails'>
+            <div *ngFor='let m of usuario.mails'>
               <div *ngIf='eliminados ? true : m.eliminado == null'>
                 <mat-form-field class="ContenedorCorreos">
                     <input type="email" matInput placeholder="Correo eléctronico" value="{{m.email}}">
@@ -106,11 +94,11 @@
 
 
 
-      <div *ngIf='datos' class="contenedorBotones">
+      <div *ngIf='usuario' class="contenedorBotones">
       <!-- <button (click)='crearClaveTemporal()'>Crear Clave Temporal</button> -->
 
         <button mat-button class="btn" routerLink="./reset-clave"><mat-icon>add</mat-icon> CREAR CLAVE TEMPORAL</button>
-        <!-- <button mat-button class="btn" routerLink='/usuario/usuario/{{datos.usuario.id}}/generar-desig' [disabled]='tieneDesignacion()'><mat-icon>add</mat-icon> CREAR DESIGNACIÓN</button> -->
+        <!-- <button mat-button class="btn" routerLink='/usuario/usuario/{{usuario.id}}/generar-desig' [disabled]='tieneDesignacion()'><mat-icon>add</mat-icon> CREAR DESIGNACIÓN</button> -->
         <button *ngIf="chequearLugar('econo')" mat-button class="btn" routerLink='./crear-correo' [disabled]='!tieneDesignacion()'><mat-icon>add</mat-icon> CREAR CORREO ECONO</button>
         <button *ngIf="chequearLugar('presi')" mat-button class="btn" routerLink='./agregar-correo'> <mat-icon>add</mat-icon> AGREGAR CORREO</button>
         <button mat-button class="btn" *ngIf="!eliminados && chequearLugar('econo')" (click)='eliminados = !eliminados' value='{{eliminados}}'><mat-icon>add</mat-icon> VER CORREOS ELIMINADOS</button>
@@ -119,7 +107,7 @@
         <button mat-button class="btnGuardar" (click)='actualizarDatos()'> GUARDAR CAMBIOS</button>
 
 
-      <!-- <button routerLink="/reset-clave/{{datos.sileg.id}}">Crear Clave Temporal</button>
+      <!-- <button routerLink="/reset-clave/{{sileg.id}}">Crear Clave Temporal</button>
       <button (click)='crearDesignacion()' [disabled]='tieneDesignacion()'>Crear Designacion</button>
       <button (click)='crearCorreo()' [disabled]='!tieneDesignacion() || tieneCorreoInstitucional()'>Crear Correo</button> -->
       </div>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { SilegService } from '../../sileg.service'
 import { Usuario } from '../../entities/usuario';
-import { DatosSileg, Sileg, PedidoDesignacion } from '../../entities/sileg';
+import { Sileg, PedidoDesignacion } from '../../entities/sileg';
 import { NotificacionesService } from '../../notificaciones.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -14,7 +14,7 @@ import { Location } from '@angular/common';
 })
 export class AgregarQuitarUsuariosComponent implements OnInit {
 
-  usuarios: Array<DatosSileg> = new Array<DatosSileg>();
+  usuarios: Array<Usuario> = new Array<Usuario>();
   subscriptions: any[] = [];
   id: string = "";
   cargando: boolean = false;

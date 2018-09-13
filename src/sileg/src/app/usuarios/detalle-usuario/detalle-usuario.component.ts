@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Usuario, Mail, Telefono } from '../../entities/usuario';
-import { DatosSileg, Sileg, Designacion } from '../../entities/sileg';
+import { Sileg, Designacion } from '../../entities/sileg';
 import { SilegService } from '../../sileg.service';
 import { NotificacionesService } from '../../notificaciones.service';
 
@@ -23,7 +23,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
   lugar: string = environment.lugar;
   usuario_id: string = null;
-  datos: DatosSileg = null;
+  usuario: Usuario = null;
   designaciones: Designacion[] = null;
   eliminados: boolean = false;
   subscriptions: any[] = [];
@@ -107,20 +107,20 @@ export class DetalleUsuarioComponent implements OnInit {
     this.usuario_id = this.route.snapshot.paramMap.get('id');
     this.cargando = true;
     this.subscriptions.push(this.service.buscarUsuario(this.usuario_id).subscribe(
-      datos => {
+      usuario => {
         this.cargando = false;
-        this.datos = datos;
+        this.usuario = usuario;
         /* Correccion de problema de fecha mostrada en datepicker*/
-        if (datos.usuario.nacimiento != null){
-          let a= new Date(datos.usuario.nacimiento);
+        if (usuario.nacimiento != null){
+          let a= new Date(usuario.nacimiento);
           a.setMinutes(a.getMinutes()+a.getTimezoneOffset());
-          this.datos.usuario.nacimiento = a;
+          this.usuario.nacimiento = a;
         }
         /*
           TODO: hack HORRBILE!!!
           como el telefono fijo y movil se mantienen en distintas variables las mapeamos aca:
         */
-        this.inicializarTelefonos(datos.usuario);
+        this.inicializarTelefonos(usuario);
       },
       err => {
         this.cargando = false;
@@ -149,8 +149,8 @@ export class DetalleUsuarioComponent implements OnInit {
 
   actualizarDatos(): void {
     this.cargando = true;
-    this.procesarTelefonosUsuario(this.datos.usuario);
-    this.service.actualizarDatos(this.datos.usuario).subscribe(
+    this.procesarTelefonosUsuario(this.usuario);
+    this.service.actualizarDatos(this.usuario).subscribe(
       res => { this.cargando = false; this.notificaciones.show('Los datos han sidos guardados correctamente'); },
       err => { this.cargando = false; this.notificaciones.show(err.message); }
     );
@@ -178,7 +178,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
   tieneCorreoInstitucional(): boolean {
     let encontrado: boolean = false;
-    this.datos.usuario.mails.forEach(m => { if (m.email.search('econo.unlp.edu.ar') != -1 && m.confirmado != null && m.eliminado == null) { encontrado = true } })
+    this.usuario.mails.forEach(m => { if (m.email.search('econo.unlp.edu.ar') != -1 && m.confirmado != null && m.eliminado == null) { encontrado = true } })
     return encontrado;
   }
 

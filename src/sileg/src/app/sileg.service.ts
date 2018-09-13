@@ -15,6 +15,7 @@ import { Sileg, DatosSileg, Lugar, PedidoDesignacion, Designacion, Cargo, DatosL
 
 const SILEG_API_URL = environment.silegApiUrl;
 const USUARIO_API_URL = environment.usuarioApiUrl;
+const LOGIN_API_URL = environment.loginApiUrl;
 
 @Injectable()
 export class SilegService {
@@ -22,10 +23,53 @@ export class SilegService {
   //usuarios: Usuario[] = [];
   constructor(private http: HttpClient) { }
 
+  buscarUsuario(uid:string): Observable<Usuario> {
+    let apiUrl = `${USUARIO_API_URL}/usuarios/${uid}`;
+    return this.http.get<Usuario>(apiUrl).pipe(map(datos => new Usuario(datos)));
+  }
 
-  buscarUsuario(uid:string): Observable<DatosSileg> {
-    let apiUrl = `${SILEG_API_URL}/usuarios/${uid}`;
-    return this.http.get<DatosSileg>(apiUrl).pipe(map(datos => new DatosSileg(datos)));
+  buscarUsuarios(texto:string): Observable<Usuario[]> {
+    const options = { params: new HttpParams()
+              .set('q', texto ? texto : 'algoquenoexiste')
+              //.set('limit', 10)
+              //.set('offset',0)
+          };
+    let apiUrl = `${USUARIO_API_URL}/usuarios`;
+    return this.http.get<Usuario[]>(apiUrl, options).pipe(map(datos => datos.map(d => new Usuario(d))));
+  }
+  crearUsuario(usuario: Usuario): Observable<any> {
+    let apiUrl = `${USUARIO_API_URL}/usuarios`;
+    return this.http.put<any>(apiUrl, usuario);
+  }
+
+  actualizarDatos(usuario: Usuario): Observable<any> {
+    let apiUrl = `${USUARIO_API_URL}/usuarios/${usuario.id}`;
+    return this.http.post<any>(apiUrl, usuario);
+  }
+
+  chequearDisponibilidadCorreo(cuenta:string): Observable<boolean> {
+    let apiUrl = `${USUARIO_API_URL}/correos/${cuenta}`;
+    return this.http.get<any>(apiUrl).pipe(map(res => res.existe));
+  }
+
+  generarClave(uid:string):Observable<ResetClave> {
+    let apiUrl = `${LOGIN_API_URL}/usuario/${uid}/generar_clave`;
+    return this.http.get<ResetClave>(apiUrl).pipe(map(res => new ResetClave(res)));
+  }
+
+  generarCorreo(uid: string, correo: string):Observable<any> {
+    let apiUrl = `${SILEG_API_URL}/usuarios/${uid}/correos`;
+    return this.http.post<any>(apiUrl, {'correo':correo});
+  }
+
+  eliminarCorreo(uid:string, cid:string):Observable<string> {
+    let apiUrl = `${SILEG_API_URL}/usuarios/${uid}/correos/${cid}`;
+    return this.http.delete<string>(apiUrl);
+  }
+
+  eliminarTelefono(uid:string, tid:string):Observable<string> {
+    let apiUrl = `${SILEG_API_URL}/usuarios/${uid}/telefonos/${tid}`;
+    return this.http.delete<string>(apiUrl);
   }
 
 
@@ -38,31 +82,9 @@ export class SilegService {
     return this.http.get<string[]>(apiUrl);
   }
 
-
-
   buscarDesignaciones(uid:string): Observable<Designacion[]> {
     let apiUrl = `${SILEG_API_URL}/usuarios/${uid}/designaciones`;
     return this.http.get<Designacion[]>(apiUrl).pipe(map(res => res.map(d => new Designacion(d))));
-  }
-
-  buscarUsuarios(texto:string): Observable<DatosSileg[]> {
-    const options = { params: new HttpParams()
-              .set('q', texto ? texto : 'algoquenoexiste')
-              //.set('limit', 10)
-              //.set('offset',0)
-          };
-    let apiUrl = `${SILEG_API_URL}/usuarios`;
-    return this.http.get<DatosSileg[]>(apiUrl, options).pipe(map(datos => datos.map(d => new DatosSileg(d))));
-  }
-
-  crearUsuario(usuario: Usuario): Observable<any> {
-    let apiUrl = `${SILEG_API_URL}/usuarios`;
-    return this.http.put<any>(apiUrl, usuario);
-  }
-
-  actualizarDatos(usuario: Usuario): Observable<any> {
-    let apiUrl = `${SILEG_API_URL}/usuarios/${usuario.id}`;
-    return this.http.post<any>(apiUrl, usuario);
   }
 
   buscarLugares(texto:string): Observable<Lugar[]> {
@@ -110,16 +132,6 @@ export class SilegService {
     return this.http.delete<any>(apiUrl);
   }
 
-  chequearDisponibilidadCorreo(cuenta:string): Observable<boolean> {
-    let apiUrl = `${SILEG_API_URL}/correo/${cuenta}`;
-    return this.http.get<any>(apiUrl).pipe(map(res => res.existe));
-  }
-
-  generarClave(uid:string):Observable<ResetClave> {
-    let apiUrl = `${SILEG_API_URL}/generar_clave/${uid}`;
-    return this.http.get<ResetClave>(apiUrl).pipe(map(res => new ResetClave(res)));
-  }
-
   generarDesignacion(pedido:PedidoDesignacion):Observable<any> {
     let apiUrl = `${SILEG_API_URL}/designacion`;
     return this.http.post<any>(apiUrl, pedido);
@@ -128,21 +140,6 @@ export class SilegService {
   generarDesignacionSinCorreo(pedido:PedidoDesignacion):Observable<any> {
     let apiUrl = `${SILEG_API_URL}/designacion-sin-correo`;
     return this.http.put<any>(apiUrl, pedido);
-  }
-
-  generarCorreo(uid: string, correo: string):Observable<any> {
-    let apiUrl = `${SILEG_API_URL}/usuarios/${uid}/correos`;
-    return this.http.post<any>(apiUrl, {'correo':correo});
-  }
-
-  eliminarCorreo(uid:string, cid:string):Observable<string> {
-    let apiUrl = `${SILEG_API_URL}/usuarios/${uid}/correos/${cid}`;
-    return this.http.delete<string>(apiUrl);
-  }
-
-  eliminarTelefono(uid:string, tid:string):Observable<string> {
-    let apiUrl = `${SILEG_API_URL}/usuarios/${uid}/telefonos/${tid}`;
-    return this.http.delete<string>(apiUrl);
   }
 
   eliminarDesignacion(id: string): Observable<any> {

@@ -4,7 +4,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { SilegService } from '../../sileg.service'
 
 import { Usuario } from '../../entities/usuario';
-import { DatosSileg, Sileg } from '../../entities/sileg';
+import { Sileg } from '../../entities/sileg';
 
 @Component({
   selector: 'app-seleccionar-usuario',
@@ -13,7 +13,7 @@ import { DatosSileg, Sileg } from '../../entities/sileg';
 })
 export class SeleccionarUsuarioComponent implements OnInit {
 
-  usuarios: DatosSileg[] = [];
+  usuarios: Usuario[] = [];
   busqueda:string = "";
   busquedaActivada: boolean = false;
   subscriptions: any[] = [];
