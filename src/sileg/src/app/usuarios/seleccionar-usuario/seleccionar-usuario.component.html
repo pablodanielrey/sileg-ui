@@ -23,11 +23,11 @@
 
 
       <mat-list>
-          <mat-list-item class="itemLista" *ngFor="let datos of usuarios" routerLink='../usuario/{{datos.usuario.id}}'>
+          <mat-list-item class="itemLista" *ngFor="let datos of usuarios" routerLink='../usuario/{{datos.id}}'>
             <img matListAvatar src="https://i.pinimg.com/originals/1d/52/88/1d528825423bbfc1fe82dde5c871962d.jpg">
-            <h3 matLine> {{datos.usuario.nombre }} {{datos.usuario.apellido}} </h3>
+            <h3 matLine> {{datos.nombre }} {{datos.apellido}} </h3>
             <p matLine>
-              <span class="itemTextoSubtitulo">{{datos.usuario.dni}}</span>
+              <span class="itemTextoSubtitulo">{{datos.dni}}</span>
             </p>
           </mat-list-item>
       </mat-list>

@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
 
 
   salir():void {
-    this.oauthService.logOut();
+    this.oauthService.logOut(false);
   }
 
 }
