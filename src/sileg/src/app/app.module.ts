@@ -1,12 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
 import { GlobalErrorHandler } from './error.handler';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { OAuthModule } from 'angular-oauth2-oidc';
-import { TokenInterceptor } from './auth.service';
+import { Oauth2Component } from './oauth2/oauth2.component';
+import { OidpGuard } from './oauth2/oidp.guard';
 
 
 // aca se importa todo lo de material
@@ -40,7 +42,7 @@ import { CrearLugarComponent } from './lugares/crear-lugar/crear-lugar.component
 import { UsuariosPorOficinaComponent } from './lugares/usuarios-por-oficina/usuarios-por-oficina.component';
 import { AgregarQuitarUsuariosComponent } from './lugares/agregar-quitar-usuarios/agregar-quitar-usuarios.component';
 
-import { OidpGuard } from './oidp.guard';
+
 import { NotificacionesService } from './notificaciones.service';
 import { DialogoEliminarLugarComponent } from './lugares/dialogo-eliminar-lugar/dialogo-eliminar-lugar.component';
 import { DialogoEliminarDesignacionComponent } from './lugares/dialogo-eliminar-designacion/dialogo-eliminar-designacion.component';
@@ -48,7 +50,6 @@ import { LoaderComponent } from './loader/loader.component';
 import { SistemaComponent } from './sistema/sistema.component';
 import { PantallaPrincipalComponent } from './pantalla-principal/pantalla-principal.component';
 
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
 
 @NgModule({
@@ -78,7 +79,8 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
     DialogoEliminarDesignacionComponent,
     LoaderComponent,
     SistemaComponent,
-    PantallaPrincipalComponent
+    PantallaPrincipalComponent,
+    Oauth2Component
   ],
   entryComponents: [
     ConfirmarGenerarClaveComponent,
@@ -92,15 +94,19 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
     FormsModule,
     MyMaterialModule,
     AppRoutingModule,
-    OAuthModule.forRoot()
+    OAuthModule.forRoot({
+      resourceServer: {
+        allowedUrls: ['http'],
+        sendAccessToken: true
+      }
+    })
   ],
   providers: [
     SilegService,
     OidpGuard,
     NotificacionesService,
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+    {provide: MAT_DATE_LOCALE, useValue: 'es'}
   ],
   bootstrap: [AppComponent]
 })

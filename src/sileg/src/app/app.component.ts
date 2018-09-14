@@ -5,21 +5,6 @@ import { AuthConfig } from 'angular-oauth2-oidc';
 
 import { environment } from '../environments/environment';
 
-export const authConfig: AuthConfig = {
-  issuer: environment.oidp_issuer,
-  redirectUri: window.location.origin,
-  logoutUrl: environment.logoutUrl,
-  oidc: true,
-  requireHttps: false,
-  clientId: 'sileg-ui',
-  dummyClientSecret: 'sileg-ui',
-  scope: 'openid profile email',
-  showDebugInformation: true
-}
-
-import { OAuthService } from 'angular-oauth2-oidc';
-import { NullValidationHandler, JwksValidationHandler } from 'angular-oauth2-oidc';
-
 interface Profile {
   username: string;
 }
@@ -32,8 +17,7 @@ interface Profile {
 })
 export class AppComponent {
 
-  constructor(private oauthService: OAuthService, private router: Router, private route:ActivatedRoute) {
-    this.configureWithNewConfigApi();
+  constructor(private router: Router, private route:ActivatedRoute) {
   }
 
   public menu_abierto: boolean = false;
@@ -50,39 +34,4 @@ export class AppComponent {
     this.menu_abierto = v;
   }
 
-  /*
-  private tryLogin() {
-    this.oauthService.configure(authConfig);
-    this.oauthService.tokenValidationHandler = new NullValidationHandler();
-    this.oauthService.loadDiscoveryDocument().then(() => {
-       this.oauthService.tryLogin();
-       if (this.oauthService.getAccessToken() == null) {
-         this.oauthService.initImplicitFlow();
-       }
-     });
-  }
-  */
-
-  private configureWithNewConfigApi() {
-    console.log('configurando oauth2');
-    this.oauthService.configure(authConfig);
-    this.oauthService.tokenValidationHandler = new NullValidationHandler();
-    this.oauthService.events.subscribe(e => {
-        console.debug('oauth/oidc event', e);
-    })
-    console.log('tratando de loguearme');
-    this.oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
-      if (this.oauthService.getAccessToken() == null) {
-        this.router.navigate(['/loader']);
-      } else {
-        this.router.navigate(['/sistema/inicial']);
-      }
-    });
-  }
-
-  salir():void {
-    this.oauthService.logOut();
-    //window.location.href = this.oauthService.logoutUrl;
-    //window.location.reload();
-  }
 }

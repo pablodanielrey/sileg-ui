@@ -1,11 +1,11 @@
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Injectable } from '@angular/core';
 
 @Injectable()
 export class OidpGuard implements CanActivate {
 
-    constructor(private oauthService: OAuthService) {
+    constructor(private router: Router, private oauthService: OAuthService) {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
@@ -14,7 +14,7 @@ export class OidpGuard implements CanActivate {
         // let valid = (hasIdToken && hasAccessToken);
         let valid = hasAccessToken;
         if (!valid) {
-          this.oauthService.logOut();
+            this.router.navigate(['/oauth2']);
         }
         return valid;
     }

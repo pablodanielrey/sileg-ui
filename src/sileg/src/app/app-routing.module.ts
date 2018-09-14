@@ -20,15 +20,18 @@ import { CrearLugarComponent } from './lugares/crear-lugar/crear-lugar.component
 import { DetalleLugarComponent } from './lugares/detalle-lugar/detalle-lugar.component';
 import { UsuariosPorOficinaComponent } from './lugares/usuarios-por-oficina/usuarios-por-oficina.component';
 import { AgregarQuitarUsuariosComponent } from './lugares/agregar-quitar-usuarios/agregar-quitar-usuarios.component';
-import { OidpGuard } from './oidp.guard';
+
+import { OidpGuard } from './oauth2/oidp.guard';
+import { Oauth2Component } from './oauth2/oauth2.component';
 
 const routes: Routes = [
+  { path: 'oauth2', component: Oauth2Component },
   { path: 'loader', component: LoaderComponent },
   {
     path: 'sistema',
     component: SistemaComponent,
     children: [
-      { path: 'inicial', component: PantallaPrincipalComponent },
+      { path: 'inicial', component: PantallaPrincipalComponent, canActivate: [OidpGuard] },
       {
         path:'usuario',
         canActivate: [OidpGuard],
@@ -53,8 +56,8 @@ const routes: Routes = [
         ]
       }
     ]
-  }
-  //{ path: '**', redirectTo: '/sistema/inicial', pathMatch: 'full' }
+  },
+  { path: '**', redirectTo: '/sistema/inicial', pathMatch: 'full' }
 ];
 
 @NgModule({
