@@ -29,9 +29,10 @@ const routes: Routes = [
   { path: 'loader', component: LoaderComponent },
   {
     path: 'sistema',
+    canActivate: [OidpGuard],
     component: SistemaComponent,
     children: [
-      { path: 'inicial', component: PantallaPrincipalComponent, canActivate: [OidpGuard] },
+      { path: 'inicial', component: PantallaPrincipalComponent },
       {
         path:'usuario',
         canActivate: [OidpGuard],
