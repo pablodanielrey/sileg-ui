@@ -28,6 +28,7 @@ export class LoaderComponent implements OnInit {
   }
 
   acceder() {
+    console.log('iniciando implicit flow');
     this.oauthService.initImplicitFlow();
   }
 
