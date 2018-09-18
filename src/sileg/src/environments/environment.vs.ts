@@ -3,7 +3,7 @@ export const environment = {
   silegApiUrl: 'http://localhost:9007/sileg/api/v1.0',
   usuarioApiUrl: 'https://api.econo.unlp.edu.ar/users/api/v1.0',
   loginApiUrl: 'https://api.econo.unlp.edu.ar/login/api/v1.0',
-  //usuarioApiUrl: 'http://localhost:9005/users/api/v1.0',
+  //usuarioApiUrl: 'http://localhost:9005/users/api/v1.0',  
   //loginApiUrl: 'http://localhost:9006/login/api/v1.0',
 
   oidp_issuer: 'https://oidc.econo.unlp.edu.ar/',
