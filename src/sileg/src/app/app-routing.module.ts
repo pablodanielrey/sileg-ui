@@ -31,7 +31,6 @@ const routes: Routes = [
     path: 'sistema',
     canActivate: [OidpGuard],
     component: SistemaComponent,
-    canActivate: [OidpGuard],
     children: [
       { path: 'inicial', component: PantallaPrincipalComponent },
       {
