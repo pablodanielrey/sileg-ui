@@ -44,7 +44,7 @@ export class Oauth2Component implements OnInit {
     console.log('tratando de loguearme');
     this.oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
       if (this.oauthService.getAccessToken() == null || !this.oauthService.hasValidAccessToken()) {
-        this.router.navigate(['/loader']);
+        this.oauthService.initImplicitFlow();
       } else {
         this.access_token = this.oauthService.getAccessToken();
         this.id_token = this.oauthService.getIdToken();
