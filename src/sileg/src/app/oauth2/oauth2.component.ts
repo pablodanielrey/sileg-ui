@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-<<<<<<< HEAD
 
-=======
->>>>>>> 35e61a1fcc481f1752994c37cc824a2dd72e7088
 import { AuthConfig, OAuthService, NullValidationHandler, JwksValidationHandler } from 'angular-oauth2-oidc';
 
 import { environment } from '../../environments/environment';
