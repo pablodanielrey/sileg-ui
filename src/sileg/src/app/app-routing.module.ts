@@ -30,34 +30,34 @@ const routes: Routes = [
   {
     path: 'sistema',
     component: SistemaComponent,
+    canActivate: [OidpGuard],
     children: [
       { path: 'inicial', component: PantallaPrincipalComponent, canActivate: [OidpGuard] },
       {
         path:'usuario',
-        canActivate: [OidpGuard],
         children: [
-          { path:'buscar', component: SeleccionarUsuarioComponent, canActivate: [OidpGuard] },
-          { path:'crear', component: CreateComponent, canActivate: [OidpGuard] },
-          { path:'usuario/:id', component: DetalleUsuarioComponent, canActivate: [OidpGuard] },
-          { path:'usuario/:id/reset-clave', component: GenerarClaveComponent, canActivate: [OidpGuard] },
-          { path:'usuario/:id/generar-desig', component: GenerarDesignacionComponent, canActivate: [OidpGuard] },
-          { path:'usuario/:id/crear-correo', component: CrearCorreoComponent, canActivate: [OidpGuard] }
+          { path:'buscar', component: SeleccionarUsuarioComponent },
+          { path:'crear', component: CreateComponent },
+          { path:'usuario/:id', component: DetalleUsuarioComponent },
+          { path:'usuario/:id/reset-clave', component: GenerarClaveComponent },
+          { path:'usuario/:id/generar-desig', component: GenerarDesignacionComponent },
+          { path:'usuario/:id/crear-correo', component: CrearCorreoComponent }
         ]
       },
       {
         path:'lugares',
         canActivate: [OidpGuard],
         children: [
-          { path:'buscar', component: BuscarLugaresComponent, canActivate: [OidpGuard] },
-          { path:'lugar/:id', component: DetalleLugarComponent, canActivate: [OidpGuard] },
-          { path:'crear', component: CrearLugarComponent, canActivate: [OidpGuard] },
-          { path:'lugar/:id/usuarios', component: UsuariosPorOficinaComponent, canActivate: [OidpGuard] },
-          { path:'lugar/:id/usuarios/abm', component: AgregarQuitarUsuariosComponent, canActivate: [OidpGuard] }
+          { path:'buscar', component: BuscarLugaresComponent },
+          { path:'lugar/:id', component: DetalleLugarComponent },
+          { path:'crear', component: CrearLugarComponent },
+          { path:'lugar/:id/usuarios', component: UsuariosPorOficinaComponent },
+          { path:'lugar/:id/usuarios/abm', component: AgregarQuitarUsuariosComponent }
         ]
       }
     ]
   },
-  { path: '**', redirectTo: '/sistema/inicial', pathMatch: 'full' }
+  { path: '**', redirectTo: '/loader', pathMatch: 'full' }
 ];
 
 @NgModule({

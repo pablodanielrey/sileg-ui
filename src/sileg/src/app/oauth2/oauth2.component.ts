@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthConfig, OAuthService, NullValidationHandler, JwksValidationHandler } from 'angular-oauth2-oidc';
+
 import { environment } from '../../environments/environment';
 
 export const authConfig: AuthConfig = {
@@ -26,7 +28,7 @@ export class Oauth2Component implements OnInit {
   access_token: string = '';
   id_token: string = '';
 
-  constructor(private oauthService: OAuthService) { }
+  constructor(private router: Router, private oauthService: OAuthService) { }
 
   ngOnInit() {
     this.configureWithNewConfigApi();
@@ -46,6 +48,7 @@ export class Oauth2Component implements OnInit {
       } else {
         this.access_token = this.oauthService.getAccessToken();
         this.id_token = this.oauthService.getIdToken();
+        this.router.navigate(['/sistema']);
       }
     });
   }
