@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 35e61a1fcc481f1752994c37cc824a2dd72e7088
 import { AuthConfig, OAuthService, NullValidationHandler, JwksValidationHandler } from 'angular-oauth2-oidc';
 
 import { environment } from '../../environments/environment';
@@ -43,14 +46,18 @@ export class Oauth2Component implements OnInit {
     })
     console.log('tratando de loguearme');
     this.oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
-      if (this.oauthService.getAccessToken() == null) {
-        this.oauthService.initImplicitFlow();
+      if (this.oauthService.getAccessToken() == null || !this.oauthService.hasValidAccessToken()) {
+        this.router.navigate(['/loader']);
       } else {
         this.access_token = this.oauthService.getAccessToken();
         this.id_token = this.oauthService.getIdToken();
         this.router.navigate(['/sistema']);
       }
     });
+  }
+
+  logout() {
+    this.oauthService.logOut(false);
   }
 
 }

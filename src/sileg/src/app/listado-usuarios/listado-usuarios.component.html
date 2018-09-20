@@ -11,11 +11,11 @@
 
   <!-- Lista -->
   <mat-list>
-    <mat-list-item class="itemLista" *ngFor="let info of usuarios" (click)="seleccionarUsuario(info.usuario)">
+    <mat-list-item class="itemLista" *ngFor="let usuario of usuarios" (click)="seleccionarUsuario(usuario)">
       <img matListAvatar src="https://i.pinimg.com/originals/1d/52/88/1d528825423bbfc1fe82dde5c871962d.jpg">
-      <h3 matLine> {{info.usuario.nombre }} {{info.usuario.apellido}} </h3>
+      <h3 matLine> {{usuario.nombre }} {{usuario.apellido}} </h3>
       <p matLine>
-        <span class="itemTextoSubtitulo">{{info.usuario.dni}}</span>
+        <span class="itemTextoSubtitulo">{{usuario.dni}}</span>
       </p>
     </mat-list-item>
   </mat-list>
