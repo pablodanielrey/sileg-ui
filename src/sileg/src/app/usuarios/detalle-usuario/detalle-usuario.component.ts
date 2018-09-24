@@ -90,14 +90,17 @@ export class DetalleUsuarioComponent implements OnInit {
         mm = true;
       }
     });
-
-    if (fm && this.telefono_fijo.numero.trim() != "") {
-      this.telefono_fijo.id = null;
-      usuario.telefonos.push(this.telefono_fijo);
+    if (this.telefono_fijo.numero != null){
+      if (fm && this.telefono_fijo.numero.trim() != "") {
+        this.telefono_fijo.id = null;
+        usuario.telefonos.push(this.telefono_fijo);
+      }
     }
-    if (mm && this.telefono_movil.numero.trim() != "") {
-      this.telefono_movil.id = null;
-      usuario.telefonos.push(this.telefono_movil);
+    if (this.telefono_movil.numero != null){
+      if (mm && this.telefono_movil.numero.trim() != "") {
+        this.telefono_movil.id = null;
+        usuario.telefonos.push(this.telefono_movil);
+      }
     }
 
   }
