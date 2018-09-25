@@ -28,7 +28,7 @@ export class Mail {
 export class Telefono {
   id: string = null;
   usuario_id: string = null;
-  numero: string = null;
+  numero: string = "";
   tipo: string = null;
   actualizado: string = null;
   creado: string = null;

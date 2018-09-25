@@ -51,11 +51,11 @@ export class CreateComponent implements OnInit {
 
   _agregarTelefonos(): void {
     this.usuario.telefonos = new Array<Telefono>();
-    if (this.telefono_fijo.numero != null){
+    if (this.telefono_fijo.numero.length > 0){
       this.telefono_fijo.tipo = 'fijo';
       this.usuario.telefonos.push(this.telefono_fijo);
     }
-    if (this.telefono_movil.numero != null){
+    if (this.telefono_movil.numero.length > 0){
       this.telefono_movil.tipo = 'movil';
       this.usuario.telefonos.push(this.telefono_movil);
     }
