@@ -32,7 +32,7 @@ export class Telefono {
   tipo: string = null;
   actualizado: string = null;
   creado: string = null;
-  eliminado: string = null;
+  eliminado: Date = null;
   nuevo: boolean = false;
 
 

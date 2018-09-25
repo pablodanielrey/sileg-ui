@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -48,11 +48,7 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
   mostrarEliminarTelefono(t:Telefono) {
-    if (t.id == null) {
-      return false;
-    } else {
-      return t.eliminado == null;
-    }
+    return (t.numero.length > 0)
   }
 
   /*
@@ -78,33 +74,14 @@ export class DetalleUsuarioComponent implements OnInit {
 
   }
 
-  procesarTelefonosUsuario(usuario:Usuario) {
-    let fm = this.telefono_fijo.nuevo;
-    let mm = this.telefono_movil.nuevo;
-    usuario.telefonos.forEach(t => {
-      
-      if (!fm && t.tipo == 'fijo' && t.eliminado == null && t.numero != this.telefono_fijo.numero ) {
-        fm = true;
-      }
-      if (!mm && t.tipo == 'movil' && t.eliminado == null && t.numero != this.telefono_movil.numero) {
-        mm = true;
-      }
-    });
-    if (this.telefono_fijo.numero != null){
-      if (fm && this.telefono_fijo.numero.trim() != "") {
-        this.telefono_fijo.id = null;
-        usuario.telefonos.push(this.telefono_fijo);
-      }
+  procesarTelefonosUsuario(usuario:Usuario): void{
+    if ((this.telefono_fijo.nuevo) && (this.telefono_fijo.numero.length > 0)){
+      this.usuario.telefonos.push(this.telefono_fijo);
     }
-    if (this.telefono_movil.numero != null){
-      if (mm && this.telefono_movil.numero.trim() != "") {
-        this.telefono_movil.id = null;
-        usuario.telefonos.push(this.telefono_movil);
-      }
+    if ((this.telefono_movil.nuevo) && (this.telefono_movil.numero.length > 0)){
+      this.usuario.telefonos.push(this.telefono_movil);
     }
-
   }
-
 
   ngOnInit() {
     this.usuario_id = this.route.snapshot.paramMap.get('id');
@@ -167,12 +144,38 @@ export class DetalleUsuarioComponent implements OnInit {
     ));
   }
 
+  marcarTelEliminado(tid: string): void{
+    this.usuario.telefonos.forEach(t => {
+      if (t.id == tid){
+        t.eliminado = new Date();
+      }
+    })
+  }  
+
+  _eliminarTelefono(t:Telefono): void {
+    if (t.id){
+      this.marcarTelEliminado(t.id);
+    }
+  }
+
   eliminarTelefono(t:Telefono): void {
-    this.cargando = true;
-    this.subscriptions.push(this.service.eliminarTelefono(t.usuario_id, t.id).subscribe(
-      res => { this.cargando = false; location.reload(); },
-      err => { this.cargando = false; this.notificaciones.show(err.message) }
-    ));
+    this._eliminarTelefono(t);
+    if (t.tipo == 'fijo'){
+      this.telefono_fijo = new Telefono({'tipo': t.tipo, 'usuario_id': this.usuario.id, 'nuevo': true});
+    }
+    if (t.tipo == 'movil'){
+      this.telefono_movil = new Telefono({'tipo': t.tipo, 'usuario_id': this.usuario.id, 'nuevo': true});
+    }
+  }
+
+  modificarTelefono(t:Telefono, change:SimpleChange){
+    this._eliminarTelefono(t);
+    if (t.tipo == 'fijo'){
+      this.telefono_fijo = new Telefono({'tipo': t.tipo, 'usuario_id': this.usuario.id, 'nuevo': true, 'numero' : change});
+    }
+    if (t.tipo == 'movil'){
+      this.telefono_movil = new Telefono({'tipo': t.tipo, 'usuario_id': this.usuario.id, 'nuevo': true, 'numero' : change});
+    }    
   }
 
   tieneDesignacion(): boolean {

@@ -52,14 +52,14 @@
            
           </form>
           <mat-form-field *ngIf='telefono_fijo'>
-            <input matInput placeholder="Teléfono Fijo" name='telefono_fijo' [(ngModel)]="telefono_fijo.numero">
-              <button  mat-button (click)='eliminarTelefono(telefono_fijo)' [disabled]="telefono_fijo.nuevo" matSuffix>
+            <input matInput placeholder="Teléfono Fijo" name='telefono_fijo' (ngModelChange)='modificarTelefono(telefono_fijo)' [(ngModel)]="telefono_fijo.numero">
+              <button  mat-button (click)='eliminarTelefono(telefono_fijo)' [disabled]="!mostrarEliminarTelefono(telefono_fijo)" matSuffix>
                 <mat-icon aria-label="Eliminar teléfono">delete</mat-icon>
               </button>
           </mat-form-field>
           <mat-form-field *ngIf='telefono_movil'>
-            <input matInput placeholder="Teléfono Celular" name='telefono_movil' [(ngModel)]="telefono_movil.numero">
-              <button  mat-button (click)='eliminarTelefono(telefono_movil)' [disabled]='telefono_movil.nuevo' matSuffix>
+            <input matInput placeholder="Teléfono Celular" name='telefono_movil' (ngModelChange)='modificarTelefono(telefono_movil)' [(ngModel)]="telefono_movil.numero">
+              <button  mat-button (click)='eliminarTelefono(telefono_movil)' [disabled]='!mostrarEliminarTelefono(telefono_movil)' matSuffix>
                 <mat-icon aria-label="Eliminar teléfono">delete</mat-icon>
               </button>
           </mat-form-field>
