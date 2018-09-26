@@ -83,8 +83,7 @@ export class DetalleUsuarioComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-    this.usuario_id = this.route.snapshot.paramMap.get('id');
+  buscarUsuario(id:string) {
     this.cargando = true;
     this.subscriptions.push(this.service.buscarUsuario(this.usuario_id).subscribe(
       usuario => {
@@ -118,6 +117,11 @@ export class DetalleUsuarioComponent implements OnInit {
     ));
   }
 
+  ngOnInit() {
+    this.usuario_id = this.route.snapshot.paramMap.get('id');
+    this.buscarUsuario(this.usuario_id);
+  }
+
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
     this.subscriptions = [];
@@ -131,7 +135,7 @@ export class DetalleUsuarioComponent implements OnInit {
     this.cargando = true;
     this.procesarTelefonosUsuario(this.usuario);
     this.service.actualizarDatos(this.usuario).subscribe(
-      res => { this.cargando = false; this.notificaciones.show('Los datos han sidos guardados correctamente'); },
+      res => { this.cargando = false; this.notificaciones.show('Los datos han sidos guardados correctamente'); this.buscarUsuario(this.usuario_id); },
       err => { this.cargando = false; this.notificaciones.show(err.message); }
     );
   }
