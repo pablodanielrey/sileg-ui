@@ -63,7 +63,7 @@ export class SilegService {
   }
 
   eliminarCorreo(uid:string, cid:string):Observable<string> {
-    let apiUrl = `${SILEG_API_URL}/usuarios/${uid}/correos/${cid}`;
+    let apiUrl = `${USUARIO_API_URL}/usuarios/${uid}/correos/${cid}`;
     return this.http.delete<string>(apiUrl);
   }
 
