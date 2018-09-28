@@ -11,7 +11,6 @@ export class SistemaComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    this.router.navigate(['/sistema/inicial']);
   }
 
   menu_abierto: boolean = false;

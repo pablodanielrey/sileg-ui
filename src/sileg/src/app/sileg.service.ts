@@ -58,8 +58,8 @@ export class SilegService {
   }
 
   generarCorreo(uid: string, correo: string):Observable<any> {
-    let apiUrl = `${USUARIO_API_URL}/usuarios/${uid}/correos`;
-    return this.http.post<any>(apiUrl, {'correo':correo});
+    let apiUrl = `${USUARIO_API_URL}/usuarios/${uid}/correo_institucional`;
+    return this.http.post<any>(apiUrl, {'email':correo});
   }
 
   eliminarCorreo(uid:string, cid:string):Observable<string> {
