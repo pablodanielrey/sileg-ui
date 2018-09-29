@@ -7,6 +7,8 @@ export const environment = {
   oidp_issuer: 'https://oidp.asistencia.presi.unlp.edu.ar/',
   logoutUrl: 'https://login.asistencia.presi.unlp.edu.ar/logout/{{id_token}}/{{client_id}}',
 
+  version: '0.1.1a',
+
   loaderHeader: 'Gelis | Presidencia',
   loaderLogo: '/assets/img/logounlp.png',
   loaderFooter1: 'Dirección General de Personal | Presidencia | UNLP | Calle 7 Nº 776',

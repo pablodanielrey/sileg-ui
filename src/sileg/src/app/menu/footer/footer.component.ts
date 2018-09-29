@@ -8,9 +8,11 @@ import { environment } from '../../../environments/environment';
 })
 export class FooterComponent implements OnInit {
   menuFooter: string;
+  version: string;
 
   constructor() {
-    this.menuFooter= environment.menuFooter;
+    this.menuFooter = environment.menuFooter;
+    this.version = environment.version;
   }
 
   ngOnInit() {
