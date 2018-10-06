@@ -112,6 +112,14 @@
                   "with": "src/environments/environment.vs.ts"
                 }
               ]
+            },
+            "local-vs-presi": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.vs.presi.ts"
+                }
+              ]
             }            
           }
         },
@@ -138,7 +146,10 @@
             },
             "local-vs": {
               "browserTarget": "sileg:build:local-vs"
-            }
+            },
+            "local-vs-presi": {
+              "browserTarget": "sileg:build:local-vs-presi"
+            }            
           }
         },
         "extract-i18n": {
