@@ -89,12 +89,6 @@ export class DetalleUsuarioComponent implements OnInit {
       usuario => {
         this.cargando = false;
         this.usuario = usuario;
-        /* Correccion de problema de fecha mostrada en datepicker*/
-        if (usuario.nacimiento != null){
-          let a= new Date(usuario.nacimiento);
-          a.setMinutes(a.getMinutes()+a.getTimezoneOffset());
-          this.usuario.nacimiento = a;
-        }
         /*
           TODO: hack HORRBILE!!!
           como el telefono fijo y movil se mantienen en distintas variables las mapeamos aca:
