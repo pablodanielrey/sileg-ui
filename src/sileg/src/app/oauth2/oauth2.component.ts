@@ -1,21 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+/*
+https://manfredsteyer.github.io/angular-oauth2-oidc/docs/
+http://vsavkin.tumblr.com/post/145672529346/angular-router
+*/
 
-import { AuthConfig, OAuthService, NullValidationHandler, JwksValidationHandler } from 'angular-oauth2-oidc';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
+import { Router, ActivatedRoute, NavigationStart, NavigationEnd, NavigationError, NavigationCancel } from '@angular/router';
+
+import { from, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 
-export const authConfig: AuthConfig = {
-  issuer: environment.oidp_issuer,
-  redirectUri: window.location.origin + '/oauth2',
-  logoutUrl: environment.logoutUrl,
-  oidc: true,
-  requireHttps: false,
-  clientId: 'sileg-ui',
-  dummyClientSecret: 'sileg-ui',
-  scope: 'openid profile email',
-  showDebugInformation: true
-}
+import { Oauth2Service } from './oauth2.service';
 
 
 @Component({
@@ -23,38 +19,45 @@ export const authConfig: AuthConfig = {
   templateUrl: './oauth2.component.html',
   styleUrls: ['./oauth2.component.css']
 })
-export class Oauth2Component implements OnInit {
+export class Oauth2Component implements OnInit, OnDestroy {
 
   access_token: string = '';
   id_token: string = '';
+  error: boolean = false;
+  error_description: string = '';
+  subscriptions : Array<any> = [];
 
-  constructor(private router: Router, private oauthService: OAuthService) { }
+  constructor(private zone: NgZone, private router: Router, private route: ActivatedRoute, private oauthService: Oauth2Service) { }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }
 
   ngOnInit() {
-    this.configureWithNewConfigApi();
-  }
 
-  private configureWithNewConfigApi() {
-    console.log('configurando oauth2');
-    this.oauthService.configure(authConfig);
-    this.oauthService.tokenValidationHandler = new NullValidationHandler();
-    this.oauthService.events.subscribe(e => {
-        console.debug('oauth/oidc event', e);
-    })
-    console.log('tratando de loguearme');
-    this.oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
-      if (this.oauthService.getAccessToken() == null || !this.oauthService.hasValidAccessToken()) {
-        this.oauthService.initImplicitFlow();
-      } else {
-        this.access_token = this.oauthService.getAccessToken();
-        this.id_token = this.oauthService.getIdToken();
-        this.router.navigate(['/sistema/inicial']);
+    let f = this.router.routerState.snapshot.root.fragment;
+    if (f != null) {
+      let ff = f.split('&');
+      if (ff[0].startsWith('error=')) {
+        let param = ff[0].replace('error=','');
+        this.router.navigate(['/error', param]);
+        return;
       }
+    }
+
+    this.oauthService.loadTokens().subscribe(() => {
+
+      if (this.oauthService.hasError()) {
+        this.router.navigate(['/error', this.oauthService.getError()]);
+        return;
+      } else {
+        if (!this.oauthService.hasValidToken()) {
+          this.oauthService.login();
+        } else {
+          this.router.navigate(['/sistema/inicial']);
+        }
+      }
+
     });
   }
-
-  logout() {
-    this.oauthService.logOut(false);
-  }
-
 }

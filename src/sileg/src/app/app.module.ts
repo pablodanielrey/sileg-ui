@@ -9,7 +9,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { Oauth2Component } from './oauth2/oauth2.component';
 import { OidpGuard } from './oauth2/oidp.guard';
-
+import { ErrorComponent } from './error/error.component';
 
 // aca se importa todo lo de material
 import { MyMaterialModule } from './material.module';
@@ -80,7 +80,8 @@ import { PantallaPrincipalComponent } from './pantalla-principal/pantalla-princi
     LoaderComponent,
     SistemaComponent,
     PantallaPrincipalComponent,
-    Oauth2Component
+    Oauth2Component,
+    ErrorComponent
   ],
   entryComponents: [
     ConfirmarGenerarClaveComponent,

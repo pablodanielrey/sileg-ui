@@ -23,7 +23,7 @@
         </mat-list>
 
 
-            <mat-table *ngIf="datos.lugar" #table [dataSource]="dataSource" matSort matSortActive="fullname" matSortDirection="asc" matSortDisableClea>
+            <mat-table *ngIf="datos.lugar" #table [dataSource]="dataSource" matSort matSortActive="fullname" matSortDirection="asc">
 
               <ng-container matColumnDef='fullname'>
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>

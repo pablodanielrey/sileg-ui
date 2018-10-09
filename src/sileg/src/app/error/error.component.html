@@ -1,0 +1,39 @@
+<div class="error">
+
+      <mat-toolbar class="cabecera">
+        <div >
+          <span>FCE | Login</span>
+        </div>
+      </mat-toolbar>
+
+    <div class="contenido">
+
+        <div class="cabeceraContenido">
+          <div><i class=" icono material-icons">sentiment_dissatisfied</i></div>
+          <div class="textError">Ups! Error</div>
+        </div>
+
+        <div class="mensajeError" *ngIf='esErrorDeUsuario()'>
+            <div class="textTituloError">Los datos Usuario o Contraseña son incorrectos</div>
+        </div>
+
+        <div class="mensajeError" *ngIf="!esErrorDeUsuario()">
+          <div class="textTituloError">
+            {{error}}
+          </div>
+          <div class="textMesajeError">
+              {{descripcion}}
+          </div>
+        </div>
+
+        <button mat-button class="btnVolver" (click)='login()'>REINTENTAR</button>
+
+
+    </div>
+
+    <div class="footer">
+      <div class="footerMini">DiTeSI | Dirección de Tecnologías y Sistemas Informáticos | FCE - UNLP</div>
+      <div class="footerFull">DiTeSI | Dirección de Tecnologías y Sistemas Informáticos | Facultad de Ciencias Económicas | UNLP | Calle 6 Nº 777</div>
+    </div>
+
+</div>

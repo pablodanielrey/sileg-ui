@@ -23,8 +23,10 @@ import { AgregarQuitarUsuariosComponent } from './lugares/agregar-quitar-usuario
 
 import { OidpGuard } from './oauth2/oidp.guard';
 import { Oauth2Component } from './oauth2/oauth2.component';
+import { ErrorComponent } from './error/error.component';
 
 const routes: Routes = [
+  { path: 'error/:error', component: ErrorComponent },
   { path: 'oauth2', component: Oauth2Component },
   { path: 'loader', component: LoaderComponent },
   {

@@ -7,6 +7,7 @@ export const environment = {
   oidp_issuer: 'https://oidp.asistencia.presi.unlp.edu.ar/',
   logoutUrl: 'https://login.asistencia.presi.unlp.edu.ar/logout/{{id_token}}/{{client_id}}',
 
+  client_id: 'sileg-ui',
   version: '0.1.1a',
 
   loaderHeader: 'Gelis | Presidencia',

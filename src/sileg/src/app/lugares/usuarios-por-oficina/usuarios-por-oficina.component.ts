@@ -7,7 +7,7 @@ import { Location } from '@angular/common';
 
 import { DialogoEliminarDesignacionComponent } from '../dialogo-eliminar-designacion/dialogo-eliminar-designacion.component';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import {MatTableDataSource, MatSort} from '@angular/material';
+import { MatTableDataSource, MatSort } from '@angular/material';
 
 export class DesignacionSource {
   fullname: string;

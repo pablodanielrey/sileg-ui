@@ -1,0 +1,105 @@
+.error {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cabecera {
+  display: flex;
+  display: -moz-flex;
+  display: -webkit-flex;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+  -moz-justify-content: space-between;
+  color: #fff;
+  background-color: #3b4248;
+  font-size: 16px;
+}
+
+.contenido {
+  height: 100%;
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  margin: 0 auto;
+  padding: 40px;
+
+}
+
+.cabeceraContenido {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mensajeError {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.errorUsuario {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.icono {
+  font-size: 150px;
+  color: grey;
+}
+
+.textError {
+  font-weight: lighter;
+  font-size: 50px;
+  color: grey;
+  margin: 0 auto;
+}
+
+.textTituloError {
+  font-size: 20px;
+  margin-top: 5px;
+}
+
+.textMesajeError {
+
+}
+
+.btnVolver {
+  background-color: rgba(0,0,0,.12);
+  margin-top: 10px;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #3e444a;
+    height: 20px;
+    color: #eee;
+    font-size: 10px;
+    padding-left: 10px;
+}
+
+.footerMini {
+  display: none;
+}
+
+@media screen and (max-width: 719px) {
+  .footerAlternativo {
+    display: block;
+  }
+  .footer {
+    display: none;
+  }
+  .contenido {
+    width: 100%;
+  }
+
+}
