@@ -14,16 +14,15 @@
 
 
     <div class="contenedorUsuariosDelLugar">
-        <mat-list *ngIf="datos.lugar">
-            <mat-list-item routerLink='../' class="itemLista">
-              <div matListAvatar class="avatar">{{datos.lugar.nombre.charAt(0)}}</div>
-              <h3 matLine> {{datos.lugar.nombre}} </h3>
-              <p matLine> <span class="itemTextoSubtitulo"> {{datos.lugar.descripcion}} </span> </p>
-            </mat-list-item>
-        </mat-list>
+            <mat-list *ngIf="datos.lugar">
+                <mat-list-item routerLink='../' class="itemLista">
+                  <div matListAvatar class="avatar">{{datos.lugar.nombre.charAt(0)}}</div>
+                  <h3 matLine> {{datos.lugar.nombre}} </h3>
+                  <p matLine> <span class="itemTextoSubtitulo"> {{datos.lugar.descripcion}} </span> </p>
+                </mat-list-item>
+            </mat-list>
 
-
-            <mat-table *ngIf="datos.lugar" #table [dataSource]="dataSource" matSort matSortActive="fullname" matSortDirection="asc">
+            <mat-table *ngIf="datos.lugar" #table [dataSource]="dataSource" matSort (matSortChange)='ordenar($event)' matSortActive="fullname" matSortDirection="asc">
 
               <ng-container matColumnDef='fullname'>
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
@@ -46,7 +45,6 @@
                 </mat-cell>
               </ng-container>
 
-
               <ng-container matColumnDef='fecha'>
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Asignación </mat-header-cell>
                 <mat-cell *matCellDef='let d'>
@@ -58,18 +56,13 @@
                 </mat-cell>
               </ng-container>
 
-
-
-
-
               <ng-container matColumnDef='acciones'>
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
                 <mat-cell *matCellDef='let d'>
                   <button (click)="eliminar(d)" mat-button class="btnEliminar" *ngIf="!d.modificado"> <i class="material-icons icoAcciones">delete</i>  ELIMINAR </button>
                   <button (click)="guardar(d)" mat-button class="btnGuardar" *ngIf="d.modificado" >  <i class="material-icons icoAcciones">done</i> GUARDAR </button>
                 </mat-cell>
               </ng-container>
-
 
               <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
               <mat-row *matRowDef="let row; columns: columnas;"></mat-row>
@@ -82,12 +75,8 @@
 
         </div>
 
-
         <div class="contenedorAccionesLugar" *ngIf="datos.lugar">
           <button mat-button class="btnAcciones" routerLink='./abm'> <mat-icon class="icoMenu">person_add</mat-icon> AGREGAR USUARIO</button>
-
-
-
         </div>
 
 

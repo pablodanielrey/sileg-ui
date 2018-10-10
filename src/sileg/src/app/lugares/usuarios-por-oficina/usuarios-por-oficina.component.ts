@@ -7,7 +7,7 @@ import { Location } from '@angular/common';
 
 import { DialogoEliminarDesignacionComponent } from '../dialogo-eliminar-designacion/dialogo-eliminar-designacion.component';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { MatTableDataSource, MatSort, Sort } from '@angular/material';
 
 export class DesignacionSource {
   fullname: string;
@@ -82,6 +82,37 @@ export class UsuariosPorOficinaComponent implements OnInit {
       .subscribe(r => {
         this.cargos = r;
       }));
+  }
+
+  ordenar(e:Sort) {
+    let orden = e;
+    this.element_data.sort(
+      (a:DesignacionSource, b:DesignacionSource) : number => {
+        
+        let e1 = a;
+        let e2 = b;
+        if (orden.direction == 'desc') {
+          e1 = b;
+          e2 = a;
+        }
+
+        switch (orden.active) {
+          case 'fullname': {
+            return e1.fullname.localeCompare(e2.fullname);
+          }
+          case 'dni': {
+            return e1.dni.localeCompare(e2.dni);
+          }
+          case 'cargo': {
+            return e1.cargo.localeCompare(e2.cargo);
+          }
+          case 'fecha': {
+            return e1.fecha.getTime() - e2.fecha.getTime();
+          }
+        }
+        return 0;
+    });
+    this.dataSource.data = this.element_data;
   }
 
   obtenerDesignacionesLugar(id:string) {
