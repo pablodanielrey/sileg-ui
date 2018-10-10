@@ -81,9 +81,10 @@ export class UsuariosPorOficinaComponent implements OnInit {
     this.subscriptions.push(this.service.cargos()
       .subscribe(r => {
         this.cargos = r;
+        this.cargos.sort((c1:Cargo, c2:Cargo) => c1.nombre.localeCompare(c2.nombre));
       }));
   }
-
+  
   ordenar(e:Sort) {
     let orden = e;
     this.element_data.sort(
