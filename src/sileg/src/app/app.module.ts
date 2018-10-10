@@ -6,7 +6,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import { GlobalErrorHandler } from './error.handler';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { OAuthModule } from 'angular-oauth2-oidc';
+import { OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 import { Oauth2Component } from './oauth2/oauth2.component';
 import { OidpGuard } from './oauth2/oidp.guard';
 import { ErrorComponent } from './error/error.component';
@@ -105,9 +105,10 @@ import { PantallaPrincipalComponent } from './pantalla-principal/pantalla-princi
   providers: [
     SilegService,
     OidpGuard,
+    { provide: OAuthStorage, useValue: localStorage },
     NotificacionesService,
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
-    {provide: MAT_DATE_LOCALE, useValue: 'es'}
+    { provide: MAT_DATE_LOCALE, useValue: 'es' }
   ],
   bootstrap: [AppComponent]
 })

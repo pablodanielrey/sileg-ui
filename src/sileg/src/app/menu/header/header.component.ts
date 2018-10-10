@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuComponent } from '../menu/menu.component';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { Oauth2Service } from '../../oauth2/oauth2.service';
 import { ToogleFullscreenDirective } from '../toogle-fullscreen.directive';
 
 
@@ -14,7 +15,8 @@ export class HeaderComponent implements OnInit {
   @Output() menu = new EventEmitter<boolean>();
   info: any;
 
-  constructor(private oauthService: OAuthService) { }
+  constructor(private router: Router, 
+              private oauthService: Oauth2Service) { }
 
   ngOnInit() {
     /*
@@ -23,8 +25,6 @@ export class HeaderComponent implements OnInit {
       this.info = r;
     });
     */
-     this.info = this.oauthService.getIdentityClaims();
-     console.log(this.info);
   }
 
   cambiar_menu():void {
@@ -33,7 +33,16 @@ export class HeaderComponent implements OnInit {
 
 
   salir():void {
-    this.oauthService.logOut(false);
+    this.oauthService.logout().subscribe(
+      r => {
+        console.log(r);
+        this.router.navigate(['/']);
+      },
+      e => {
+        console.log(e);
+        this.router.navigate(['/']);
+      }
+    );
   }
 
 }

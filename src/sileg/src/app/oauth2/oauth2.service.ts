@@ -1,7 +1,7 @@
-import { Injectable, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Injectable } from '@angular/core';
 import { from, Subscription, Observable, of } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 import { AuthConfig, OAuthService, NullValidationHandler, JwksValidationHandler, OAuthEvent, OAuthErrorEvent, OAuthInfoEvent } from 'angular-oauth2-oidc';
 
@@ -10,14 +10,17 @@ import { environment } from '../../environments/environment';
 export const authConfig: AuthConfig = {
   issuer: environment.oidp_issuer,
   redirectUri: window.location.origin + '/oauth2',
-  logoutUrl: environment.logoutUrl,
   oidc: true,
   requireHttps: false,
   clientId: environment.client_id,
-  dummyClientSecret: 'algosecreto',
+  dummyClientSecret: 'login-ui',
   scope: 'openid profile email',
   sessionChecksEnabled: true,
   showDebugInformation: true
+}
+
+export interface LogoutData {
+  redirect_to: string
 }
 
 @Injectable({
@@ -28,18 +31,14 @@ export class Oauth2Service {
   error: boolean = false;
   error_description: string = null;
 
-  constructor(@Inject(DOCUMENT) private document: any,
-              private oauthService: OAuthService) { 
+  constructor(private oauthService: OAuthService, private http: HttpClient) { 
     this.oauthService.configure(authConfig);
     this.oauthService.tokenValidationHandler = new NullValidationHandler();
     
-    // this.oauthService.events.pipe(filter((e1:OAuthEvent) => e1 instanceof OAuthErrorEvent)).subscribe((err:OAuthErrorEvent) => {
-    //   if (err.params['error'] == 'unknown_user') {
-    //     console.log('erro usuario clave');
-    //   }
-    //   this.error = true;
-    //   this.error_description = err.params['error'];
-    // });
+    //this.oauthService.events.pipe(filter((e1:OAuthEvent) => e1 instanceof OAuthErrorEvent)).subscribe((err:OAuthErrorEvent) => {
+    this.oauthService.events.subscribe((e:OAuthEvent) => {
+       console.log(e);
+    });
     
     this.oauthService.loadDiscoveryDocument().then(() => {
       console.log('documento cargado');
@@ -87,9 +86,6 @@ export class Oauth2Service {
     return this.oauthService.hasValidAccessToken();
   }
 
-  logout(redirect=true) {
-    this.oauthService.logOut(!redirect);
-  }
 
   getId() {
     let c = this.oauthService.getIdentityClaims();
@@ -118,6 +114,17 @@ export class Oauth2Service {
 
   getAppId(): string {
     return environment.client_id;
+  }
+
+  logout():Observable<LogoutData> {
+    this.oauthService.logOut(true);
+    let url = `${environment.loginApiUrl}/logout`;
+    //let url = `${OIDC}oauth2/auth/sessions/login/revoke`;
+    let data = {
+      'id_token': this.getIdToken(),
+      'app_id': this.getAppId()
+    }
+    return this.http.post<LogoutData>(url, data);
   }
 
 }
