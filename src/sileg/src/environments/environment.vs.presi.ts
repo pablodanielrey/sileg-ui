@@ -1,10 +1,11 @@
 export const environment = {
   production: true,
-  //silegApiUrl: 'http://localhost:10202/sileg/api/v1.0',
+  silegApiUrl: 'http://localhost:10202/sileg/api/v1.0',
+  //silegApiUrl: 'https://api.asistencia.presi.unlp.edu.ar/sileg/api/v1.0',
   usuarioApiUrl: 'http://localhost:10102/users/api/v1.0',
   //loginApiUrl: 'http://localhost:10002/login/api/v1.0',
 
-  silegApiUrl: 'https://api.asistencia.presi.unlp.edu.ar/sileg/api/v1.0',
+  
   //usuarioApiUrl: 'https://api.asistencia.presi.unlp.edu.ar/users/api/v1.0',
   loginApiUrl: 'https://api.asistencia.presi.unlp.edu.ar/login/api/v1.0',
 
