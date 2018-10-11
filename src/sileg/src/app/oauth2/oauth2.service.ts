@@ -117,14 +117,18 @@ export class Oauth2Service {
   }
 
   logout():Observable<LogoutData> {
-    this.oauthService.logOut(true);
     let url = `${environment.loginApiUrl}/logout`;
     //let url = `${OIDC}oauth2/auth/sessions/login/revoke`;
     let data = {
       'id_token': this.getIdToken(),
       'app_id': this.getAppId()
     }
-    return this.http.post<LogoutData>(url, data);
+    return this.http.post<LogoutData>(url, data).flatMap(
+      ld => {
+        // si retorne ok entonces elimino los datos de la sesion local
+        this.oauthService.logOut(true);
+        return of(ld);
+    });
   }
 
 }
