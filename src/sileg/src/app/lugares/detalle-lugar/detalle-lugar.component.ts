@@ -36,6 +36,7 @@ export class DetalleLugarComponent implements OnInit {
   ]
   lugar: Lugar = new Lugar({});
   subscriptions: any[] = [];
+  modulos: string[] = [];
 
   eliminarLugarDialogRef: MatDialogRef<DialogoEliminarLugarComponent>;
 
@@ -48,6 +49,9 @@ export class DetalleLugarComponent implements OnInit {
   ngOnInit() {
     let params = this.route.snapshot.paramMap;
     this.obtenerLugar(params.get('id'));
+    this.subscriptions.push(this.service.obtenerAccesoModulos().subscribe(modulos => {
+      this.modulos = modulos;
+    }));
   }
 
   obtenerLugar(id: string) {
@@ -100,6 +104,16 @@ export class DetalleLugarComponent implements OnInit {
         this.notificaciones.show("El lugar ha sido restaurado exitosamente");
         this.volver();
       }));
+  }
+
+  chequearPerfil(profiles: string[]): boolean {
+    let r = false;
+    profiles.forEach(p => {
+      if (this.modulos.includes(p)) {
+        r = true;
+      }
+    });
+    return r
   }
 
 }

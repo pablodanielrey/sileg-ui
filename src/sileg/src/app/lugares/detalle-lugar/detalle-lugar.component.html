@@ -41,9 +41,9 @@
     </div>
       <div class="contenedorAccionesLugar">
         <button mat-button class="btnAcciones" routerLink='./usuarios'> <mat-icon class="icoMenu">people</mat-icon> USUARIOS DEL LUGAR</button>
-        <button *ngIf="lugar.eliminado == null" mat-button class="btnAcciones" (click)='eliminarLugar()'> <mat-icon class="icoMenu">delete</mat-icon> ELIMINAR LUGAR</button>
-        <button *ngIf="lugar.eliminado" mat-button class="btnAcciones" (click)='restaurarLugar()'> <mat-icon class="icoMenu">restore</mat-icon> RESTAURAR LUGAR</button>
-        <button type="submit" mat-button class="btnCrear" form="ngForm" [disabled]="!lugarForm.form.valid"> GUARDAR CAMBIOS </button>
+        <button *ngIf="lugar.eliminado == null && chequearPerfil(['super-admin','crear_lugar'])" mat-button class="btnAcciones" (click)='eliminarLugar()'> <mat-icon class="icoMenu">delete</mat-icon> ELIMINAR LUGAR</button>
+        <button *ngIf="lugar.eliminado && chequearPerfil(['super-admin','crear_lugar'])" mat-button class="btnAcciones" (click)='restaurarLugar()'> <mat-icon class="icoMenu">restore</mat-icon> RESTAURAR LUGAR</button>
+        <button *ngIf="chequearPerfil(['super-admin','crear_lugar'])" type="submit" mat-button class="btnCrear" form="ngForm" [disabled]="!lugarForm.form.valid"> GUARDAR CAMBIOS </button>
       </div>
 
   </div>

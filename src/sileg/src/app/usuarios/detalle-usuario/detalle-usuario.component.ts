@@ -28,6 +28,7 @@ export class DetalleUsuarioComponent implements OnInit {
   eliminados: boolean = false;
   subscriptions: any[] = [];
   cargando: boolean = false;
+  modulos: string[] = [];
 
   telefono_fijo: Telefono = null;
   telefono_movil: Telefono = null;
@@ -114,6 +115,9 @@ export class DetalleUsuarioComponent implements OnInit {
   ngOnInit() {
     this.usuario_id = this.route.snapshot.paramMap.get('id');
     this.buscarUsuario(this.usuario_id);
+    this.subscriptions.push(this.service.obtenerAccesoModulos().subscribe(modulos => {
+      this.modulos = modulos;
+    }));
   }
 
   ngOnDestroy() {
@@ -188,6 +192,16 @@ export class DetalleUsuarioComponent implements OnInit {
 
   chequearLugar(c: string): boolean {
     return (this.lugar == c) ? true : false;
+  }
+
+  chequearPerfil(profiles: string[]): boolean {
+    let r = false;
+    profiles.forEach(p => {
+      if (this.modulos.includes(p)) {
+        r = true;
+      }
+    });
+    return r
   }
 
 }
