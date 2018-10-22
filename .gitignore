@@ -16,7 +16,6 @@ src/node_modules
 env/
 build/
 develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/
