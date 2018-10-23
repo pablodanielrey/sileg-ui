@@ -61,6 +61,7 @@ export class UsuariosPorOficinaComponent implements OnInit {
   cargando: boolean;
   @ViewChild(MatSort) sort: MatSort;
   eliminarDesignacionDialogRef: MatDialogRef<DialogoEliminarDesignacionComponent>;
+  modulos: string[] = [];
 
   constructor(private service: SilegService,
               private location: Location,
@@ -74,6 +75,9 @@ export class UsuariosPorOficinaComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.obtenerTiposCargos();
     this.obtenerDesignacionesLugar(params.get('id'));
+    this.subscriptions.push(this.service.obtenerAccesoModulos().subscribe(modulos => {
+      this.modulos = modulos;
+    }));
   }
 
   obtenerTiposCargos() {
@@ -161,6 +165,16 @@ export class UsuariosPorOficinaComponent implements OnInit {
         d.modificado = false;
         this.notificaciones.show("Se ha modificado correctamente");
       }));
+  }
+
+  chequearPerfil(profiles: string[]): boolean {
+    let r = false;
+    profiles.forEach(p => {
+      if (this.modulos.includes(p)) {
+        r = true;
+      }
+    });
+    return r
   }
 
 

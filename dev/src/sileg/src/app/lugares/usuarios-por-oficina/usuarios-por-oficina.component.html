@@ -37,7 +37,7 @@
               <ng-container matColumnDef='cargo'>
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Cargo </mat-header-cell>
                 <mat-cell  *matCellDef='let d'>
-                  <mat-select class="selectCargo"  (selectionChange)='d.modificado=true' [(ngModel)]="d.cargo">
+                  <mat-select class="selectCargo"  (selectionChange)='d.modificado=true' [(ngModel)]="d.cargo" [disabled]="!chequearPerfil(['super-admin','crear_lugar'])">
                     <mat-option *ngFor="let c of cargos" [value]="c.id">
                       {{ c.nombre }}
                     </mat-option>
@@ -49,7 +49,7 @@
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Asignación </mat-header-cell>
                 <mat-cell *matCellDef='let d'>
                   <mat-form-field class="imputFecha">
-                  <input class="imputFecha2" matInput [matDatepicker]="picker" placeholder="" [(ngModel)]="d.fecha" (dateChange)="d.modificado=true">
+                  <input class="imputFecha2" matInput [matDatepicker]="picker" placeholder="" [(ngModel)]="d.fecha" (dateChange)="d.modificado=true" [disabled]="!chequearPerfil(['super-admin','crear_lugar'])">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker ></mat-datepicker>
                 </mat-form-field>
@@ -59,7 +59,7 @@
               <ng-container matColumnDef='acciones'>
                 <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
                 <mat-cell *matCellDef='let d'>
-                  <button (click)="eliminar(d)" mat-button class="btnEliminar" *ngIf="!d.modificado"> <i class="material-icons icoAcciones">delete</i>  ELIMINAR </button>
+                  <button (click)="eliminar(d)" mat-button class="btnEliminar" *ngIf="!d.modificado" [disabled]="!chequearPerfil(['super-admin','crear_lugar'])"> <i class="material-icons icoAcciones">delete</i>  ELIMINAR </button>
                   <button (click)="guardar(d)" mat-button class="btnGuardar" *ngIf="d.modificado" >  <i class="material-icons icoAcciones">done</i> GUARDAR </button>
                 </mat-cell>
               </ng-container>
@@ -76,7 +76,7 @@
         </div>
 
         <div class="contenedorAccionesLugar" *ngIf="datos.lugar">
-          <button mat-button class="btnAcciones" routerLink='./abm'> <mat-icon class="icoMenu">person_add</mat-icon> AGREGAR USUARIO</button>
+          <button mat-button class="btnAcciones" routerLink='./abm' [disabled]="!chequearPerfil(['super-admin','crear_lugar'])"> <mat-icon class="icoMenu">person_add</mat-icon> AGREGAR USUARIO</button>
         </div>
 
 
