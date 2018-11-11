@@ -1,0 +1,103 @@
+.designaciones {
+    padding: 20px;
+  }
+  
+  
+  .contenedorStepper {
+   background-color: #EEEEEE;
+  }
+  
+  .btnVolver {
+    margin: 0 20px 20px 0;
+  }
+  
+  .textoTitulo {
+    color: #4186E1;
+    font-size: 1.3em;
+    margin-bottom: 10px;
+  }
+  
+  
+  .search {
+    color: #4186E1;
+  }
+  
+  .textoResultadoDeBusqueda {
+    color: #6D6D6D;
+    font-size: 0.8em;
+    margin-top: -10px;
+    margin-bottom: 20px;
+  }
+  
+  
+  .itemLista {
+    background-color: white;
+    margin-top: 10px;
+    padding: 10px;
+    webkit-box-shadow: 0 1px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px 0 rgba(0,0,0,.12);
+    box-shadow: 0 1px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px 0 rgba(0,0,0,.12);
+  }
+  
+  .itemLista :hover {
+    cursor: pointer;
+  }
+  
+  .tipoLugar {
+    background-color: #6D6D6D;
+    color: white;
+    width: fit-content;
+    padding: 2px 5px 0 2px;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+  }
+  
+  .textoLinea3 {
+    color: #6D6D6D;
+    font-size: 0.9em;
+  }
+  
+  .textoDisponibilidad {
+    /*color:#4186E1;*/
+    font-size: 1em;
+  }
+  .textoNoDisponibilidad {
+    color:red;
+    font-size: 1em;
+  }
+  
+  
+  .btnSiguiente {
+    background-color: #4186E1;
+    color: white;
+    margin-top: 10px;
+  }
+  
+  .btnDisponibilidad,
+  .btnAnterior {
+    background-color: #D1D1D1;
+    margin-top: 10px;
+    margin-top: 10px;
+  }
+  
+  .textoAviso {
+    color: grey;
+    font-size: 0.8em;
+    margin-bottom: 20px;
+  }
+  
+  .subTitulo {
+    margin-bottom: 5px;
+    margin-top: 10px;
+  }
+  
+  .correo {
+    /*font-size: 1.3em;*/
+    color: #4186E1;
+  }
+  
+  @media screen and (max-width: 769px) {
+    .matSuffixEcono {
+      font-size: 0.6em;
+      }
+  }
+  

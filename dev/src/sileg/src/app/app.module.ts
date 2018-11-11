@@ -49,6 +49,7 @@ import { DialogoEliminarDesignacionComponent } from './lugares/dialogo-eliminar-
 import { LoaderComponent } from './loader/loader.component';
 import { SistemaComponent } from './sistema/sistema.component';
 import { PantallaPrincipalComponent } from './pantalla-principal/pantalla-principal.component';
+import { CargarCorreoComponent } from './usuarios/cargar-correo/cargar-correo.component';
 
 
 
@@ -81,7 +82,8 @@ import { PantallaPrincipalComponent } from './pantalla-principal/pantalla-princi
     SistemaComponent,
     PantallaPrincipalComponent,
     Oauth2Component,
-    ErrorComponent
+    ErrorComponent,
+    CargarCorreoComponent
   ],
   entryComponents: [
     ConfirmarGenerarClaveComponent,
