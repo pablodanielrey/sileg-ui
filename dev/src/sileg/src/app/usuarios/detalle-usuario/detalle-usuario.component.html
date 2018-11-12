@@ -97,11 +97,12 @@
       <div *ngIf='usuario' class="contenedorBotones">
       <!-- <button (click)='crearClaveTemporal()'>Crear Clave Temporal</button> -->
 
-        <button *ngIf="chequearLugar('econo')" mat-button class="btn" routerLink="./reset-clave"><mat-icon>add</mat-icon> CREAR CLAVE TEMPORAL</button>
+        <button *ngIf="chequearLugar('econo') || (chequearLugar('presi') && chequearPerfil(['super-admin']))" mat-button class="btn" routerLink="./reset-clave"><mat-icon>add</mat-icon> CREAR CLAVE TEMPORAL</button>
         <!-- <button mat-button class="btn" routerLink='/usuario/usuario/{{usuario.id}}/generar-desig' [disabled]='tieneDesignacion()'><mat-icon>add</mat-icon> CREAR DESIGNACIÓN</button> -->
+        <button *ngIf="chequearLugar('presi') && chequearPerfil(['super-admin','crear_usuario'])" mat-button class="btn" routerLink='./cargar-correo' ><mat-icon>add</mat-icon> CARGAR CORREO</button>
         <button *ngIf="chequearLugar('econo')" mat-button class="btn" routerLink='./crear-correo' [disabled]='!tieneDesignacion()'><mat-icon>add</mat-icon> CREAR CORREO ECONO</button>
-        <button mat-button class="btn" *ngIf="!eliminados && chequearLugar('econo')" (click)='eliminados = !eliminados' value='{{eliminados}}'><mat-icon>add</mat-icon> VER CORREOS ELIMINADOS</button>
-        <button mat-button class="btn" *ngIf="eliminados && chequearLugar('econo')" (click)='eliminados = !eliminados' value='{{eliminados}}'><mat-icon>remove</mat-icon> OCULTAR CORREOS ELIMINADOS</button>
+        <button mat-button class="btn" *ngIf="!eliminados" (click)='eliminados = !eliminados' value='{{eliminados}}'><mat-icon>add</mat-icon> VER CORREOS ELIMINADOS</button>
+        <button mat-button class="btn" *ngIf="eliminados" (click)='eliminados = !eliminados' value='{{eliminados}}'><mat-icon>remove</mat-icon> OCULTAR CORREOS ELIMINADOS</button>
 
         <button *ngIf="chequearPerfil(['super-admin','crear_usuario'])" mat-button class="btnGuardar" (click)='actualizarDatos()'> GUARDAR CAMBIOS</button>
 

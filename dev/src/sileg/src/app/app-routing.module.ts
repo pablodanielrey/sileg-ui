@@ -10,6 +10,7 @@ import { PantallaPrincipalComponent } from './pantalla-principal/pantalla-princi
 import { LoaderComponent } from './loader/loader.component';
 import { CreateComponent } from './usuarios/create/create.component';
 import { CrearCorreoComponent } from './usuarios/crear-correo/crear-correo.component';
+import { CargarCorreoComponent } from './usuarios/cargar-correo/cargar-correo.component';
 import { SeleccionarUsuarioComponent } from './usuarios/seleccionar-usuario/seleccionar-usuario.component';
 import { DetalleUsuarioComponent } from './usuarios/detalle-usuario/detalle-usuario.component';
 import { GenerarClaveComponent } from './usuarios/generar-clave/generar-clave.component';
@@ -43,7 +44,8 @@ const routes: Routes = [
           { path:'usuario/:id', component: DetalleUsuarioComponent },
           { path:'usuario/:id/reset-clave', component: GenerarClaveComponent },
           { path:'usuario/:id/generar-desig', component: GenerarDesignacionComponent },
-          { path:'usuario/:id/crear-correo', component: CrearCorreoComponent }
+          { path:'usuario/:id/crear-correo', component: CrearCorreoComponent },
+          { path:'usuario/:id/cargar-correo', component: CargarCorreoComponent }
         ]
       },
       {

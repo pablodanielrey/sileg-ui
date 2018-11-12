@@ -41,7 +41,7 @@ export class AgregarQuitarUsuariosComponent implements OnInit {
     pedido.usuario_id = event.id;
     this.subscriptions.push(this.service.generarDesignacionSinCorreo(pedido)
       .subscribe(d => {
-        this.notificaciones.show("El usuario " + event.nombre + " " + event.apellido + " ha sido agregado correctamemte");
+        this.notificaciones.show("El usuario " + event.nombre + " " + event.apellido + " ha sido agregado correctamente");
         this.volver();
       }));
   }

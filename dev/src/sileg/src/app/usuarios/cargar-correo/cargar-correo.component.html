@@ -1,0 +1,18 @@
+<div class=designaciones *ngIf='usuarioSeleccionado'>
+  <button mat-raised-button (click)='location.back()' class="btnVolver"><mat-icon>navigate_before</mat-icon> VOLVER</button>
+  <span class="textoTitulo">Cargar Correo</span>
+  <span>&nbsp; para &nbsp;</span>
+  <span><b>{{usuarioSeleccionado.nombre}} {{usuarioSeleccionado.apellido}}</b></span>
+  <div>
+    <div class="textoTitulo">
+      Ingrese dirección de correo
+    </div>
+    
+    <mat-form-field class="search">
+      <input class="inputCorreo" [(ngModel)]='correo' type="email" matInput pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$" placeholder="nombre.apellido@dominio.com">
+    </mat-form-field>
+    <div>
+      <button class="btnDisponibilidad" mat-button (click)='verificarSintaxis()' [disabled]='correo.length <= 0'>CARGAR CORREO</button>
+    </div>
+  </div>
+</div>
