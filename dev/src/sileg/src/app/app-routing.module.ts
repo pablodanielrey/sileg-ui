@@ -22,6 +22,9 @@ import { DetalleLugarComponent } from './lugares/detalle-lugar/detalle-lugar.com
 import { UsuariosPorOficinaComponent } from './lugares/usuarios-por-oficina/usuarios-por-oficina.component';
 import { AgregarQuitarUsuariosComponent } from './lugares/agregar-quitar-usuarios/agregar-quitar-usuarios.component';
 
+import { DesignacionesPorLugarComponent } from './lugares/designaciones-por-lugar/designaciones-por-lugar.component';
+
+
 import { OidpGuard } from './oauth2/oidp.guard';
 import { Oauth2Component } from './oauth2/oauth2.component';
 import { ErrorComponent } from './error/error.component';
@@ -56,7 +59,9 @@ const routes: Routes = [
           { path:'lugar/:id', component: DetalleLugarComponent },
           { path:'crear', component: CrearLugarComponent },
           { path:'lugar/:id/usuarios', component: UsuariosPorOficinaComponent },
-          { path:'lugar/:id/usuarios/abm', component: AgregarQuitarUsuariosComponent }
+          { path:'lugar/:id/usuarios/abm', component: AgregarQuitarUsuariosComponent },
+          { path:'lugar/:id/designaciones', component: DesignacionesPorLugarComponent },
+
         ]
       }
     ]
