@@ -1,7 +1,7 @@
 <div class="contenidoPantalla">
   <mat-progress-bar *ngIf="cargando" mode="indeterminate" value="10" class="preload"></mat-progress-bar>
 
-  <div>
+  <div *ngIf='lugar'>
     <mat-list>
         <mat-list-item routerLink='../' class="itemLista">
           <div matListAvatar class="avatar">{{lugar.nombre.charAt(0)}}</div>
@@ -14,12 +14,23 @@
         
         <ng-container matColumnDef='fullname'>
             <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
-            <mat-cell *matCellDef='let d'> {{d.fullname}} </mat-cell>
+            <mat-cell *matCellDef='let d'> {{d.usuario.nombre}} {{d.usuario.apellido}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef='dni'>
             <mat-header-cell *matHeaderCellDef mat-sort-header> DNI </mat-header-cell>
-            <mat-cell *matCellDef='let d'> {{d.dni}} </mat-cell>
+            <mat-cell *matCellDef='let d'> {{d.usuario.dni}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef='cargo'>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Cargo </mat-header-cell>
+            <mat-cell *matCellDef='let d'>
+              <mat-select class="selectCargo">
+                <mat-option *ngFor="let c of cargos" [value]="c.id">
+                  {{ c.nombre }}
+                </mat-option>
+              </mat-select>
+            </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
