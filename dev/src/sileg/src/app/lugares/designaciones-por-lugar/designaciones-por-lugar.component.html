@@ -25,13 +25,36 @@
         <ng-container matColumnDef='cargo'>
             <mat-header-cell *matHeaderCellDef mat-sort-header> Cargo </mat-header-cell>
             <mat-cell *matCellDef='let d'>
-              <mat-select class="selectCargo">
+              <mat-select class="selectCargo" [value]='d.designacion.cargo_id'>
                 <mat-option *ngFor="let c of cargos" [value]="c.id">
                   {{ c.nombre }}
                 </mat-option>
               </mat-select>
             </mat-cell>
         </ng-container>
+
+        <ng-container matColumnDef='desde'>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Desde </mat-header-cell>
+            <mat-cell *matCellDef='let d'>
+              <mat-form-field class="imputFecha">
+              <input class="imputFecha2" matInput [matDatepicker]="picker" placeholder="" [value]='d.designacion.desde'>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker ></mat-datepicker>
+            </mat-form-field>
+            </mat-cell>
+        </ng-container>        
+
+        <ng-container matColumnDef='hasta'>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Hasta </mat-header-cell>
+            <mat-cell *matCellDef='let d'>
+              <mat-form-field class="imputFecha">
+              <input class="imputFecha2" matInput [matDatepicker]="picker" placeholder="" [value]='d.designacion.hasta'>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker ></mat-datepicker>
+            </mat-form-field>
+            </mat-cell>
+        </ng-container>        
+
 
         <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
         <mat-row *matRowDef="let row; columns: columnas;"></mat-row>
