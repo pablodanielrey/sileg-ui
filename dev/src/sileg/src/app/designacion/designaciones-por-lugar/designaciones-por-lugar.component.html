@@ -27,7 +27,7 @@
             <mat-cell *matCellDef='let d'>
               <mat-select class="selectCargo" [value]='d.designacion.cargo_id'>
                 <mat-option *ngFor="let c of cargos" [value]="c.id">
-                  {{ c.nombre }}
+                  {{ c.nombre }} {{c.tipo}}
                 </mat-option>
               </mat-select>
             </mat-cell>
@@ -55,6 +55,12 @@
             </mat-cell>
         </ng-container>        
 
+        <ng-container matColumnDef='estado'>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
+          <mat-cell *matCellDef='let d'>
+            <div routerLink='/sistema/designaciones/detalle/{{d.designacion.id}}'>P</div>
+          </mat-cell>
+        </ng-container>   
 
         <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
         <mat-row *matRowDef="let row; columns: columnas;"></mat-row>

@@ -1,5 +1,3 @@
-
-import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 
@@ -7,11 +5,12 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import { Http } from '@angular/http'
 
 
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import 'rxjs/Rx';
 
 import { Mail, Usuario, ResetClave } from './entities/usuario';
-import { Sileg, DatosSileg, Lugar, PedidoDesignacion, Designacion, Cargo, DatosLugarDesignaciones } from './entities/sileg';
+import { Sileg, DatosSileg, Lugar, PedidoDesignacion, Designacion, Cargo, DatosLugarDesignaciones, DatoDesignacion } from './entities/sileg';
 
 const SILEG_API_URL = environment.silegApiUrl;
 const USUARIO_API_URL = environment.usuarioApiUrl;
@@ -79,6 +78,28 @@ export class SilegService {
   obtenerAccesoModulos(): Observable<string[]> {
     let apiUrl = `${SILEG_API_URL}/acceso_modulos`;
     return this.http.get<string[]>(apiUrl);
+  }
+
+  detalleDesignacion(did:string): Observable<DatoDesignacion[]> {
+    let dd = [
+      new DatoDesignacion({
+        usuario: {
+          id: '',
+          nombre: 'Pablo',
+          apellido: 'Rey',
+          dni: '27294557'
+        },
+        designacion: {
+          id: '',
+          cargo_id: 'b65f8e8b-80ee-4ff8-9bf2-f04ba2bdd397',
+          lugar_id: '',
+          historico: false,
+          desde:new Date(),
+          hasta:new Date(),
+        }
+      })
+    ];
+    return of(dd);
   }
 
   buscarDesignaciones(uid:string): Observable<Designacion[]> {

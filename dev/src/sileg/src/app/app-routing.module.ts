@@ -23,6 +23,7 @@ import { UsuariosPorOficinaComponent } from './lugares/usuarios-por-oficina/usua
 import { AgregarQuitarUsuariosComponent } from './lugares/agregar-quitar-usuarios/agregar-quitar-usuarios.component';
 
 import { DesignacionesPorLugarComponent } from './designacion/designaciones-por-lugar/designaciones-por-lugar.component';
+import { DetalleDesignacionComponent } from './designacion/detalle-designacion/detalle-designacion.component';
 
 
 import { OidpGuard } from './oauth2/oidp.guard';
@@ -61,6 +62,13 @@ const routes: Routes = [
           { path:'lugar/:id/usuarios', component: UsuariosPorOficinaComponent },
           { path:'lugar/:id/usuarios/abm', component: AgregarQuitarUsuariosComponent },
           { path:'lugar/:id/designaciones', component: DesignacionesPorLugarComponent },
+
+        ]
+      },
+      {
+        path:'designaciones',
+        children: [
+          { path:'detalle/:id', component: DetalleDesignacionComponent }
 
         ]
       }
