@@ -51,7 +51,8 @@ import { SistemaComponent } from './sistema/sistema.component';
 import { PantallaPrincipalComponent } from './pantalla-principal/pantalla-principal.component';
 import { CargarCorreoComponent } from './usuarios/cargar-correo/cargar-correo.component';
 
-import { DesignacionesPorLugarComponent } from './lugares/designaciones-por-lugar/designaciones-por-lugar.component';
+import { DesignacionesPorLugarComponent } from './designacion/designaciones-por-lugar/designaciones-por-lugar.component';
+import { DetalleDesignacionComponent } from './designacion/detalle-designacion/detalle-designacion.component';
 
 
 
@@ -86,7 +87,8 @@ import { DesignacionesPorLugarComponent } from './lugares/designaciones-por-luga
     Oauth2Component,
     ErrorComponent,
     CargarCorreoComponent,
-    DesignacionesPorLugarComponent
+    DesignacionesPorLugarComponent,
+    DetalleDesignacionComponent
   ],
   entryComponents: [
     ConfirmarGenerarClaveComponent,
