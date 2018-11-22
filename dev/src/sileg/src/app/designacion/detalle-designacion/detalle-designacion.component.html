@@ -16,7 +16,7 @@
             <mat-cell *matCellDef='let d'>
               <mat-select class="selectCargo" [value]='d.designacion.cargo_id'>
                 <mat-option *ngFor="let c of cargos" [value]="c.id">
-                  {{ c.nombre }} {{c.tipo}}
+                  {{ c.nombre }} ({{c.tipo}})
                 </mat-option>
               </mat-select>
             </mat-cell>
