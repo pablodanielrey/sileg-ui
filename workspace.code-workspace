@@ -5,15 +5,6 @@
 		},
 		{
 			"path": "/src/gitlab/stacks"
-		},
-		{
-			"path": "/src/github/sileg-api"
-		},
-		{
-			"path": "/src/github/microservices_common"
-		},
-		{
-			"path": "/src/github/warden-api"
 		}
 	],
 	"settings": {}
