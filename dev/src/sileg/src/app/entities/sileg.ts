@@ -50,6 +50,22 @@ export class DatoDesignacion {
   }
 }
 
+export class Dato2Designacion {
+  lugar: Lugar;
+  cargo: Cargo;
+  designacion: Designacion;
+  usuario: Usuario;
+
+  constructor(o:Object) {
+    try {
+      Object.assign(this, o);
+      this.designacion = (this.designacion == null ? null : new Designacion(this.designacion));
+    } catch(e) {
+      console.log(e);
+    }
+  }
+}
+
 export class Lugar {
   id: string;
   tipo: string;
@@ -96,7 +112,9 @@ export class Designacion {
   designacion_id: string;
   usuario_id: string;
   cargo_id: string;
+  cargo: Cargo;
   lugar_id: string;
+  lugar: Lugar;
   historico: boolean;
   id: string;
 

@@ -11,6 +11,11 @@
             <mat-cell *matCellDef='let d'> {{d.usuario.dni}} </mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef='tipo_designacion'>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </mat-header-cell>
+          <mat-cell *matCellDef='let d'> {{d.designacion.tipo}} </mat-cell>
+        </ng-container>
+
         <!-- 
         <ng-container matColumnDef='cargo'>
             <mat-header-cell *matHeaderCellDef mat-sort-header> Cargo </mat-header-cell>
@@ -23,6 +28,7 @@
             </mat-cell>
         </ng-container>
         -->
+
       <ng-container matColumnDef='cargo'>
           <mat-header-cell *matHeaderCellDef mat-sort-header> Cargo </mat-header-cell>
           <mat-cell *matCellDef='let d'>
@@ -70,6 +76,13 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header> Resolución </mat-header-cell>
           <mat-cell *matCellDef='let d'>
             <div>{{d.resolucion}}</div>
+          </mat-cell>
+        </ng-container>  
+
+        <ng-container matColumnDef='lugar'>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Lugar </mat-header-cell>
+          <mat-cell *matCellDef='let d'>
+            <div>{{d.lugar.nombre}}</div>
           </mat-cell>
         </ng-container>  
 

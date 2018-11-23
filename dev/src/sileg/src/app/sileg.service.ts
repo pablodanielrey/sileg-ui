@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 import 'rxjs/Rx';
 
 import { Mail, Usuario, ResetClave } from './entities/usuario';
-import { Sileg, DatosSileg, Lugar, PedidoDesignacion, Designacion, Cargo, DatosLugarDesignaciones, DatoDesignacion } from './entities/sileg';
+import { Sileg, DatosSileg, Lugar, PedidoDesignacion, Designacion, Cargo, DatosLugarDesignaciones, DatoDesignacion, Dato2Designacion } from './entities/sileg';
 
 const SILEG_API_URL = environment.silegApiUrl;
 const USUARIO_API_URL = environment.usuarioApiUrl;
@@ -80,26 +80,9 @@ export class SilegService {
     return this.http.get<string[]>(apiUrl);
   }
 
-  detalleDesignacion(did:string): Observable<DatoDesignacion[]> {
-    let dd = [
-      new DatoDesignacion({
-        usuario: {
-          id: '',
-          nombre: 'Pablo',
-          apellido: 'Rey',
-          dni: '27294557'
-        },
-        designacion: {
-          id: '',
-          cargo_id: 'b65f8e8b-80ee-4ff8-9bf2-f04ba2bdd397',
-          lugar_id: '',
-          historico: false,
-          desde:new Date(),
-          hasta:new Date(),
-        }
-      })
-    ];
-    return of(dd);
+  detalleDesignacion(did:string): Observable<Dato2Designacion> {
+    let apiUrl = `${SILEG_API_URL}/designacion/${did}/detalle`;
+    return this.http.get<Dato2Designacion>(apiUrl);
   }
 
   buscarDesignaciones(uid:string): Observable<Designacion[]> {

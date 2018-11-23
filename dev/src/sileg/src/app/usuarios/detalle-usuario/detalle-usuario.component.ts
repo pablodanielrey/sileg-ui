@@ -101,15 +101,6 @@ export class DetalleUsuarioComponent implements OnInit {
         this.notificaciones.show(err.message)
       }
     ));
-
-    this.subscriptions.push(this.service.buscarDesignaciones(this.usuario_id).subscribe(
-      designaciones => {
-        this.designaciones = designaciones.filter(designacion => !designacion.historico);
-      },
-      err => {
-        this.notificaciones.show(err.message)
-      }
-    ));
   }
 
   ngOnInit() {

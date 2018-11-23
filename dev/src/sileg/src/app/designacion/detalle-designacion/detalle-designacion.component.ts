@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatTableDataSource, MatSort, Sort } from '@angular/material';
 
 import { SilegService } from '../../sileg.service';
-import { DatoDesignacion, Cargo } from '../../entities/sileg';
+import { Dato2Designacion, Cargo } from '../../entities/sileg';
 
 @Component({
   selector: 'app-detalle-designacion',
@@ -13,10 +13,10 @@ import { DatoDesignacion, Cargo } from '../../entities/sileg';
 export class DetalleDesignacionComponent implements OnInit {
   
   cargando: boolean = false;
-  designaciones : MatTableDataSource<DatoDesignacion> = null;
-  columnas: string[] = ['fullname','dni','cargo','tipo_cargo','desde','hasta','expediente','resolucion','estado'];  
+  designaciones : MatTableDataSource<Dato2Designacion> = null;
+  columnas: string[] = ['fullname','tipo_designacion','cargo','tipo_cargo','desde','hasta','expediente','resolucion','lugar','estado'];
   cargos: any[] = [];
-  subscriptions: any[] = [];
+  subscriptions: any[] = [];  
 
   constructor(
         private route : ActivatedRoute,
@@ -30,7 +30,7 @@ export class DetalleDesignacionComponent implements OnInit {
       let did = p.get('id');
       this.service.detalleDesignacion(did).subscribe(ds => {
           console.log(ds);
-          this.designaciones = new MatTableDataSource(ds);
+          this.designaciones = new MatTableDataSource([ds]);
       });
     });
   }
@@ -45,7 +45,7 @@ export class DetalleDesignacionComponent implements OnInit {
       }));
   }
 
-  cargo(d:DatoDesignacion):Cargo {
+  cargo(d:Dato2Designacion):Cargo {
     let cid = d.designacion.cargo_id;
     for (var i = 0; i < this.cargos.length; i++) {
       if (cid == this.cargos[i].id) {
@@ -55,17 +55,17 @@ export class DetalleDesignacionComponent implements OnInit {
     return null;
   }
 
-  esDocente(d:DatoDesignacion):boolean {
+  esDocente(d:Dato2Designacion):boolean {
     let cargo = this.cargo(d);
     return (cargo != null && cargo.tipo.toLocaleLowerCase() == 'docente');
   }
 
-  esNoDocente(d:DatoDesignacion):boolean {
+  esNoDocente(d:Dato2Designacion):boolean {
     let cargo = this.cargo(d);
     return (cargo != null && cargo.tipo.toLocaleLowerCase() == 'no docente');
   }
 
-  esAutoridad(d:DatoDesignacion):boolean {
+  esAutoridad(d:Dato2Designacion):boolean {
     let cargo = this.cargo(d);
     return (cargo != null && cargo.tipo.toLocaleLowerCase() == 'autoridad');
   }

@@ -53,6 +53,7 @@ import { CargarCorreoComponent } from './usuarios/cargar-correo/cargar-correo.co
 
 import { DesignacionesPorLugarComponent } from './designacion/designaciones-por-lugar/designaciones-por-lugar.component';
 import { DetalleDesignacionComponent } from './designacion/detalle-designacion/detalle-designacion.component';
+import { DesignacionesPorPersonaComponent } from './designacion/designaciones-por-persona/designaciones-por-persona.component';
 
 
 
@@ -88,7 +89,8 @@ import { DetalleDesignacionComponent } from './designacion/detalle-designacion/d
     ErrorComponent,
     CargarCorreoComponent,
     DesignacionesPorLugarComponent,
-    DetalleDesignacionComponent
+    DetalleDesignacionComponent,
+    DesignacionesPorPersonaComponent
   ],
   entryComponents: [
     ConfirmarGenerarClaveComponent,

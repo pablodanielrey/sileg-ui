@@ -24,6 +24,7 @@ import { AgregarQuitarUsuariosComponent } from './lugares/agregar-quitar-usuario
 
 import { DesignacionesPorLugarComponent } from './designacion/designaciones-por-lugar/designaciones-por-lugar.component';
 import { DetalleDesignacionComponent } from './designacion/detalle-designacion/detalle-designacion.component';
+import { DesignacionesPorPersonaComponent } from './designacion/designaciones-por-persona/designaciones-por-persona.component';
 
 
 import { OidpGuard } from './oauth2/oidp.guard';
@@ -49,7 +50,8 @@ const routes: Routes = [
           { path:'usuario/:id/reset-clave', component: GenerarClaveComponent },
           { path:'usuario/:id/generar-desig', component: GenerarDesignacionComponent },
           { path:'usuario/:id/crear-correo', component: CrearCorreoComponent },
-          { path:'usuario/:id/cargar-correo', component: CargarCorreoComponent }
+          { path:'usuario/:id/cargar-correo', component: CargarCorreoComponent },
+          { path:'usuario/:id/designaciones', component: DesignacionesPorPersonaComponent }
         ]
       },
       {
