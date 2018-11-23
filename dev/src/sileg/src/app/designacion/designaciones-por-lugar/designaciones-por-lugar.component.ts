@@ -15,7 +15,7 @@ export class DesignacionesPorLugarComponent implements OnInit {
   cargando: boolean = false;
   lugar: any = null;
   designaciones : MatTableDataSource<DatoDesignacion> = null;
-  columnas: string[] = ['fullname','dni','tipo_designacion','cargo','desde','hasta','expediente','resolucion','lugar','estado'];  
+  columnas: string[] = ['fullname','dni','tipo_designacion','cargo','desde','hasta','lugar','estado'];  
   cargos: Cargo[] = [];
   subscriptions: any[] = [];
 
