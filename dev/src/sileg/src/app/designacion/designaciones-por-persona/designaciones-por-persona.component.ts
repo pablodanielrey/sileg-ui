@@ -20,7 +20,7 @@ export class DesignacionesPorPersonaComponent implements OnInit {
 
   cargando: boolean = false;
   designaciones : DesignacionView[];
-  columnas: string[] = ['tipo_designacion','cargo','tipo_cargo','desde','hasta','expediente','resolucion','estado'];
+  columnas: string[] = ['cargo','tipo_cargo','desde','hasta','expediente','resolucion','estado'];
   cargos: any[] = [];
   subscriptions: any[] = [];
   lugares: Lugar[] = [];

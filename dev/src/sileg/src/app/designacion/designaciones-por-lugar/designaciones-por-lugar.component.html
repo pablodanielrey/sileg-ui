@@ -82,6 +82,9 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header> Lugar </mat-header-cell>
           <mat-cell *matCellDef='let d'>
             <div>{{d.lugar?.nombre}}</div>
+            <div *ngIf='d.lugar.id != lugar.id' routerLink='/sistema/lugares/lugar/{{d.lugar.id}}/designaciones'>
+              <div> VER</div>
+            </div>            
           </mat-cell>
         </ng-container>          
 
