@@ -8,7 +8,11 @@
             
         <ng-container matColumnDef='tipo_designacion'>
           <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </mat-header-cell>
-          <mat-cell *matCellDef='let d'> {{d.tipo}} </mat-cell>
+          <mat-cell *matCellDef='let d'> 
+            <div routerLink='/sistema/designaciones/detalle/{{d.id}}'>
+              {{d.tipo}} 
+            </div>             
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef='cargo'>

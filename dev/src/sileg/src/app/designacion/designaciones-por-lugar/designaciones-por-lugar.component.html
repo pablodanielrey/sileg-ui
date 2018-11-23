@@ -14,7 +14,11 @@
         
         <ng-container matColumnDef='fullname'>
             <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
-            <mat-cell *matCellDef='let d'> {{d.usuario.nombre}} {{d.usuario.apellido}} </mat-cell>
+            <mat-cell *matCellDef='let d'> 
+              <div routerLink='/sistema/usuario/usuario/{{d.usuario.id}}/designaciones'>
+                {{d.usuario.nombre}} {{d.usuario.apellido}}
+              </div> 
+            </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef='dni'>
