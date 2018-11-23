@@ -63,16 +63,23 @@
         <ng-container matColumnDef='expediente'>
           <mat-header-cell *matHeaderCellDef mat-sort-header> Expediente </mat-header-cell>
           <mat-cell *matCellDef='let d'>
-            <div>{{d.expediente}}</div>
+            <div>{{d.designacion.expediente}}</div>
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef='resolucion'>
           <mat-header-cell *matHeaderCellDef mat-sort-header> Resolución </mat-header-cell>
           <mat-cell *matCellDef='let d'>
-            <div>{{d.resolucion}}</div>
+            <div>{{d.designacion.resolucion}}</div>
           </mat-cell>
         </ng-container>
+
+        <ng-container matColumnDef='lugar'>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Lugar </mat-header-cell>
+          <mat-cell *matCellDef='let d'>
+            <div>{{d.lugar?.nombre}}</div>
+          </mat-cell>
+        </ng-container>          
 
         <ng-container matColumnDef='estado'>
           <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>

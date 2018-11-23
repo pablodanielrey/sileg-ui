@@ -30,7 +30,7 @@ export class DetalleDesignacionComponent implements OnInit {
       let did = p.get('id');
       this.service.detalleDesignacion(did).subscribe(ds => {
           console.log(ds);
-          this.designaciones = new MatTableDataSource([ds]);
+          this.designaciones = new MatTableDataSource(ds);
       });
     });
   }

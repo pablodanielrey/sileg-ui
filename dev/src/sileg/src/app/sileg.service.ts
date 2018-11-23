@@ -80,9 +80,9 @@ export class SilegService {
     return this.http.get<string[]>(apiUrl);
   }
 
-  detalleDesignacion(did:string): Observable<Dato2Designacion> {
+  detalleDesignacion(did:string): Observable<Dato2Designacion[]> {
     let apiUrl = `${SILEG_API_URL}/designacion/${did}/detalle`;
-    return this.http.get<Dato2Designacion>(apiUrl);
+    return this.http.get<Dato2Designacion[]>(apiUrl);
   }
 
   buscarDesignaciones(uid:string): Observable<Designacion[]> {
