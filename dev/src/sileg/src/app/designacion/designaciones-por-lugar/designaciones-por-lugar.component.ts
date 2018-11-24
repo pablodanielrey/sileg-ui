@@ -72,4 +72,7 @@ export class DesignacionesPorLugarComponent implements OnInit {
     return (cargo != null && cargo.tipo.toLocaleLowerCase() == 'autoridad');
   }
 
+    ordenar(e) {
+
+    }
 }

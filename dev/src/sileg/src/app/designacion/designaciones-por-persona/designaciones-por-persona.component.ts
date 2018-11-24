@@ -92,4 +92,7 @@ export class DesignacionesPorPersonaComponent implements OnInit {
     return (cargo != null && cargo.tipo.toLocaleLowerCase() == 'autoridad');
   }
 
+  ordenar(e) {
+
+  }
 }
