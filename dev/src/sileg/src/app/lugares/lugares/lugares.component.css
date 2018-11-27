@@ -17,4 +17,18 @@
 
 }
 
+
+
 /* ---------------------------------------*/
+
+
+.arbol ul,
+.arbol li {
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+}
+
+.arbol-nodo-invisible {
+  display: none;
+}

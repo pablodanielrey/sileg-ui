@@ -16,6 +16,7 @@ import { DetalleUsuarioComponent } from './usuarios/detalle-usuario/detalle-usua
 import { GenerarClaveComponent } from './usuarios/generar-clave/generar-clave.component';
 import { GenerarDesignacionComponent } from './usuarios/generar-designacion/generar-designacion.component';
 
+import { LugaresComponent } from './lugares/lugares/lugares.component';
 import { BuscarLugaresComponent } from './lugares/buscar-lugares/buscar-lugares.component';
 import { CrearLugarComponent } from './lugares/crear-lugar/crear-lugar.component';
 import { DetalleLugarComponent } from './lugares/detalle-lugar/detalle-lugar.component';
@@ -58,6 +59,7 @@ const routes: Routes = [
         path:'lugares',
         canActivate: [OidpGuard],
         children: [
+          { path:'lugares', component: LugaresComponent },
           { path:'buscar', component: BuscarLugaresComponent },
           { path:'lugar/:id', component: DetalleLugarComponent },
           { path:'crear', component: CrearLugarComponent },
