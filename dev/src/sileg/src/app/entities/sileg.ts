@@ -75,6 +75,7 @@ export class Lugar {
   telefono: string;
   email: string;
   eliminado: Date;
+  padre_id: string;
 
 
   constructor(o:Object) {

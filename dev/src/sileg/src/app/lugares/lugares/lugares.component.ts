@@ -2,13 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { Observable, of, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
+import { SilegService } from '../../sileg.service';
+import { Lugar } from '../../entities/sileg';
 
 class LugarView {
+  id: string;
   nombre: string;
   hijos: LugarView[];
+  padre_id: string;
 
-  constructor(n:string, hijos: LugarView[] = []) {
+  constructor(id:string, n:string, hijos: LugarView[] = []) {
+    this.id = id;
     this.nombre = n;
     this.hijos = hijos;
   }
@@ -25,7 +31,7 @@ export class LugaresComponent implements OnInit {
   treeControl: NestedTreeControl<LugarView>;
   dataSource: MatTreeNestedDataSource<LugarView>;
 
-  constructor() {
+  constructor(private service: SilegService) {
     this.lugares = new BehaviorSubject([]);
     this.treeControl = new NestedTreeControl(this.obtenerHijos);
     this.dataSource = new MatTreeNestedDataSource<LugarView>();
@@ -34,19 +40,59 @@ export class LugaresComponent implements OnInit {
   ngOnInit() {
     this.lugares.subscribe(ls => this.dataSource.data = ls);
 
-    let l = new LugarView('raiz', [
-      new LugarView('h1', [
-        new LugarView('a1')
-      ]),
-      new LugarView('h2'),
-      new LugarView('h3', [
-        new LugarView('m1'),
-        new LugarView('m2')
-      ])
-    ]);
+    this.service.buscarLugares('.').pipe(map(ls => {
+      /*
+        transformo las catedras para tener el nombre correcto de la materia
+      */
 
-    this.lugares.next([l]);
-  
+      interface Materia {
+        nombre: string;
+      };
+      interface Catedra extends Lugar {
+        nombre: string;
+        descripcion: string;
+        materia: Materia;
+      };
+
+      let lugares = [];
+      ls.forEach(l => {
+        if ('materia' in l) {
+          var c = <Catedra>l;
+          c.nombre = c.nombre + ' - ' + c.materia.nombre;
+          lugares.push(c);
+        } else {
+          lugares.push(l);
+        }
+      });
+      return lugares;
+
+    })).pipe(map(ls => {
+
+      /*
+        convierto los Lugar en LugarView
+      */
+
+      let raices = [];
+      let lugares = [];
+      ls.forEach(l => {
+        let lv = new LugarView(l.id, l.nombre);
+        lv.padre_id = l.padre_id;
+        lugares.push(lv);
+        if (lv.padre_id == null) {
+          raices.push(lv);
+        }
+      });
+      lugares.forEach(l => {
+        lugares.forEach(p => {
+          if (p.id == l.padre_id) {
+            p.hijos.push(l);
+          }
+        });
+      });
+      return raices;
+    })).subscribe(ls => {
+      this.lugares.next(ls);
+    });
   }
 
   obtenerHijos(dataNode:LugarView):Observable<LugarView[]> {
