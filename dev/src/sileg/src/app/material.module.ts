@@ -23,6 +23,7 @@ import { MatButtonModule,
          MatSelectModule,
          MatNativeDateModule,
          MatTreeModule,
+         MatCheckboxModule,
        } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -52,6 +53,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatSortModule,
     MatSelectModule,
     MatTreeModule,
+    MatCheckboxModule,
     BrowserAnimationsModule
   ],
   exports: [
@@ -78,6 +80,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatSortModule,
     MatSelectModule,
     MatTreeModule,
+    MatCheckboxModule,
     BrowserAnimationsModule
   ],
 })
