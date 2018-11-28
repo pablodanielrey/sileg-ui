@@ -39,7 +39,7 @@ export class CargarCorreoComponent implements OnInit {
   }
 
   verificarSintaxis(){
-    let patron = new RegExp('(([a-zA-Z\d.]+)[@]([a-zA-Z\d.]+)[.]([a-zA-Z]+))')
+    let patron = new RegExp('(([a-zA-Z-_0-9.]+)[@]([a-zA-Z-_0-9\d.]+)[.]([a-zA-Z]+))')
     if (patron.test(this.correo)){
       this.generarCorreo();
     }else{
