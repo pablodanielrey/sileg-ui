@@ -86,7 +86,9 @@
         <ng-container matColumnDef='lugar'>
           <mat-header-cell *matHeaderCellDef mat-sort-header> Lugar </mat-header-cell>
           <mat-cell *matCellDef='let d'>
-            <div>{{d.lugar.nombre}}</div>
+            <a style='color: inherit; text-decoration: none' routerLink='/sistema/lugares/lugar/{{d.lugar?.id}}/designaciones'>
+              <div>{{d.lugar.nombre}}</div>  
+            </a>            
           </mat-cell>
         </ng-container>  
 
