@@ -38,6 +38,10 @@ export class DesignacionesPorLugarComponent implements OnInit {
     });
   }
 
+  volver() {
+    
+  }
+
   obtenerTiposCargos() {
     this.cargos = [];
     this.subscriptions.push(this.service.cargos()
