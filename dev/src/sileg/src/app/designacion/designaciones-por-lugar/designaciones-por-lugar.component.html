@@ -28,25 +28,25 @@
                 <ng-container matColumnDef='fullname' >
                     <mat-header-cell *matHeaderCellDef mat-sort-header class="columnaNombre"> Nombre </mat-header-cell>
                     <mat-cell *matCellDef='let d' class="columnaNombre"> 
-                      <div routerLink='/sistema/usuario/usuario/{{d.usuario.id}}/designaciones'>
-                        {{d.usuario.nombre}} {{d.usuario.apellido}}
+                      <div routerLink='/sistema/usuario/usuario/{{d?.usuario?.id}}/designaciones'>
+                        {{d?.usuario?.nombre}} {{d?.usuario?.apellido}}
                       </div> 
                     </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef='dni'>
                     <mat-header-cell *matHeaderCellDef mat-sort-header> DNI </mat-header-cell>
-                    <mat-cell *matCellDef='let d'> {{d.usuario.dni}} </mat-cell>
+                    <mat-cell *matCellDef='let d'> {{d?.usuario?.dni}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef='tipo_designacion'>
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </mat-header-cell>
-                  <mat-cell *matCellDef='let d'> {{d.designacion.tipo}} </mat-cell>
+                  <mat-cell *matCellDef='let d'> {{d?.designacion?.tipo}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef='cargo'>
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Cargo </mat-header-cell>
-                    <mat-cell *matCellDef='let d'> {{cargo(d).nombre}} </mat-cell>
+                    <mat-cell *matCellDef='let d'> {{cargo(d)?.nombre}} </mat-cell>
                   </ng-container>
 <!-- 
                   <ng-container matColumnDef='cargo'>
@@ -62,7 +62,7 @@
 
                 <ng-container matColumnDef='desde'>
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Desde </mat-header-cell>
-                    <mat-cell *matCellDef='let d'> {{d.designacion.desde |date:"dd/MM/yyyy"}} </mat-cell>
+                    <mat-cell *matCellDef='let d'> {{d?.designacion?.desde |date:"dd/MM/yyyy"}} </mat-cell>
                   </ng-container>
 
                 <!-- <ng-container matColumnDef='desde'>
@@ -79,7 +79,7 @@
                           
                 <ng-container matColumnDef='hasta'>
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Hasta </mat-header-cell>
-                    <mat-cell *matCellDef='let d'> {{d.designacion.hasta |date:"dd/MM/yyyy"}} </mat-cell>
+                    <mat-cell *matCellDef='let d'> {{d?.designacion?.hasta |date:"dd/MM/yyyy"}} </mat-cell>
                   </ng-container>
       <!-- 
                 <ng-container matColumnDef='hasta'>
@@ -94,6 +94,7 @@
                 </ng-container>   -->
 
 
+                <!--
                 <ng-container matColumnDef='expediente'>
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Expediente </mat-header-cell>
                   <mat-cell *matCellDef='let d'>
@@ -107,12 +108,13 @@
                     <div>{{d.designacion.resolucion}}</div>
                   </mat-cell>
                 </ng-container>
+                -->
 
                 <ng-container matColumnDef='lugar'>
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Lugar </mat-header-cell>
                   <mat-cell *matCellDef='let d'>
                     <div>{{d.lugar?.nombre}}</div>
-                    <div *ngIf='d.lugar.id != lugar.id' routerLink='/sistema/lugares/lugar/{{d.lugar.id}}/designaciones'>
+                    <div *ngIf='lugar && d.lugar?.id != lugar.id' routerLink='/sistema/lugares/lugar/{{d.lugar?.id}}/designaciones'>
                       <div> VER</div>
                     </div>            
                   </mat-cell>
