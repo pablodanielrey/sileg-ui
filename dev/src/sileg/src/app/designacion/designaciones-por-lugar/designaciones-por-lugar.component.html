@@ -1,108 +1,156 @@
-<div class="contenidoPantalla">
-  <mat-progress-bar *ngIf="cargando" mode="indeterminate" value="10" class="preload"></mat-progress-bar>
+<div class="designacionesPorLugar">
 
-  <div *ngIf='lugar'>
-    <mat-list>
-        <mat-list-item routerLink='../' class="itemLista">
-          <div matListAvatar class="avatar">{{lugar.nombre.charAt(0)}}</div>
-          <h3 matLine> {{lugar.nombre}} </h3>
-          <p matLine> <span class="itemTextoSubtitulo"> {{lugar.descripcion}} </span> </p>
-        </mat-list-item>
-    </mat-list>
-    
-    <mat-table #table [dataSource]="designaciones" matSort (matSortChange)='ordenar($event)' matSortActive="fullname" matSortDirection="asc">
-        
-        <ng-container matColumnDef='fullname'>
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
-            <mat-cell *matCellDef='let d'> 
-              <div routerLink='/sistema/usuario/usuario/{{d.usuario.id}}/designaciones'>
-                {{d.usuario.nombre}} {{d.usuario.apellido}}
-              </div> 
-            </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef='dni'>
-            <mat-header-cell *matHeaderCellDef mat-sort-header> DNI </mat-header-cell>
-            <mat-cell *matCellDef='let d'> {{d.usuario.dni}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef='tipo_designacion'>
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </mat-header-cell>
-          <mat-cell *matCellDef='let d'> {{d.designacion.tipo}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef='cargo'>
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Cargo </mat-header-cell>
-            <mat-cell *matCellDef='let d'>
-              <mat-select class="selectCargo" [value]='d.designacion.cargo_id'>
-                <mat-option *ngFor="let c of cargos" [value]="c.id">
-                  {{ c.nombre }}
-                </mat-option>
-              </mat-select>
-            </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef='desde'>
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Desde </mat-header-cell>
-            <mat-cell *matCellDef='let d'>
-              <mat-form-field class="imputFecha">
-              <input class="imputFecha2" matInput [matDatepicker]="picker" placeholder="" [value]='d.designacion.desde'>
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker ></mat-datepicker>
-            </mat-form-field>
-            </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef='hasta'>
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Hasta </mat-header-cell>
-            <mat-cell *matCellDef='let d'>
-              <mat-form-field class="imputFecha">
-              <input class="imputFecha2" matInput [matDatepicker]="picker" placeholder="" [value]='d.designacion.hasta'>
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker ></mat-datepicker>
-            </mat-form-field>
-            </mat-cell>
-        </ng-container>        
-
-        <ng-container matColumnDef='expediente'>
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Expediente </mat-header-cell>
-          <mat-cell *matCellDef='let d'>
-            <div>{{d.designacion.expediente}}</div>
-          </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef='resolucion'>
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Resolución </mat-header-cell>
-          <mat-cell *matCellDef='let d'>
-            <div>{{d.designacion.resolucion}}</div>
-          </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef='lugar'>
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Lugar </mat-header-cell>
-          <mat-cell *matCellDef='let d'>
-            <div>{{d.lugar?.nombre}}</div>
-            <div *ngIf='d.lugar.id != lugar.id' routerLink='/sistema/lugares/lugar/{{d.lugar.id}}/designaciones'>
-              <div> VER</div>
-            </div>            
-          </mat-cell>
-        </ng-container>          
-
-        <ng-container matColumnDef='estado'>
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
-          <mat-cell *matCellDef='let d'>
-            <div routerLink='/sistema/designaciones/detalle/{{d.designacion.id}}'> det</div>
-            <div *ngIf='d.historico'> H</div>
-            <div *ngIf='esDocente(d)'> D</div>
-            <div *ngIf='esAutoridad(d)'> A</div>
-            <div *ngIf='esNoDocente(d)'> ND</div>
-          </mat-cell>
-        </ng-container>   
-
-        <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: columnas;"></mat-row>
-    </mat-table>
+  <div class="seccionSistema">
+      <button mat-button class="btnVolverSeccion" (click)="volver()"><mat-icon>keyboard_arrow_left</mat-icon> volver</button>
+        | Designaciones
   </div>
 
+  <mat-divider></mat-divider>
+
+  <div class="contenidoPantalla">
+    <mat-progress-bar *ngIf="cargando" mode="indeterminate" value="10" class="preload"></mat-progress-bar>
+
+    <div *ngIf='lugar' class="tabla">
+      <!-- <mat-list>
+          <mat-list-item routerLink='../' class="itemLista">
+            <div matListAvatar class="avatar">{{lugar.nombre.charAt(0)}}</div>
+            <h3 matLine> <b>{{lugar.nombre}}</b> </h3>
+            <p matLine> <span class="itemTextoSubtitulo"> {{lugar.descripcion}} </span> </p>
+          </mat-list-item>
+      </mat-list> -->
+
+
+      <mat-tab-group>
+          <mat-tab label="{{lugar.nombre}}">
+
+            <mat-table class="tabla" #table [dataSource]="designaciones" matSort (matSortChange)='ordenar($event)' matSortActive="fullname" matSortDirection="asc">
+                
+                <ng-container matColumnDef='fullname' >
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="columnaNombre"> Nombre </mat-header-cell>
+                    <mat-cell *matCellDef='let d' class="columnaNombre"> 
+                      <div routerLink='/sistema/usuario/usuario/{{d.usuario.id}}/designaciones'>
+                        {{d.usuario.nombre}} {{d.usuario.apellido}}
+                      </div> 
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef='dni'>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> DNI </mat-header-cell>
+                    <mat-cell *matCellDef='let d'> {{d.usuario.dni}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef='tipo_designacion'>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </mat-header-cell>
+                  <mat-cell *matCellDef='let d'> {{d.designacion.tipo}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef='cargo'>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Cargo </mat-header-cell>
+                    <mat-cell *matCellDef='let d'> {{cargo(d).nombre}} </mat-cell>
+                  </ng-container>
+<!-- 
+                  <ng-container matColumnDef='cargo'>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Cargo </mat-header-cell>
+                    <mat-cell *matCellDef='let d'>
+                      <mat-select class="selectCargo" [value]='d.designacion.cargo_id'>
+                        <mat-option *ngFor="let c of cargos" [value]="c.id">
+                          {{ c.nombre }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-cell>
+                </ng-container> -->
+
+                <ng-container matColumnDef='desde'>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Desde </mat-header-cell>
+                    <mat-cell *matCellDef='let d'> {{d.designacion.desde |date:"dd/MM/yyyy"}} </mat-cell>
+                  </ng-container>
+
+                <!-- <ng-container matColumnDef='desde'>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Desde </mat-header-cell>
+                    <mat-cell *matCellDef='let d'>
+                      <mat-form-field class="imputFecha">
+                      <input class="imputFecha2" matInput [matDatepicker]="picker" placeholder="" [value]='d.designacion.desde'>
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker ></mat-datepicker>
+                    </mat-form-field>
+                    </mat-cell>
+                </ng-container> -->
+
+                          
+                <ng-container matColumnDef='hasta'>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Hasta </mat-header-cell>
+                    <mat-cell *matCellDef='let d'> {{d.designacion.hasta |date:"dd/MM/yyyy"}} </mat-cell>
+                  </ng-container>
+      <!-- 
+                <ng-container matColumnDef='hasta'>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Hasta </mat-header-cell>
+                    <mat-cell *matCellDef='let d'>
+                      <mat-form-field class="imputFecha">
+                      <input class="imputFecha2" matInput [matDatepicker]="picker" placeholder="" [value]='d.designacion.hasta'>
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker ></mat-datepicker>
+                    </mat-form-field>
+                    </mat-cell>
+                </ng-container>   -->
+
+
+                <ng-container matColumnDef='expediente'>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Expediente </mat-header-cell>
+                  <mat-cell *matCellDef='let d'>
+                    <div>{{d.designacion.expediente}}</div>
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef='resolucion'>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Resolución </mat-header-cell>
+                  <mat-cell *matCellDef='let d'>
+                    <div>{{d.designacion.resolucion}}</div>
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef='lugar'>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Lugar </mat-header-cell>
+                  <mat-cell *matCellDef='let d'>
+                    <div>{{d.lugar?.nombre}}</div>
+                    <div *ngIf='d.lugar.id != lugar.id' routerLink='/sistema/lugares/lugar/{{d.lugar.id}}/designaciones'>
+                      <div> VER</div>
+                    </div>            
+                  </mat-cell>
+                </ng-container>          
+
+                <ng-container matColumnDef='estado'>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Más Información </mat-header-cell>
+                  <mat-cell *matCellDef='let d'>
+                      <button class=btnDetalle mat-icon-button routerLink='/sistema/designaciones/detalle/{{d.designacion.id}}' >
+                          <mat-icon matTooltip="Detalle designación">zoom_in</mat-icon>
+                        </button>
+                    <!-- <div routerLink='/sistema/designaciones/detalle/{{d.designacion.id}}'> det</div> -->
+
+                    <mat-chip-list>
+                        <mat-chip *ngIf='d.historico' matTooltip="Historico">H</mat-chip>
+                        <mat-chip *ngIf='esDocente(d)' matTooltip="Docente">D</mat-chip>
+                        <mat-chip *ngIf='esAutoridad(d)' matTooltip="Autoridad">A</mat-chip>
+                        <mat-chip *ngIf='esNoDocente(d)' matTooltip="NoDocente">ND</mat-chip>
+                      </mat-chip-list>
+                    <!-- <div *ngIf='d.historico'> H</div>
+                    <div *ngIf='esDocente(d)'> D</div>
+                    <div *ngIf='esAutoridad(d)'> A</div>
+                    <div *ngIf='esNoDocente(d)'> ND</div> -->
+                  </mat-cell>
+                </ng-container>   
+
+                <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: columnas;"></mat-row>
+            </mat-table>
+
+          </mat-tab>
+
+      </mat-tab-group>
+
+
+    </div>
+
+
+  </div>
 
 </div>
