@@ -23,7 +23,7 @@ import { MatButtonModule,
          MatSelectModule,
          MatNativeDateModule,
          MatTreeModule,
-         MatCheckboxModule
+         MatCheckboxModule,
          MatTooltipModule
        } from '@angular/material';
 
