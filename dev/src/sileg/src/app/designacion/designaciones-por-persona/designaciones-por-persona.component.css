@@ -1,0 +1,28 @@
+/* ---- CSS BASICO PARA CADA PANTALLA ----*/
+
+
+.designacionesPorPersona .seccionSistema {
+    color: #4186e1;
+    padding: 5px;
+  
+  }
+  
+  .designacionesPorPersona .btnVolverSeccion {
+    color: grey;
+  }
+  
+  .designacionesPorPersona .contenidoPantalla {
+    padding: 10px 20px 20px 20px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  /* ---------------------------------------*/
+
+  .tabla {
+    width: 100%;
+}
+
+.btnDetalle {
+    color: grey;
+}

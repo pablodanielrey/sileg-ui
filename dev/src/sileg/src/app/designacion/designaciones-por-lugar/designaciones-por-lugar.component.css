@@ -23,12 +23,6 @@
       width: 100%;
   }
 
-  .columnaNombre {
-      /* background-color: red; */
-      width: 400px !important;
-
-  }
-
   .btnDetalle {
-    color: grey;
-}
+      color: grey;
+  }

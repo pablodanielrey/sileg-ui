@@ -26,11 +26,13 @@
             <mat-table class="tabla" #table [dataSource]="designaciones" matSort (matSortChange)='ordenar($event)' matSortActive="fullname" matSortDirection="asc">
                 
                 <ng-container matColumnDef='fullname' >
-                    <mat-header-cell *matHeaderCellDef mat-sort-header class="columnaNombre"> Nombre </mat-header-cell>
-                    <mat-cell *matCellDef='let d' class="columnaNombre"> 
-                      <div routerLink='/sistema/usuario/usuario/{{d.usuario.id}}/designaciones'>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header > Nombre</mat-header-cell>
+                    <mat-cell *matCellDef='let d' > 
+                        <button mat-button routerLink='/sistema/usuario/usuario/{{d.usuario.id}}/designaciones'>{{d.usuario.nombre}} {{d.usuario.apellido}}</button>
+
+                      <!-- <div routerLink='/sistema/usuario/usuario/{{d.usuario.id}}/designaciones' class="columnaNombre">
                         {{d.usuario.nombre}} {{d.usuario.apellido}}
-                      </div> 
+                      </div>  -->
                     </mat-cell>
                 </ng-container>
 
@@ -121,7 +123,7 @@
                 <ng-container matColumnDef='estado'>
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Más Información </mat-header-cell>
                   <mat-cell *matCellDef='let d'>
-                      <button class=btnDetalle mat-icon-button routerLink='/sistema/designaciones/detalle/{{d.designacion.id}}' >
+                      <button class="btnDetalle" mat-icon-button routerLink='/sistema/designaciones/detalle/{{d.designacion.id}}' >
                           <mat-icon matTooltip="Detalle designación">zoom_in</mat-icon>
                         </button>
                     <!-- <div routerLink='/sistema/designaciones/detalle/{{d.designacion.id}}'> det</div> -->
