@@ -39,6 +39,10 @@ export class DesignacionesPorPersonaComponent implements OnInit {
     });    
   }
 
+  volver() {
+    
+  }
+
   procesar_para_vista(ds: Designacion[]): DesignacionView[] {
 
     console.log(ds);
