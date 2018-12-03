@@ -24,7 +24,7 @@ export class DetalleUsuarioComponent implements OnInit {
   lugar: string = environment.lugar;
   usuario_id: string = null;
   usuario: Usuario = null;
-  designaciones: Designacion[] = null;
+  designaciones: number = 0;
   eliminados: boolean = false;
   subscriptions: any[] = [];
   cargando: boolean = false;
@@ -109,7 +109,16 @@ export class DetalleUsuarioComponent implements OnInit {
     this.subscriptions.push(this.service.obtenerAccesoModulos().subscribe(modulos => {
       this.modulos = modulos;
     }));
+    this.buscarDesignaciones(this.usuario_id);
   }
+
+  buscarDesignaciones(uid: string) {
+    this.subscriptions.push(this.service.buscarDesignaciones(uid).subscribe(ds => {
+      console.log(ds);
+      this.designaciones = ds.length;
+    }));    
+  }
+
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
@@ -172,7 +181,7 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
   tieneDesignacion(): boolean {
-    return this.designaciones != null && this.designaciones.length > 0;
+    return this.designaciones > 0;
   }
 
   tieneCorreoInstitucional(): boolean {
