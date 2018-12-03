@@ -15,6 +15,7 @@
 
           <mat-table #table [dataSource]="dv.designaciones" matSort (matSortChange)='ordenar($event)' matSortActive="fullname" matSortDirection="asc">
                 
+
             <ng-container matColumnDef='tipo_designacion'>
               <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </mat-header-cell>
               <mat-cell *matCellDef='let d'> 
@@ -43,32 +44,12 @@
                 <mat-cell *matCellDef='let d'> {{d.desde |date:"dd/MM/yyyy"}} </mat-cell>
               </ng-container>
 
-            <!-- <ng-container matColumnDef='desde'>
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Desde </mat-header-cell>
-                <mat-cell *matCellDef='let d'>
-                  <mat-form-field class="imputFecha">
-                  <input class="imputFecha2" matInput [matDatepicker]="picker" placeholder="" [value]='d.desde'>
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker ></mat-datepicker>
-                </mat-form-field>
-                </mat-cell>
-            </ng-container>         -->
 
             <ng-container matColumnDef='hasta'>
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Hasta </mat-header-cell>
                 <mat-cell *matCellDef='let d'> {{d.hasta |date:"dd/MM/yyyy"}} </mat-cell>
               </ng-container>
 
-            <!-- <ng-container matColumnDef='hasta'>
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Hasta </mat-header-cell>
-                <mat-cell *matCellDef='let d'>
-                  <mat-form-field class="imputFecha">
-                  <input class="imputFecha2" matInput [matDatepicker]="picker" placeholder="" [value]='d.hasta'>
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker ></mat-datepicker>
-                </mat-form-field>
-                </mat-cell>
-            </ng-container>         -->
 
             <ng-container matColumnDef='expediente'>
               <mat-header-cell *matHeaderCellDef mat-sort-header> Expediente </mat-header-cell>
@@ -90,13 +71,10 @@
                   <button class="btnDetalle" mat-icon-button routerLink='/sistema/designaciones/detalle/{{d.id}}' >
                     <mat-icon matTooltip="Detalle designación">zoom_in</mat-icon>
                   </button>
-                  <!-- <div routerLink='/sistema/designaciones/detalle/{{d.id}}'>
-                    Detalle
-                  </div>   -->
+
                   <mat-chip-list>
                       <mat-chip *ngIf='d.historico' matTooltip="Historico">H</mat-chip>
                   </mat-chip-list>
-                <!-- <div *ngIf='d.historico'> H</div> -->
           
               </mat-cell>
             </ng-container>   

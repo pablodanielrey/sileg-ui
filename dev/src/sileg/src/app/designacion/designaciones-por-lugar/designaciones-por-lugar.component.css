@@ -26,3 +26,21 @@
   .btnDetalle {
       color: grey;
   }
+
+ 
+  .columnaNombreH {
+    width: 270px !important; 
+    border:0px;
+  }
+
+  .columnaNombreN {
+    width: 270px !important; 
+    border:0px;
+
+  }
+
+  .preload {
+    opacity: 0.2;
+    margin-bottom: 20px;
+  }
+  
