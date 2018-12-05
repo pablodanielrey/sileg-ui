@@ -75,7 +75,7 @@ export class LugaresComponent implements OnInit {
       let raices = [];
       let lugares = [];
       ls.forEach(l => {
-        let lv = new LugarView(l.id, l.nombre);
+        let lv = new LugarView(l.id, l.nombre + ' (' + l.tipo + ')' );
         lv.padre_id = l.padre_id;
         lugares.push(lv);
         if (lv.padre_id == null) {
