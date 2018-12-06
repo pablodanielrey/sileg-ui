@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 
-import {HttpClient, HttpParams} from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Http } from '@angular/http'
 
 
@@ -13,8 +13,8 @@ import { Mail, Usuario, ResetClave } from './entities/usuario';
 import { Sileg, DatosSileg, Lugar, PedidoDesignacion, Designacion, Cargo, DatosLugarDesignaciones, DatoDesignacion, Dato2Designacion } from './entities/sileg';
 
 const SILEG_API_URL = environment.silegApiUrl;
-const USUARIO_API_URL = environment.usuarioApiUrl;
 const LOGIN_API_URL = environment.loginApiUrl;
+const USUARIO_API_URL = environment.usuarioApiUrl;
 
 @Injectable()
 export class SilegService {
@@ -36,6 +36,7 @@ export class SilegService {
     let apiUrl = `${USUARIO_API_URL}/usuarios/`;
     return this.http.get<Usuario[]>(apiUrl, options).pipe(map(datos => datos.map(d => new Usuario(d))));
   }
+  
   crearUsuario(usuario: Usuario): Observable<any> {
     let apiUrl = `${USUARIO_API_URL}/usuarios`;
     return this.http.put<any>(apiUrl, usuario);
@@ -49,11 +50,6 @@ export class SilegService {
   chequearDisponibilidadCorreo(cuenta:string): Observable<boolean> {
     let apiUrl = `${USUARIO_API_URL}/correos/${cuenta}`;
     return this.http.get<any>(apiUrl).pipe(map(res => res.existe));
-  }
-
-  generarClave(uid:string):Observable<ResetClave> {
-    let apiUrl = `${LOGIN_API_URL}/usuario/${uid}/generar_clave`;
-    return this.http.get<ResetClave>(apiUrl).pipe(map(res => new ResetClave(res)));
   }
 
   generarCorreo(uid: string, correo: string):Observable<any> {
@@ -73,7 +69,10 @@ export class SilegService {
 
 
 
-
+  generarClave(uid:string):Observable<ResetClave> {
+    let apiUrl = `${LOGIN_API_URL}/usuario/${uid}/generar_clave`;
+    return this.http.get<ResetClave>(apiUrl).pipe(map(res => new ResetClave(res)));
+  }
 
   obtenerAccesoModulos(): Observable<string[]> {
     let apiUrl = `${SILEG_API_URL}/acceso_modulos`;

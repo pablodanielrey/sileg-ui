@@ -1,3 +1,113 @@
-<p>
-  login-sinc works!
-</p>
+<div class="sincronizacionDetalle">
+
+    <div class="seccionSistema">
+        <button mat-button class="btnVolverSeccion" (click)="volver()"><mat-icon>keyboard_arrow_left</mat-icon> volver</button>
+          | Sincronización Login
+    </div>
+  
+    <mat-divider></mat-divider>
+  
+    <div class='contenidoPantalla'>
+  
+        <mat-progress-bar *ngIf="cargando" mode="indeterminate" value="10" class="preload"></mat-progress-bar>
+  
+        <mat-tab-group class="tabla">
+            <mat-tab label="Registros">
+  
+            <mat-table class="tabla" #table [dataSource]="respuestas$" matSort (matSortChange)='ordenar($event)' matSortActive="fecha" matSortDirection="asc">
+  
+                <ng-container matColumnDef='fecha'>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>
+                  <mat-cell *matCellDef='let r'> {{r.creado |date:"dd/MM/yyyy"}} </mat-cell>
+                </ng-container>
+  
+                <ng-container matColumnDef='hora'>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Hora </mat-header-cell>
+                  <mat-cell *matCellDef='let r'> {{r.creado |date:"hh:mm:ss"}} </mat-cell>
+                </ng-container>
+  
+                <ng-container matColumnDef='nombre'>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+                    <mat-cell *matCellDef='let r'> {{r.respuesta?.name?.fullName}} </mat-cell>
+                </ng-container>
+    
+                <ng-container matColumnDef='emails'>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Emails </mat-header-cell>
+                    <mat-cell style='display:flex; flex-direction: column; flex-flow: wrap' *matCellDef='let r'>
+                      <div *ngFor='let i of obtenerEmails(r.respuesta)'>
+                        {{i}}
+                      </div>
+                    </mat-cell>
+                </ng-container>
+                
+                <ng-container matColumnDef='fecha_google'>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Creado Google </mat-header-cell>
+                    <mat-cell *matCellDef='let r'> {{r.respuesta?.creationTime |date:"dd/MM/yyyy"}} </mat-cell>
+                </ng-container>                
+
+                <ng-container matColumnDef='hora_google'>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Hora Creado Google </mat-header-cell>
+                    <mat-cell *matCellDef='let r'> {{r.respuesta?.creationTime |date:"hh:mm:ss"}} </mat-cell>
+                </ng-container>                
+
+                <ng-container matColumnDef='id'>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Id </mat-header-cell>
+                  <mat-cell *matCellDef='let r'> {{r.id}} </mat-cell>
+                </ng-container>
+  
+                <ng-container matColumnDef='usuario_id'>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </mat-header-cell>
+                  <mat-cell *matCellDef='let r'> 
+                      <a style='color:inherit; text-decoration: none' routerLink='/sistema/usuario/usuario/{{r.usuario_id}}'>ver</a> 
+                  </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="columnas$.value"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: columnas$.value;"></mat-row>
+            </mat-table>
+  
+           </mat-tab>
+  
+           <mat-tab label="Errores">
+  
+            <mat-table class="tabla" #table [dataSource]="errores$" matSort (matSortChange)='ordenar($event)' matSortActive="fecha" matSortDirection="asc">
+  
+                <ng-container matColumnDef='fecha'>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>
+                  <mat-cell *matCellDef='let r'> {{r.creado |date:"dd/MM/yyyy"}} </mat-cell>
+                </ng-container>
+  
+                <ng-container matColumnDef='hora'>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Hora </mat-header-cell>
+                  <mat-cell *matCellDef='let r'> {{r.creado |date:"hh:mm:ss"}} </mat-cell>
+                </ng-container>
+  
+               
+                <ng-container matColumnDef='error'>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Error </mat-header-cell>
+                    <mat-cell *matCellDef='let r'> {{r.error}} </mat-cell>
+                </ng-container>                
+
+                <ng-container matColumnDef='descripcion'>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </mat-header-cell>
+                    <mat-cell *matCellDef='let r'> {{r.descripcion}} </mat-cell>
+                </ng-container>                
+
+                <ng-container matColumnDef='usuario_id'>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </mat-header-cell>
+                  <mat-cell *matCellDef='let r'> 
+                    <a style='color:inherit; text-decoration: none' routerLink='/sistema/usuario/usuario/{{r.usuario_id}}'>ver</a> 
+                  </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="columnas_error$.value"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: columnas_error$.value;"></mat-row>
+            </mat-table>
+  
+           </mat-tab>
+  
+        </mat-tab-group>        
+        
+    </div>
+  
+    </div>  
