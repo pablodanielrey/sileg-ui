@@ -54,6 +54,8 @@ import { CargarCorreoComponent } from './usuarios/cargar-correo/cargar-correo.co
 import { DesignacionesPorLugarComponent } from './designacion/designaciones-por-lugar/designaciones-por-lugar.component';
 import { DetalleDesignacionComponent } from './designacion/detalle-designacion/detalle-designacion.component';
 import { DesignacionesPorPersonaComponent } from './designacion/designaciones-por-persona/designaciones-por-persona.component';
+import { UsuariosSincComponent } from './sinc/usuarios-sinc/usuarios-sinc.component';
+import { LoginSincComponent } from './sinc/login-sinc/login-sinc.component';
 
 
 
@@ -90,7 +92,9 @@ import { DesignacionesPorPersonaComponent } from './designacion/designaciones-po
     CargarCorreoComponent,
     DesignacionesPorLugarComponent,
     DetalleDesignacionComponent,
-    DesignacionesPorPersonaComponent
+    DesignacionesPorPersonaComponent,
+    UsuariosSincComponent,
+    LoginSincComponent
   ],
   entryComponents: [
     ConfirmarGenerarClaveComponent,

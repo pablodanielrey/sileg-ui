@@ -27,6 +27,8 @@ import { DesignacionesPorLugarComponent } from './designacion/designaciones-por-
 import { DetalleDesignacionComponent } from './designacion/detalle-designacion/detalle-designacion.component';
 import { DesignacionesPorPersonaComponent } from './designacion/designaciones-por-persona/designaciones-por-persona.component';
 
+import { UsuariosSincComponent } from './sinc/usuarios-sinc/usuarios-sinc.component';
+import { LoginSincComponent } from './sinc/login-sinc/login-sinc.component';
 
 import { OidpGuard } from './oauth2/oidp.guard';
 import { Oauth2Component } from './oauth2/oauth2.component';
@@ -42,6 +44,13 @@ const routes: Routes = [
     component: SistemaComponent,
     children: [
       { path: 'inicial', component: PantallaPrincipalComponent },
+      {
+        path:'sinc',
+        children: [
+          { path:'usuarios', component: UsuariosSincComponent },
+          { path:'login', component: LoginSincComponent }
+        ]
+      },      
       {
         path:'usuario',
         children: [
