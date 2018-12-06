@@ -24,6 +24,9 @@ export class UsuariosService {
       rs.respuestas.forEach(e => {
         e.creado = new Date(e.creado);
       });
+      rs.errores.forEach(e => {
+        e.creado = new Date(e.creado);
+      });      
       return rs;
     }));
   }

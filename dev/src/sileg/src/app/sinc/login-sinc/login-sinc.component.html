@@ -14,7 +14,7 @@
         <mat-tab-group class="tabla">
             <mat-tab label="Registros">
   
-            <mat-table class="tabla" #table [dataSource]="respuestas$" matSort (matSortChange)='ordenar($event)' matSortActive="fecha" matSortDirection="asc">
+            <mat-table class="tabla" #table [dataSource]="respuestas$" matSort (matSortChange)='ordenar($event)' matSortActive="fecha" matSortDirection="desc">
   
                 <ng-container matColumnDef='fecha'>
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>
@@ -70,7 +70,7 @@
   
            <mat-tab label="Errores">
   
-            <mat-table class="tabla" #table [dataSource]="errores$" matSort (matSortChange)='ordenar($event)' matSortActive="fecha" matSortDirection="asc">
+            <mat-table class="tabla" #table [dataSource]="errores$" matSort (matSortChange)='ordenar_errores($event)' matSortActive="fecha" matSortDirection="desc">
   
                 <ng-container matColumnDef='fecha'>
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>

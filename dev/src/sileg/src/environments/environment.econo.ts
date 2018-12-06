@@ -7,7 +7,7 @@ export const environment = {
   oidp_issuer: 'https://oidc.econo.unlp.edu.ar/',
 
   client_id: 'sileg-ui',
-  version: '0.1.1a',
+  version: '0.1.2a',
 
   loaderHeader: 'Gelis | FCE',
   loaderLogo: '/assets/img/logofce2018.png',
