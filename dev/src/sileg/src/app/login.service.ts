@@ -29,4 +29,22 @@ export class LoginService {
     }));
   }
 
+  detalle_recuperar_clave():Observable<any[]> {
+    let apiUrl = `${LOGIN_API_URL}/recuperar_clave/detalle`;
+    return this.http.get<any[]>(apiUrl).pipe(map(rs => {
+      rs.forEach(e => {
+        if (e.creado != null) {
+          e.creado = new Date(e.creado);  
+        }
+        if (e.actualizado != null) {
+          e.actualizado = new Date(e.actualizado);
+        }
+        if (e.confirmado != null) {
+          e.confirmado = new Date(e.confirmado);
+        }
+      });
+      return rs;
+    }));
+  }
+
 }

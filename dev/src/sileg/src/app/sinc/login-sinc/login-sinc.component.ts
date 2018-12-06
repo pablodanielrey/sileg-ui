@@ -12,25 +12,28 @@ import { LoginService } from '../../login.service';
 export class LoginSincComponent implements OnInit {
 
   cargando : boolean = false;
-  columnas$ : BehaviorSubject<string[]> = null;
-  columnas_error$ : BehaviorSubject<string[]> = null;
-  errores$ : BehaviorSubject<any[]> = null;
-  respuestas$: BehaviorSubject<any[]> = null;
+  columnas$ : BehaviorSubject<string[]> = new BehaviorSubject([]);
+  columnas_error$ : BehaviorSubject<string[]> = new BehaviorSubject([]);
+  columnas_reset_claves$ : BehaviorSubject<string[]> = new BehaviorSubject([]);
+  errores$ : BehaviorSubject<any[]> = new BehaviorSubject([]);
+  respuestas$: BehaviorSubject<any[]> = new BehaviorSubject([]);
+  reset_claves$: BehaviorSubject<any[]> = new BehaviorSubject([]);
 
   constructor(private service: LoginService) { 
-    this.columnas$ = new BehaviorSubject([]);
-    this.columnas_error$ = new BehaviorSubject([]);
-    this.respuestas$ = new BehaviorSubject([]);
-    this.errores$ = new BehaviorSubject([]);    
   }
 
   ngOnInit() {
+    this.columnas$.next(['fecha','hora','nombre','emails','fecha_google','hora_google','usuario_id']);
+    this.columnas_error$.next(['fecha','hora','error','descripcion','usuario_id']);
+    this.columnas_reset_claves$.next(['fecha','hora','fecha_actualizado','hora_actualizado','fecha_confirmado','hora_confirmado','correo','codigo','clave','usuario_id']);
+
     this.service.sincronizacion_detalle().subscribe(rs => {
-      this.columnas$.next(['fecha','hora','nombre','emails','fecha_google','hora_google','usuario_id']);
       this.respuestas$.next(rs['respuestas']);
-      this.columnas_error$.next(['fecha','hora','error','descripcion','usuario_id']);
       this.errores$.next(rs['errores']);
-    });    
+    });
+    this.service.detalle_recuperar_clave().subscribe(rs => {
+      this.reset_claves$.next(rs);
+    });
   }
 
   obtenerEmails(r):string[] {
@@ -87,5 +90,9 @@ export class LoginSincComponent implements OnInit {
     this.errores$.next(v);
   }
 
+  ordenar_rc(e) {
+    let v = this._ordenar(this.reset_claves$.value, e);
+    this.reset_claves$.next(v);
+  }
 
 }
