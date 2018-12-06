@@ -74,4 +74,8 @@ export class DetalleDesignacionComponent implements OnInit {
     
   }
 
+  volver() {
+    
+  }
+
 }
