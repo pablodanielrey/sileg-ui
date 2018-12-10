@@ -10,12 +10,14 @@ import { Lugar } from '../../entities/sileg';
 class LugarView {
   id: string;
   nombre: string;
+  tipo: string;
   hijos: LugarView[];
   padre_id: string;
 
-  constructor(id:string, n:string, hijos: LugarView[] = []) {
+  constructor(id:string, n:string, tipo:string, hijos: LugarView[] = []) {
     this.id = id;
     this.nombre = n;
+    this.tipo = tipo;
     this.hijos = hijos;
   }
 }
@@ -75,7 +77,7 @@ export class LugaresComponent implements OnInit {
       let raices = [];
       let lugares = [];
       ls.forEach(l => {
-        let lv = new LugarView(l.id, l.nombre + ' (' + l.tipo + ')' );
+        let lv = new LugarView(l.id, l.nombre, l.tipo);
         lv.padre_id = l.padre_id;
         lugares.push(lv);
         if (lv.padre_id == null) {

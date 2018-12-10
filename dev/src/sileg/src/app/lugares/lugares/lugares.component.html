@@ -9,8 +9,9 @@
 
   <div class="contenidoPantalla">
 
+
       <mat-tree [dataSource]='dataSource' [treeControl]='treeControl' class='arbol'>
-          <mat-tree-node *matTreeNodeDef='let node' matTreeNodeToggle>
+          <mat-tree-node *matTreeNodeDef='let node' matTreeNodeToggle >
             <li class='mat-tree-node'>
               <button mat-icon-button disabled></button>
               <!--
@@ -19,7 +20,7 @@
                   (change)="todoLeafItemSelectionToggle(node)">{{node.item}}
               </mat-checkbox>
 -->
-              <a style='color: inherit; text-decoration: none;' routerLink='/sistema/lugares/lugar/{{node.id}}'> {{node.nombre}}</a>
+              <a style='color: inherit; text-decoration: none;' routerLink='/sistema/lugares/lugar/{{node.id}}'><i class="material-icons"> minimize </i> {{node.nombre}} &nbsp; <mat-chip> {{node.tipo}}</mat-chip></a>
             </li>
           </mat-tree-node>
       
@@ -28,7 +29,7 @@
                 <div class='mat-tree-node'>
                   <button mat-icon-button matTreeNodeToggle>
                     <mat-icon class='mat-icon'>
-                      {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                      {{treeControl.isExpanded(node) ? 'remove_circle_outline' : 'add_circle_outline'}}
                     </mat-icon>
                   </button>
                   <!--
@@ -37,7 +38,7 @@
                                 (change)="todoLeafItemSelectionToggle(node)">{{node.item}}
                   </mat-checkbox>
 -->
-                  <a style='color: inherit; text-decoration: none;' routerLink='/sistema/lugares/lugar/{{node.id}}'> {{node.nombre}}</a>
+                  <a style='color: inherit; text-decoration: none;' routerLink='/sistema/lugares/lugar/{{node.id}}'> <b>{{node.nombre}}</b> &nbsp; <mat-chip> {{node.tipo}}</mat-chip> </a>
                 </div>
                 <ul [class.arbol-nodo-invisible]='!treeControl.isExpanded(node)'>
                   <ng-container matTreeNodeOutlet></ng-container>
