@@ -33,7 +33,7 @@ export class SilegService {
               //.set('limit', 10)
               //.set('offset',0)
           };
-    let apiUrl = `${USUARIO_API_URL}/usuarios/`;
+    let apiUrl = `${USUARIO_API_URL}/usuarios`;
     return this.http.get<Usuario[]>(apiUrl, options).pipe(map(datos => datos.map(d => new Usuario(d))));
   }
   
