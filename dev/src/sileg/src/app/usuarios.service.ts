@@ -31,4 +31,15 @@ export class UsuariosService {
     }));
   }
 
+  buscarUsuario(uid:string): Observable<Usuario[]> {
+    let apiUrl = `${USUARIO_API_URL}/usuarios/${uid}`;
+    return this.http.get<Usuario[]>(apiUrl).pipe(map(datos => {
+      let usuarios = [];
+      datos.forEach(e => {
+        usuarios.push(new Usuario(e));
+      });
+      return usuarios;
+    }));
+  }  
+
 }

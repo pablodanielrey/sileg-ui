@@ -25,16 +25,11 @@ export class SilegService {
   buscarUsuario(uid:string): Observable<Usuario> {
     let apiUrl = `${USUARIO_API_URL}/usuarios/${uid}`;
     return this.http.get<Usuario>(apiUrl).pipe(map(datos => new Usuario(datos)));
-  }
+  }  
 
   buscarUsuarios(texto:string): Observable<Usuario[]> {
-    const options = { params: new HttpParams()
-              .set('q', texto ? texto : 'algoquenoexiste')
-              //.set('limit', 10)
-              //.set('offset',0)
-          };
-    let apiUrl = `${USUARIO_API_URL}/usuarios`;
-    return this.http.get<Usuario[]>(apiUrl, options).pipe(map(datos => datos.map(d => new Usuario(d))));
+    let apiUrl = `${SILEG_API_URL}/usuarios/${texto}/search`;
+    return this.http.get<Usuario[]>(apiUrl).pipe(map(datos => datos.map(d => new Usuario(d))));
   }
   
   crearUsuario(usuario: Usuario): Observable<any> {

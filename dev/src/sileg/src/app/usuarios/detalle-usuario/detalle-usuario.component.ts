@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { Usuario, Mail, Telefono } from '../../entities/usuario';
 import { Sileg, Designacion } from '../../entities/sileg';
 import { SilegService } from '../../sileg.service';
+import { UsuariosService } from '../../usuarios.service';
 import { NotificacionesService } from '../../notificaciones.service';
 
 import { environment } from '../../../environments/environment';
@@ -45,7 +46,8 @@ export class DetalleUsuarioComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private location: Location,
               private notificaciones: NotificacionesService,
-              private service: SilegService) {
+              private service: SilegService,
+              private usuarios: UsuariosService) {
   }
 
   mostrarEliminarTelefono(t:Telefono) {
@@ -86,15 +88,15 @@ export class DetalleUsuarioComponent implements OnInit {
 
   buscarUsuario(id:string) {
     this.cargando = true;
-    this.subscriptions.push(this.service.buscarUsuario(this.usuario_id).subscribe(
+    this.subscriptions.push(this.usuarios.buscarUsuario(this.usuario_id).subscribe(
       usuario => {
         this.cargando = false;
-        this.usuario = usuario;
+        this.usuario = usuario[0];
         /*
           TODO: hack HORRBILE!!!
           como el telefono fijo y movil se mantienen en distintas variables las mapeamos aca:
         */
-        this.inicializarTelefonos(usuario);
+        this.inicializarTelefonos(usuario[0]);
       },
       err => {
         this.cargando = false;
