@@ -4,13 +4,15 @@
   </div>
 
   <form [formGroup]='form'>
-      <mat-form-field class="itemFormulario">
+      <mat-form-field class="itemFormulario" appearance="outline">
+        <mat-label>Nombre</mat-label>
         <input matInput placeholder="Nombre" name="nombre" formControlName='nombre'>
       </mat-form-field>
-      <mat-form-field class="itemFormulario">
+      <mat-form-field class="itemFormulario" appearance="outline">
+        <mat-label>Apellido</mat-label>
         <input matInput placeholder="Apellido" name="apellido" formControlName='apellido'>
       </mat-form-field>
-      <mat-form-field class="itemFormulario">
+      <mat-form-field class="itemFormulario" appearance="outline">
         <input matInput placeholder="DNI" name="dni" formControlName='dni'>
       </mat-form-field>
   </form>
