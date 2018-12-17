@@ -27,6 +27,11 @@ import { DesignacionesPorLugarComponent } from './designacion/designaciones-por-
 import { DetalleDesignacionComponent } from './designacion/detalle-designacion/detalle-designacion.component';
 import { DesignacionesPorPersonaComponent } from './designacion/designaciones-por-persona/designaciones-por-persona.component';
 
+import { DatosPersonalesComponent } from './creacion/personal/datos-personales/datos-personales.component';
+import { DatosCorreoComponent } from './creacion/personal/datos-correo/datos-correo.component';
+import { DatosDesignacionComponent } from './creacion/personal/datos-designacion/datos-designacion.component';
+import { FinComponent } from './creacion/personal/fin/fin.component';
+
 import { UsuariosSincComponent } from './sinc/usuarios-sinc/usuarios-sinc.component';
 import { LoginSincComponent } from './sinc/login-sinc/login-sinc.component';
 
@@ -44,6 +49,20 @@ const routes: Routes = [
     component: SistemaComponent,
     children: [
       { path: 'inicial', component: PantallaPrincipalComponent },
+      {
+        path:'creacion',
+        children: [
+          {
+            path:'personal',
+            children: [
+              { path:'datos-personales', component: DatosPersonalesComponent },
+              { path:'datos-designacion', component: DatosDesignacionComponent },
+              { path:'datos-correo', component: DatosCorreoComponent },
+              { path:'fin', component: FinComponent }
+            ]
+          }
+        ]
+      },
       {
         path:'sinc',
         children: [

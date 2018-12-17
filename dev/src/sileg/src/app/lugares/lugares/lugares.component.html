@@ -12,15 +12,20 @@
 
       <mat-tree [dataSource]='dataSource' [treeControl]='treeControl' class='arbol'>
           <mat-tree-node *matTreeNodeDef='let node' matTreeNodeToggle >
-            <li class='mat-tree-node'>
-              <button mat-icon-button disabled></button>
+            <li>
+              <!-- <button mat-icon-button disabled></button> -->
               <!--
               <mat-checkbox class="checklist-leaf-node"
                   [checked]="false"
                   (change)="todoLeafItemSelectionToggle(node)">{{node.item}}
               </mat-checkbox>
 -->
-              <a style='color: inherit; text-decoration: none;' routerLink='/sistema/lugares/lugar/{{node.id}}'><i class="material-icons"> minimize </i> {{node.nombre}} &nbsp; <mat-chip> {{node.tipo}}</mat-chip></a>
+              <div class='mat-tree-node'>
+                <button mat-icon-button disabled>
+                    <i class="material-icons"> minimize </i>
+                </button>
+                <a style='color: inherit; text-decoration: none;' routerLink='/sistema/lugares/lugar/{{node.id}}'> {{node.nombre}} &nbsp; <mat-chip> {{node.tipo}}</mat-chip></a>
+              </div>
             </li>
           </mat-tree-node>
       
