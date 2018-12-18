@@ -9,6 +9,8 @@ import { FormGroup, FormBuilder, Validators, ValidationErrors, AbstractControl }
 export class DatosPersonalesComponent implements OnInit {
 
 
+
+
   form: FormGroup;
 
   constructor(private fb: FormBuilder) { 
@@ -16,6 +18,7 @@ export class DatosPersonalesComponent implements OnInit {
       nombre: [{value:''}],
       apellido: [{value:''}],
       dni: [{value:''}]
+      
     });
   }
 

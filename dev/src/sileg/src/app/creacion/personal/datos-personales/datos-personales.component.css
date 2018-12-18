@@ -1,0 +1,50 @@
+/* ---- CSS BASICO PARA CADA PANTALLA ----*/
+
+
+.nuevoUsuario .seccionSistema {
+    color: #4186e1;
+    padding: 5px;
+  
+  }
+  
+  .nuevoUsuario .btnVolverSeccion {
+    color: grey;
+  }
+  
+  .nuevoUsuario .contenidoPantalla {
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    
+  }
+  
+  /* ---------------------------------------*/
+
+  .tab {
+      width: 50%;
+  }
+
+  .formulario {
+      width: 50%;
+      padding: 20px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+  }
+
+  .subContenedor {
+      width: 48%;
+  }
+
+  .itemFormulario {
+      width: 100%;
+  }
+
+  .btnPrincipal{
+    background-color: #4186e1;
+    color: #fff;
+    width: 23%;
+    padding: 5px 0 5px 0;
+    margin: 0px 0px 0px 20px;
+}
