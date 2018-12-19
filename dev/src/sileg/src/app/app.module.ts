@@ -60,6 +60,7 @@ import { DatosPersonalesComponent } from './creacion/personal/datos-personales/d
 import { DatosDesignacionComponent } from './creacion/personal/datos-designacion/datos-designacion.component';
 import { DatosCorreoComponent } from './creacion/personal/datos-correo/datos-correo.component';
 import { FinComponent } from './creacion/personal/fin/fin.component';
+import { BusquedaLugaresComponent } from './componentes/busqueda-lugares/busqueda-lugares.component';
 
 
 
@@ -102,7 +103,8 @@ import { FinComponent } from './creacion/personal/fin/fin.component';
     DatosPersonalesComponent,
     DatosDesignacionComponent,
     DatosCorreoComponent,
-    FinComponent
+    FinComponent,
+    BusquedaLugaresComponent
   ],
   entryComponents: [
     ConfirmarGenerarClaveComponent,

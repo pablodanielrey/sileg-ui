@@ -21,8 +21,15 @@
   
   /* ---------------------------------------*/
 
-  .tab {
-      width: 50%;
+  .pasos {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+  }
+
+  .iconoPasos {
+      margin-right: 5px;
+      color: grey;
   }
 
   .formulario {
@@ -48,3 +55,32 @@
     padding: 5px 0 5px 0;
     margin: 0px 0px 0px 20px;
 }
+
+
+@media screen and (max-width: 719px) {
+    .contenidoPantalla {
+        padding: 0px;
+    }
+
+    .pasos {
+        margin-bottom: 10px;
+    }
+  
+
+    .formulario {
+        width: 100%;
+        padding: 20px 0px 20px 0;
+        flex-direction: column;
+    }
+    .subContenedor {
+        width: 100%;
+    }
+
+    .btnPrincipal{
+        width: 100%;
+        padding: 10px;
+        margin: 0px;
+    }
+
+  }
+  

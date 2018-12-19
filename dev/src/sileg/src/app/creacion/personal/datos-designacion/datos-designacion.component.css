@@ -1,0 +1,50 @@
+/* ---- CSS BASICO PARA CADA PANTALLA ----*/
+
+
+.designacion .seccionSistema {
+    color: #4186e1;
+    padding: 5px;
+  
+  }
+  
+  .designacion .btnVolverSeccion {
+    color: grey;
+  }
+  
+  .designacion .contenidoPantalla {
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    
+  }
+  
+  /* ---------------------------------------*/
+
+  .pasos {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+  }
+
+  .iconoPasos {
+      margin-right: 5px;
+      color: grey;
+  }
+
+
+  .contenedorLugarSeleccionado {
+      margin-top: 20px;
+      width: 40%;
+  }
+
+  .oficinaSeleccionada {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  }
+
+  .btnEliminar {
+      background-color: #D0D0D1;
+      color: grey;
+  }

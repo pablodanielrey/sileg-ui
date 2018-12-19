@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, ValidationErrors, AbstractControl } from '@angular/forms';
+
 
 @Component({
   selector: 'app-datos-designacion',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DatosDesignacionComponent implements OnInit {
 
+  form: FormGroup;
+  lugarSeleccionado = null;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  seleccionarLugar(lugar) {
+    console.log(lugar);
+    this.lugarSeleccionado = lugar;
   }
 
 }

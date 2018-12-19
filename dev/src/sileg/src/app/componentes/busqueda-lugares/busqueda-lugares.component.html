@@ -1,0 +1,16 @@
+<form (ngSubmit)="buscar()" #lugarForm="ngForm">
+  <mat-form-field class="inputSearch">
+      <mat-placeholder>Buscar Lugar</mat-placeholder>
+      <input matInput type='search'  class="inputSearch" [(ngModel)]="texto" name="texto" required/>
+      <mat-hint><strong>{{ lugares.length }}</strong> Lugares encontrados </mat-hint>
+      <button type="submit" mat-button matSuffix class="btnBuscar" title="Buscar lugar" [disabled]="!lugarForm.form.valid"><mat-icon>search</mat-icon> BUSCAR</button>
+  </mat-form-field>
+</form>
+
+<mat-list>
+    <mat-list-item *ngFor="let l of lugares" (click)='seleccionar(l)' class="itemLista">
+      <div matListAvatar class="avatar">D</div>
+      <h3 matLine> {{l.nombre}} </h3>
+      <p matLine> <span class="itemTextoSubtitulo">{{l.descripcion}}</span> </p>
+    </mat-list-item>
+</mat-list>
