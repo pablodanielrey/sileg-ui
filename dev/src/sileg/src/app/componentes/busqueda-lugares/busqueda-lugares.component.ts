@@ -10,7 +10,7 @@ export class BusquedaLugaresComponent implements OnInit {
 
   texto: string = '';
   lugares: Lugar[] = [ 
-                    new Lugar({'id':'asdasd','nombre':'lugar 1', 'descripcion':'algo de descripcion', 'tipo':'asdsadas'}), 
+                    new Lugar({'id':'asdasd','nombre':'DiTeSI', 'descripcion':'Dirección de Tecnologías y Sistemas Informáticos', 'tipo':'Dirección'}), 
                     new Lugar({'id':'asdasd','nombre':'lugar 2', 'descripcion':'algo de descripcion2', 'tipo':'asdsadas'}) 
                   ];
 

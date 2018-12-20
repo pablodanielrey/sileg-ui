@@ -32,19 +32,76 @@
       color: grey;
   }
 
+  .contenedorSeleccionarLugar {
+      width: 45%;
+  }
+
 
   .contenedorLugarSeleccionado {
       margin-top: 20px;
-      width: 40%;
+      width: 45%;
   }
 
   .oficinaSeleccionada {
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
   }
 
-  .btnEliminar {
-      background-color: #D0D0D1;
+  .textoTipo {
+    color: #4186e1;
+  }
+
+  .textoLugar {
+      font-size: 20px;
+  }
+
+  .btnAcciones {
       color: grey;
   }
+
+  .formulario {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .itemFormulario {
+      width: 30%;
+  }
+
+  .btnPrincipal{
+    background-color: #4186e1;
+    color: #fff;
+    width: 50%;
+    padding: 5px 0 5px 0;
+    margin: 0px 0px 0px 20px;
+}
+
+@media screen and (max-width: 719px) {
+
+    .contenedorSeleccionarLugar {
+        width: 100%;
+    }
+    .contenedorLugarSeleccionado {
+        margin-top: 20px;
+        width: 100%;
+    }
+    .formulario {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+      }
+    
+      .itemFormulario {
+          width: 100%;
+      }
+      .btnPrincipal{
+        width: 100%;
+        padding: 10px;
+        margin: 0px;
+    }
+
+
+}

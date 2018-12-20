@@ -14,7 +14,7 @@
             <div><b> PASO 2 -</b> Selecciona un lugar para la designación.</div>
         </div>
 
-        <div *ngIf='lugarSeleccionado == null'>
+        <div *ngIf='lugarSeleccionado == null' class="contenedorSeleccionarLugar">
           <app-busqueda-lugares (seleccionado)='seleccionarLugar($event)'></app-busqueda-lugares>
         </div>
 
@@ -23,22 +23,19 @@
 
               <mat-card class="oficinaSeleccionada">
                   <div>
-                      <div><b>{{lugarSeleccionado?.nombre}}</b></div>
+                      <div class="textoTipo">{{lugarSeleccionado?.tipo}}</div>
+                      <div class="textoLugar"><b>{{lugarSeleccionado?.nombre}}</b></div>
                       <div>{{lugarSeleccionado?.descripcion}}</div>
-                      <div>{{lugarSeleccionado?.tipo}}</div>
-
                   </div>
-
                   <div> 
-                    <div> <button mat-icon-button class="btnEliminar">  <mat-icon >delete</mat-icon> </button> </div>
-                    <div> <button mat-icon-button class="btnEliminar">  <mat-icon >delete</mat-icon> </button> </div>
-
+                      <div> <button mat-icon-button class="btnAcciones" matTooltip="Eliminar selección">  <mat-icon >delete</mat-icon> </button> </div>
+                       <div> <button mat-icon-button class="btnAcciones" matTooltip="Ir al detalle del lugar">  <mat-icon >launch</mat-icon> </button> </div>
                   </div>
-                
               </mat-card>
 
 
-              <form [formGroup]='form' >
+              <form [formGroup]='form' class="formulario">
+
                   <mat-form-field class="itemFormulario">
                       <mat-label>Tipo</mat-label>
                       <mat-select  formControlName="tipo_cargo">
@@ -50,6 +47,7 @@
                           <mat-option value="option">Alumno Proyecto Extensión</mat-option>
                       </mat-select>
                   </mat-form-field>
+
                   <mat-form-field class="itemFormulario">
                       <mat-label>Cargo</mat-label>
                       <mat-select  formControlName="cargo">
@@ -58,13 +56,19 @@
                           <mat-option value="option">E4</mat-option>
                       </mat-select>
                   </mat-form-field>
+
                   <mat-form-field class="itemFormulario">
                       <mat-label>Fecha de Designación</mat-label>
                       <input matInput [matDatepicker]="picker" class="inputFecha"  formControlName="designacion">
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>                                
                   </mat-form-field>
+
               </form>
+
+              <div>
+                    <button mat-button class="btnPrincipal" routerLink='/sistema/creacion/personal/datos-designacion'>SIGUIENTE</button>
+              </div>
 
         </div>
 
