@@ -1,3 +1,38 @@
-<div>
+<div class="correo">
+
+    <div class="seccionSistema">
+        <button mat-button class="btnVolverSeccion" (click)="volver()"><mat-icon>keyboard_arrow_left</mat-icon> volver</button>
+          | Correo electrónico
+    </div>
   
-</div>>
+    <mat-divider></mat-divider>
+  
+    <div class="contenidoPantalla">
+
+        <div class="pasos">
+            <div class="iconoPasos"><i class="material-icons">filter_2</i></div>
+            <div><b> PASO 3 -</b> Configurar cuenta de correo electrónico.</div>
+        </div>
+
+        <div class="formulario">
+
+            <mat-form-field class="example-full-width">
+                <span matSuffix>@econo.unlp.edu.ar &nbsp;</span>
+                <input type="tel" matInput placeholder="nombre.apellido">
+            </mat-form-field>
+
+            <div>
+                <button mat-raised-button class="btnVerificar">Verificar disponibilidad</button>
+            </div>
+
+            <div>
+                <button mat-button class="btnPrincipal" routerLink='/sistema/creacion/personal/datos-correo'>SIGUIENTE</button>
+          </div>
+        
+        </div>
+
+
+
+    </div>
+
+</div>        
