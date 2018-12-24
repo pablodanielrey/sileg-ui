@@ -133,3 +133,18 @@ export class Designacion {
     }
   }
 }
+
+export class Configuracion {
+
+  mostrar_organigrama: boolean;
+  mostrar_sincronizacion_usuarios: boolean;
+  mostrar_sincronizacion_login: boolean;
+    
+  constructor(o:Object) {
+    try {
+      Object.assign(this, o);
+    } catch(e) {
+      console.log(e);
+    }
+  }
+}

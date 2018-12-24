@@ -6,11 +6,11 @@ import { Http } from '@angular/http'
 
 
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import 'rxjs/Rx';
 
 import { Mail, Usuario, ResetClave } from './entities/usuario';
-import { Sileg, DatosSileg, Lugar, PedidoDesignacion, Designacion, Cargo, DatosLugarDesignaciones, DatoDesignacion, Dato2Designacion } from './entities/sileg';
+import { Sileg, DatosSileg, Lugar, PedidoDesignacion, Designacion, Cargo, DatosLugarDesignaciones, DatoDesignacion, Dato2Designacion, Configuracion } from './entities/sileg';
 
 const SILEG_API_URL = environment.silegApiUrl;
 const LOGIN_API_URL = environment.loginApiUrl;
@@ -18,6 +18,8 @@ const USUARIO_API_URL = environment.usuarioApiUrl;
 
 @Injectable()
 export class SilegService {
+  
+  modulos: string[] = null;
 
   //usuarios: Usuario[] = [];
   constructor(private http: HttpClient) { }
@@ -69,9 +71,14 @@ export class SilegService {
     return this.http.get<ResetClave>(apiUrl).pipe(map(res => new ResetClave(res)));
   }
 
+  obtenerConfiguracion(): Observable<Configuracion> {
+    let apiUrl = `${SILEG_API_URL}/obtener_config`;
+    return this.http.get<[Configuracion]>(apiUrl).pipe(map(datos => new Configuracion(datos)));
+  }
+  
   obtenerAccesoModulos(): Observable<string[]> {
     let apiUrl = `${SILEG_API_URL}/acceso_modulos`;
-    return this.http.get<string[]>(apiUrl);
+    return this.http.get<string[]>(apiUrl).pipe(tap(m => this.modulos = m));
   }
 
   detalleDesignacion(did:string): Observable<Dato2Designacion[]> {
