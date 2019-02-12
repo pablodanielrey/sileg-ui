@@ -5,6 +5,8 @@ import { MatTableDataSource, MatSort, Sort } from '@angular/material';
 import { SilegService } from '../../sileg.service';
 import { Designacion, Cargo, Lugar } from '../../entities/sileg';
 
+import {Location} from '@angular/common';
+
 
 class DesignacionView {
   lugar: Lugar = null;
@@ -24,14 +26,17 @@ export class DesignacionesPorPersonaComponent implements OnInit {
   cargos: any[] = [];
   subscriptions: any[] = [];
   lugares: Lugar[] = [];
+  usuario_id: string;
 
   constructor(private route : ActivatedRoute,
-              private service : SilegService) { 
+              private service : SilegService,
+              private location: Location) { 
   }
 
   ngOnInit() {
     this.route.paramMap.subscribe(p => {
       let uid = p.get('id');
+      this.usuario_id = uid;
       this.service.buscarDesignaciones(uid).subscribe(ds => {
           console.log(ds);
           this.designaciones = this.procesar_para_vista(ds);
@@ -40,7 +45,7 @@ export class DesignacionesPorPersonaComponent implements OnInit {
   }
 
   volver() {
-    
+    this.location.back();
   }
 
   procesar_para_vista(ds: Designacion[]): DesignacionView[] {

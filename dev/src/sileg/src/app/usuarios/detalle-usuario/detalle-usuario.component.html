@@ -108,7 +108,7 @@
         
         
         <!-- la agrego para probar la pantalla de designaciones por usuario -->
-        <button *ngIf="chequearPerfil(['super-admin'])" mat-button class="btn" routerLink='/sistema/usuario/usuario/{{usuario.id}}/designaciones'><mat-icon>add</mat-icon> VER DESIGNACIONES</button>
+        <button *ngIf="chequearPerfil(['super-admin','buscar_usuario'])" mat-button class="btn" routerLink='/sistema/usuario/usuario/{{usuario.id}}/designaciones'><mat-icon>add</mat-icon> VER DESIGNACIONES</button>
 
         <button *ngIf="chequearPerfil(['super-admin','crear_usuario'])" mat-button class="btnGuardar" (click)='actualizarDatos()'> GUARDAR CAMBIOS</button>
         
