@@ -54,9 +54,12 @@ export class UsuariosPorOficinaComponent implements OnInit {
 
   datos: DatosLugarDesignaciones;
   element_data: DesignacionSource[] = [];
+  element_data_historico: DesignacionSource[] = [];
   dataSource = new MatTableDataSource(this.element_data);
+  dataSourceHistorico = new MatTableDataSource(this.element_data_historico);
   cargos: Cargo[] = [];
   columnas: string[] = ['fullname','dni','cargo','fecha','acciones'];
+  columnasHistoricos: string[] = ['fullname','dni','cargo','fecha'];
   subscriptions: any[] = [];
   cargando: boolean;
   @ViewChild(MatSort) sort: MatSort;
@@ -73,6 +76,7 @@ export class UsuariosPorOficinaComponent implements OnInit {
   ngOnInit() {
     let params = this.route.snapshot.paramMap;
     this.dataSource.sort = this.sort;
+    this.dataSourceHistorico.sort = this.sort;
     this.obtenerTiposCargos();
     this.obtenerDesignacionesLugar(params.get('id'));
     this.subscriptions.push(this.service.obtenerAccesoModulos().subscribe(modulos => {
@@ -89,6 +93,35 @@ export class UsuariosPorOficinaComponent implements OnInit {
       }));
   }
   
+  obtenerDesignacionesLugar(id:string) {
+    this.datos = new DatosLugarDesignaciones({});
+    this.cargando = true;
+    this.subscriptions.push(this.service.obtenerDesignacionesLugares(id)
+      .subscribe(r => {
+        r.designaciones.forEach(s => {
+          let temp = new DesignacionSource(s);
+          if (s.designacion.historico == null){
+            this.element_data.push(temp);
+          }else{
+            this.element_data_historico.push(temp);
+          }
+        })
+        this.dataSource.data = this.element_data;
+        this.dataSourceHistorico.data = this.element_data_historico;
+        this.datos = r;
+        this.cargando = false;
+      }));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+    this.subscriptions = [];
+  }
+
+  volver() {
+    this.location.back();
+  }
+
   ordenar(e:Sort) {
     let orden = e;
     this.element_data.sort(
@@ -118,27 +151,6 @@ export class UsuariosPorOficinaComponent implements OnInit {
         return 0;
     });
     this.dataSource.data = this.element_data;
-  }
-
-  obtenerDesignacionesLugar(id:string) {
-    this.datos = new DatosLugarDesignaciones({});
-    this.cargando = true;
-    this.subscriptions.push(this.service.obtenerDesignacionesLugares(id)
-      .subscribe(r => {
-        this.element_data = r.designaciones.map(d => new DesignacionSource(d));
-        this.dataSource.data = this.element_data;
-        this.datos = r;
-        this.cargando = false;
-      }));
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach(s => s.unsubscribe());
-    this.subscriptions = [];
-  }
-
-  volver() {
-    this.location.back();
   }
 
   eliminar(d: DesignacionSource) {
