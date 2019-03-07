@@ -61,6 +61,7 @@ import { DatosDesignacionComponent } from './creacion/personal/datos-designacion
 import { DatosCorreoComponent } from './creacion/personal/datos-correo/datos-correo.component';
 import { FinComponent } from './creacion/personal/fin/fin.component';
 import { BusquedaLugaresComponent } from './componentes/busqueda-lugares/busqueda-lugares.component';
+import { WallyScssComponent } from '../wally-scss/wally-scss.component';
 
 
 
@@ -104,7 +105,8 @@ import { BusquedaLugaresComponent } from './componentes/busqueda-lugares/busqued
     DatosDesignacionComponent,
     DatosCorreoComponent,
     FinComponent,
-    BusquedaLugaresComponent
+    BusquedaLugaresComponent,
+    WallyScssComponent
   ],
   entryComponents: [
     ConfirmarGenerarClaveComponent,
