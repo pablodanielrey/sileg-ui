@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuComponent } from '../menu/menu.component';
-import { Oauth2Service } from '../../oauth2/oauth2.service';
+import { Oauth2Service } from '../../../oauth2/oauth2.service';
 import { ToogleFullscreenDirective } from '../toogle-fullscreen.directive';
 
 

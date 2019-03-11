@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Observable, BehaviorSubject } from 'rxjs';
 
-import { LoginService } from '../../login.service';
+import { LoginService } from '../../shared/services/login.service';
 
 @Component({
   selector: 'app-login-sinc',

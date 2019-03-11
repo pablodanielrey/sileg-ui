@@ -5,8 +5,8 @@ import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material';
 import { ConfirmarGenerarClaveComponent } from '../generar-clave/confirmar-generar-clave.component'
 
-import { SilegService } from '../../sileg.service'
-import { ResetClave } from '../../entities/usuario'
+import { SilegService } from '../../shared/services/sileg.service'
+import { ResetClave } from '../../shared/entities/usuario'
 
 
 @Component({

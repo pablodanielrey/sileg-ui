@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 
-import { SilegService } from '../../sileg.service'
+import { SilegService } from '../../shared/services/sileg.service'
 
-import { Usuario } from '../../entities/usuario';
-import { Sileg } from '../../entities/sileg';
+import { Usuario } from '../../shared/entities/usuario';
+import { Sileg } from '../../shared/entities/sileg';
 import { Router } from '@angular/router';
 
 @Component({

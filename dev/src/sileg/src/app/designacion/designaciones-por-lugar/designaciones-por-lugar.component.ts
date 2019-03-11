@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatTableDataSource, MatSort, Sort } from '@angular/material';
 
-import { SilegService } from '../../sileg.service';
-import { DatoDesignacion, Cargo } from '../../entities/sileg';
+import { SilegService } from '../../shared/services/sileg.service';
+import { DatoDesignacion, Cargo } from '../../shared/entities/sileg';
 
 @Component({
   selector: 'app-designaciones-por-lugar',

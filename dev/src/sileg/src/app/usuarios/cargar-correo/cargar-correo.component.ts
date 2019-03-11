@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NotificacionesService } from '../../notificaciones.service';
+import { NotificacionesService } from '../../shared/services/notificaciones.service';
 import { Location } from '@angular/common';
 
-import { SilegService } from '../../sileg.service';
+import { SilegService } from '../../shared/services/sileg.service';
 
-import { Usuario } from '../../entities/usuario';
+import { Usuario } from '../../shared/entities/usuario';
 
 @Component({
   selector: 'app-cargar-correo',

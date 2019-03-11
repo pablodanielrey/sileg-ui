@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 
-import { UsuariosService } from '../../usuarios.service';
+import { UsuariosService } from '../../shared/services/usuarios.service';
 
 @Component({
   selector: 'app-usuarios-sinc',

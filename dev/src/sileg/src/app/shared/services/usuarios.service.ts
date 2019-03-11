@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../environments/environment';
+import { environment } from '../../../environments/environment';
 
 import {HttpClient, HttpParams} from '@angular/common/http';
 import { Http } from '@angular/http'
@@ -7,7 +7,7 @@ import { Http } from '@angular/http'
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Mail, Usuario, ResetClave } from './entities/usuario';
+import { Mail, Usuario, ResetClave } from '../entities/usuario';
 
 const USUARIO_API_URL = environment.usuarioApiUrl;
 

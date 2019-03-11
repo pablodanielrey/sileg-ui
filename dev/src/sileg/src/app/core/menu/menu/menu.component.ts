@@ -2,9 +2,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { OAuthService } from 'angular-oauth2-oidc';
 
-import { SilegService } from '../../sileg.service';
+import { SilegService } from '../../../shared/services/sileg.service';
 
-import { Configuracion } from '../../entities/sileg';
+import { Configuracion } from '../../../shared/entities/sileg';
 
 @Component({
   selector: 'app-menu',

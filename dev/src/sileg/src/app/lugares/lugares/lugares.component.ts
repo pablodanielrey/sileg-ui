@@ -4,8 +4,8 @@ import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SilegService } from '../../sileg.service';
-import { Lugar } from '../../entities/sileg';
+import { SilegService } from '../../shared/services/sileg.service';
+import { Lugar } from '../../shared/entities/sileg';
 
 class LugarView {
   id: string;

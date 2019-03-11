@@ -5,9 +5,9 @@ import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material'
 import  { CreateConfirmacionComponent } from './create-confirmacion.component';
 
-import { SilegService } from '../../sileg.service'
+import { SilegService } from '../../shared/services/sileg.service'
 
-import { Usuario, Telefono } from '../../entities/usuario';
+import { Usuario, Telefono } from '../../shared/entities/usuario';
 
 export interface Generos {
   value: string;

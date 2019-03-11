@@ -2,11 +2,11 @@ import { Component, OnInit, Input, SimpleChange } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { Usuario, Mail, Telefono } from '../../entities/usuario';
-import { Sileg, Designacion } from '../../entities/sileg';
-import { SilegService } from '../../sileg.service';
-import { UsuariosService } from '../../usuarios.service';
-import { NotificacionesService } from '../../notificaciones.service';
+import { Usuario, Mail, Telefono } from '../../shared/entities/usuario';
+import { Sileg, Designacion } from '../../shared/entities/sileg';
+import { SilegService } from '../../shared/services/sileg.service';
+import { UsuariosService } from '../../shared/services/usuarios.service';
+import { NotificacionesService } from '../../shared/services/notificaciones.service';
 
 import { environment } from '../../../environments/environment';
 

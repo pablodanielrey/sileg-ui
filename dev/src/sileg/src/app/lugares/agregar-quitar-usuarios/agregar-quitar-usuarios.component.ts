@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SilegService } from '../../sileg.service'
-import { Usuario } from '../../entities/usuario';
-import { Sileg, PedidoDesignacion } from '../../entities/sileg';
-import { NotificacionesService } from '../../notificaciones.service';
+import { SilegService } from '../../shared/services/sileg.service'
+import { Usuario } from '../../shared/entities/usuario';
+import { Sileg, PedidoDesignacion } from '../../shared/entities/sileg';
+import { NotificacionesService } from '../../shared/services/notificaciones.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 

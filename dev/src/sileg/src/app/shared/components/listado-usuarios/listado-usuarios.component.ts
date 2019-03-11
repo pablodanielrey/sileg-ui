@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { Usuario } from '../entities/usuario';
-import { DatosSileg } from '../entities/sileg';
+import { Usuario } from '../../entities/usuario';
+import { DatosSileg } from '../../entities/sileg';
 
 
 @Component({

@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthConfig } from 'angular-oauth2-oidc';
 
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 
 interface Profile {
   username: string;

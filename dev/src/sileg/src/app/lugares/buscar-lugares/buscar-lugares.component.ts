@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SilegService } from '../../sileg.service';
-import { Lugar } from '../../entities/sileg';
+import { SilegService } from '../../shared/services/sileg.service';
+import { Lugar } from '../../shared/entities/sileg';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({

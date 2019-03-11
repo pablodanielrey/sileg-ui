@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { OAuthService } from 'angular-oauth2-oidc';
 
-import { environment } from '../../environments/environment'
+import { environment } from '../../../environments/environment'
 
 @Component({
   selector: 'app-loader',
