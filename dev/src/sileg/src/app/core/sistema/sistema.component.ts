@@ -13,18 +13,23 @@ export class SistemaComponent implements OnInit {
   ngOnInit() {
   }
 
-  menu_abierto: boolean = false;
+  // menu_abierto: boolean = false;
 
-  onMenu(abierto: boolean):void {
-    this.menu_abierto = !this.menu_abierto;
-  }
+  // onMenu(abierto: boolean):void {
+  //   this.menu_abierto = !this.menu_abierto;
+  // }
 
-  onOpenedChange(abierto: boolean): void {
-    this.menu_abierto = abierto;
-  }
+  // onOpenedChange(abierto: boolean): void {
+  //   this.menu_abierto = abierto;
+  // }
 
-  onItem(v:boolean):void {
-    this.menu_abierto = v;
-  }
+  // onItem(v:boolean):void {
+  //   this.menu_abierto = v;
+  // }
+
+  cerrar_menu(d) {
+    d.toggle();
+    console.log('cerrar_menu');
+  } 
 
 }
