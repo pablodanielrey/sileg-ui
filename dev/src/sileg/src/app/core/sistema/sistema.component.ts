@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { Configuracion } from '../../shared/entities/sileg';
+import { SilegService } from '../../shared/services/sileg.service';
 
 @Component({
   selector: 'app-sistema',
@@ -7,29 +9,54 @@ import { Router } from '@angular/router';
   styleUrls: ['./sistema.component.css']
 })
 export class SistemaComponent implements OnInit {
+  
+  modulos: string[] = [];
+  subscriptions: any[] = [];
+  config: Configuracion = null;
 
-  constructor(private router: Router) { }
+  constructor(private oauthService: OAuthService, private service: SilegService) { }
 
   ngOnInit() {
+    this.subscriptions.push(this.service.obtenerConfiguracion().subscribe(r => {
+      this.config = r;
+    }));    
+
+    this.subscriptions.push(this.service.obtenerAccesoModulos().subscribe(modulos=> {
+      this.modulos = modulos;
+    }));    
   }
 
-  // menu_abierto: boolean = false;
-
-  // onMenu(abierto: boolean):void {
-  //   this.menu_abierto = !this.menu_abierto;
-  // }
-
-  // onOpenedChange(abierto: boolean): void {
-  //   this.menu_abierto = abierto;
-  // }
-
-  // onItem(v:boolean):void {
-  //   this.menu_abierto = v;
-  // }
+  ngOnDestroy(){
+    this.subscriptions.forEach(s => s.unsubscribe());
+    this.subscriptions = [];
+  }
 
   cerrar_menu(d) {
     d.toggle();
     console.log('cerrar_menu');
   } 
+
+  chequearPerfil(profiles: string[]): boolean {
+    return false;
+    // let r = false;
+    // profiles.forEach(p => {
+    //   if (this.modulos.includes(p)){
+    //     r = true;
+    //   }
+    // });
+    // return r;
+  }  
+
+  mostrarOrganigrama():boolean{
+    return this.config.mostrar_organigrama;
+  }
+
+  mostrarSincoUsuarios():boolean{
+    return this.config.mostrar_sincronizacion_usuarios;
+  }
+
+  mostrarSincoLogin():boolean{
+    return this.config.mostrar_sincronizacion_login;
+  }  
 
 }

@@ -1,0 +1,13 @@
+<div class="desginacionesPendientes">
+  <div *ngFor="let l of lugares" >
+    <h3>{{ l.nombre }} - Altas {{ l.ptos_alta }} Puntos - Bajas {{ l.ptos_baja }} Puntos</h3>
+    <div>
+      <ul>
+        <li *ngFor="let d of l.designaciones">
+          {{ d.nombre }} {{d.apellido}}
+        </li>
+      </ul>
+      
+    </div>
+  </div>
+</div>

@@ -61,6 +61,7 @@ import { DatosDesignacionComponent } from '../usuarios/creacion/personal/datos-d
 import { DatosCorreoComponent } from '../usuarios/creacion/personal/datos-correo/datos-correo.component';
 import { FinComponent } from '../usuarios/creacion/personal/fin/fin.component';
 import { BusquedaLugaresComponent } from '../shared/components/busqueda-lugares/busqueda-lugares.component';
+import { PendientesComponent } from '../modules/designacion/pendientes/pendientes.component';
 
 
 
@@ -104,7 +105,8 @@ import { BusquedaLugaresComponent } from '../shared/components/busqueda-lugares/
     DatosDesignacionComponent,
     DatosCorreoComponent,
     FinComponent,
-    BusquedaLugaresComponent
+    BusquedaLugaresComponent,
+    PendientesComponent
   ],
   entryComponents: [
     ConfirmarGenerarClaveComponent,

@@ -38,6 +38,7 @@ import { LoginSincComponent } from '../sinc/login-sinc/login-sinc.component';
 import { OidpGuard } from '../oauth2/oidp.guard';
 import { Oauth2Component } from '../oauth2/oauth2.component';
 import { ErrorComponent } from './error/error.component';
+import { PendientesComponent } from '../modules/designacion/pendientes/pendientes.component';
 
 const routes: Routes = [
   { path: 'error/:error', component: ErrorComponent },
@@ -100,6 +101,7 @@ const routes: Routes = [
       {
         path:'designaciones',
         children: [
+          { path:'pendientes', component: PendientesComponent },
           { path:'detalle/:id', component: DetalleDesignacionComponent }
 
         ]

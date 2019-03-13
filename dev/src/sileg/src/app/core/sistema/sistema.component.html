@@ -8,40 +8,65 @@
 
   <!-- CABECERA -->
     <mat-toolbar class="cabecera" color="primary">
-      
-      <div>
-          <button mat-icon-button class="icono" color="" (click)="drawer.toggle()">
-              <mat-icon>menu</mat-icon>
-          </button>
-          <span>Apps FCE</span>
-      </div>
-    
-      <div>
+        <div>
+            <button mat-icon-button class="icono" color="" (click)="drawer.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span>Apps FCE</span>
+        </div>
+        <div>
             <button mat-icon-button [matMenuTriggerFor]="menu">
-                    <mat-icon>apps</mat-icon>
-                  </button>
-                  <mat-menu #menu="matMenu">
-                        <mat-card>Sistema</mat-card>
-                        <mat-card>Sistema</mat-card>
-                        <mat-card>Sistema</mat-card>
-    
-                    </mat-menu>
+              <mat-icon>apps</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <mat-card>Sistema</mat-card>
+                <mat-card>Sistema</mat-card>
+                <mat-card>Sistema</mat-card>
+            </mat-menu>
           <button mat-icon-button color="" (click)="drawer2.toggle()">
             <mat-icon>settings</mat-icon>
           </button>
-      </div>
+        </div>
     </mat-toolbar>
     
     <!-- MENUS -->
       
     <!-- Menu pincipal -->
     <mat-drawer #drawer class="menu" mode="over">
-          <mat-toolbar color="primary">
-              <span>Apps FCE</span>
-          </mat-toolbar>
-          <button class="btnMenu" mat-button routerLink="/sistema/inicio" (click)='cerrar_menu(drawer)'><mat-icon class="iconoMenu">filter_1</mat-icon>Inicio</button>
-          <button class="btnMenu" mat-button routerLink="/sistema/guia/identidad"><mat-icon class="iconoMenu">filter_2</mat-icon>Guía</button>
-    
+        <mat-toolbar color="primary">
+            <span>Apps FCE</span>
+        </mat-toolbar>
+
+        <!-- NUEVO -->
+        <button class="btnMenu" mat-button routerLink="/sistema/inicio" (click)='cerrar_menu(drawer)'>
+            <mat-icon class="iconoMenu">filter_1</mat-icon>Lugares            
+        </button>
+        <button class="btnMenu" mat-button routerLink="/sistema/designaciones/pendientes" (click)='cerrar_menu(drawer)'>
+            <mat-icon class="icoMenu">filter_2</mat-icon> Pendientes
+        </button>
+
+        <!-- VIEJO -->
+        <button *ngIf="chequearPerfil(['super-admin','buscar_usuario'])" class="btnMenu" mat-button (click)='cerrar_menu(drawer)' routerLink="/sistema/usuario/buscar">
+            <mat-icon class="icoMenu">search</mat-icon> Buscar Usuario
+        </button>
+        <button *ngIf="chequearPerfil(['super-admin','crear_usuario'])" class="btnMenu" mat-button (click)='cerrar_menu(drawer)' routerLink="/sistema/usuario/crear">
+            <mat-icon class="icoMenu">perm_identity</mat-icon> Crear Usuario
+        </button>
+        <button *ngIf="chequearPerfil(['super-admin','buscar_lugar'])" class="btnMenu" mat-button (click)='cerrar_menu(drawer)' routerLink="/sistema/lugares/buscar">
+            <mat-icon class="icoMenu">search</mat-icon> Buscar Lugar
+        </button>  
+        <button *ngIf="chequearPerfil(['super-admin','crear_lugar'])" class="btnMenu" mat-button (click)='cerrar_menu(drawer)' routerLink="/sistema/lugares/crear">
+            <mat-icon class="icoMenu">bookmark_border</mat-icon> Crear Lugar
+        </button>
+        <button *ngIf="chequearPerfil(['super-admin','buscar_lugar']) && mostrarOrganigrama()" class="btnMenu" mat-button (click)='cerrar_menu(drawer)' routerLink="/sistema/lugares/lugares">
+            <mat-icon class="icoMenu">device_hub</mat-icon> Organigrama
+        </button>
+        <button *ngIf="chequearPerfil(['super-admin','sincronizacion_usuario']) && mostrarSincoUsuarios()" class="btnMenu" mat-button (click)='cerrar_menu(drawer)' routerLink="/sistema/sinc/usuarios">
+            <mat-icon class="icoMenu">device_hub</mat-icon> Sincronizacion Usuarios
+        </button>
+        <button *ngIf="chequearPerfil(['super-admin','sincronizacion_login']) && mostrarSincoLogin()" class="btnMenu" mat-button (click)='cerrar_menu(drawer)' routerLink="/sistema/sinc/login">
+            <mat-icon class="icoMenu">device_hub</mat-icon> Sincronizacion Login
+        </button>    
     </mat-drawer>
     
     <!-- Menu Configuración -->
