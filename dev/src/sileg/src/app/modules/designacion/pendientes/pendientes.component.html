@@ -1,13 +1,12 @@
 <div class="desginacionesPendientes">
-  <div *ngFor="let l of lugares" >
-    <h3>{{ l.nombre }} - Altas {{ l.ptos_alta }} Puntos - Bajas {{ l.ptos_baja }} Puntos</h3>
-    <div>
-      <ul>
-        <li *ngFor="let d of l.designaciones">
-          {{ d.nombre }} {{d.apellido}}
-        </li>
-      </ul>
-      
-    </div>
-  </div>
+  <!-- <mat-tab-group *ngFor="let dv of designaciones" class="tabla">
+    <mat-tab label="{{ dv.lugar.nombre }} - Altas {{ dv.lugar.ptos_alta }} Puntos - Bajas {{ dv.lugar.ptos_baja }} Puntos}" class="Tabs">
+      <mat-table #table [dataSource]="l.designaciones" matSort (matSortChange)='ordenar($event)' matSortActive="fullname" matSortDirection="asc">
+        <ng-container matColumnDef="fullname">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
+          <mat-cell *matCellDef='let n'> {{ n }} </mat-cell>
+        </ng-container>
+      </mat-table>
+    </mat-tab>
+  </mat-tab-group> -->
 </div>

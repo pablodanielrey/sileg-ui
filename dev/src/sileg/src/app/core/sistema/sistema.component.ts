@@ -37,14 +37,14 @@ export class SistemaComponent implements OnInit {
   } 
 
   chequearPerfil(profiles: string[]): boolean {
-    return false;
-    // let r = false;
-    // profiles.forEach(p => {
-    //   if (this.modulos.includes(p)){
-    //     r = true;
-    //   }
-    // });
-    // return r;
+   // return false;
+    let r = false;
+    profiles.forEach(p => {
+      if (this.modulos.includes(p)){
+        r = true;
+      }
+    });
+    return r;
   }  
 
   mostrarOrganigrama():boolean{
