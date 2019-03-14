@@ -1,12 +1,11 @@
 <div class="desginacionesPendientes">
-  <!-- <mat-tab-group *ngFor="let dv of designaciones" class="tabla">
-    <mat-tab label="{{ dv.lugar.nombre }} - Altas {{ dv.lugar.ptos_alta }} Puntos - Bajas {{ dv.lugar.ptos_baja }} Puntos}" class="Tabs">
-      <mat-table #table [dataSource]="l.designaciones" matSort (matSortChange)='ordenar($event)' matSortActive="fullname" matSortDirection="asc">
-        <ng-container matColumnDef="fullname">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
-          <mat-cell *matCellDef='let n'> {{ n }} </mat-cell>
-        </ng-container>
-      </mat-table>
-    </mat-tab>
-  </mat-tab-group> -->
+  <mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="ptos_alta">
+          <mat-header-cell *matHeaderCellDef> Puntos Alta </mat-header-cell>
+          <mat-cell *matCellDef="let lugar_view"> {{lugar_view.ptos_alta}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: columnas;"></mat-row>    
+  </mat-table>
 </div>

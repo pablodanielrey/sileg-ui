@@ -3,12 +3,14 @@ import { Lugar, Designacion } from '../../../shared/entities/sileg';
 import { MatTableDataSource } from '@angular/material';
 import { Usuario } from '../../../shared/entities/usuario';
 import { SilegService } from '../../../shared/services/sileg.service';
+import { Observable } from 'rxjs';
+import { DataSource } from '@angular/cdk/collections';
 
 class LugarView {
   lugar: Lugar = null;
   ptos_alta: number = 0;
   ptos_baja: number = 0;
-  designaciones: MatTableDataSource<DatosDesignacionPtos> = null;
+  designaciones: any[];
 }
 
 class DatosDesignacionPtos {
@@ -24,6 +26,15 @@ class Estado {
   authorized: string = null;
 }
 
+class LugarViewDataSource extends DataSource<any> {
+  constructor(private service: SilegService) {
+    super();
+  }
+  connect(): Observable<LugarView[]> {
+    return this.service.desginacionesPendientes([]);
+  }
+  disconnect() {}
+}
 
 
 @Component({
@@ -33,131 +44,12 @@ class Estado {
 })
 export class PendientesComponent implements OnInit {
 
-  columnas: string[] = ['fullname'];
-  designaciones : LugarView[];
+  columnas: string[] = ['ptos_alta'];
+  dataSource = new LugarViewDataSource(this.service);
   constructor(private service : SilegService) { }
 
   ngOnInit() {
-    this.service.desginacionesPendientes([]).subscribe(ds => {
-      console.log(ds);
-    });    
-    // this.buscarDesignacionesPendientes();
+    
   }
-
-  // buscarDesignacionesPendientes() {
-  //   this.lugares = [
-  //     { 'nombre': 'Administración Pública I',
-  //       'ptos_alta': 55,
-  //       'ptos_baja': 60,
-  //       'designaciones': [{
-  //         'nombre': 'Pedro',
-  //         'apellido':'Andreiu',
-  //         'fullname': 'Pedro Andreiu',
-  //         'cargo':'Titular',
-  //         'dedicacion':'D/S',
-  //         'caracter':'Interino',
-  //         'fecha':new Date(),
-  //         'nota': null,
-  //         'resol':'',
-  //         'expediente':'',
-  //         'tipo': 'alta',
-  //         'estado': 'pendiente',
-  //         'puntos': '20'
-  //       },
-  //       {
-  //         'nombre': 'Pedro',
-  //         'apellido':'Andreiu',
-  //         'fullname': 'Pedro Andreiu',
-  //         'cargo':'',
-  //         'dedicacion':'',
-  //         'caracter':'',
-  //         'fecha':new Date(),
-  //         'nota': null,
-  //         'resol':'',
-  //         'expediente':'',
-  //         'tipo': 'alta',
-  //         'estado': 'pendiente',
-  //         'puntos': '15'
-  //       },
-  //       {
-  //         'nombre': 'Pedro',
-  //         'apellido':'Andreiu',
-  //         'fullname': 'Pedro Andreiu',
-  //         'cargo':'',
-  //         'dedicacion':'',
-  //         'caracter':'',
-  //         'fecha':new Date(),
-  //         'nota': null,
-  //         'resol':'',
-  //         'expediente':'',
-  //         'tipo': 'alta',
-  //         'estado': 'pendiente',
-  //         'puntos': '15'
-  //       }]
-  //     },
-  //     { 'nombre': 'Actuación Judicial',
-  //       'ptos_alta': 55,
-  //       'ptos_baja': 60,
-  //       'designaciones': [{
-  //         'nombre': 'Pedro',
-  //         'apellido':'Andreiu',
-  //         'fullname': 'Pedro Andreiu',
-  //         'cargo':'',
-  //         'dedicacion':'',
-  //         'caracter':'',
-  //         'fecha':new Date(),
-  //         'nota': null,
-  //         'resol':'',
-  //         'expediente':'',
-  //         'tipo': 'alta',
-  //         'estado': 'pendiente',
-  //         'puntos': '15'
-  //       },
-  //       {
-  //         'nombre': 'Pedro',
-  //         'apellido':'Andreiu',
-  //         'fullname': 'Pedro Andreiu',
-  //         'cargo':'',
-  //         'dedicacion':'',
-  //         'caracter':'',
-  //         'fecha':new Date(),
-  //         'nota': null,
-  //         'resol':'',
-  //         'expediente':'',
-  //         'tipo': 'alta',
-  //         'estado': 'pendiente',
-  //         'puntos': '15'
-  //       },
-  //       {
-  //         'nombre': 'Pedro',
-  //         'apellido':'Andreiu',
-  //         'fullname': 'Pedro Andreiu',
-  //         'cargo':'',
-  //         'dedicacion':'',
-  //         'caracter':'',
-  //         'fecha':new Date(),
-  //         'nota': null,
-  //         'resol':'',
-  //         'expediente':'',
-  //         'tipo': 'alta',
-  //         'estado': 'pendiente',
-  //         'puntos': '15'
-  //       }]
-  //     }
-  //   ];
-  //   this.designaciones = this.procesar_para_vista(this.lugares);
-  // }
-
-  // procesar_para_vista(lugares: Lugar[]) : LugarView[] {
-  //   let r : LugarView[] = [];
-  //   lugares.forEach(l => {
-  //     let dv = new DesignacionView();
-  //     dv.lugar = l;
-  //     dv.designaciones = new MatTableDataSource(l.designaciones);
-  //     r.push(dv)
-  //   });
-  //   console.log(r);
-  //   return r;
-  // }
 
 }
