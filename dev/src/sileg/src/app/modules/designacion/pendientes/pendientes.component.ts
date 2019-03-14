@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Lugar, Designacion } from '../../../shared/entities/sileg';
 import { MatTableDataSource } from '@angular/material';
 import { Usuario } from '../../../shared/entities/usuario';
+import { SilegService } from '../../../shared/services/sileg.service';
 
 class LugarView {
   lugar: Lugar = null;
@@ -32,12 +33,14 @@ class Estado {
 })
 export class PendientesComponent implements OnInit {
 
-  observaes: any[] = [];
   columnas: string[] = ['fullname'];
   designaciones : LugarView[];
-  constructor() { }
+  constructor(private service : SilegService) { }
 
   ngOnInit() {
+    this.service.desginacionesPendientes([]).subscribe(ds => {
+      console.log(ds);
+    });    
     // this.buscarDesignacionesPendientes();
   }
 

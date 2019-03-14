@@ -91,6 +91,11 @@ export class SilegService {
     return this.http.get<Designacion[]>(apiUrl).pipe(map(res => res.map(d => new Designacion(d))));
   }
 
+  desginacionesPendientes(lids: string[]): Observable<any[]> {
+    let apiUrl = `${SILEG_API_URL}/designaciones/pendientes/lugares/`;
+    return this.http.get<any[]>(apiUrl);
+  }
+
   buscarLugares(texto:string): Observable<Lugar[]> {
     const options = { params: new HttpParams()
               .set('q', texto ? texto : 'algoquenoexiste')
