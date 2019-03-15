@@ -3,8 +3,9 @@ import { Lugar, Designacion } from '../../../shared/entities/sileg';
 import { MatTableDataSource } from '@angular/material';
 import { Usuario } from '../../../shared/entities/usuario';
 import { SilegService } from '../../../shared/services/sileg.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { DataSource } from '@angular/cdk/collections';
+import { map, tap, concatMap, mergeAll, flatMap, switchMap, mapTo } from 'rxjs/operators';
 
 class LugarView {
   lugar: Lugar = null;
@@ -26,16 +27,16 @@ class Estado {
   authorized: string = null;
 }
 
-class LugarViewDataSource extends DataSource<any> {
-  constructor(private service: SilegService) {
-    super();
-  }
-  connect(): Observable<LugarView[]> {
-    return this.service.desginacionesPendientes([]);
-  }
-  disconnect() {}
-}
+class Resultado {
+  id: Observable<string>;
+  detalle: Observable<Lugar>;
 
+  constructor(id:Observable<string>, valor:Observable<Lugar>) {
+    this.id = id;
+    this.detalle = valor;
+  }
+
+}
 
 @Component({
   selector: 'app-pendientes',
@@ -45,11 +46,35 @@ class LugarViewDataSource extends DataSource<any> {
 export class PendientesComponent implements OnInit {
 
   columnas: string[] = ['ptos_alta'];
-  dataSource = new LugarViewDataSource(this.service);
-  constructor(private service : SilegService) { }
+  designaciones$: Observable<Array<any>>;
+  dataSource: Observable<Array<any>>;
+  lugares$: Observable<string[]>;
+  lugares_ids$: Observable<Array<string>>;
+  lugares_data = {};
+  v$: Observable<any[]>;
 
-  ngOnInit() {
-    
+  constructor(private service : SilegService) {  }
+
+  ngOnInit() { 
+    // esto lo tengo que obtener como parametro o por otro método
+    let lid = "1f7b87ea-96b7-428c-8a00-fd33e1ba3ee6";
+    // obtengo sublugares
+    this.v$ = this.service.obtenerSublugares(lid).pipe(
+        switchMap(ids => this.service.desginacionesPendientes(ids))
+      );
+
+
+
+    // this.designaciones$ = this.obtenerDesignacionesPendientes();
+    // this.dataSource = this.designaciones$;
+  }
+
+  obtenerLugar(lid: string): Observable<Lugar> {
+    return this.service.buscarLugar(lid);
+  }
+
+  obtenerDesignacionesPendientes(ids: string[]): Observable<Array<any>> {
+    return this.service.desginacionesPendientes(ids);
   }
 
 }

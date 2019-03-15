@@ -9,3 +9,11 @@
       <mat-row *matRowDef="let row; columns: columnas;"></mat-row>    
   </mat-table>
 </div>
+
+<div>
+  <h1>FOR</h1>
+  <div *ngFor="let l of v$ | async">
+    <p>Hola</p>
+    <p> {{ l.ptos_alta }} </p>
+  </div>
+</div>

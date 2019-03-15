@@ -92,7 +92,8 @@ export class SilegService {
   }
 
   desginacionesPendientes(lids: string[]): Observable<any[]> {
-    let apiUrl = `${SILEG_API_URL}/designaciones/pendientes/lugares/`;
+    let parametros = lids.join('+')
+    let apiUrl = `${SILEG_API_URL}/designaciones/pendientes/lugares/` + parametros;
     return this.http.get<any[]>(apiUrl);
   }
 
@@ -114,6 +115,11 @@ export class SilegService {
   buscarLugar(id:string): Observable<Lugar> {
     let apiUrl = `${SILEG_API_URL}/lugares/${id}`;
     return this.http.get<Lugar>(apiUrl).pipe(map(d => new Lugar(d)));
+  }
+
+  obtenerSublugares(id:String): Observable<Array<string>> {
+    let apiUrl = `${SILEG_API_URL}/lugares/${id}/sublugares`;
+    return this.http.get<Array<string>>(apiUrl);
   }
 
   obtenerDesignacionesLugares(id: string): Observable<DatosLugarDesignaciones> {
