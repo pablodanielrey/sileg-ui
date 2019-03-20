@@ -8,23 +8,28 @@
 
   <!-- CABECERA -->
     <mat-toolbar class="cabecera" color="primary">
+
         <div>
-            <button mat-icon-button class="icono" color="" (click)="drawer.toggle()">
+            <button mat-icon-button class="iconoCabecera" color="" (click)="drawer.toggle()">
                 <mat-icon>menu</mat-icon>
             </button>
             <span>Apps FCE</span>
         </div>
+
         <div>
             <button mat-icon-button [matMenuTriggerFor]="menu">
-              <mat-icon>apps</mat-icon>
+              <mat-icon>color_lens</mat-icon>
             </button>
+
             <mat-menu #menu="matMenu">
-                <mat-card>Sistema</mat-card>
-                <mat-card>Sistema</mat-card>
-                <mat-card>Sistema</mat-card>
+                <div class="seleccionTema">
+                    <button mat-mini-fab color="primary"  (click)="cambiar_tema('temaFceOscuro')"> <mat-icon>check_circle </mat-icon></button>
+                    <button mat-mini-fab color="warn"  (click)="cambiar_tema('temaFceClaro')"></button>
+                </div>    
             </mat-menu>
+
           <button mat-icon-button color="" (click)="drawer2.toggle()">
-            <mat-icon>settings</mat-icon>
+            <mat-icon>apps</mat-icon>
           </button>
         </div>
     </mat-toolbar>
@@ -34,7 +39,7 @@
     <!-- Menu pincipal -->
     <mat-drawer #drawer class="menu" mode="over">
         <mat-toolbar color="primary">
-            <span>Apps FCE</span>
+            <span>GELIS</span>
         </mat-toolbar>
 
         <!-- NUEVO -->
@@ -42,69 +47,52 @@
             <mat-icon class="iconoMenu">filter_1</mat-icon>Lugares            
         </button>
         <button class="btnMenu" mat-button routerLink="/sistema/designaciones/pendientes" (click)='cerrar_menu(drawer)'>
-            <mat-icon class="icoMenu">filter_2</mat-icon> Pendientes
+            <mat-icon class="iconoMenu">notifications_none</mat-icon>Pendientes
         </button>
+        
+        
 
         <!-- VIEJO -->
-        <button *ngIf="chequearPerfil(['super-admin','buscar_usuario'])" class="btnMenu" mat-button (click)='cerrar_menu(drawer)' routerLink="/sistema/usuario/buscar">
-            <mat-icon class="icoMenu">search</mat-icon> Buscar Usuario
+        <!-- <button *ngIf="chequearPerfil(['super-admin','buscar_usuario'])" class="btnMenu" mat-button (click)='cerrar_menu(drawer)' routerLink="/sistema/usuario/buscar">
+            <mat-icon class="iconoMenu">search</mat-icon>Buscar Usuario
         </button>
         <button *ngIf="chequearPerfil(['super-admin','crear_usuario'])" class="btnMenu" mat-button (click)='cerrar_menu(drawer)' routerLink="/sistema/usuario/crear">
-            <mat-icon class="icoMenu">perm_identity</mat-icon> Crear Usuario
+            <mat-icon class="iconoMenu">perm_identity</mat-icon>Crear Usuario
         </button>
         <button *ngIf="chequearPerfil(['super-admin','buscar_lugar'])" class="btnMenu" mat-button (click)='cerrar_menu(drawer)' routerLink="/sistema/lugares/buscar">
-            <mat-icon class="icoMenu">search</mat-icon> Buscar Lugar
+            <mat-icon class="iconoMenu">search</mat-icon>Buscar Lugar
         </button>  
         <button *ngIf="chequearPerfil(['super-admin','crear_lugar'])" class="btnMenu" mat-button (click)='cerrar_menu(drawer)' routerLink="/sistema/lugares/crear">
-            <mat-icon class="icoMenu">bookmark_border</mat-icon> Crear Lugar
+            <mat-icon class="iconoMenu">bookmark_border</mat-icon>Crear Lugar
         </button>
         <button *ngIf="chequearPerfil(['super-admin','buscar_lugar']) && mostrarOrganigrama()" class="btnMenu" mat-button (click)='cerrar_menu(drawer)' routerLink="/sistema/lugares/lugares">
-            <mat-icon class="icoMenu">device_hub</mat-icon> Organigrama
+            <mat-icon class="iconoMenu">device_hub</mat-icon>Organigrama
         </button>
         <button *ngIf="chequearPerfil(['super-admin','sincronizacion_usuario']) && mostrarSincoUsuarios()" class="btnMenu" mat-button (click)='cerrar_menu(drawer)' routerLink="/sistema/sinc/usuarios">
-            <mat-icon class="icoMenu">device_hub</mat-icon> Sincronizacion Usuarios
+            <mat-icon class="iconoMenu">device_hub</mat-icon>Sincronizacion Usuarios
         </button>
         <button *ngIf="chequearPerfil(['super-admin','sincronizacion_login']) && mostrarSincoLogin()" class="btnMenu" mat-button (click)='cerrar_menu(drawer)' routerLink="/sistema/sinc/login">
-            <mat-icon class="icoMenu">device_hub</mat-icon> Sincronizacion Login
-        </button>    
+            <mat-icon class="iconoMenu">device_hub</mat-icon>Sincronizacion Login
+        </button>     -->
     </mat-drawer>
     
-    <!-- Menu Configuración -->
+    <!-- Menu Aplicaciones -->
     <mat-drawer #drawer2 class="menu" mode="over" position="end">
-          <mat-toolbar color="primary">
-              <mat-icon class="icono">settings</mat-icon>
-              <span>Configuración</span>
-          </mat-toolbar>
-          <div class="contenidoMenu">
-              <div>
-                    <div><i class="material-icons iconoconfi">format_color_fill</i>Tema</div>
-                    <div>
-                        <button mat-raised-button color="primary" class="btnTema" (click)="cambiar_tema('temaFceClaro')"><i class="material-icons">color_lens</i></button>
-                        <button mat-raised-button color="warn" class="btnTema" (click)="cambiar_tema('temaFceOscuro')"><i class="material-icons">color_lens</i></button>
-                        <button mat-raised-button color="disabled" class="btnTema"><i class="material-icons">color_lens</i></button>
-                    </div>
-                    <div><i class="material-icons iconoconfi">format_size</i>Tamaño</div>
-                    <div>
-                        <button mat-raised-button color="basic" class="btnTema"><i class="material-icons">search</i></button>
-                        <button mat-raised-button color="basic" class="btnTema textoC"><i class="material-icons">zoom_out</i></button>
-                        <button mat-raised-button color="basic" class="btnTema textoG"><i class="material-icons">zoom_in</i></button>
-                    </div>
-                    <div><i class="material-icons iconoconfi">aspect_ratio</i>Pantalla Completa</div>
-                    <div><mat-slide-toggle class="btnTema">activar</mat-slide-toggle></div>
-              </div>
-              <div>
-                    <mat-divider></mat-divider>
-    
-                    <div><i class="material-icons iconoconfi">help_outline </i>Acerca de</div>
-                    <div class="textSistema"><b>Apps FCE | v. 1.0.1</b></div>
-                    <div class="textInfo">DiTeSI | Dirección de Tecnologías y Sistemas Informáticos | FCE - UNLP</div>
-                    
-    
-    
-              </div>
-    
-    
-          </div>
+        <mat-toolbar color="primary">
+            <mat-icon class="iconoMenuApps">apps</mat-icon>
+            <span> Apps FCE</span>
+        </mat-toolbar>
+        <div class="contenidoMenuApps">
+            <div>
+                Sistemas FCE
+            </div>
+            <div>
+                <mat-divider></mat-divider>
+                <div><i class="material-icons">help_outline </i>Acerca de</div>
+                <div class="textSistema"><b>Apps FCE | v. 1.0.1</b></div>
+                <div class="textInfo">DiTeSI | Dirección de Tecnologías y Sistemas Informáticos | FCE - UNLP</div>
+            </div>
+        </div>
     </mat-drawer>
 
   

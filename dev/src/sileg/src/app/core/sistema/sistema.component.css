@@ -1,17 +1,12 @@
-/* .sistema {
-    height: calc(100% - 81px) ;
-}
-
-@media screen and (max-width: 719px) {
-  .sistema {
-    height: calc(100% - 73px) ;
-  }
-} */
+/* ------------------- PRINCIPAL ------------------------- */
 
 .sistema {
   // background-color: white;
   height: 100vh;
 }
+
+
+/* ------------------- CABECERA ------------------------- */
 
 .cabecera {
   position: fixed;
@@ -23,53 +18,24 @@
                 rgba(0, 0, 0, 0.12) 0px 1px 18px 0px;
 }
 
-.icono {
+.iconoCabecera {
   margin-right: 10px;
 }
 
-// -------------------------------
+.seleccionTema {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-content: center;
+}
+
+
+
+/* ----------------- MENU PINCIPAL ---------------------- */
+
 .menu {
   width: 250px;
 }
-
-.iconoMenu {
-  margin: 0 10px 0 10px;
-  color: gray;
-}
-
-.iconoconfi {
-  margin-right: 10px;
-}
-
-.contenidoMenu {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 20px;
-  height: 82%;
-}
-
-
-
-
-
-
-.cabeceraContenido {
-  padding: 84px 40px 0 40px;
-  height: 45vh;  
-  // background-color: #2196f3;
-  // color: white;
-}
-
-
-.titulo {
-  font-size: 56px;
-  font-weight: 300;
-}
-
-
-
-
 
 .btnMenu {
   width: 100%;
@@ -77,20 +43,25 @@
   padding: 10px;
 }
 
-.contenido {
-  padding: 65px 0 0 0;
-  }
-
-
-
-
-
-
-.btnTema {
-  margin: 10px 5px 20px 0 ;
+.iconoMenu {
+  margin: 0 10px 0 10px;
+  color: gray;
 }
 
 
+/* -------------- MENU APLICACIONES --------------------- */
+
+.iconoMenuApps {
+  margin-right: 10px;
+}
+
+.contenidoMenuApps {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  height: 82%;
+}
 
 .textSistema {
   font-size: 12px;
@@ -102,7 +73,18 @@
   margin-top: 5px;
 }
 
-  
+/* -------------------- CONTENIDO --------------------- */
+
+.contenido {
+    padding: 65px 0 0 0;
+  }
+
+
+
+
+
+
+
 
   
  
