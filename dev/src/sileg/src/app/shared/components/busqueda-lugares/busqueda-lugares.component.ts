@@ -4,7 +4,7 @@ import { Lugar } from '../../entities/sileg';
 @Component({
   selector: 'app-busqueda-lugares',
   templateUrl: './busqueda-lugares.component.html',
-  styleUrls: ['./busqueda-lugares.component.css']
+  styleUrls: ['./busqueda-lugares.component.scss']
 })
 export class BusquedaLugaresComponent implements OnInit {
 

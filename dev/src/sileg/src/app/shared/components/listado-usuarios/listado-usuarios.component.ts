@@ -7,7 +7,7 @@ import { DatosSileg } from '../../entities/sileg';
 @Component({
   selector: 'app-listado-usuarios',
   templateUrl: './listado-usuarios.component.html',
-  styleUrls: ['./listado-usuarios.component.css']
+  styleUrls: ['./listado-usuarios.component.scss']
 })
 export class ListadoUsuariosComponent implements OnInit {
 

@@ -6,7 +6,7 @@ import { SilegService } from '../../shared/services/sileg.service';
 @Component({
   selector: 'app-sistema',
   templateUrl: './sistema.component.html',
-  styleUrls: ['./sistema.component.css']
+  styleUrls: ['./sistema.component.scss']
 })
 export class SistemaComponent implements OnInit {
   

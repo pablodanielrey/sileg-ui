@@ -17,7 +17,7 @@ import { Oauth2Service } from './oauth2.service';
 @Component({
   selector: 'app-oauth2',
   templateUrl: './oauth2.component.html',
-  styleUrls: ['./oauth2.component.css']
+  styleUrls: ['./oauth2.component.scss']
 })
 export class Oauth2Component implements OnInit, OnDestroy {
 
