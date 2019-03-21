@@ -14,5 +14,10 @@ export const environment = {
     menuFooter: 'DiTeSI | FCE | UNLP',
   
     pantallaPrincipalLogo: '/assets/img/fce/logo.png',
-    lugar: 'econo'    
+    lugar: 'econo',
+
+    loader: {
+        titulo: 'Ok esto es un título',
+        imagen: 'https://cdn-images-1.medium.com/fit/c/50/50/1*C2ZvPywplWjtVFvu2qDE-Q.jpeg'
+    },    
 };

@@ -8,6 +8,21 @@ export const environment = {
   client_id: 'sileg-ui',
   version: '0.1.1a',
 
+  loader: {
+    titulo: 'Ok esto es un título',
+    imagen: 'https://cdn-images-1.medium.com/fit/c/50/50/1*C2ZvPywplWjtVFvu2qDE-Q.jpeg'
+  },
+
+  sistema: {
+    header: {
+      
+    },
+    menu: {
+
+    }
+  },
+
+
   loaderHeader: 'Gelis | UI',
   loaderLogo: '/assets/img/fce/logo.png',
   loaderBackground: '/assets/img/fce/fondo.jpg',

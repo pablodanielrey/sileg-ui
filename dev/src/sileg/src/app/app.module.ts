@@ -14,6 +14,8 @@ import { AppComponent } from './app.component';
 import { SilegService } from './shared/services/sileg.service';
 import { AppRoutingModule } from './app-routing.module';
 
+import { PendientesComponent } from './modules/designacion/pendientes/pendientes.component';
+
 //import { SeleccionarUsuarioComponent } from '../usuarios/seleccionar-usuario/seleccionar-usuario.component';
 //import { DetalleUsuarioComponent } from '../usuarios/detalle-usuario/detalle-usuario.component';
 //import { ConfirmarGenerarClaveComponent } from '../usuarios/generar-clave/confirmar-generar-clave.component';
@@ -60,6 +62,7 @@ import { AppRoutingModule } from './app-routing.module';
 @NgModule({
   declarations: [
     AppComponent,
+    PendientesComponent
   ],
   entryComponents: [
   ],

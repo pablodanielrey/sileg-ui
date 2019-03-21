@@ -41,23 +41,23 @@ import { OidpGuard } from './oauth2/oidp.guard';
 //import { ErrorComponent } from './error/error.component';
 
 import { SistemaComponent } from './sistema/sistema.component';
+import { LoaderComponent } from './loader/loader.component';
+import { core } from '@angular/compiler';
 
 
 const routes: Routes = [
   //{ path: 'error/:error', component: ErrorComponent },
   { path: 'oauth2', component: Oauth2Component },
-  //{ path: 'loader', component: LoaderComponent },
-  {
-    path: 'sistema',
-    //canActivate: [OidpGuard],
-    component: SistemaComponent,
-  }
-  //{ path: '**', redirectTo: 'oauth2', pathMatch: 'full' }
+  { path: 'loader', component: LoaderComponent }
 ]
+  
+  //{ path: '**', redirectTo: 'oauth2', pathMatch: 'full' }
+
 
 @NgModule({
   declarations: [
     Oauth2Component,
+    LoaderComponent,
     SistemaComponent
   ],
   imports: [
