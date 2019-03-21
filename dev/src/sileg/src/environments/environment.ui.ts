@@ -12,7 +12,7 @@ export const environment = {
     titulo: 'Ok esto es un título',
     imagen: 'https://cdn-images-1.medium.com/fit/c/50/50/1*C2ZvPywplWjtVFvu2qDE-Q.jpeg'
   },
-
+  
   sistema: {
     header: {
       
