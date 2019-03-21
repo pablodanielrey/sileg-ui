@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { PendientesComponent } from './modules/designacion/pendientes/pendientes.component';
+import { PendientesComponent as MovimientosPendientesComponent } from './modules/movimientos/pendientes/pendientes.component';
 import { SistemaComponent } from './core/sistema/sistema.component';
 
 //import { PantallaPrincipalComponent } from './pantalla-principal/pantalla-principal.component';
@@ -116,7 +116,12 @@ const routes: Routes = [
     path:'designaciones',
     component: SistemaComponent,
     children: [
-      { path:'pendientes', component: PendientesComponent }
+      {
+        path: 'movimientos',
+        children: [
+          { path:'pendientes', component: MovimientosPendientesComponent }
+        ]
+      }
     ]
   }
   //{ path: '**', redirectTo: '/sistema', pathMatch: 'full' }
