@@ -48,7 +48,11 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.econo.ts"
-                }
+                },
+                {
+                  "replace": "src/app/shared/services/sileg.service.ts",
+                  "with": "src/app/shared/services/sileg.service.prod.ts"
+                }                
               ],
               "outputPath": "dist/econo/sileg-ui"
             },
@@ -86,7 +90,11 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.ui.ts"
-                }
+                },
+                {
+                  "replace": "src/app/shared/services/sileg.service.ts",
+                  "with": "src/app/shared/services/sileg.service.ui.ts"
+                }                
               ]
             }
           }

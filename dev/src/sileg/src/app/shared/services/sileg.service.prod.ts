@@ -21,8 +21,10 @@ export class SilegService {
   
   constructor(private http: HttpClient) { }
 
-  desginacionesPendientes(lid): Observable<any[]> {
-    return null;
+  desginacionesPendientes(lids): Observable<any[]> {
+    let parametros = lids.join('+')
+    let apiUrl = `${SILEG_API_URL}/designaciones/pendientes/lugares/` + parametros;
+    return this.http.get<any[]>(apiUrl);    
   }
 
 }

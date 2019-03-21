@@ -20,13 +20,6 @@ export class SistemaComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.subscriptions.push(this.service.obtenerConfiguracion().subscribe(r => {
-      this.config = r;
-    }));    
-
-    this.subscriptions.push(this.service.obtenerAccesoModulos().subscribe(modulos=> {
-      this.modulos = modulos;
-    }));    
   }
 
   ngOnDestroy(){
@@ -38,28 +31,5 @@ export class SistemaComponent implements OnInit {
     d.toggle();
     console.log('cerrar_menu');
   } 
-
-  chequearPerfil(profiles: string[]): boolean {
-   // return false;
-    let r = false;
-    profiles.forEach(p => {
-      if (this.modulos.includes(p)){
-        r = true;
-      }
-    });
-    return r;
-  }  
-
-  mostrarOrganigrama():boolean{
-    return this.config.mostrar_organigrama;
-  }
-
-  mostrarSincoUsuarios():boolean{
-    return this.config.mostrar_sincronizacion_usuarios;
-  }
-
-  mostrarSincoLogin():boolean{
-    return this.config.mostrar_sincronizacion_login;
-  }  
 
 }

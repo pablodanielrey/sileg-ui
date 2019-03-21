@@ -14,7 +14,7 @@ import { AppComponent } from './app.component';
 import { SilegService } from './shared/services/sileg.service';
 import { AppRoutingModule } from './app-routing.module';
 
-import { PendientesComponent as MovimientosPendientesComponent } from './modules/movimientos/pendientes/pendientes.component';
+import { PendientesComponent as MovimientosPendientesComponent } from './modules/designaciones/movimientos/pendientes/pendientes.component';
 import { InicioComponent } from './modules/inicio/inicio.component';
 
 //import { SeleccionarUsuarioComponent } from '../usuarios/seleccionar-usuario/seleccionar-usuario.component';
