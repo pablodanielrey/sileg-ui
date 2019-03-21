@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 import { AuthConfig, OAuthService, NullValidationHandler, JwksValidationHandler, OAuthEvent, OAuthErrorEvent, OAuthInfoEvent } from 'angular-oauth2-oidc';
 
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 export const authConfig: AuthConfig = {
   issuer: environment.oidp_issuer,

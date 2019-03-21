@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { Oauth2Service } from '../oauth2/oauth2.service';
 import { Configuracion } from '../../shared/entities/sileg';
 import { SilegService } from '../../shared/services/sileg.service';
 
@@ -14,7 +14,10 @@ export class SistemaComponent implements OnInit {
   subscriptions: any[] = [];
   config: Configuracion = null;
 
-  constructor(private oauthService: OAuthService, private service: SilegService) { }
+  constructor(private oauthService: Oauth2Service, 
+              private service: SilegService) { 
+              
+  }
 
   ngOnInit() {
     this.subscriptions.push(this.service.obtenerConfiguracion().subscribe(r => {

@@ -26,7 +26,7 @@
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss",
-              "src/themeFCE.scss"
+              "src/assets/themes/themeFCE.scss"
             ],
             "scripts": []
           },
@@ -49,28 +49,8 @@
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.econo.ts"
                 }
-              ]
-            },
-            "econo": {
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "i18nFile": "src/messages.xlf",
-              "i18nLocale": "es",
-              "i18nFormat": "xlf",
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.econo.ts"
-                }
               ],
-              "outputPath": "dist/econo/sileg-ui"              
+              "outputPath": "dist/econo/sileg-ui"
             },
             "presi": {
               "optimization": true,
@@ -91,40 +71,24 @@
                   "with": "src/environments/environment.presi.ts"
                 }
               ],
-              "outputPath": "dist/presi/sileg-ui"              
+              "outputPath": "dist/presi/sileg-ui"  
             },
-            "local-econo": {
+            "dev": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.econo.ts"
+                  "with": "src/environments/environment.dev.ts"
                 }
               ]
             },
-            "local-presi": {
+            "ui": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.presi.ts"
+                  "with": "src/environments/environment.ui.ts"
                 }
               ]
-            },
-            "local-vs": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.vs.ts"
-                }
-              ]
-            },
-            "local-vs-presi": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.vs.presi.ts"
-                }
-              ]
-            }            
+            }
           }
         },
         "serve": {
@@ -136,24 +100,15 @@
             "production": {
               "browserTarget": "sileg:build:production"
             },
-            "econo": {
-              "browserTarget": "sileg:build:econo"
-            },
             "presi": {
               "browserTarget": "sileg:build:presi"
             },
-            "local-econo": {
-              "browserTarget": "sileg:build:local-econo"
+            "dev": {
+              "browserTarget": "sileg:build:dev"
             },
-            "local-presi": {
-              "browserTarget": "sileg:build:local-presi"
-            },
-            "local-vs": {
-              "browserTarget": "sileg:build:local-vs"
-            },
-            "local-vs-presi": {
-              "browserTarget": "sileg:build:local-vs-presi"
-            }            
+            "ui": {
+              "browserTarget": "sileg:build:ui"
+            }
           }
         },
         "extract-i18n": {

@@ -9,7 +9,7 @@ import { Router, ActivatedRoute, NavigationStart, NavigationEnd, NavigationError
 import { from, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 import { Oauth2Service } from './oauth2.service';
 
