@@ -1,25 +1,28 @@
-
-
 <div>
+
   <h1>Designaciones pendientes</h1>
+
   <div *ngFor="let l of (v$ | async)">
     <p> {{ l.lugar.nombre }} </p>
 
     <div class="desginacionesPendientes">
       <mat-table [dataSource]="l.designaciones$ | async">
-        <ng-container matColumnDef="usuario">
-            <mat-header-cell *matHeaderCellDef> Usuario </mat-header-cell>
-            <mat-cell *matCellDef="let desig"> {{desig.usuario.nombre}} {{desig.usuario.apellido}}</mat-cell>
-        </ng-container>
-          <ng-container matColumnDef="puntos">
-              <mat-header-cell *matHeaderCellDef> Puntos </mat-header-cell>
-              <mat-cell *matCellDef="let desig"> {{desig.ptos}} </mat-cell>
+
+          <ng-container matColumnDef="usuario">
+                <mat-header-cell *matHeaderCellDef> Usuario </mat-header-cell>
+                <mat-cell *matCellDef="let desig"> {{desig.usuario.nombre}} {{desig.usuario.apellido}}</mat-cell>
           </ng-container>
-    
+
+          <ng-container matColumnDef="puntos">
+                <mat-header-cell *matHeaderCellDef> Puntos </mat-header-cell>
+                <mat-cell *matCellDef="let desig"> {{desig.ptos}} </mat-cell>
+          </ng-container>
+      
           <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
           <mat-row *matRowDef="let row; columns: columnas;"></mat-row>    
-      </mat-table>
+
+        </mat-table>
     </div>
-  
-</div>  
+    
+  </div>  
 </div>
