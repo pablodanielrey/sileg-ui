@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { PendientesComponent as MovimientosPendientesComponent } from './modules/designaciones/movimientos/pendientes/pendientes.component';
 import { SistemaComponent } from './core/sistema/sistema.component';
+import { InicioComponent } from './modules/inicio/inicio.component';
 
 //import { PantallaPrincipalComponent } from './pantalla-principal/pantalla-principal.component';
 //
@@ -113,9 +114,10 @@ const routes: Routes = [
   },
   */
  {
-    path:'designaciones',
+    path:'sistema',
     component: SistemaComponent,
     children: [
+      { path: 'inicio', component: InicioComponent },
       {
         path: 'movimientos',
         children: [
