@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
+import { map, tap, switchMap, filter } from 'rxjs/operators';
+import { Observable, of, BehaviorSubject } from 'rxjs';
+
+import { FormGroup, FormControl } from '@angular/forms';
+
 import { SilegService } from '../../../shared/services/sileg.service';
-import { map, tap, switchMap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+
 
 @Component({
   selector: 'app-modificar',
@@ -11,8 +16,22 @@ import { Observable, of } from 'rxjs';
 })
 export class ModificarComponent implements OnInit {
 
+  form = new FormGroup({
+    cargo: new FormControl(),
+    dedicacion: new FormControl(),
+    caracter: new FormControl(),
+    expediente: new FormControl(),
+    resolucion: new FormControl()
+  });
+
+  caracteres$: Observable<any>;
+  dedicaciones$: Observable<any>;
+  cargos$: Observable<any>;
   desig$: Observable<any>;
+  puntos$: Observable<any>;
   p: any;
+
+  cambio$: BehaviorSubject<any>;
 
   constructor(
     private route : ActivatedRoute,
@@ -20,10 +39,46 @@ export class ModificarComponent implements OnInit {
   ) { }  
 
   ngOnInit() {
+    this.cambio$ = new BehaviorSubject<string>('');
+
+    this.cargos$ = of([
+      { nombre:'Titular', caracter:'internino', dedicacion: 'exclusiva', id:'1', puntos: 10 },
+      { nombre:'Titular', caracter:'ad-hon', dedicacion: 'semi-exclusiva', id:'2', puntos: 20 },
+      { nombre:'Titular', caracter:'ad-honorem', dedicacion: 'no', id:'3', puntos: 30 },
+      { nombre:'Adjunto', caracter:'ad-honorem', dedicacion: 'exclusiva', id:'4', puntos: 40 },
+      { nombre:'Adjunto', caracter:'interino', dedicacion: 'simple', id:'5', puntos: 14 }
+    ]);
+
+
+    this.caracteres$ = this.cambio$.pipe(
+      switchMap(c => this.cargos$.pipe(
+          map(vs => vs.filter(v => v.nombre == c.nombre))
+        )
+      )
+    );
+    this.dedicaciones$ = this.cambio$.pipe(
+      switchMap(c => this.cargos$.pipe(
+          map(vs => vs.filter(v => v.nombre == c.nombre))
+        )
+      )
+    );
+
+    this.puntos$ = this.cambio$.pipe(
+      tap(v => console.log(v)),
+      map(c => c.puntos)
+    );
+
     this.desig$ = this.route.paramMap.pipe(
       map(p => p.get("id")),
       switchMap(pid => this.service.obtenerDesignacion(pid))
     )
+
   }
+
+  submit() {
+    let v = this.form.value;
+    this.cambio$.next(v.cargo);
+  }
+
 
 }
