@@ -41,14 +41,7 @@ export class ModificarComponent implements OnInit {
   ngOnInit() {
     this.cambio$ = new BehaviorSubject<string>('');
 
-    this.cargos$ = of([
-      { nombre:'Titular', caracter:'internino', dedicacion: 'exclusiva', id:'1', puntos: 10 },
-      { nombre:'Titular', caracter:'ad-hon', dedicacion: 'semi-exclusiva', id:'2', puntos: 20 },
-      { nombre:'Titular', caracter:'ad-honorem', dedicacion: 'no', id:'3', puntos: 30 },
-      { nombre:'Adjunto', caracter:'ad-honorem', dedicacion: 'exclusiva', id:'4', puntos: 40 },
-      { nombre:'Adjunto', caracter:'interino', dedicacion: 'simple', id:'5', puntos: 14 }
-    ]);
-
+    this.cargos$ = this.service.obtenerCargosDisponibles();
 
     this.caracteres$ = this.cambio$.pipe(
       switchMap(c => this.cargos$.pipe(

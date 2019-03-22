@@ -29,4 +29,19 @@ export class SilegService {
     return null;
   }
 
+  obtenerPersona(uid: string): Observable<any> {
+    return null;
+  }
+
+  obtenerLugar(lid: string): Observable<any> {
+    return null;
+  }
+
+  obtenerPuntosPersona(uid: string): Observable<number> {
+    return null;
+  }
+
+  obtenerCargosDisponibles(): Observable<any[]> {
+    return null;
+  }
 }

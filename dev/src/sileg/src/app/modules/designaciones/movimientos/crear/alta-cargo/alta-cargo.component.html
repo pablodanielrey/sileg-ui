@@ -1,0 +1,37 @@
+
+puntos: {{puntos$ | async}}
+
+lugar: {{(lugar$ | async)?.nombre}}
+nombre: {{(persona$ | async)?.nombre}}
+
+<form [formGroup]='form' (ngSubmit)='submit()'>
+    <mat-form-field>
+        <mat-label>Cargo</mat-label>
+        <mat-select formControlName='cargo'>
+            <mat-option *ngFor="let cargo of (cargos$ | async)" [value]="cargo">
+                {{cargo.nombre}}
+            </mat-option>
+        </mat-select>    
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Dedicación</mat-label>
+        <mat-select formControlName='cargo'>
+            <mat-option *ngFor="let cargo of (dedicaciones$ | async)" [value]="cargo">
+                {{cargo.dedicacion}}
+            </mat-option>
+        </mat-select>    
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Dedicación</mat-label>
+        <mat-select formControlName='cargo'>
+            <mat-option *ngFor="let cargo of (caracteres$ | async)" [value]="cargo">
+                {{cargo.caracter}}
+            </mat-option>
+        </mat-select>    
+    </mat-form-field>
+    
+    <button type="submit" [disabled]="!form.valid">Actualizar</button>
+
+</form>

@@ -17,6 +17,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { PendientesComponent as MovimientosPendientesComponent } from './modules/designaciones/movimientos/pendientes/pendientes.component';
 import { InicioComponent } from './modules/inicio/inicio.component';
 import { ModificarComponent } from './modules/designaciones/modificar/modificar.component';
+import { SeleccionarPersonaComponent } from './modules/designaciones/movimientos/crear/seleccionar-persona/seleccionar-persona.component';
+import { CrearPersonaComponent } from './modules/designaciones/movimientos/crear/crear-persona/crear-persona.component';
+import { AltaCargoComponent } from './modules/designaciones/movimientos/crear/alta-cargo/alta-cargo.component';
 
 //import { SeleccionarUsuarioComponent } from '../usuarios/seleccionar-usuario/seleccionar-usuario.component';
 //import { DetalleUsuarioComponent } from '../usuarios/detalle-usuario/detalle-usuario.component';
@@ -66,7 +69,10 @@ import { ModificarComponent } from './modules/designaciones/modificar/modificar.
     AppComponent,
     MovimientosPendientesComponent,
     InicioComponent,
-    ModificarComponent
+    ModificarComponent,
+    SeleccionarPersonaComponent,
+    CrearPersonaComponent,
+    AltaCargoComponent
   ],
   entryComponents: [
   ],

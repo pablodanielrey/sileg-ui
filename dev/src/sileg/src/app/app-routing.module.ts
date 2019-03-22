@@ -2,10 +2,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { PendientesComponent as MovimientosPendientesComponent } from './modules/designaciones/movimientos/pendientes/pendientes.component';
+
 import { ModificarComponent as ModificarDesignacionComponent } from './modules/designaciones/modificar/modificar.component';
+
 import { SistemaComponent } from './core/sistema/sistema.component';
 import { InicioComponent } from './modules/inicio/inicio.component';
+
+import { PendientesComponent as MovimientosPendientesComponent } from './modules/designaciones/movimientos/pendientes/pendientes.component';
+import { SeleccionarPersonaComponent as AltaMovimientoSeleccionarPersonaComponent } from './modules/designaciones/movimientos/crear/seleccionar-persona/seleccionar-persona.component';
+import { CrearPersonaComponent as AltaMovimientoCrearPersonaComponent } from './modules/designaciones/movimientos/crear/crear-persona/crear-persona.component';
+import { AltaCargoComponent as AltaMovimientoAltaCargoComponent } from './modules/designaciones/movimientos/crear/alta-cargo/alta-cargo.component';
+
 
 //import { PantallaPrincipalComponent } from './pantalla-principal/pantalla-principal.component';
 //
@@ -122,7 +129,15 @@ const routes: Routes = [
       {
         path: 'movimientos',
         children: [
-          { path:'pendientes', component: MovimientosPendientesComponent }
+          { path:'pendientes', component: MovimientosPendientesComponent },
+          { 
+            path: 'crear',
+            children: [
+              { path: 'seleccionar/:lid', component: AltaMovimientoSeleccionarPersonaComponent },
+              { path: 'crear/:lid', component: AltaMovimientoCrearPersonaComponent },
+              { path: 'alta/:lid/:pid', component: AltaMovimientoAltaCargoComponent }
+            ] 
+          }
         ]
       },
       {

@@ -184,5 +184,36 @@ export class SilegService {
     }      
     return of(d);
   }
+  
+  obtenerPersona(uid: string): Observable<any> {
+    return of({
+      id: '23423',
+      nombre: 'prueba de persona',
+      apellido: 'prueba de apellido',
+      dni: '23456'
+    });
+  }
 
+  obtenerLugar(lid: string): Observable<any> {
+    return of(
+      {
+        id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
+        nombre: 'DiTeSI'
+      }
+    );
+  }
+
+  obtenerPuntosPersona(uid: string): Observable<number> {
+    return of(34);
+  }
+
+  obtenerCargosDisponibles(): Observable<any[]> {
+    return of([
+      { nombre:'Titular', caracter:'internino', dedicacion: 'exclusiva', id:'1', puntos: 10 },
+      { nombre:'Titular', caracter:'ad-hon', dedicacion: 'semi-exclusiva', id:'2', puntos: 20 },
+      { nombre:'Titular', caracter:'ad-honorem', dedicacion: 'no', id:'3', puntos: 30 },
+      { nombre:'Adjunto', caracter:'ad-honorem', dedicacion: 'exclusiva', id:'4', puntos: 40 },
+      { nombre:'Adjunto', caracter:'interino', dedicacion: 'simple', id:'5', puntos: 14 }
+    ]);
+  }  
 }
