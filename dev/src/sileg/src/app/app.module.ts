@@ -16,6 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { PendientesComponent as MovimientosPendientesComponent } from './modules/designaciones/movimientos/pendientes/pendientes.component';
 import { InicioComponent } from './modules/inicio/inicio.component';
+import { ModificarComponent } from './modules/designaciones/modificar/modificar.component';
 
 //import { SeleccionarUsuarioComponent } from '../usuarios/seleccionar-usuario/seleccionar-usuario.component';
 //import { DetalleUsuarioComponent } from '../usuarios/detalle-usuario/detalle-usuario.component';
@@ -64,7 +65,8 @@ import { InicioComponent } from './modules/inicio/inicio.component';
   declarations: [
     AppComponent,
     MovimientosPendientesComponent,
-    InicioComponent
+    InicioComponent,
+    ModificarComponent
   ],
   entryComponents: [
   ],

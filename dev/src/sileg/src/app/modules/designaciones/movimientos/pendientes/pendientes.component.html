@@ -17,6 +17,11 @@
                 <mat-header-cell *matHeaderCellDef> Puntos </mat-header-cell>
                 <mat-cell *matCellDef="let desig"> {{desig.ptos}} </mat-cell>
           </ng-container>
+
+          <ng-container matColumnDef="acciones">
+                <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+                <mat-cell *matCellDef="let desig"> <button (click)="modificar(desig.id)">Modificar</button> </mat-cell>
+          </ng-container>
       
           <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
           <mat-row *matRowDef="let row; columns: columnas;"></mat-row>    
