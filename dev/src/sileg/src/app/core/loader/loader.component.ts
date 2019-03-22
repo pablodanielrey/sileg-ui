@@ -15,10 +15,17 @@ export class LoaderComponent implements OnInit {
   constructor() {
     this.titulo = environment.loader.titulo;
     this.imagen = environment.loader.imagen;
+
+    
   }
 
   ngOnInit() {
   }
 
+  
+  
+
 
 }
+
+
