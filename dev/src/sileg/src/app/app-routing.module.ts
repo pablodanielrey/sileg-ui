@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { PendientesComponent as MovimientosPendientesComponent } from './modules/designaciones/movimientos/pendientes/pendientes.component';
+import { ModificarComponent as ModificarDesignacionComponent } from './modules/designaciones/modificar/modificar.component';
 import { SistemaComponent } from './core/sistema/sistema.component';
 import { InicioComponent } from './modules/inicio/inicio.component';
 
@@ -122,6 +123,12 @@ const routes: Routes = [
         path: 'movimientos',
         children: [
           { path:'pendientes', component: MovimientosPendientesComponent }
+        ]
+      },
+      {
+        path: 'designaciones',
+        children: [
+          { path: 'modificar/:id', component: ModificarDesignacionComponent}
         ]
       }
     ]

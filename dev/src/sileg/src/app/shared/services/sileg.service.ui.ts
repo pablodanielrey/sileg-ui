@@ -145,17 +145,18 @@ export class SilegService {
         }, 
         designaciones: [
           { 
-            usuario: { id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4', nombre: 'Walter', apellido: '', dni: ''  },
             designacion: {
               id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
               expediente: 'dsfsdf',
               resolucion: '23r32r',
               corresponde: 'sdf',
+              cargo_id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
               cargo: { 
                 nombre: 'Titular',
                 id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
               },
-              usuario_id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
+              usuario_id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
+              usuario: { id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4', nombre: 'Walter', apellido: '', dni: ''  }
             },
             ptos: 10,
             estado: { fecha: new Date(), nombre: 'Alta Pendiente', autorizador_id: 'sdfdsfsdfsdfdsfsdfd' }
@@ -167,6 +168,20 @@ export class SilegService {
 
 
     ]
+    return of(d);
+  }
+
+  obtenerDesignacion(id: string): Observable<any> {
+    let d = {
+      id: id,
+      expediente: 'dsfsdf',
+      resolucion: '23r32r',
+      corresponde: 'sdf',
+      cargo: { 
+        nombre: 'Titular',
+        id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
+      }
+    }      
     return of(d);
   }
 

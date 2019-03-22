@@ -25,4 +25,8 @@ export class SilegService {
     return null;
   }
 
+  obtenerDesignacion(id: string): Observable<any> {
+    return null;
+  }
+
 }
