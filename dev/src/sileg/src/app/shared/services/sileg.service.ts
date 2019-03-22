@@ -32,6 +32,10 @@ export class SilegService {
   obtenerPersona(uid: string): Observable<any> {
     return null;
   }
+  
+  buscarPersonas(texto: string): Observable<any> {
+    return null;
+  }
 
   obtenerLugar(lid: string): Observable<any> {
     return null;

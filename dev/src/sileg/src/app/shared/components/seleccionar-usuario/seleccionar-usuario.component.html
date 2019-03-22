@@ -1,0 +1,5 @@
+
+lista de personas
+<div *ngFor='let p of (personas$ | async)'>
+  <button (click)='seleccionar(p)'>{{p.nombre}}</button>
+</div>

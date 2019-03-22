@@ -194,6 +194,24 @@ export class SilegService {
     });
   }
 
+  buscarPersonas(texto: string): Observable<any> {
+    return of([
+        {
+          id: '23423',
+          nombre: 'prueba de persona',
+          apellido: 'prueba de apellido',
+          dni: '23456'
+        },
+        {
+          id: '23423',
+          nombre: 'prueba de persona',
+          apellido: 'prueba de apellido',
+          dni: '23456'
+        }
+      ]
+    );
+  }  
+
   obtenerLugar(lid: string): Observable<any> {
     return of(
       {

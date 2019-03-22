@@ -20,6 +20,7 @@ import { ModificarComponent } from './modules/designaciones/modificar/modificar.
 import { SeleccionarPersonaComponent } from './modules/designaciones/movimientos/crear/seleccionar-persona/seleccionar-persona.component';
 import { CrearPersonaComponent } from './modules/designaciones/movimientos/crear/crear-persona/crear-persona.component';
 import { AltaCargoComponent } from './modules/designaciones/movimientos/crear/alta-cargo/alta-cargo.component';
+import { SeleccionarUsuarioComponent } from './shared/components/seleccionar-usuario/seleccionar-usuario.component';
 
 //import { SeleccionarUsuarioComponent } from '../usuarios/seleccionar-usuario/seleccionar-usuario.component';
 //import { DetalleUsuarioComponent } from '../usuarios/detalle-usuario/detalle-usuario.component';
@@ -72,7 +73,8 @@ import { AltaCargoComponent } from './modules/designaciones/movimientos/crear/al
     ModificarComponent,
     SeleccionarPersonaComponent,
     CrearPersonaComponent,
-    AltaCargoComponent
+    AltaCargoComponent,
+    SeleccionarUsuarioComponent
   ],
   entryComponents: [
   ],
