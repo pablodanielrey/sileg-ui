@@ -3,6 +3,8 @@ import { Oauth2Service } from '../oauth2/oauth2.service';
 import { Configuracion } from '../../shared/entities/sileg';
 import { SilegService } from '../../shared/services/sileg.service';
 
+import { PreloadService } from '../preload/preload.service';
+
 @Component({
   selector: 'app-sistema',
   templateUrl: './sistema.component.html',
@@ -15,14 +17,16 @@ export class SistemaComponent implements OnInit {
   config: Configuracion = null;
 
   constructor(private oauthService: Oauth2Service, 
-              private service: SilegService) { 
+              private service: SilegService,
+              private preload: PreloadService) { 
               
   }
 
   ngOnInit() {
+    this.preload.obtener_preload_completo().next(true);
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
     this.subscriptions = [];
   }

@@ -44,6 +44,10 @@ import { SistemaComponent } from './sistema/sistema.component';
 import { LoaderComponent } from './loader/loader.component';
 import { core } from '@angular/compiler';
 
+import { PreloadParcialComponent } from './preload/preload-parcial/preload-parcial.component';
+import { PreloadTotalComponent } from './preload/preload-total/preload-total.component';
+import { PreloadService } from './preload/preload.service';
+
 
 const routes: Routes = [
   //{ path: 'error/:error', component: ErrorComponent },
@@ -58,7 +62,9 @@ const routes: Routes = [
   declarations: [
     Oauth2Component,
     LoaderComponent,
-    SistemaComponent
+    SistemaComponent,
+    PreloadParcialComponent,
+    PreloadTotalComponent
   ],
   imports: [
     MatButtonModule,
@@ -128,6 +134,7 @@ const routes: Routes = [
     MatBadgeModule
   ],
   providers: [
+    PreloadService,
     OidpGuard,
     Oauth2Service,
     { provide: OAuthStorage, useValue: localStorage }
