@@ -4,7 +4,7 @@ export const environment = {
   //silegApiUrl: 'https://api.asistencia.presi.unlp.edu.ar/sileg/api/v1.0',
   
   //usuarioApiUrl: 'http://localhost:10102/users/api/v1.0',
-  usuarioApiUrl: 'https://api.asistencia.presi.unlp.edu.ar/users/api/v1.0',
+  usuarioApiUrl: 'https://api.asistencia.presi.unlp.edu.ar/users/api/v2.0',
   
   
   //loginApiUrl: 'http://localhost:10002/login/api/v1.0',

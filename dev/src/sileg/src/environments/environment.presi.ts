@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   silegApiUrl: 'https://api.asistencia.presi.unlp.edu.ar/sileg/api/v1.0',
-  usuarioApiUrl: 'https://api.asistencia.presi.unlp.edu.ar/users/api/v1.0',
+  usuarioApiUrl: 'https://api.asistencia.presi.unlp.edu.ar/users/api/v2.0',
   loginApiUrl: 'https://api.asistencia.presi.unlp.edu.ar/login/api/v1.0',
 
   oidp_issuer: 'https://oidp.asistencia.presi.unlp.edu.ar/',

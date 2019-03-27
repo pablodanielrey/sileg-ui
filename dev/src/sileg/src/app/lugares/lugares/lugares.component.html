@@ -8,7 +8,50 @@
   <mat-divider></mat-divider>
 
   <div class="contenidoPantalla">
-    ORGANIGRAMA
+
+
+      <mat-tree [dataSource]='dataSource' [treeControl]='treeControl' class='arbol'>
+          <mat-tree-node *matTreeNodeDef='let node' matTreeNodeToggle >
+            <li>
+              <!-- <button mat-icon-button disabled></button> -->
+              <!--
+              <mat-checkbox class="checklist-leaf-node"
+                  [checked]="false"
+                  (change)="todoLeafItemSelectionToggle(node)">{{node.item}}
+              </mat-checkbox>
+-->
+              <div class='mat-tree-node'>
+                <button mat-icon-button disabled>
+                    <i class="material-icons"> minimize </i>
+                </button>
+                <a style='color: inherit; text-decoration: none;' routerLink='/sistema/lugares/lugar/{{node.id}}'> {{node.nombre}} &nbsp; <mat-chip> {{node.tipo}}</mat-chip></a>
+              </div>
+            </li>
+          </mat-tree-node>
+      
+          <mat-nested-tree-node *matTreeNodeDef='let node; when: tieneHijos'>
+            <li>
+                <div class='mat-tree-node'>
+                  <button mat-icon-button matTreeNodeToggle>
+                    <mat-icon class='mat-icon'>
+                      {{treeControl.isExpanded(node) ? 'remove_circle_outline' : 'add_circle_outline'}}
+                    </mat-icon>
+                  </button>
+                  <!--
+                  <mat-checkbox class="checklist-leaf-node"
+                                [checked]="false"
+                                (change)="todoLeafItemSelectionToggle(node)">{{node.item}}
+                  </mat-checkbox>
+-->
+                  <a style='color: inherit; text-decoration: none;' routerLink='/sistema/lugares/lugar/{{node.id}}'> <b>{{node.nombre}}</b> &nbsp; <mat-chip> {{node.tipo}}</mat-chip> </a>
+                </div>
+                <ul [class.arbol-nodo-invisible]='!treeControl.isExpanded(node)'>
+                  <ng-container matTreeNodeOutlet></ng-container>
+                </ul>
+            </li>
+          </mat-nested-tree-node>
+      </mat-tree>
+  
+
   </div>
 
-</div>

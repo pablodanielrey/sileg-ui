@@ -50,6 +50,22 @@ export class DatoDesignacion {
   }
 }
 
+export class Dato2Designacion {
+  lugar: Lugar;
+  cargo: Cargo;
+  designacion: Designacion;
+  usuario: Usuario;
+
+  constructor(o:Object) {
+    try {
+      Object.assign(this, o);
+      this.designacion = (this.designacion == null ? null : new Designacion(this.designacion));
+    } catch(e) {
+      console.log(e);
+    }
+  }
+}
+
 export class Lugar {
   id: string;
   tipo: string;
@@ -59,6 +75,7 @@ export class Lugar {
   telefono: string;
   email: string;
   eliminado: Date;
+  padre_id: string;
 
 
   constructor(o:Object) {
@@ -96,7 +113,9 @@ export class Designacion {
   designacion_id: string;
   usuario_id: string;
   cargo_id: string;
+  cargo: Cargo;
   lugar_id: string;
+  lugar: Lugar;
   historico: boolean;
   id: string;
 
@@ -109,6 +128,21 @@ export class Designacion {
         let f = o["desde"].split("-");
         this.desde = new Date(f[0], f[1] - 1, f[2]);
       }
+    } catch(e) {
+      console.log(e);
+    }
+  }
+}
+
+export class Configuracion {
+
+  mostrar_organigrama: boolean;
+  mostrar_sincronizacion_usuarios: boolean;
+  mostrar_sincronizacion_login: boolean;
+    
+  constructor(o:Object) {
+    try {
+      Object.assign(this, o);
     } catch(e) {
       console.log(e);
     }

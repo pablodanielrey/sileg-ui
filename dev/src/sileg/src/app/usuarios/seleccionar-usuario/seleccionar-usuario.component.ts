@@ -5,6 +5,7 @@ import { SilegService } from '../../sileg.service'
 
 import { Usuario } from '../../entities/usuario';
 import { Sileg } from '../../entities/sileg';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-seleccionar-usuario',
@@ -14,8 +15,6 @@ import { Sileg } from '../../entities/sileg';
 export class SeleccionarUsuarioComponent implements OnInit {
 
   usuarios: Usuario[] = [];
-  busqueda:string = "";
-  busquedaActivada: boolean = false;
   subscriptions: any[] = [];
 
   ditesi = ['30001823', '27294557', '31381082', '29694757', '34928857', '34770038', '31073351', '27821597'];
@@ -26,6 +25,7 @@ export class SeleccionarUsuarioComponent implements OnInit {
 
 
   constructor(private service: SilegService,
+              private router: Router,
               private oauthService: OAuthService) {
   }
 
@@ -45,18 +45,18 @@ export class SeleccionarUsuarioComponent implements OnInit {
     this.subscriptions = [];
   }
 
-  actualizarBusqueda() : void {
-    this.busquedaActivada = (this.busqueda.length > 3);
-  }
-
-  buscarUsuarios(): void {
+  buscarUsuarios(event): void {
     this.usuarios = [];
     this.buscando = true;
-    this.subscriptions.push(this.service.buscarUsuarios(this.busqueda)
+    this.subscriptions.push(this.service.buscarUsuarios(event)
       .subscribe(usuarios => {
         this.buscando = false;
         this.usuarios = usuarios;
       }));
+  }
+
+  seleccionarUsuario(event): void {
+    this.router.navigate(['/sistema/usuario/usuario', event.id]);
   }
 
 }

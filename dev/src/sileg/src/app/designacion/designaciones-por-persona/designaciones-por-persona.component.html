@@ -1,0 +1,91 @@
+<div class="designacionesPorPersona">
+
+    <div class="seccionSistema">
+        <button mat-button class="btnVolverSeccion" (click)="volver()"><mat-icon>keyboard_arrow_left</mat-icon> volver</button>
+          | Designaciones
+    </div>
+  
+    <mat-divider></mat-divider>
+
+    <div class='contenidoPantalla'>
+
+      <mat-tab-group *ngFor="let dv of designaciones" class="contenedorReporteLugar" class="tabla">
+
+        <mat-tab label="{{dv.lugar.nombre}}" class="Tabs">
+
+          <mat-table #table [dataSource]="dv.designaciones" matSort (matSortChange)='ordenar($event)' matSortActive="fullname" matSortDirection="asc">
+                
+
+            <ng-container matColumnDef='tipo_designacion'>
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </mat-header-cell>
+              <mat-cell *matCellDef='let d'> 
+                <div routerLink='/sistema/designaciones/detalle/{{d.id}}'>
+                  {{d.tipo}} 
+                </div>             
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef='cargo'>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Cargo </mat-header-cell>
+                <mat-cell *matCellDef='let d'>
+                  <div>{{cargo(d)?.nombre}}</div>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef='tipo_cargo'>
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Cargo </mat-header-cell>
+              <mat-cell *matCellDef='let d'>
+                <div>{{cargo(d)?.tipo}}</div>
+              </mat-cell>
+            </ng-container> 
+            
+            <ng-container matColumnDef='desde'>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Desde </mat-header-cell>
+                <mat-cell *matCellDef='let d'> {{d.desde |date:"dd/MM/yyyy"}} </mat-cell>
+              </ng-container>
+
+
+            <ng-container matColumnDef='hasta'>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Hasta </mat-header-cell>
+                <mat-cell *matCellDef='let d'> {{d.hasta |date:"dd/MM/yyyy"}} </mat-cell>
+              </ng-container>
+
+
+            <ng-container matColumnDef='expediente'>
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Expediente </mat-header-cell>
+              <mat-cell *matCellDef='let d'>
+                <div>{{d.expediente}}</div>
+              </mat-cell>
+            </ng-container>  
+
+            <ng-container matColumnDef='resolucion'>
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Resolución </mat-header-cell>
+              <mat-cell *matCellDef='let d'>
+                <div>{{d.resolucion}}</div>
+              </mat-cell>
+            </ng-container>  
+
+            <ng-container matColumnDef='estado'>
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
+              <mat-cell *matCellDef='let d'>
+                  <button class="btnDetalle" mat-icon-button routerLink='/sistema/designaciones/detalle/{{d.id}}' >
+                    <mat-icon matTooltip="Detalle designación">zoom_in</mat-icon>
+                  </button>
+
+                  <mat-chip-list>
+                      <mat-chip *ngIf='d.historico' matTooltip="Historico">H</mat-chip>
+                  </mat-chip-list>
+          
+              </mat-cell>
+            </ng-container>   
+
+            <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: columnas;"></mat-row>
+          </mat-table>
+          
+        </mat-tab>
+      </mat-tab-group>
+
+    </div>
+
+</div>

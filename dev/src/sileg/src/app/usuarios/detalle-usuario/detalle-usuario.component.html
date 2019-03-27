@@ -78,6 +78,7 @@
               </div>
             </div>
 
+            <!-- 
             <div *ngIf='designaciones'>
               <mat-form-field class="contenedorDesignaciones" *ngFor='let d of designaciones'>
                   <input matInput readonly placeholder="Designacion" value="{{d.lugar.nombre}}" >
@@ -89,6 +90,7 @@
                   </div>
               </mat-form-field>
             </div>
+            -->
 
       </div>
 
@@ -103,8 +105,13 @@
         <button *ngIf="chequearLugar('econo')" mat-button class="btn" routerLink='./crear-correo' [disabled]='!tieneDesignacion()'><mat-icon>add</mat-icon> CREAR CORREO ECONO</button>
         <button mat-button class="btn" *ngIf="!eliminados" (click)='eliminados = !eliminados' value='{{eliminados}}'><mat-icon>add</mat-icon> VER CORREOS ELIMINADOS</button>
         <button mat-button class="btn" *ngIf="eliminados" (click)='eliminados = !eliminados' value='{{eliminados}}'><mat-icon>remove</mat-icon> OCULTAR CORREOS ELIMINADOS</button>
+        
+        
+        <!-- la agrego para probar la pantalla de designaciones por usuario -->
+        <button *ngIf="chequearPerfil(['super-admin','buscar_usuario'])" mat-button class="btn" routerLink='/sistema/usuario/usuario/{{usuario.id}}/designaciones'><mat-icon>add</mat-icon> VER DESIGNACIONES</button>
 
         <button *ngIf="chequearPerfil(['super-admin','crear_usuario'])" mat-button class="btnGuardar" (click)='actualizarDatos()'> GUARDAR CAMBIOS</button>
+        
 
 
       <!-- <button routerLink="/reset-clave/{{sileg.id}}">Crear Clave Temporal</button>

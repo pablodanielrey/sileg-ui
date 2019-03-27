@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { Usuario, Mail, Telefono } from '../../entities/usuario';
 import { Sileg, Designacion } from '../../entities/sileg';
 import { SilegService } from '../../sileg.service';
+import { UsuariosService } from '../../usuarios.service';
 import { NotificacionesService } from '../../notificaciones.service';
 
 import { environment } from '../../../environments/environment';
@@ -24,7 +25,7 @@ export class DetalleUsuarioComponent implements OnInit {
   lugar: string = environment.lugar;
   usuario_id: string = null;
   usuario: Usuario = null;
-  designaciones: Designacion[] = null;
+  designaciones: number = 0;
   eliminados: boolean = false;
   subscriptions: any[] = [];
   cargando: boolean = false;
@@ -45,7 +46,8 @@ export class DetalleUsuarioComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private location: Location,
               private notificaciones: NotificacionesService,
-              private service: SilegService) {
+              private service: SilegService,
+              private usuarios: UsuariosService) {
   }
 
   mostrarEliminarTelefono(t:Telefono) {
@@ -86,27 +88,18 @@ export class DetalleUsuarioComponent implements OnInit {
 
   buscarUsuario(id:string) {
     this.cargando = true;
-    this.subscriptions.push(this.service.buscarUsuario(this.usuario_id).subscribe(
+    this.subscriptions.push(this.usuarios.buscarUsuario(this.usuario_id).subscribe(
       usuario => {
         this.cargando = false;
-        this.usuario = usuario;
+        this.usuario = usuario[0];
         /*
           TODO: hack HORRBILE!!!
           como el telefono fijo y movil se mantienen en distintas variables las mapeamos aca:
         */
-        this.inicializarTelefonos(usuario);
+        this.inicializarTelefonos(usuario[0]);
       },
       err => {
         this.cargando = false;
-        this.notificaciones.show(err.message)
-      }
-    ));
-
-    this.subscriptions.push(this.service.buscarDesignaciones(this.usuario_id).subscribe(
-      designaciones => {
-        this.designaciones = designaciones.filter(designacion => !designacion.historico);
-      },
-      err => {
         this.notificaciones.show(err.message)
       }
     ));
@@ -118,7 +111,16 @@ export class DetalleUsuarioComponent implements OnInit {
     this.subscriptions.push(this.service.obtenerAccesoModulos().subscribe(modulos => {
       this.modulos = modulos;
     }));
+    this.buscarDesignaciones(this.usuario_id);
   }
+
+  buscarDesignaciones(uid: string) {
+    this.subscriptions.push(this.service.buscarDesignaciones(uid).subscribe(ds => {
+      console.log(ds);
+      this.designaciones = ds.length;
+    }));    
+  }
+
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
@@ -181,7 +183,7 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
   tieneDesignacion(): boolean {
-    return this.designaciones != null && this.designaciones.length > 0;
+    return this.designaciones > 0;
   }
 
   tieneCorreoInstitucional(): boolean {

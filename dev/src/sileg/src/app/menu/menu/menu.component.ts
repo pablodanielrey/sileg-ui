@@ -4,6 +4,8 @@ import { OAuthService } from 'angular-oauth2-oidc';
 
 import { SilegService } from '../../sileg.service';
 
+import { Configuracion } from '../../entities/sileg';
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -17,13 +19,17 @@ export class MenuComponent implements OnInit {
 
   modulos: string[] = [];
   subscriptions: any[] = [];
+  config: Configuracion = null;
 
   constructor(private oauthService: OAuthService, private service: SilegService) { }
 
   ngOnInit() {
+    this.subscriptions.push(this.service.obtenerConfiguracion().subscribe(r => {
+      this.config = r;
+    }));    
+
     this.subscriptions.push(this.service.obtenerAccesoModulos().subscribe(modulos=> {
       this.modulos = modulos;
-      console.log(this.modulos);
     }));
   }
 
@@ -48,6 +54,18 @@ export class MenuComponent implements OnInit {
       }
     });
     return r;
+  }
+
+  mostrarOrganigrama():boolean{
+    return this.config.mostrar_organigrama;
+  }
+
+  mostrarSincoUsuarios():boolean{
+    return this.config.mostrar_sincronizacion_usuarios;
+  }
+
+  mostrarSincoLogin():boolean{
+    return this.config.mostrar_sincronizacion_login;
   }
 
 }

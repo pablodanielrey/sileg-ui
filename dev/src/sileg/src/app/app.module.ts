@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <-- NgModel lives here
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { GlobalErrorHandler } from './error.handler';
 
@@ -51,6 +51,17 @@ import { SistemaComponent } from './sistema/sistema.component';
 import { PantallaPrincipalComponent } from './pantalla-principal/pantalla-principal.component';
 import { CargarCorreoComponent } from './usuarios/cargar-correo/cargar-correo.component';
 
+import { DesignacionesPorLugarComponent } from './designacion/designaciones-por-lugar/designaciones-por-lugar.component';
+import { DetalleDesignacionComponent } from './designacion/detalle-designacion/detalle-designacion.component';
+import { DesignacionesPorPersonaComponent } from './designacion/designaciones-por-persona/designaciones-por-persona.component';
+import { UsuariosSincComponent } from './sinc/usuarios-sinc/usuarios-sinc.component';
+import { LoginSincComponent } from './sinc/login-sinc/login-sinc.component';
+import { DatosPersonalesComponent } from './creacion/personal/datos-personales/datos-personales.component';
+import { DatosDesignacionComponent } from './creacion/personal/datos-designacion/datos-designacion.component';
+import { DatosCorreoComponent } from './creacion/personal/datos-correo/datos-correo.component';
+import { FinComponent } from './creacion/personal/fin/fin.component';
+import { BusquedaLugaresComponent } from './componentes/busqueda-lugares/busqueda-lugares.component';
+
 
 
 @NgModule({
@@ -83,7 +94,17 @@ import { CargarCorreoComponent } from './usuarios/cargar-correo/cargar-correo.co
     PantallaPrincipalComponent,
     Oauth2Component,
     ErrorComponent,
-    CargarCorreoComponent
+    CargarCorreoComponent,
+    DesignacionesPorLugarComponent,
+    DetalleDesignacionComponent,
+    DesignacionesPorPersonaComponent,
+    UsuariosSincComponent,
+    LoginSincComponent,
+    DatosPersonalesComponent,
+    DatosDesignacionComponent,
+    DatosCorreoComponent,
+    FinComponent,
+    BusquedaLugaresComponent
   ],
   entryComponents: [
     ConfirmarGenerarClaveComponent,
@@ -95,6 +116,7 @@ import { CargarCorreoComponent } from './usuarios/cargar-correo/cargar-correo.co
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     MyMaterialModule,
     AppRoutingModule,
     OAuthModule.forRoot({

@@ -1,0 +1,107 @@
+/* ---- CSS BASICO PARA CADA PANTALLA ----*/
+
+
+.designacion .seccionSistema {
+    color: #4186e1;
+    padding: 5px;
+  
+  }
+  
+  .designacion .btnVolverSeccion {
+    color: grey;
+  }
+  
+  .designacion .contenidoPantalla {
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    
+  }
+  
+  /* ---------------------------------------*/
+
+  .pasos {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+  }
+
+  .iconoPasos {
+      margin-right: 5px;
+      color: grey;
+  }
+
+  .contenedorSeleccionarLugar {
+      width: 45%;
+  }
+
+
+  .contenedorLugarSeleccionado {
+      margin-top: 20px;
+      width: 45%;
+  }
+
+  .oficinaSeleccionada {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  }
+
+  .textoTipo {
+    color: #4186e1;
+  }
+
+  .textoLugar {
+      font-size: 20px;
+  }
+
+  .btnAcciones {
+      color: grey;
+  }
+
+  .formulario {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .itemFormulario {
+      width: 30%;
+  }
+
+  .btnPrincipal{
+    background-color: #4186e1;
+    color: #fff;
+    width: 50%;
+    padding: 5px 0 5px 0;
+    margin: 0px 0px 0px 20px;
+}
+
+@media screen and (max-width: 719px) {
+
+    .contenedorSeleccionarLugar {
+        width: 100%;
+    }
+    .contenedorLugarSeleccionado {
+        margin-top: 20px;
+        width: 100%;
+    }
+    .formulario {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+      }
+    
+      .itemFormulario {
+          width: 100%;
+      }
+      .btnPrincipal{
+        width: 100%;
+        padding: 10px;
+        margin: 0px;
+    }
+
+
+}

@@ -16,11 +16,24 @@ import { DetalleUsuarioComponent } from './usuarios/detalle-usuario/detalle-usua
 import { GenerarClaveComponent } from './usuarios/generar-clave/generar-clave.component';
 import { GenerarDesignacionComponent } from './usuarios/generar-designacion/generar-designacion.component';
 
+import { LugaresComponent } from './lugares/lugares/lugares.component';
 import { BuscarLugaresComponent } from './lugares/buscar-lugares/buscar-lugares.component';
 import { CrearLugarComponent } from './lugares/crear-lugar/crear-lugar.component';
 import { DetalleLugarComponent } from './lugares/detalle-lugar/detalle-lugar.component';
 import { UsuariosPorOficinaComponent } from './lugares/usuarios-por-oficina/usuarios-por-oficina.component';
 import { AgregarQuitarUsuariosComponent } from './lugares/agregar-quitar-usuarios/agregar-quitar-usuarios.component';
+
+import { DesignacionesPorLugarComponent } from './designacion/designaciones-por-lugar/designaciones-por-lugar.component';
+import { DetalleDesignacionComponent } from './designacion/detalle-designacion/detalle-designacion.component';
+import { DesignacionesPorPersonaComponent } from './designacion/designaciones-por-persona/designaciones-por-persona.component';
+
+import { DatosPersonalesComponent } from './creacion/personal/datos-personales/datos-personales.component';
+import { DatosCorreoComponent } from './creacion/personal/datos-correo/datos-correo.component';
+import { DatosDesignacionComponent } from './creacion/personal/datos-designacion/datos-designacion.component';
+import { FinComponent } from './creacion/personal/fin/fin.component';
+
+import { UsuariosSincComponent } from './sinc/usuarios-sinc/usuarios-sinc.component';
+import { LoginSincComponent } from './sinc/login-sinc/login-sinc.component';
 
 import { OidpGuard } from './oauth2/oidp.guard';
 import { Oauth2Component } from './oauth2/oauth2.component';
@@ -37,6 +50,27 @@ const routes: Routes = [
     children: [
       { path: 'inicial', component: PantallaPrincipalComponent },
       {
+        path:'creacion',
+        children: [
+          {
+            path:'personal',
+            children: [
+              { path:'datos-personales', component: DatosPersonalesComponent },
+              { path:'datos-designacion', component: DatosDesignacionComponent },
+              { path:'datos-correo', component: DatosCorreoComponent },
+              { path:'fin', component: FinComponent }
+            ]
+          }
+        ]
+      },
+      {
+        path:'sinc',
+        children: [
+          { path:'usuarios', component: UsuariosSincComponent },
+          { path:'login', component: LoginSincComponent }
+        ]
+      },      
+      {
         path:'usuario',
         children: [
           { path:'buscar', component: SeleccionarUsuarioComponent },
@@ -45,18 +79,29 @@ const routes: Routes = [
           { path:'usuario/:id/reset-clave', component: GenerarClaveComponent },
           { path:'usuario/:id/generar-desig', component: GenerarDesignacionComponent },
           { path:'usuario/:id/crear-correo', component: CrearCorreoComponent },
-          { path:'usuario/:id/cargar-correo', component: CargarCorreoComponent }
+          { path:'usuario/:id/cargar-correo', component: CargarCorreoComponent },
+          { path:'usuario/:id/designaciones', component: DesignacionesPorPersonaComponent }
         ]
       },
       {
         path:'lugares',
         canActivate: [OidpGuard],
         children: [
+          { path:'lugares', component: LugaresComponent },
           { path:'buscar', component: BuscarLugaresComponent },
           { path:'lugar/:id', component: DetalleLugarComponent },
           { path:'crear', component: CrearLugarComponent },
           { path:'lugar/:id/usuarios', component: UsuariosPorOficinaComponent },
-          { path:'lugar/:id/usuarios/abm', component: AgregarQuitarUsuariosComponent }
+          { path:'lugar/:id/usuarios/abm', component: AgregarQuitarUsuariosComponent },
+          { path:'lugar/:id/designaciones', component: DesignacionesPorLugarComponent },
+
+        ]
+      },
+      {
+        path:'designaciones',
+        children: [
+          { path:'detalle/:id', component: DetalleDesignacionComponent }
+
         ]
       }
     ]

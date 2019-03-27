@@ -1,0 +1,86 @@
+/* ---- CSS BASICO PARA CADA PANTALLA ----*/
+
+
+.nuevoUsuario .seccionSistema {
+    color: #4186e1;
+    padding: 5px;
+  
+  }
+  
+  .nuevoUsuario .btnVolverSeccion {
+    color: grey;
+  }
+  
+  .nuevoUsuario .contenidoPantalla {
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    
+  }
+  
+  /* ---------------------------------------*/
+
+  .pasos {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+  }
+
+  .iconoPasos {
+      margin-right: 5px;
+      color: grey;
+  }
+
+  .formulario {
+      width: 50%;
+      padding: 20px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+  }
+
+  .subContenedor {
+      width: 48%;
+  }
+
+  .itemFormulario {
+      width: 100%;
+  }
+
+  .btnPrincipal{
+    background-color: #4186e1;
+    color: #fff;
+    width: 23%;
+    padding: 5px 0 5px 0;
+    margin: 0px 0px 0px 20px;
+}
+
+
+@media screen and (max-width: 719px) {
+    .contenidoPantalla {
+        padding: 0px;
+    }
+
+    .pasos {
+        margin-bottom: 10px;
+    }
+  
+
+    .formulario {
+        width: 100%;
+        padding: 20px 0px 20px 0;
+        flex-direction: column;
+    }
+    .subContenedor {
+        width: 100%;
+    }
+
+    .btnPrincipal{
+        width: 100%;
+        padding: 10px;
+        margin: 0px;
+    }
+
+  }
+  

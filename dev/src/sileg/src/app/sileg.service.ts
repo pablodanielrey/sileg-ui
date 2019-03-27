@@ -1,24 +1,25 @@
-
-import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 
-import {HttpClient, HttpParams} from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Http } from '@angular/http'
 
 
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import 'rxjs/Rx';
 
 import { Mail, Usuario, ResetClave } from './entities/usuario';
-import { Sileg, DatosSileg, Lugar, PedidoDesignacion, Designacion, Cargo, DatosLugarDesignaciones } from './entities/sileg';
+import { Sileg, DatosSileg, Lugar, PedidoDesignacion, Designacion, Cargo, DatosLugarDesignaciones, DatoDesignacion, Dato2Designacion, Configuracion } from './entities/sileg';
 
 const SILEG_API_URL = environment.silegApiUrl;
-const USUARIO_API_URL = environment.usuarioApiUrl;
 const LOGIN_API_URL = environment.loginApiUrl;
+const USUARIO_API_URL = environment.usuarioApiUrl;
 
 @Injectable()
 export class SilegService {
+  
+  modulos: string[] = null;
 
   //usuarios: Usuario[] = [];
   constructor(private http: HttpClient) { }
@@ -26,17 +27,13 @@ export class SilegService {
   buscarUsuario(uid:string): Observable<Usuario> {
     let apiUrl = `${USUARIO_API_URL}/usuarios/${uid}`;
     return this.http.get<Usuario>(apiUrl).pipe(map(datos => new Usuario(datos)));
-  }
+  }  
 
   buscarUsuarios(texto:string): Observable<Usuario[]> {
-    const options = { params: new HttpParams()
-              .set('q', texto ? texto : 'algoquenoexiste')
-              //.set('limit', 10)
-              //.set('offset',0)
-          };
-    let apiUrl = `${USUARIO_API_URL}/usuarios/`;
-    return this.http.get<Usuario[]>(apiUrl, options).pipe(map(datos => datos.map(d => new Usuario(d))));
+    let apiUrl = `${SILEG_API_URL}/usuarios/${texto}/search`;
+    return this.http.get<Usuario[]>(apiUrl).pipe(map(datos => datos.map(d => new Usuario(d))));
   }
+  
   crearUsuario(usuario: Usuario): Observable<any> {
     let apiUrl = `${USUARIO_API_URL}/usuarios`;
     return this.http.put<any>(apiUrl, usuario);
@@ -50,11 +47,6 @@ export class SilegService {
   chequearDisponibilidadCorreo(cuenta:string): Observable<boolean> {
     let apiUrl = `${USUARIO_API_URL}/correos/${cuenta}`;
     return this.http.get<any>(apiUrl).pipe(map(res => res.existe));
-  }
-
-  generarClave(uid:string):Observable<ResetClave> {
-    let apiUrl = `${LOGIN_API_URL}/usuario/${uid}/generar_clave`;
-    return this.http.get<ResetClave>(apiUrl).pipe(map(res => new ResetClave(res)));
   }
 
   generarCorreo(uid: string, correo: string):Observable<any> {
@@ -74,11 +66,24 @@ export class SilegService {
 
 
 
+  generarClave(uid:string):Observable<ResetClave> {
+    let apiUrl = `${LOGIN_API_URL}/usuario/${uid}/generar_clave`;
+    return this.http.get<ResetClave>(apiUrl).pipe(map(res => new ResetClave(res)));
+  }
 
-
+  obtenerConfiguracion(): Observable<Configuracion> {
+    let apiUrl = `${SILEG_API_URL}/obtener_config`;
+    return this.http.get<[Configuracion]>(apiUrl).pipe(map(datos => new Configuracion(datos)));
+  }
+  
   obtenerAccesoModulos(): Observable<string[]> {
     let apiUrl = `${SILEG_API_URL}/acceso_modulos`;
-    return this.http.get<string[]>(apiUrl);
+    return this.http.get<string[]>(apiUrl).pipe(tap(m => this.modulos = m));
+  }
+
+  detalleDesignacion(did:string): Observable<Dato2Designacion[]> {
+    let apiUrl = `${SILEG_API_URL}/designacion/${did}/detalle`;
+    return this.http.get<Dato2Designacion[]>(apiUrl);
   }
 
   buscarDesignaciones(uid:string): Observable<Designacion[]> {
