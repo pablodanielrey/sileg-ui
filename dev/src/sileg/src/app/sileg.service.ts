@@ -97,7 +97,7 @@ export class SilegService {
               //.set('limit', 10)
               //.set('offset',0)
           };
-    let apiUrl = `${SILEG_API_URL}/lugares`;
+    let apiUrl = `${SILEG_API_URL}/lugares/`;
     return this.http.get<Lugar[]>(apiUrl, options).pipe(map(datos => datos.map(d => new Lugar(d))));
   }
 
