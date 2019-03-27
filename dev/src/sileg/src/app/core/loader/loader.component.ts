@@ -9,22 +9,24 @@ import { environment } from '../../../environments/environment'
 })
 export class LoaderComponent implements OnInit {
 
-  titulo: string;
-  imagen: string;
+  cabecera: string;
+  version: string;
+  tituloSistema: string;
+  subtituloSistema: string;
+  desarrolloSistema: string;
+  logoSistema: string
 
   constructor() {
-    this.titulo = environment.loader.titulo;
-    this.imagen = environment.loader.imagen;
-
-    
+    this.cabecera = environment.loader.cabecera;
+    this.version = environment.loader.version;
+    this.tituloSistema = environment.loader.tituloSistema;
+    this.subtituloSistema = environment.loader.subtituloSistema;
+    this.desarrolloSistema = environment.loader.desarrolloSistema;
+    this.logoSistema = environment.loader.logoSistema
   }
 
   ngOnInit() {
   }
-
-  
-  
-
 
 }
 

@@ -1,25 +1,29 @@
-<mat-toolbar color=primary>SILEG</mat-toolbar>
+<div class="loader">
 
-<div class="bg"></div>
-<div class="bg bg2"></div>
-<div class="bg bg3"></div>
-<div class="content">
-        <!-- <img class="imgLogo" src="/assets/img/fce/logo.png"> -->
+        
+    
+    <mat-toolbar color=primary>{{cabecera}} {{version}}</mat-toolbar>
 
-        <div class="hit-the-floor">GELIS</div>
-        <div>Administracción y Designación Docente y NoDocente  </div>
-        <button mat-stroked-button (click)="onClick" color="primary">ACCEDER</button>
+   <div class="bg"></div>
+   <div class="bg bg2"></div>
+   <div class="bg bg3"></div>
 
-        <mat-divider></mat-divider>
-        <div class="desarrollo"><p>DiTeSI | Dirección de Tecnologías y Sistemas Informáticos</p></div>
+   <div class="contenido">
 
-        <div><img class="logoFce" src="/assets/img/fce/logofce2018.png"></div>
+
+
+      <div class="hit-the-floor">{{tituloSistema}}</div>
+      <div>{{subtituloSistema}}</div>
+      <button mat-stroked-button (click)="onClick" color="primary">ACCEDER</button>
+
+       <mat-divider></mat-divider>
+       <div class="desarrollo"><p>{{desarrolloSistema}}</p></div>
+
+       <div><img class="logoFce" src="{{logoSistema}}"></div>
 
         
 
 
 </div>
+</div>
 
-<!-- <div class="content">
-
-</div>   -->
