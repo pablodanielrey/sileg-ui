@@ -1,5 +1,5 @@
 export const environment = {
-  production: true,
+  production: false,
   silegApiUrl: 'http://localhost:10202/sileg/api/v1.0',
   usuarioApiUrl: 'http://localhost:10102/users/api/v2.0',
   //loginApiUrl: 'http://localhost:10002/login/api/v1.0',
