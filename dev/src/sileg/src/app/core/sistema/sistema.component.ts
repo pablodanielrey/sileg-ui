@@ -23,7 +23,8 @@ export class SistemaComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.preload.obtener_preload_completo().next(true);
+    this.preload.obtener_preload_completo().next(false);
+    this.preload.obtener_preload_parcial().next(true);
   }
 
   ngOnDestroy() {
