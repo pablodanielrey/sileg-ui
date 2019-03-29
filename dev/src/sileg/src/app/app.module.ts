@@ -24,6 +24,8 @@ import { SeleccionarUsuarioComponent } from './shared/components/seleccionar-usu
 import { SelecionarLugarComponent } from './shared/components/selecionar-lugar/selecionar-lugar.component';
 import { SelecionMultipleLugarComponent } from './shared/components/selecion-multiple-lugar/selecion-multiple-lugar.component';
 import { SeleccionarLugaresComponent } from './modules/designaciones/seleccionar-lugares/seleccionar-lugares.component';
+import { ListarComponent } from './modules/designaciones/listar/listar.component';
+import { SeleccionarComponent } from './modules/lugares/seleccionar/seleccionar.component';
 
 //import { SeleccionarUsuarioComponent } from '../usuarios/seleccionar-usuario/seleccionar-usuario.component';
 //import { DetalleUsuarioComponent } from '../usuarios/detalle-usuario/detalle-usuario.component';
@@ -80,7 +82,9 @@ import { SeleccionarLugaresComponent } from './modules/designaciones/seleccionar
     SeleccionarUsuarioComponent,
     SelecionarLugarComponent,
     SelecionMultipleLugarComponent,
-    SeleccionarLugaresComponent
+    SeleccionarLugaresComponent,
+    ListarComponent,
+    SeleccionarComponent
   ],
   entryComponents: [
   ],

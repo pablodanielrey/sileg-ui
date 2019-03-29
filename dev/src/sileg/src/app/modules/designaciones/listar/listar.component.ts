@@ -1,22 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { SilegService } from '../../../../shared/services/sileg.service';
 import { Observable, of } from 'rxjs';
-import { switchMap, map, tap } from 'rxjs/operators';
-
+import { SilegService } from '../../../shared/services/sileg.service';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-pendientes',
-  templateUrl: './pendientes.component.html',
-  styleUrls: ['./pendientes.component.scss']
+  selector: 'app-listar',
+  templateUrl: './listar.component.html',
+  styleUrls: ['./listar.component.scss']
 })
-export class PendientesComponent implements OnInit {
+export class ListarComponent implements OnInit {
 
   columnas: string[] = ['usuario','puntos'];
   lugares$: Observable<any[]>;
 
-  constructor(private service : SilegService) {  }
+  constructor(private service : SilegService) { }
 
-  ngOnInit() { 
+  ngOnInit() {
     let lid = "1f7b87ea-96b7-428c-8a00-fd33e1ba3ee6";
  
     this.lugares$ = this.service.desginacionesPendientes([lid]).pipe(
@@ -33,12 +32,7 @@ export class PendientesComponent implements OnInit {
         return a
       }),
       tap(v => console.log(v))
-    )    
-
+    )  
   }
 
-  obtenerDesignacionesPendientes(ids: string[]): Observable<Array<any>> {
-    return this.service.desginacionesPendientes(ids);
-  }
-
- }
+}
