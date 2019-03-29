@@ -47,6 +47,7 @@ import { core } from '@angular/compiler';
 import { PreloadParcialComponent } from './preload/preload-parcial/preload-parcial.component';
 import { PreloadTotalComponent } from './preload/preload-total/preload-total.component';
 import { PreloadService } from './preload/preload.service';
+import { DebugComponent } from './debug/debug.component';
 
 
 const routes: Routes = [
@@ -64,7 +65,8 @@ const routes: Routes = [
     LoaderComponent,
     SistemaComponent,
     PreloadParcialComponent,
-    PreloadTotalComponent
+    PreloadTotalComponent,
+    DebugComponent
   ],
   imports: [
     MatButtonModule,

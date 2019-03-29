@@ -12,6 +12,7 @@ import { PendientesComponent as MovimientosPendientesComponent } from './modules
 import { SeleccionarPersonaComponent as AltaMovimientoSeleccionarPersonaComponent } from './modules/designaciones/movimientos/crear/seleccionar-persona/seleccionar-persona.component';
 import { CrearPersonaComponent as AltaMovimientoCrearPersonaComponent } from './modules/designaciones/movimientos/crear/crear-persona/crear-persona.component';
 import { AltaCargoComponent as AltaMovimientoAltaCargoComponent } from './modules/designaciones/movimientos/crear/alta-cargo/alta-cargo.component';
+import { DebugComponent } from './core/debug/debug.component';
 
 
 //import { PantallaPrincipalComponent } from './pantalla-principal/pantalla-principal.component';
@@ -121,6 +122,7 @@ const routes: Routes = [
     ]
   },
   */
+ { path: 'debug', component: DebugComponent },
  {
     path:'sistema',
     component: SistemaComponent,
