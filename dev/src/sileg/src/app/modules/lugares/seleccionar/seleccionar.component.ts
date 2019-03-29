@@ -12,4 +12,8 @@ export class SeleccionarComponent implements OnInit {
   ngOnInit() {
   }
 
+  seleccionado(l) {
+    console.log(l);
+  }
+
 }
