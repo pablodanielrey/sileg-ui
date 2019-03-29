@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 
 import { ModificarComponent as ModificarDesignacionComponent } from './modules/designaciones/modificar/modificar.component';
+import { SeleccionarLugaresComponent as SeleccionarLugaresDesignacionComponent } from './modules/designaciones/seleccionar-lugares/seleccionar-lugares.component';
 
 import { SistemaComponent } from './core/sistema/sistema.component';
 import { InicioComponent } from './modules/inicio/inicio.component';
@@ -145,7 +146,8 @@ const routes: Routes = [
       {
         path: 'designaciones',
         children: [
-          { path: 'modificar/:id', component: ModificarDesignacionComponent}
+          { path: 'modificar/:id', component: ModificarDesignacionComponent},
+          { path: 'seleccionar-lugar', component: SeleccionarLugaresDesignacionComponent }
         ]
       }
     ]

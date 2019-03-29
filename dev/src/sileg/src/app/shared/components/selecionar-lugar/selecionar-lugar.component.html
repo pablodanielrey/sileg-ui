@@ -1,0 +1,5 @@
+
+lista de lugares
+<div *ngFor='let l of (lugares$ | async)'>
+  <button (click)='seleccionar(l)'>{{l.nombre}}</button>
+</div>

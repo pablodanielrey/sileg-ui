@@ -194,7 +194,7 @@ export class SilegService {
     });
   }
 
-  buscarPersonas(texto: string): Observable<any> {
+  buscarPersonas(texto: string): Observable<any[]> {
     return of([
         {
           id: '23423',
@@ -220,6 +220,29 @@ export class SilegService {
       }
     );
   }
+
+  buscarLugares(texto: string): Observable<any[]> {
+    return of([
+        {
+          id: Math.random().toString(),
+          nombre: Math.random().toString()
+        },
+        {
+          id: '2',
+          nombre: 'facultad'
+        },
+        {
+          id: '3',
+          nombre: 'algo mas'
+        },
+        {
+          id: '4',
+          nombre: 'Secretaria'
+        }
+      ]
+    );
+  }  
+
 
   obtenerPuntosPersona(uid: string): Observable<number> {
     return of(34);

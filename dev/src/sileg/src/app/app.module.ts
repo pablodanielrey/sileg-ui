@@ -21,6 +21,9 @@ import { SeleccionarPersonaComponent } from './modules/designaciones/movimientos
 import { CrearPersonaComponent } from './modules/designaciones/movimientos/crear/crear-persona/crear-persona.component';
 import { AltaCargoComponent } from './modules/designaciones/movimientos/crear/alta-cargo/alta-cargo.component';
 import { SeleccionarUsuarioComponent } from './shared/components/seleccionar-usuario/seleccionar-usuario.component';
+import { SelecionarLugarComponent } from './shared/components/selecionar-lugar/selecionar-lugar.component';
+import { SelecionMultipleLugarComponent } from './shared/components/selecion-multiple-lugar/selecion-multiple-lugar.component';
+import { SeleccionarLugaresComponent } from './modules/designaciones/seleccionar-lugares/seleccionar-lugares.component';
 
 //import { SeleccionarUsuarioComponent } from '../usuarios/seleccionar-usuario/seleccionar-usuario.component';
 //import { DetalleUsuarioComponent } from '../usuarios/detalle-usuario/detalle-usuario.component';
@@ -74,7 +77,10 @@ import { SeleccionarUsuarioComponent } from './shared/components/seleccionar-usu
     SeleccionarPersonaComponent,
     CrearPersonaComponent,
     AltaCargoComponent,
-    SeleccionarUsuarioComponent
+    SeleccionarUsuarioComponent,
+    SelecionarLugarComponent,
+    SelecionMultipleLugarComponent,
+    SeleccionarLugaresComponent
   ],
   entryComponents: [
   ],

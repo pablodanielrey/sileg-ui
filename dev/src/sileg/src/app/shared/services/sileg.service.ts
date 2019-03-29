@@ -33,11 +33,15 @@ export class SilegService {
     return null;
   }
   
-  buscarPersonas(texto: string): Observable<any> {
+  buscarPersonas(texto: string): Observable<any[]> {
     return null;
   }
 
   obtenerLugar(lid: string): Observable<any> {
+    return null;
+  }
+
+  buscarLugares(texto: string): Observable<any[]> {
     return null;
   }
 

@@ -14,7 +14,7 @@ export class SeleccionarUsuarioComponent implements OnInit {
   seleccionado: EventEmitter<any> = new EventEmitter<any>();
 
   buscar$ = new BehaviorSubject<any>(null);
-  personas$: Observable<any>;
+  personas$: Observable<any[]>;
 
   constructor(private service: SilegService) { 
 

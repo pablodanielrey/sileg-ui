@@ -1,0 +1,13 @@
+
+<button (click)="buscar('sadsaasds')">buscar</button>
+
+lista de lugares
+<div *ngFor='let l of (lugares_no_seleccionados$ | async)'>
+  <button (click)='seleccionar(l)'>{{l.nombre}}</button>
+</div>
+
+lugares seleccionados
+<div *ngFor='let l of (lugares_seleccionados$ | async)'>
+  <button (click)='deseleccionar(l)'>{{l.nombre}}</button>
+</div>
+<button (click)='finalizar_seleccion()'>Finalizar</button>
