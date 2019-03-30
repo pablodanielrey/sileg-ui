@@ -10,10 +10,10 @@ import { PreloadService } from '../preload.service';
 })
 export class PreloadTotalComponent implements OnInit {
 
-  activo: Subject<boolean>;
+  activo$: Subject<boolean>;
 
   constructor(private service:PreloadService) { 
-    this.activo = service.obtener_preload_completo();
+    this.activo$ = service.obtener_preload_completo();
   }
   ngOnInit() {
   }

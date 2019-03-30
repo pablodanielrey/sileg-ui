@@ -10,17 +10,17 @@ export class DebugComponent implements OnInit {
 
   constructor(private preload: PreloadService) { }
 
+
+
   ngOnInit() {
   }
 
   toggle_preload() {
-    //this.preload.obtener_preload_completo().next(false);
-    this.preload.obtener_preload_parcial().next(true);
+    this.preload.activar_preload_parcial();
   }
 
   toggle_preload2() {
-    //this.preload.obtener_preload_completo().next(false);
-    this.preload.obtener_preload_parcial().next(false);
+    this.preload.desactivar_preload_parcial();
   }  
 
 }

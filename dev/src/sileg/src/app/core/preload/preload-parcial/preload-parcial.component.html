@@ -1,2 +1,3 @@
-<mat-progress-bar *ngIf='activo | async' mode="indeterminate"></mat-progress-bar>
-
+<div *ngIf='activo$ | async' class="preload">
+    <mat-spinner diameter="50"></mat-spinner>
+</div>

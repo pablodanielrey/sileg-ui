@@ -11,10 +11,10 @@ import { PreloadService } from '../preload.service';
 })
 export class PreloadParcialComponent implements OnInit {
 
-  activo: Subject<boolean>;
+  activo$: Subject<boolean>;
 
   constructor(private service:PreloadService) { 
-    this.activo = service.obtener_preload_parcial();
+    this.activo$ = service.obtener_preload_parcial();
   }
 
   ngOnInit() {
