@@ -52,8 +52,10 @@ export class Oauth2Component implements OnInit, OnDestroy {
         return;
       } else {
         if (!this.oauthService.hasValidToken()) {
+          //se genera el base64 y se lo envía como parametro state oauth
           this.oauthService.login();
         } else {
+          //se obtiene state y se redirecciona a esa url.
           this.router.navigate(['/sistema/inicial']);
         }
       }

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PreloadService } from '../preload/preload.service';
+import { EventsService } from '../events.service';
+import { FormGroup, FormControl } from '@angular/forms';
+import { RouterService } from '../router.service';
 
 @Component({
   selector: 'app-debug',
@@ -8,7 +11,9 @@ import { PreloadService } from '../preload/preload.service';
 })
 export class DebugComponent implements OnInit {
 
-  constructor(private preload: PreloadService) { }
+  
+
+  constructor(private preload: PreloadService, private  router: RouterService) { }
 
   ngOnInit() {
   }
@@ -29,5 +34,13 @@ export class DebugComponent implements OnInit {
     this.preload.desactivar_preload_completo();
   }  
 
+
+  form = new FormGroup({
+    ruta: new FormControl('')
+  })
+
+  navegar() {
+    this.router.navegar(this.form.value['ruta']);
+  }
 
 }

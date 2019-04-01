@@ -6,6 +6,8 @@ import { SilegService } from '../../shared/services/sileg.service';
 import { PreloadService } from '../preload/preload.service';
 
 import { OverlayContainer} from '@angular/cdk/overlay';
+import { EventsService } from '../events.service';
+import { RouterService } from '../router.service';
 
 
 @Component({
@@ -23,12 +25,20 @@ export class SistemaComponent implements OnInit {
   constructor(public overlayContainer: OverlayContainer,
               private oauthService: Oauth2Service, 
               private service: SilegService,
-              private preload: PreloadService) { 
+              private preload: PreloadService,
+              private events: EventsService,
+              private router: RouterService) { 
               
   }
 
   ngOnInit() {
-    
+    this.subscriptions.push(
+      this.events.obtener_cola().subscribe(e => {
+        console.log(e);
+      })
+    )
+
+    this.subscriptions.push(this.router.subscribir());
   }
 
   ngOnDestroy() {

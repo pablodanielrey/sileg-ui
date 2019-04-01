@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <-- NgModel lives here
 
 import { MatButtonModule,
          MatButtonToggleModule,
@@ -48,6 +49,7 @@ import { PreloadParcialComponent } from './preload/preload-parcial/preload-parci
 import { PreloadTotalComponent } from './preload/preload-total/preload-total.component';
 import { PreloadService } from './preload/preload.service';
 import { DebugComponent } from './debug/debug.component';
+import { ErrorComponent } from './error/error.component';
 
 
 const routes: Routes = [
@@ -66,7 +68,8 @@ const routes: Routes = [
     SistemaComponent,
     PreloadParcialComponent,
     PreloadTotalComponent,
-    DebugComponent
+    DebugComponent,
+    ErrorComponent
   ],
   imports: [
     MatButtonModule,
@@ -96,6 +99,8 @@ const routes: Routes = [
     BrowserAnimationsModule,
     MatTooltipModule,
     MatBadgeModule,
+    FormsModule,
+    ReactiveFormsModule,
     OAuthModule.forRoot(),
     /*
     OAuthModule.forRoot({

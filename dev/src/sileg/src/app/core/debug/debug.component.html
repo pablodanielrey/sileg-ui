@@ -9,3 +9,12 @@
     <button (click)='activar_preload_parcial()'>activar</button>
     <button (click)='desactivar_preload_parcial()'>desactivar</button>
 </div>
+<div>
+    <form [formGroup]='form' (ngSubmit)='navegar()'>
+        <mat-form-field>
+            <mat-label>Ruta</mat-label>
+            <input matInput formControlName='ruta'/>
+        </mat-form-field>
+        <button type='submit'>navegar</button>
+    </form>
+</div>
