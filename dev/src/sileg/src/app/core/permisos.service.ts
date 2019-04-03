@@ -23,8 +23,12 @@ export class PermisosService {
   constructor(private http: HttpClient) { 
   }
 
+  _save_example() {
+    localStorage.setItem('permissions', 'urn:*:*:*');
+  }
+
   _load_perms(): Observable<string[]> {
-    let perms = sessionStorage.getItem(`permissions`);
+    let perms = localStorage.getItem(`permissions`);
     if (perms != null) {
       let permissions = perms.split(';');
       return of(permissions);
@@ -35,7 +39,7 @@ export class PermisosService {
         if (r.status != 200) {
           return [];
         }
-        sessionStorage.setItem(`permissions`, r.granted.join(';'));
+        localStorage.setItem(`permissions`, r.granted.join(';'));
         return r.granted;
       }
     ));

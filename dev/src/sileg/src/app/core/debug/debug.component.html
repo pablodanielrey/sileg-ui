@@ -18,3 +18,11 @@
         <button type='submit'>navegar</button>
     </form>
 </div>
+<div>
+    Permisos
+    <div *ngFor='let p of permisos._load_perms() | async'>
+        {{p}}
+    </div>
+    <label>urn:*:*:*</label>    
+    <button (click)='configurar_permisos()'>Configurar ejemplo</button>
+</div>

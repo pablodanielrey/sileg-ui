@@ -8,6 +8,7 @@ import { PreloadService } from '../preload/preload.service';
 import { OverlayContainer} from '@angular/cdk/overlay';
 import { EventsService } from '../events.service';
 import { RouterService } from '../router.service';
+import { PermisosService } from '../permisos.service';
 
 
 @Component({
@@ -17,6 +18,7 @@ import { RouterService } from '../router.service';
 })
 export class SistemaComponent implements OnInit {
   
+
   modulos: string[] = [];
   subscriptions: any[] = [];
   config: Configuracion = null;
@@ -27,7 +29,8 @@ export class SistemaComponent implements OnInit {
               private service: SilegService,
               private preload: PreloadService,
               private events: EventsService,
-              private router: RouterService) { 
+              private router: RouterService,
+              private permisos: PermisosService) { 
               
   }
 
