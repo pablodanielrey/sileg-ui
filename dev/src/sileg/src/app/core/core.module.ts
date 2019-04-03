@@ -49,7 +49,9 @@ import { PreloadParcialComponent } from './preload/preload-parcial/preload-parci
 import { PreloadTotalComponent } from './preload/preload-total/preload-total.component';
 import { PreloadService } from './preload/preload.service';
 import { DebugComponent } from './debug/debug.component';
+
 import { ErrorComponent } from './error/error.component';
+import { PermisosService } from './permisos.service';
 
 
 const routes: Routes = [
@@ -141,6 +143,7 @@ const routes: Routes = [
     MatBadgeModule
   ],
   providers: [
+    PermisosService,
     PreloadService,
     OidpGuard,
     Oauth2Service,
