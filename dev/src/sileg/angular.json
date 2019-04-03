@@ -21,7 +21,8 @@
             "polyfills": "src/polyfills.ts",
             "assets": [
               "src/assets",
-              "src/favicon.ico"
+              "src/favicon.ico",
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
@@ -52,9 +53,11 @@
                 {
                   "replace": "src/app/shared/services/sileg.service.ts",
                   "with": "src/app/shared/services/sileg.service.prod.ts"
-                }                
+                }
               ],
-              "outputPath": "dist/econo/sileg-ui"
+              "outputPath": "dist/econo/sileg-ui",
+              "serviceWorker": true,
+              "ngswConfigPath": "src/ngsw-config.json"
             },
             "presi": {
               "optimization": true,
@@ -75,7 +78,7 @@
                   "with": "src/environments/environment.presi.ts"
                 }
               ],
-              "outputPath": "dist/presi/sileg-ui"  
+              "outputPath": "dist/presi/sileg-ui"
             },
             "dev": {
               "fileReplacements": [
@@ -94,7 +97,7 @@
                 {
                   "replace": "src/app/shared/services/sileg.service.ts",
                   "with": "src/app/shared/services/sileg.service.ui.ts"
-                }                
+                }
               ]
             }
           }
@@ -138,7 +141,8 @@
             ],
             "assets": [
               "src/assets",
-              "src/favicon.ico"
+              "src/favicon.ico",
+              "src/manifest.webmanifest"
             ]
           }
         },

@@ -36,7 +36,8 @@ export class PermisosService {
     let apiUrl = `${WARDEN_API_URL}/permissions`;
     return this.http.get<response>(apiUrl).pipe(map(
       r => {
-        if (r.status != 200) {
+          if (r.status != 200) {
+          localStorage.setItem(`permissions`,'');
           return [];
         }
         localStorage.setItem(`permissions`, r.granted.join(';'));
