@@ -3,6 +3,7 @@ import { PreloadService } from '../preload/preload.service';
 import { EventsService } from '../events.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { RouterService } from '../router.service';
+import { PermisosService } from '../permisos.service';
 
 @Component({
   selector: 'app-debug',
@@ -13,9 +14,15 @@ export class DebugComponent implements OnInit {
 
   
 
-  constructor(private preload: PreloadService, private  router: RouterService) { }
+  constructor(private preload: PreloadService, 
+              private router: RouterService, 
+              private permisos: PermisosService) { }
 
   ngOnInit() {
+  }
+
+  configurar_permisos() {
+    this.permisos._save_example();
   }
 
   activar_preload_parcial() {

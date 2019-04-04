@@ -5,8 +5,12 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 
 //import { GlobalErrorHandler } from './error.handler';
 
+import { ServiceWorkerModule } from '@angular/service-worker';
+
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
+
+
 
 //import { ListadoUsuariosComponent } from '../shared/components/listado-usuarios/listado-usuarios.component';
 
@@ -27,6 +31,8 @@ import { SeleccionarLugaresComponent } from './modules/designaciones/seleccionar
 import { ListarComponent } from './modules/designaciones/listar/listar.component';
 import { SeleccionarComponent } from './modules/lugares/seleccionar/seleccionar.component';
 import { DetalleComponent } from './modules/lugares/detalle/detalle.component';
+
+import { environment } from '../environments/environment';
 
 //import { SeleccionarUsuarioComponent } from '../usuarios/seleccionar-usuario/seleccionar-usuario.component';
 //import { DetalleUsuarioComponent } from '../usuarios/detalle-usuario/detalle-usuario.component';
@@ -96,7 +102,8 @@ import { DetalleComponent } from './modules/lugares/detalle/detalle.component';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    CoreModule
+    CoreModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
     /*
     CoreModule.forRoot({
       resourceServer: {
