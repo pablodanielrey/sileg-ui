@@ -52,6 +52,7 @@ import { DebugComponent } from './debug/debug.component';
 
 import { ErrorComponent } from './error/error.component';
 import { PermisosService } from './permisos.service';
+import { ErrorService } from './error/error.service';
 
 
 const routes: Routes = [
@@ -145,6 +146,7 @@ const routes: Routes = [
   providers: [
     PermisosService,
     PreloadService,
+    ErrorService,
     OidpGuard,
     Oauth2Service,
     { provide: OAuthStorage, useValue: localStorage }

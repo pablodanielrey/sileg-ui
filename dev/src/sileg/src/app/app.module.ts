@@ -33,6 +33,7 @@ import { SeleccionarComponent } from './modules/lugares/seleccionar/seleccionar.
 import { DetalleComponent } from './modules/lugares/detalle/detalle.component';
 
 import { environment } from '../environments/environment';
+import { EjemploErrorComponent } from './modules/ejemplo-error/ejemplo-error.component';
 
 //import { SeleccionarUsuarioComponent } from '../usuarios/seleccionar-usuario/seleccionar-usuario.component';
 //import { DetalleUsuarioComponent } from '../usuarios/detalle-usuario/detalle-usuario.component';
@@ -92,7 +93,8 @@ import { environment } from '../environments/environment';
     SeleccionarLugaresComponent,
     ListarComponent,
     SeleccionarComponent,
-    DetalleComponent
+    DetalleComponent,
+    EjemploErrorComponent
   ],
   entryComponents: [
   ],

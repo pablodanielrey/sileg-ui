@@ -1,3 +1,7 @@
-<p>
-  error works!
-</p>
+<div *ngIf='(error$ |async)?.error' class="error">
+  <div class="window_error">
+      <h2>Error:</h2>
+      {{ (error$ | async)?.mensaje }}
+      <button (click)="close()">Aceptar</button>
+  </div>
+</div>

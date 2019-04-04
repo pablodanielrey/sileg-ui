@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { error_object, ErrorService } from './error.service'
 
 @Component({
   selector: 'app-error',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ErrorComponent implements OnInit {
 
-  constructor() { }
+  error$: Subject<error_object>;
+  constructor(private service: ErrorService) {
+    this.error$ = service.obtener_error();
+  }
 
   ngOnInit() {
   }
 
+  close() {
+    this.service.error(null);
+  }
 }

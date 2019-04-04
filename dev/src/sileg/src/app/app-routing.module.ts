@@ -14,6 +14,7 @@ import { SeleccionarPersonaComponent as AltaMovimientoSeleccionarPersonaComponen
 import { CrearPersonaComponent as AltaMovimientoCrearPersonaComponent } from './modules/designaciones/movimientos/crear/crear-persona/crear-persona.component';
 import { AltaCargoComponent as AltaMovimientoAltaCargoComponent } from './modules/designaciones/movimientos/crear/alta-cargo/alta-cargo.component';
 import { DebugComponent } from './core/debug/debug.component';
+import { EjemploErrorComponent } from './modules/ejemplo-error/ejemplo-error.component';
 
 
 //import { PantallaPrincipalComponent } from './pantalla-principal/pantalla-principal.component';
@@ -128,6 +129,7 @@ const routes: Routes = [
     path:'sistema',
     component: SistemaComponent,
     children: [
+      { path: 'error', component: EjemploErrorComponent },
       { path: 'inicio', component: InicioComponent },
       {
         path: 'movimientos',
