@@ -5,15 +5,6 @@
 		},
 		{
 			"path": "/src/gitlab/stacks"
-		},
-		{
-			"path": "/src/github/warden-api"
-		},
-		{
-			"path": "/src/github/login-api"
-		},
-		{
-			"path": "/src/github/login-ui"
 		}
 	],
 	"settings": {}
