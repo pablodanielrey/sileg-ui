@@ -27,7 +27,8 @@ import { MatButtonModule,
          MatTreeModule,
          MatCheckboxModule,
          MatTooltipModule,
-         MatBadgeModule
+         MatBadgeModule,
+         MatAutocompleteModule
        } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -102,6 +103,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     MatTooltipModule,
     MatBadgeModule,
+    MatAutocompleteModule,
     FormsModule,
     ReactiveFormsModule,
     OAuthModule.forRoot(),
@@ -141,7 +143,8 @@ const routes: Routes = [
     MatCheckboxModule,
     BrowserAnimationsModule,
     MatTooltipModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatAutocompleteModule
   ],
   providers: [
     PermisosService,

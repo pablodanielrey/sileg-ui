@@ -222,25 +222,26 @@ export class SilegService {
   }
 
   buscarLugares(texto: string): Observable<any[]> {
-    return of([
-        {
-          id: Math.random().toString(),
-          nombre: Math.random().toString()
-        },
-        {
-          id: '2',
-          nombre: 'facultad'
-        },
-        {
-          id: '3',
-          nombre: 'algo mas'
-        },
-        {
-          id: '4',
-          nombre: 'Secretaria'
-        }
-      ]
-    );
+    let lugares = [
+      {
+        id: Math.random().toString(),
+        nombre: Math.random().toString()
+      },
+      {
+        id: '2',
+        nombre: 'facultad'
+      },
+      {
+        id: '3',
+        nombre: 'algo mas'
+      },
+      {
+        id: '4',
+        nombre: 'Secretaria'
+      }
+    ];
+    lugares = lugares.filter( v => v.nombre.toLowerCase().includes(texto.toLowerCase()));
+    return of(lugares).delay(1500);
   }  
 
 

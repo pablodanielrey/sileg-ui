@@ -1,0 +1,55 @@
+<mat-form-field appearance="">
+  <mat-label>Buscar Lugar</mat-label>
+  <input matInput placeholder=" Buscar...">
+  <mat-icon matSuffix>search</mat-icon>
+  <mat-hint><b>8</b> lugares encontrados</mat-hint>
+</mat-form-field>
+
+<button mat-flat-button color="primary" (click)="buscar('sadsaasds')">BUSCAR</button>
+
+
+<!-- <div *ngFor='let l of (lugares_no_seleccionados$ | async)'>
+    <button (click)='seleccionar(l)'>
+      {{l.nombre}}</button>
+</div>
+   -->
+
+
+<mat-list>
+  
+  <mat-list-item *ngFor='let l of (lugares_no_seleccionados$ | async)' (click)='seleccionar(l)'>
+      <img matListAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="...">
+    <h3 matLine> <b>{{l.nombre}}</b> </h3>
+    <p matLine>
+      <span> {{l.nombre}} </span>
+      <span class="demo-2"> - 444 </span>
+    </p>
+    <mat-divider></mat-divider>
+
+  </mat-list-item>
+</mat-list>
+
+
+
+
+
+
+<!-- lista de lugares -->
+<!-- <div *ngFor='let l of (lugares_no_seleccionados$ | async)'>
+  <button (click)='seleccionar(l)'>{{l.nombre}}</button>
+</div> -->
+
+
+
+lugares seleccionados
+
+
+<mat-chip-list *ngFor='let l of (lugares_seleccionados$ | async)'>
+    <mat-chip>{{l.nombre}}
+        <mat-icon matChipRemove (click)='deseleccionar(l)'>cancel</mat-icon>
+    </mat-chip>
+  </mat-chip-list>
+<!-- <div *ngFor='let l of (lugares_seleccionados$ | async)'>
+  <button (click)='deseleccionar(l)'>{{l.nombre}}</button>
+</div> -->
+<button (click)='finalizar_seleccion()'>Finalizar</button>
