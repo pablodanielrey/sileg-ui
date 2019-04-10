@@ -47,12 +47,19 @@ export class SelecionMultipleLugarComponent implements OnInit {
   }
 
   seleccionarLugar(lugar:any) {
+    this.campoBusqueda.setValue('');
+    if (this.seleccionados.filter(v => v.id == lugar.id).length > 0) {
+      return;
+    }
     this.seleccionados.push(lugar);
-    this.campoBusqueda.setValue(''); 
   }
 
   finalizar_seleccion() {
     this.seleccionado.emit(this.seleccionados);
+  }  
+
+  deseleccionar(l) {
+    this.seleccionados = this.seleccionados.filter(v => v.id != l.id);
   }  
 
   /*
@@ -95,11 +102,7 @@ export class SelecionMultipleLugarComponent implements OnInit {
     }
   }
 
-  deseleccionar(l) {
-    this.lugares_seleccionados = this.lugares_seleccionados.filter(v => v.id != l.id);
-    this.lugares_seleccionados$.next(this.lugares_seleccionados);
-    this.accion$.next(true);
-  }
+
 
   finalizar_seleccion() {
     this.seleccionado.emit(this.lugares_seleccionados);
