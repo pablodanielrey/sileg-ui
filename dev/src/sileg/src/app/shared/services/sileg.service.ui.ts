@@ -224,28 +224,64 @@ export class SilegService {
   buscarLugares(texto: string): Observable<any[]> {
     let lugares = [
       {
-        id: Math.random().toString(),
-        nombre: 'Este es el primer elemento'
+        id: '1',
+        nombre: 'Microeconomía I',
+        superior:'Departamento de Economía',
+        abreviatura:'M'
       },
       {
         id: '2',
-        nombre: 'facultad',
-      },
-      {
-        id: '5',
-        nombre: 'facultad 1',
-      },
-      {
-        id: '6',
-        nombre: 'facultad 2',
+        nombre: 'Microeconomía II',
+        superior:'Departamento de Economía',
+        abreviatura:'M'
       },
       {
         id: '3',
-        nombre: 'algo mas'
+        nombre: 'Derecho Constitucional y Administrativo',
+        superior:'Departamento de Contabilidad',
+        abreviatura:'D'
       },
       {
         id: '4',
-        nombre: 'Secretaria'
+        nombre: 'Matemática para Economistas I',
+        superior:'Departamento de Economía',
+        abreviatura:'M'
+      },
+      {
+        id: '5',
+        nombre: 'Estadística para Economistas I',
+        superior:'Departamento de Ciencias Administrativas',
+        abreviatura:'E'
+      },
+      {
+        id: '6',
+        nombre: 'Estadística para Economistas II',
+        superior:'Departamento de Economía',
+        abreviatura:'E'
+      },
+      {
+        id: '7',
+        nombre: 'Economía Internacional',
+        superior:'Departamento de Contabilidad',
+        abreviatura:'E'
+      },
+      {
+        id: '8',
+        nombre: 'Finanzas Internacionales',
+        superior:'Departamento de Ciencias Administrativas',
+        abreviatura:'F'
+      },
+      {
+        id: '9',
+        nombre: 'Economía y Regulación de los Servicios Públicos',
+        superior:'Departamento de Economía',
+        abreviatura:'E'
+      },
+      {
+        id: '10',
+        nombre: 'Política Económica II',
+        superior:'Departamento de Ciencias Administrativas',
+        abreviatura:'P'
       }
     ];
     lugares = lugares.filter( v => v.nombre.toLowerCase().includes(texto.toLowerCase()));

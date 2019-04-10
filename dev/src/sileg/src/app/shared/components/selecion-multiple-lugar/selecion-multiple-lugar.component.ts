@@ -23,6 +23,8 @@ export class SelecionMultipleLugarComponent implements OnInit {
   private existen_resultados$: Observable<boolean>;
   private campoBusqueda: FormControl;
   seleccionados: any[] = [];
+  
+
 
 
   constructor(private service: SilegService) { }

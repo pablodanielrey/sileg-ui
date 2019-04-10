@@ -1,15 +1,18 @@
 <form class="contenedorFormulario">
   <mat-form-field class="formulario">
-    <input matInput placeholder="Buscar" aria-label="State" [matAutocomplete]="auto" [formControl]="campoBusqueda">
+    <input matInput placeholder="Buscar" aria-label="State" [matAutocomplete]="auto" [formControl]="campoBusqueda" >
 
     <mat-icon class="girar" *ngIf="cargando" matSuffix>loop</mat-icon>
     <mat-icon *ngIf="!cargando" matSuffix>search</mat-icon>
 
 
     <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let l of lugares$ | async" [value]="l.id" (click)='seleccionarLugar(l)'>
-        <!-- <img class="example-option-img" aria-hidden [src]="track.thumbnail" height="25"> -->
-        <span>{{l.nombre}}</span>
+      <mat-option *ngFor="let l of lugares$ | async" [value]="l.id" (click)='seleccionarLugar(l)' >
+          <div class="itemLugar">
+              <div class="avatar">{{l.abreviatura}}</div>
+              <span>{{l.nombre}} </span>
+              <!-- <small> - {{l.superior}}</small> -->
+          </div>
       </mat-option>
     </mat-autocomplete>
 
