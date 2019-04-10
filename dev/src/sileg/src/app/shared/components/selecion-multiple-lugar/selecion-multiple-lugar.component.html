@@ -1,26 +1,29 @@
-<form class="example-form">
-  <mat-form-field class="example-full-width">
-  <input matInput placeholder="Buscar" aria-label="State" [matAutocomplete]="auto" [formControl]="campoBusqueda"> 
+<form class="contenedorFormulario">
+  <mat-form-field class="formulario">
+    <input matInput placeholder="Buscar" aria-label="State" [matAutocomplete]="auto" [formControl]="campoBusqueda">
 
-    <mat-icon *ngIf="cargando" matSuffix>refresh</mat-icon>
+    <mat-icon class="girar" *ngIf="cargando" matSuffix>loop</mat-icon>
+    <mat-icon *ngIf="!cargando" matSuffix>search</mat-icon>
+
 
     <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let l of lugares | async" [value]="l.id" (click)='seleccionarLugar(l)'>
+      <mat-option *ngFor="let l of lugares$ | async" [value]="l.id" (click)='seleccionarLugar(l)'>
         <!-- <img class="example-option-img" aria-hidden [src]="track.thumbnail" height="25"> -->
         <span>{{l.nombre}}</span>
       </mat-option>
     </mat-autocomplete>
-  </mat-form-field>  
+
+    <mat-hint *ngIf='existen_resultados$ | async'>No se encontraron resultados!</mat-hint>
+
+  </mat-form-field>
 
 </form>
 
-<div class="text-center">
-  <p class="lead" *ngIf="cargando">Cargando...</p>
-</div>
 
+<mat-chip-list *ngFor='let t of seleccionados'>
+  <mat-chip>{{t.nombre}}
+    <mat-icon matChipRemove (click)='deseleccionar(l)'>cancel</mat-icon>
+  </mat-chip>
+</mat-chip-list>
 
-<div *ngFor='let t of seleccionados'>
-  <span>{{ t.nombre}}</span>
-</div>
-
-<button (click)='finalizar_seleccion()'>Finalizar</button>
+<button mat-flat-button color="primary" (click)='finalizar_seleccion()'>Siguiente</button>

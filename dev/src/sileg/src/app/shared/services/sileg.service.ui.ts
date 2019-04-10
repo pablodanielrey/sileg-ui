@@ -225,11 +225,19 @@ export class SilegService {
     let lugares = [
       {
         id: Math.random().toString(),
-        nombre: Math.random().toString()
+        nombre: 'Este es el primer elemento'
       },
       {
         id: '2',
-        nombre: 'facultad'
+        nombre: 'facultad',
+      },
+      {
+        id: '5',
+        nombre: 'facultad 1',
+      },
+      {
+        id: '6',
+        nombre: 'facultad 2',
       },
       {
         id: '3',

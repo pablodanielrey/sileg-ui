@@ -19,7 +19,8 @@ export class SelecionMultipleLugarComponent implements OnInit {
   seleccionado: EventEmitter<any[]> = new EventEmitter<any[]>();
 
   private cargando: boolean = false;
-  private lugares: Observable<any[]>;
+  private lugares$: Observable<any[]>;
+  private existen_resultados$: Observable<boolean>;
   private campoBusqueda: FormControl;
   seleccionados: any[] = [];
 
@@ -28,20 +29,26 @@ export class SelecionMultipleLugarComponent implements OnInit {
 
   ngOnInit() {
     this.campoBusqueda = new FormControl();
-    this.lugares = this.campoBusqueda.valueChanges.pipe(      
+    this.lugares$ = this.campoBusqueda.valueChanges.pipe(      
       debounceTime(1000),
       distinctUntilChanged(),
       filter( v => v.trim() != ''),
       tap(_ => (this.cargando = true)),
       switchMap(term => this.service.buscarLugares(term)),
+      tap(v => console.log(v)),
       map( ls => ls.filter( l => this.seleccionados.filter( l2 => l2.id == l.id).length <= 0)),
       tap(_ => (this.cargando = false))
     );
+
+    this.existen_resultados$ = this.lugares$.pipe(
+        map(ls => ls.length <= 0),
+        tap(v => console.log(v))
+      );
   }
 
   seleccionarLugar(lugar:any) {
     this.seleccionados.push(lugar);
-    this.campoBusqueda.setValue('');
+    this.campoBusqueda.setValue(''); 
   }
 
   finalizar_seleccion() {
