@@ -35,3 +35,32 @@
       transform: rotate(-360deg);
     }
   }
+
+  .itemLugar {
+      display: flex;
+      align-items: center;
+    height: 75px !important;
+    line-height: 75px !important;
+  }
+
+
+  .avatar {
+      width: 20px;
+      height: 20px;
+      background-color:#aaaaaa;
+      color: white;
+      padding: 5px;
+      border-radius: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+  }
+
+  .subtitulo {
+      font-size: 10px;
+    }
+
+
+
+  
