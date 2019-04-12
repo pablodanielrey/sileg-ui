@@ -12,18 +12,29 @@
             <button mat-icon-button class="iconoCabecera" color="" (click)="drawer.toggle()">
                 <mat-icon>menu</mat-icon>
             </button>
-            <span>Apps FCE</span>
+            <span class="tituloSistema">GELIS</span>
         </div>
 
         <div>
+
+            <button mat-icon-button>
+                <mat-icon class="btnFullScreen">aspect_ratio</mat-icon>
+            </button>
+
+            <button mat-button [matMenuTriggerFor]="menuDeUsuario">Walter Blanco <mat-icon>keyboard_arrow_down</mat-icon></button>
+            <mat-menu #menuDeUsuario="matMenu">
+                  <button mat-menu-item><mat-icon class="iconoMenuUsuario">portrait</mat-icon>Mi Perfil</button>
+                  <button mat-menu-item><mat-icon class="iconoMenuUsuario">lock_outline</mat-icon>Cambiar Contraseña</button>
+                  <button mat-menu-item><mat-icon class="iconoMenuUsuario">exit_to_app</mat-icon>Salir</button>
+            </mat-menu>
+
             <button mat-icon-button [matMenuTriggerFor]="menu">
               <mat-icon>color_lens</mat-icon>
             </button>
-
             <mat-menu #menu="matMenu">
                 <div class="seleccionTema">
-                    <button mat-mini-fab color="primary"  (click)="onSetTheme('temaFceClaro')"> <mat-icon>check_circle </mat-icon></button>
-                    <button mat-mini-fab color="warn"  (click)="onSetTheme('temaFceOscuro')"></button>
+                    <button mat-mini-fab color="warn"  (click)="onSetTheme('temaFceClaro')"> <mat-icon>brush </mat-icon></button>
+                    <button mat-mini-fab color="primary"  (click)="onSetTheme('temaFceOscuro')"> <mat-icon>brush </mat-icon></button>
                 </div>    
             </mat-menu>
 
