@@ -1,5 +1,29 @@
+<!-- FORMULARIO DE BUSQUEDA -->
+<form >
+  <mat-form-field appearance="fill" class="contenedorFormulario">
+      <input matInput placeholder="Buscar Usuario" aria-label="State" [matAutocomplete]="auto" [formControl]="campoBusqueda" >
+      <mat-icon class="animacionCargando" *ngIf="cargando" matSuffix>clear</mat-icon>
+      <mat-icon *ngIf="!cargando" matSuffix>search</mat-icon>
 
-lista de personas
+      <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor='let p of (personas$ | async)' >
+              <div class="itemLugar" >
+                  <i class="material-icons-outlined iconoLista">account_circle</i>
+                  <span class="nombre">{{p.nombre}} {{p.apellido}}  </span>
+                  <small>&nbsp; DNI {{p.dni}}</small>
+              </div>
+          </mat-option>
+      </mat-autocomplete>
+
+      <mat-hint *ngIf='existen_resultados$ | async'>No se encontraron resultados!</mat-hint>
+  </mat-form-field>
+
+</form>
+
+
+
+
+<!-- lista de personass
 <div *ngFor='let p of (personas$ | async)'>
   <button (click)='seleccionar(p)'>{{p.nombre}}</button>
-</div>
+</div> -->

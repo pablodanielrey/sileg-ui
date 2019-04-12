@@ -195,21 +195,62 @@ export class SilegService {
   }
 
   buscarPersonas(texto: string): Observable<any[]> {
-    return of([
-        {
-          id: '23423',
-          nombre: 'prueba de persona',
-          apellido: 'prueba de apellido',
-          dni: '23456'
-        },
-        {
-          id: '23423',
-          nombre: 'prueba de persona',
-          apellido: 'prueba de apellido',
-          dni: '23456'
-        }
-      ]
-    );
+    let personas = [
+      {
+        id: '23423',
+        nombre: 'Walter',
+        apellido: 'Blanco',
+        dni: '30001823'
+      },
+      {
+        id: '23424',
+        nombre: 'Alejandro Agustin',
+        apellido: 'Oporto',
+        dni: '29587695'
+      },
+      {
+        id: '23425',
+        nombre: 'Emanuel Joaquin',
+        apellido: 'Pais',
+        dni: '33548456'
+      },
+      {
+        id: '23426',
+        nombre: 'Pablo Daniel',
+        apellido: 'Rey',
+        dni: '27635984'
+      },
+      {
+        id: '23427',
+        nombre: 'Miguel',
+        apellido: 'Macagno',
+        dni: '35626943'
+      },
+      {
+        id: '23428',
+        nombre: 'Leonardo',
+        apellido: 'Consolini',
+        dni: '35666215'
+      },
+      {
+        id: '23429',
+        nombre: 'Ivan Cesar',
+        apellido: 'Castañeda',
+        dni: '312569525'
+      },
+      {
+        id: '23430',
+        nombre: 'Maximiliano',
+        apellido: 'Sauceso',
+        dni: '28569885'
+      }
+    ];
+    let personas2 = personas.filter( v => 
+        v.nombre.toLowerCase().includes(texto.toLowerCase()) ||
+        v.apellido.toLowerCase().includes(texto.toLowerCase()) ||
+        v.dni.toLowerCase().includes(texto.toLocaleLowerCase())
+      );
+    return of(personas2);
   }  
 
   obtenerLugar(lid: string): Observable<any> {
