@@ -1,14 +1,14 @@
-
+<!-- FORMULARIO DE BUSQUEDA -->
 <form >
-    <mat-form-field class="formulario" appearance="fill" class="contenedorFormulario">
+    <mat-form-field appearance="fill" class="contenedorFormulario">
         <input matInput placeholder="Buscar Lugares" aria-label="State" [matAutocomplete]="auto" [formControl]="campoBusqueda" >
-        <mat-icon class="girar" *ngIf="cargando" matSuffix>clear</mat-icon>
+        <mat-icon class="animacionCargando" *ngIf="cargando" matSuffix>clear</mat-icon>
         <mat-icon *ngIf="!cargando" matSuffix>search</mat-icon>
 
         <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let l of lugares$ | async" [value]="l.id" (click)='seleccionarLugar(l)' >
                 <div class="itemLugar" >
-                    <div class="avatar" [ngStyle]="{'background-color': getRandomColor()}">{{l.abreviatura}}</div>
+                    <i class="material-icons-outlined iconoLista">local_offer</i>
                     <span class="nombre">{{l.nombre}} </span>
                 </div>
             </mat-option>
@@ -17,17 +17,10 @@
         <mat-hint *ngIf='existen_resultados$ | async'>No se encontraron resultados!</mat-hint>
     </mat-form-field>
 
-    <button mat-button [matMenuTriggerFor]="menu" matTooltip="Filtros"><i class="material-icons">tune</i></button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item><mat-checkbox>Cátedras</mat-checkbox></button>
-      <button mat-menu-item><mat-checkbox>Departmamentos</mat-checkbox></button>
-      <button mat-menu-item><mat-checkbox>Oficinas</mat-checkbox></button>
-    </mat-menu>
-
 </form>
 
-
-<div class="contenedorSeleccionados">
+<!-- CONTENEDOR DE LUGARES SELECCIONADOS -->
+<div *ngIf='seleccionados.length > 0' class="contenedorSeleccionados">
 
     <mat-card >
         <mat-card-content>
