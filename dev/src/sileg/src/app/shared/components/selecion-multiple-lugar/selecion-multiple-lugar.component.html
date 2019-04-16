@@ -1,32 +1,40 @@
-<form class="contenedorFormulario">
-  <mat-form-field class="formulario">
-    <input matInput placeholder="Buscar" aria-label="State" [matAutocomplete]="auto" [formControl]="campoBusqueda" >
+<!-- FORMULARIO DE BUSQUEDA -->
+<form >
+    <mat-form-field appearance="fill" class="contenedorFormulario">
+        <input matInput placeholder="Buscar Lugares" aria-label="State" [matAutocomplete]="auto" [formControl]="campoBusqueda" >
+        <mat-icon class="animacionCargando" *ngIf="cargando" matSuffix>clear</mat-icon>
+        <mat-icon *ngIf="!cargando" matSuffix>search</mat-icon>
 
-    <mat-icon class="girar" *ngIf="cargando" matSuffix>loop</mat-icon>
-    <mat-icon *ngIf="!cargando" matSuffix>search</mat-icon>
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let l of lugares$ | async" [value]="l.id" (click)='seleccionarLugar(l)' >
+                <div class="itemLugar" >
+                    <i class="material-icons-outlined iconoLista">local_offer</i>
+                    <span class="nombre">{{l.nombre}} </span>
+                </div>
+            </mat-option>
+        </mat-autocomplete>
 
-
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let l of lugares$ | async" [value]="l.id" (click)='seleccionarLugar(l)' >
-          <div class="itemLugar">
-              <div class="avatar">{{l.abreviatura}}</div>
-              <span>{{l.nombre}} </span>
-              <!-- <small> - {{l.superior}}</small> -->
-          </div>
-      </mat-option>
-    </mat-autocomplete>
-
-    <mat-hint *ngIf='existen_resultados$ | async'>No se encontraron resultados!</mat-hint>
-
-  </mat-form-field>
+        <mat-hint *ngIf='existen_resultados$ | async'>No se encontraron resultados!</mat-hint>
+    </mat-form-field>
 
 </form>
 
+<!-- CONTENEDOR DE LUGARES SELECCIONADOS -->
+<div *ngIf='seleccionados.length > 0' class="contenedorSeleccionados">
 
-<mat-chip-list *ngFor='let t of seleccionados'>
-  <mat-chip>{{t.nombre}}
-    <mat-icon matChipRemove (click)='deseleccionar(t)'>cancel</mat-icon>
-  </mat-chip>
-</mat-chip-list>
+    <mat-card >
+        <mat-card-content>
+            <div class="textLS">Lugares Seleccionados</div>
 
-<button mat-flat-button color="primary" (click)='finalizar_seleccion()'>Siguiente</button>
+            <mat-chip-list *ngFor='let t of seleccionados'>
+                <mat-chip>
+                  {{t.nombre}}<mat-icon matChipRemove (click)='deseleccionar(t)'>cancel</mat-icon>
+                </mat-chip>
+            </mat-chip-list>
+        </mat-card-content>
+    </mat-card>
+   
+    <button class="btnSiguiente" mat-flat-button color="primary" (click)='finalizar_seleccion()'>Siguiente</button>
+
+</div>
+

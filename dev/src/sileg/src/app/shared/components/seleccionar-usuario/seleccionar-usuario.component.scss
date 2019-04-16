@@ -1,0 +1,44 @@
+// --- FORMULARIO DE BUSQUEDA ---
+
+.contenedorFormulario {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+    @media screen and (max-width: 768px) {
+          max-width: 100%;
+      }
+}
+  
+.animacionCargando {
+    animation: animacionCargando 0.5s linear infinite;
+    opacity: 0.3;
+}
+  
+@keyframes animacionCargando {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-360deg);
+    }
+}
+
+.itemLugar {
+      display: flex;
+      align-items: center;
+    height: 75px !important;
+    line-height: 75px !important;
+}
+
+.iconoLista {
+    opacity: 0.4;
+    margin-right: 10px;
+}
+
+.nombre {
+  font-weight: bold !important;
+  font-size: 14px;
+}
+
+
+  

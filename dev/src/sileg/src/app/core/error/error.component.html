@@ -1,7 +1,27 @@
 <div *ngIf='(error$ |async)?.error' class="error">
-  <div class="window_error">
+    
+    <mat-card class="contenedorError">
+        <mat-card-content class="contenedorError">
+            <h2>¡Ha ocurrido un error!</h2>
+            <p>{{ (error$ | async)?.mensaje }}</p>
+          </mat-card-content>
+        <mat-card-actions>
+          <button mat-flat-button color="primary" (click)="close()">ACEPTAR</button>
+        </mat-card-actions>
+      </mat-card>
+
+
+
+
+
+
+
+
+
+
+  <!-- <div class="window_error">
       <h2>Error:</h2>
       {{ (error$ | async)?.mensaje }}
       <button (click)="close()">Aceptar</button>
-  </div>
+  </div> -->
 </div>

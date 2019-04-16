@@ -110,4 +110,6 @@ export class SelecionMultipleLugarComponent implements OnInit {
     this.seleccionado.emit(this.lugares_seleccionados);
   }
 */
+
+
 }

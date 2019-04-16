@@ -50,6 +50,23 @@
   color: gray;
 }
 
+.tituloSistema {
+  @media screen and (max-width: 768px) {
+    display:none;
+  }
+}
+
+.btnFullScreen {
+  opacity: 0.5;
+  @media screen and (max-width: 768px) {
+    display:none;
+  }
+}
+
+.iconoMenuUsuario {
+  opacity: 0.5;
+}
+
 
 /* -------------- MENU APLICACIONES --------------------- */
 
