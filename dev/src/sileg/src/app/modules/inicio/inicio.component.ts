@@ -22,8 +22,17 @@ export class InicioComponent implements OnInit {
    console.log(this.router.url.split('?')[0])
   }
 
+  subscriptions: any[] = [];
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }  
+
   recargar() {
-    this.navegarService.navegar({url: '/sistema/error', params: {'error': 'mensaje de error por parametro'}})
+    this.subscriptions.push(
+      this.navegarService.navegar({url: '/sistema/error', params: {'error': 'mensaje de error por parametro'}})
+      .subscribe()
+    )
   }
 
   volver() {    
