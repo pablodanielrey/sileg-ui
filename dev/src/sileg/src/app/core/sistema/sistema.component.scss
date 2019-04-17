@@ -7,10 +7,10 @@
   height: 100vh;
 }
 
-
 /* ------------------- CABECERA ------------------------- */
 
 .cabecera {
+  z-index: 998;
   position: fixed;
     display: flex;
     justify-content: space-between;
