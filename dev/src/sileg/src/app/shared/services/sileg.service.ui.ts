@@ -30,7 +30,7 @@ export class SilegService {
         }, 
         designaciones: [
           { 
-            usuario: { id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4', nombre: 'Walter', apellido: '', dni: ''  },
+            usuario: { id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4', nombre: 'Walter', apellido: 'Blanco', dni: ''  },
             designacion: {
               id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
               expediente: 'dsfsdf',
@@ -87,7 +87,7 @@ export class SilegService {
       {
         lugar: {
           id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
-          nombre: 'DiTeSI'
+          nombre: 'Economia'
         }, 
         designaciones: [
           { 

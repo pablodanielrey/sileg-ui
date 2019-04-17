@@ -11,7 +11,7 @@ import { switchMap, map, tap } from 'rxjs/operators';
 })
 export class PendientesComponent implements OnInit {
 
-  columnas: string[] = ['usuario','puntos'];
+  columnas: string[] = ['usuario','cargo','dedicacion','caracter','fecha','nota','resolucion','expediente','estado','acciones'];
   lugares$: Observable<any[]>;
 
   constructor(private service : SilegService) {  }

@@ -1,33 +1,101 @@
-<div>
+<div class="pantalla">
 
-  <h1>Designaciones pendientes</h1>
+  <div>Designaciones pendientes</div>
 
-  <div *ngFor="let l of (lugares$ | async)">
-    <p> {{ l.lugar.nombre }} </p>
+  <mat-tab-group *ngFor="let l of (lugares$ | async)" class="tab">
+     
+      <mat-tab label="{{ l.lugar.nombre }}">  
 
-    <div class="desginacionesPendientes">
-      <mat-table [dataSource]="l.designaciones$ | async">
+          <mat-table [dataSource]="l.designaciones$ | async" >
 
-          <ng-container matColumnDef="usuario">
-                <mat-header-cell *matHeaderCellDef> Usuario </mat-header-cell>
-                <mat-cell *matCellDef="let desig"> {{desig.usuario?.nombre}} {{desig.usuario?.apellido}}</mat-cell>
-          </ng-container>
+              <ng-container matColumnDef="usuario">
+                    <mat-header-cell *matHeaderCellDef> Usuario </mat-header-cell>
+                    <mat-cell *matCellDef="let desig"> {{desig.usuario.nombre}} {{desig.usuario.apellido}}</mat-cell>
+              </ng-container>
 
-          <ng-container matColumnDef="puntos">
-                <mat-header-cell *matHeaderCellDef> Puntos </mat-header-cell>
-                <mat-cell *matCellDef="let desig"> {{desig.ptos}} </mat-cell>
-          </ng-container>
+              <ng-container matColumnDef="cargo">
+                  <mat-header-cell *matHeaderCellDef> Cargo </mat-header-cell>
+                  <mat-cell *matCellDef="let desig"><span matBadge="{{desig.ptos}}">  {{desig.designacion.cargo.nombre}} </span></mat-cell>
+               </ng-container>
 
-          <ng-container matColumnDef="acciones">
-                <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
-                <mat-cell *matCellDef="let desig"> <button (click)="modificar(desig.id)">Modificar</button> </mat-cell>
-          </ng-container>
-      
-          <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: columnas;"></mat-row>    
+              <ng-container matColumnDef="dedicacion">
+                  <mat-header-cell *matHeaderCellDef> Dedicación </mat-header-cell>
+                  <mat-cell *matCellDef="let desig">DS</mat-cell>
+              </ng-container>
 
-        </mat-table>
-    </div>
-    
-  </div>  
+              <ng-container matColumnDef="caracter">
+                  <mat-header-cell *matHeaderCellDef> Caracter </mat-header-cell>
+                  <mat-cell *matCellDef="let desig"> Interino</mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="fecha">
+                <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
+                <mat-cell *matCellDef="let desig">02/03/19</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="nota">
+                  <mat-header-cell *matHeaderCellDef> Nota </mat-header-cell>
+                  <mat-cell *matCellDef="let desig">  <button mat-icon-button><mat-icon >save_alt</mat-icon></button></mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="resolucion">
+                  <mat-header-cell *matHeaderCellDef> Resolución </mat-header-cell>
+                  <mat-cell *matCellDef="let desig">256/19</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="expediente">
+                  <mat-header-cell *matHeaderCellDef> Expediente </mat-header-cell>
+                  <mat-cell *matCellDef="let desig">25-457/19</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="estado">
+                  <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
+                  <mat-cell *matCellDef="let desig"><mat-icon color="primary">copyright</mat-icon> <mat-icon color="primary">copyright</mat-icon></mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="puntos">
+                    <mat-header-cell *matHeaderCellDef> Puntos </mat-header-cell>
+                    <mat-cell *matCellDef="let desig">{{desig.ptos}} </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="acciones">
+                    <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+                    <mat-cell *matCellDef="let desig">
+
+                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                            <mat-icon>apps</mat-icon>
+                          </button>
+                          <mat-menu #menu="matMenu">
+                              <button mat-menu-item>
+                                <mat-icon>check</mat-icon>
+                                <span>Aprobar</span>
+                              </button>
+                              <button mat-menu-item>
+                                <mat-icon>cancel_outline</mat-icon>
+                                <span>Denegar</span>
+                              </button>
+                              <button (click)="modificar(desig.id)" mat-menu-item disabled>
+                                  <mat-icon>edit_outline</mat-icon>
+                                  <span>Modificar</span>
+                                </button>
+                              <button mat-menu-item>
+                                <mat-icon>delete_outline</mat-icon>
+                                <span>Cancelar</span>
+                              </button>
+                          </mat-menu>
+
+                    </mat-cell>
+              </ng-container>
+          
+              <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: columnas;"></mat-row>    
+
+            </mat-table>
+  
+        </mat-tab>
+
+  </mat-tab-group>
+
 </div>
