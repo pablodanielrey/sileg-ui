@@ -155,9 +155,9 @@ export class SilegService {
                 nombre: 'Titular',
                 id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
               },
-              usuario_id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
-              usuario: { id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4', nombre: 'Walter', apellido: '', dni: ''  }
+              usuario_id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
             },
+            usuario: { id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4', nombre: 'Walter', apellido: '', dni: ''  },
             ptos: 10,
             estado: { fecha: new Date(), nombre: 'Alta Pendiente', autorizador_id: 'sdfdsfsdfsdfdsfsdfd' }
           }

@@ -10,7 +10,7 @@
 
           <ng-container matColumnDef="usuario">
                 <mat-header-cell *matHeaderCellDef> Usuario </mat-header-cell>
-                <mat-cell *matCellDef="let desig"> {{desig.usuario.nombre}} {{desig.usuario.apellido}}</mat-cell>
+                <mat-cell *matCellDef="let desig"> {{desig.usuario?.nombre}} {{desig.usuario?.apellido}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="puntos">
