@@ -1,6 +1,18 @@
-<div class="pantalla">
+ <mat-toolbar-row>
+    <button mat-button color="primary"><mat-icon>undo </mat-icon> VOLVER</button>
+    <span>&nbsp;  Designaciones Pendientes</span>
+    <span class="espacioEjemplo"></span>
+    <button mat-button [matMenuTriggerFor]="menu"><mat-icon>help_outline </mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+    </mat-menu>
+</mat-toolbar-row>
 
-  <div>Designaciones pendientes</div>
+<mat-divider></mat-divider>
+
+
+
+<div class="pantalla">
 
   <mat-tab-group *ngFor="let l of (lugares$ | async)" class="tab">
      
@@ -51,7 +63,10 @@
 
               <ng-container matColumnDef="estado">
                   <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
-                  <mat-cell *matCellDef="let desig"><mat-icon color="primary">copyright</mat-icon> <mat-icon color="primary">copyright</mat-icon></mat-cell>
+                  <mat-cell *matCellDef="let desig">
+                      <div class="estado" placeholder="Alta de Designación">A</div>
+                      <div class="estado">C</div>
+                  </mat-cell>
               </ng-container>
 
 
@@ -73,11 +88,11 @@
                                 <span>Aprobar</span>
                               </button>
                               <button mat-menu-item>
-                                <mat-icon>cancel_outline</mat-icon>
+                                <mat-icon>cancel</mat-icon>
                                 <span>Denegar</span>
                               </button>
                               <button (click)="modificar(desig.id)" mat-menu-item disabled>
-                                  <mat-icon>edit_outline</mat-icon>
+                                  <mat-icon>edit</mat-icon>
                                   <span>Modificar</span>
                                 </button>
                               <button mat-menu-item>
@@ -88,9 +103,21 @@
 
                     </mat-cell>
               </ng-container>
+
+              <ng-container matColumnDef="footer">
+                  <mat-footer-cell *matFooterCellDef>
+                      <div>Altas <b>55</b> Puntos - Bajas <b>60</b> Puntos</div>
+
+                      <button mat-button color="primary">+ NUEVA DESIGNACIÓN</button>
+                  </mat-footer-cell>
+              </ng-container>
+
+              
           
               <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: columnas;"></mat-row>    
+              <mat-row *matRowDef="let row; columns: columnas;"></mat-row>   
+              <mat-footer-row mat-footer-row *matFooterRowDef="['footer']" class="example-second-footer-row"></mat-footer-row>
+ 
 
             </mat-table>
   
