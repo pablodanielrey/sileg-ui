@@ -9,6 +9,7 @@ import { OverlayContainer} from '@angular/cdk/overlay';
 import { EventsService } from '../events.service';
 import { RouterService } from '../router.service';
 import { PermisosService } from '../permisos.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,7 +20,6 @@ import { PermisosService } from '../permisos.service';
 export class SistemaComponent implements OnInit {
   
 
-  modulos: string[] = [];
   subscriptions: any[] = [];
   config: Configuracion = null;
   @HostBinding('class') componentCssClass;
@@ -29,7 +29,8 @@ export class SistemaComponent implements OnInit {
               private service: SilegService,
               private preload: PreloadService,
               private events: EventsService,
-              private router: RouterService,
+              private router: Router,
+              private routerEvents: RouterService,
               private permisos: PermisosService) { 
               
   }
@@ -41,7 +42,7 @@ export class SistemaComponent implements OnInit {
       })
     )
 
-    this.subscriptions.push(this.router.subscribir());
+    this.subscriptions.push(this.routerEvents.subscribir());
   }
 
   ngOnDestroy() {
@@ -57,6 +58,12 @@ export class SistemaComponent implements OnInit {
   onSetTheme(theme) {
     this.overlayContainer.getContainerElement().classList.add(theme);
     this.componentCssClass = theme;
+  }
+
+  salir() {
+    this.oauthService.logout().subscribe(() => {
+      this.router.navigate(['/loader']);
+    });
   }
 
 }
