@@ -20,7 +20,7 @@
 
           <mat-table [dataSource]="l.designaciones$ | async" >
 
-              <ng-container matColumnDef="usuario">
+              <ng-container matColumnDef="usuario" sticky>
                     <mat-header-cell *matHeaderCellDef> Usuario </mat-header-cell>
                     <mat-cell *matCellDef="let desig"> {{desig.usuario.nombre}} {{desig.usuario.apellido}}</mat-cell>
               </ng-container>
@@ -75,7 +75,7 @@
                     <mat-cell *matCellDef="let desig">{{desig.ptos}} </mat-cell>
               </ng-container>
 
-              <ng-container matColumnDef="acciones">
+              <ng-container matColumnDef="acciones" stickyEnd>
                     <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
                     <mat-cell *matCellDef="let desig">
 

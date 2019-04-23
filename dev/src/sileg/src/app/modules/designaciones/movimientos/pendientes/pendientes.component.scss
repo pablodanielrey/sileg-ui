@@ -10,20 +10,6 @@
     margin-top: 10px;
 }
 
-.referencia{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    padding: 20px;
-    width: 600px;
-}
-
-.itemReferencia {
-    display: flex;
-    flex-direction: row;
-    font-size: 12px;
-}
-
 .estado {
     display: flex;
     align-items: center;
@@ -39,5 +25,7 @@
     font-weight: bold;
     margin-right: 5px;
 }
+
+
 
 

@@ -1,33 +1,67 @@
-<form [formGroup]='form' (ngSubmit)='submit()'>
-    <mat-form-field>
-        <mat-label>Nombre</mat-label>
-        <input matInput formControlName='nombre'/>
-    </mat-form-field>
+<mat-toolbar-row>
+    <button mat-button color="primary"><mat-icon>undo </mat-icon> VOLVER</button>
+    <span>&nbsp;  Nueva Designación | Crear Usuario</span>
+  </mat-toolbar-row>
+  
+  <mat-divider></mat-divider>
 
-    <mat-form-field>
-        <mat-label>Apellido</mat-label>
-        <input matInput formControlName='apellido'/>
-    </mat-form-field>
 
-    <mat-form-field>
-        <mat-label>Dni</mat-label>
-        <input matInput formControlName='dni'/>
-    </mat-form-field>
+<div class="pantalla">
 
-    <mat-form-field>
-        <mat-label>Teléfono</mat-label>
-        <input matInput formControlName='telefono'/>
-    </mat-form-field>
+    <p>Ingresa los datos del usuario a crear</p>
 
-    <mat-form-field>
-        <mat-label>Celular</mat-label>
-        <input matInput formControlName='celular'/>
-    </mat-form-field>
+    <div class="contenedorFormulario">
 
-    <mat-form-field>
-        <mat-label>Correo Electrónico</mat-label>
-        <input matInput formControlName='email'/>
-    </mat-form-field>
+    <mat-card >
+        <mat-card-content >
 
-    <button type="submit" [disabled]="!form.valid">Crear</button>
-</form>
+            <form [formGroup]='form' (ngSubmit)='submit()' class="formulario">
+                <mat-form-field appearance="" class="itemFullFormulario">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName='nombre'/>
+                </mat-form-field>
+
+                <mat-form-field appearance="">
+                    <mat-label>Apellido</mat-label>
+                    <input matInput formControlName='apellido'/>
+                </mat-form-field>
+
+                <mat-form-field appearance="">
+                    <mat-label>Dni</mat-label>
+                    <input matInput formControlName='dni'/>
+                </mat-form-field>
+
+                <div class="contenedorDobleItem">
+
+                    <mat-form-field appearance="" class="itemMedioFormulario">
+                        <mat-label>Teléfono</mat-label>
+                        <input matInput formControlName='telefono'/>
+                    </mat-form-field>
+            
+                    <mat-form-field appearance="" class="itemMedioFormulario">
+                        <mat-label>Celular</mat-label>
+                        <input matInput formControlName='celular'/>
+                    </mat-form-field>
+
+
+                </div>
+
+                <mat-form-field appearance="">
+                    <mat-label>Correo Electrónico</mat-label>
+                    <input matInput formControlName='email'/>
+                </mat-form-field>
+
+                <!-- <button type="submit" [disabled]="!form.valid">Crear</button> -->
+
+            </form>
+
+            
+
+        </mat-card-content>
+    </mat-card>
+
+    <button class="btnSiguiente" mat-flat-button color="primary">Siguiente</button>
+
+
+    </div>
+</div>
