@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
-import { map, reduce } from 'rxjs/operators';
+import { map, reduce, catchError } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 
@@ -34,16 +34,19 @@ export class PermisosService {
       return of(permissions);
     }
     let apiUrl = `${WARDEN_API_URL}/permissions`;
-    return this.http.get<response>(apiUrl).pipe(map(
-      r => {
-          if (r.status != 200) {
-          localStorage.setItem(`permissions`,'');
-          return [];
+    return this.http.get<response>(apiUrl).pipe(
+      catchError(e => of({status:500, granted:[]})), 
+      map(
+        r => {
+            if (r.status != 200) {
+            localStorage.setItem(`permissions`,'');
+            return [];
+          }
+          localStorage.setItem(`permissions`, r.granted.join(';'));
+          return r.granted;
         }
-        localStorage.setItem(`permissions`, r.granted.join(';'));
-        return r.granted;
-      }
-    ));
+      )
+    );
   }
 
   _matches(p:string, perm:string) {
