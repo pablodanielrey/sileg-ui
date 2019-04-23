@@ -20,30 +20,45 @@ interface response {
 })
 export class PermisosService {
 
+  expire_error = 10 * 1000;   // 10 segundos para los permisos cuando existe error.
+  expire_ok = 60 * 10 * 1000; // 10 minutos para los permisos correctamente retornados
+
   constructor(private http: HttpClient) { 
   }
 
   _save_example() {
-    localStorage.setItem('permissions', 'urn:*:*:*');
+    let permissions = {
+      status: 200,
+      expire: new Date().getTime() + this.expire_ok,
+      granted: ['urn:*:*:*']
+    }
+    localStorage.setItem('permissions', JSON.stringify(permissions));
   }
 
   _load_perms(): Observable<string[]> {
     let perms = localStorage.getItem(`permissions`);
     if (perms != null) {
-      let permissions = perms.split(';');
-      return of(permissions);
+      let permissions = JSON.parse(perms);
+      if (permissions.expire > new Date().getTime()) {
+        return of(permissions.granted);
+      }
     }
     let apiUrl = `${WARDEN_API_URL}/permissions`;
     return this.http.get<response>(apiUrl).pipe(
-      catchError(e => of({status:500, granted:[]})), 
+      catchError(e => of({status:500, expire:0, granted:[]})), 
       map(
         r => {
-            if (r.status != 200) {
-            localStorage.setItem(`permissions`,'');
-            return [];
+          let permissions = {
+            status: r.status,
+            expire: new Date().getTime() + this.expire_ok,
+            granted: r.granted
           }
-          localStorage.setItem(`permissions`, r.granted.join(';'));
-          return r.granted;
+          if (permissions.status != 200) {
+            permissions.granted = [];
+            permissions.expire = new Date().getTime() + this.expire_error;
+          }
+          localStorage.setItem(`permissions`,JSON.stringify(permissions));
+          return permissions.granted;
         }
       )
     );
