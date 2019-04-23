@@ -15,6 +15,9 @@ import { CrearPersonaComponent as AltaMovimientoCrearPersonaComponent } from './
 import { AltaCargoComponent as AltaMovimientoAltaCargoComponent } from './modules/designaciones/movimientos/crear/alta-cargo/alta-cargo.component';
 import { DebugComponent } from './core/debug/debug.component';
 import { EjemploErrorComponent } from './modules/ejemplo-error/ejemplo-error.component';
+import { OidpGuard } from './core/oauth2/oidp.guard';
+import { LoaderComponent } from './core/loader/loader.component';
+import { Oauth2Component } from './core/oauth2/oauth2.component';
 
 
 //import { PantallaPrincipalComponent } from './pantalla-principal/pantalla-principal.component';
@@ -125,8 +128,11 @@ const routes: Routes = [
   },
   */
  { path: 'debug', component: DebugComponent },
+ { path: 'oauth2', component: Oauth2Component }, 
+ { path: 'loader', component: LoaderComponent }, 
  {
     path:'sistema',
+    canActivate: [OidpGuard],
     component: SistemaComponent,
     children: [
       { path: 'error', component: EjemploErrorComponent },
@@ -153,8 +159,8 @@ const routes: Routes = [
         ]
       }
     ]
-  }
-  //{ path: '**', redirectTo: '/sistema', pathMatch: 'full' }
+  },
+  { path: '**', redirectTo: '/loader', pathMatch: 'full' }
 ];
 
 @NgModule({

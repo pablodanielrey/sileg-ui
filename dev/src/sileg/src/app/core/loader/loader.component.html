@@ -1,4 +1,4 @@
-<div class="loader">
+<div *ngIf='visible' class="loader">
 
         
     
@@ -23,7 +23,7 @@
 
 
       
-      <button mat-stroked-button (click)="onClick" color="primary">ACCEDER</button>
+      <button mat-stroked-button (click)="acceder()" color="primary">ACCEDER</button>
 
        <mat-divider></mat-divider>
        <div class="desarrollo"><p>{{desarrolloSistema}}</p></div>

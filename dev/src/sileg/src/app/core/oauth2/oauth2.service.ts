@@ -13,7 +13,7 @@ export const authConfig: AuthConfig = {
   oidc: true,
   requireHttps: false,
   clientId: environment.client_id,
-  dummyClientSecret: 'login-ui',
+  dummyClientSecret: environment.client_id,
   scope: 'openid profile email',
   sessionChecksEnabled: true,
   showDebugInformation: true
