@@ -92,6 +92,11 @@ export class Oauth2Service {
     return c['sub'];
   }
 
+  getIdentity() {
+    let c = this.oauthService.getIdentityClaims();
+    return c;
+  }
+
   getPrimaryEmail() {
     let c = this.oauthService.getIdentityClaims();
     if (c['email_verified']) {

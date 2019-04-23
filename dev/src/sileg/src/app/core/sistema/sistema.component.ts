@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 })
 export class SistemaComponent implements OnInit {
   
+  identity = null;
 
   subscriptions: any[] = [];
   config: Configuracion = null;
@@ -41,8 +42,9 @@ export class SistemaComponent implements OnInit {
         console.log(e);
       })
     )
-
     this.subscriptions.push(this.routerEvents.subscribir());
+
+    this.identity = this.oauthService.getIdentity();
   }
 
   ngOnDestroy() {

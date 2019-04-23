@@ -20,7 +20,7 @@
                 <mat-icon class="btnFullScreen">aspect_ratio</mat-icon>
             </button>
 
-            <button mat-button [matMenuTriggerFor]="menuDeUsuario">Walter Blanco <mat-icon>keyboard_arrow_down</mat-icon></button>
+            <button mat-button [matMenuTriggerFor]="menuDeUsuario">{{identity?.name}} {{identity?.family_name}} <mat-icon>keyboard_arrow_down</mat-icon></button>
             <mat-menu #menuDeUsuario="matMenu">
                   <button mat-menu-item><mat-icon class="iconoMenuUsuario">portrait</mat-icon>Mi Perfil</button>
                   <button mat-menu-item><mat-icon class="iconoMenuUsuario">lock_outline</mat-icon>Cambiar Contraseña</button>
