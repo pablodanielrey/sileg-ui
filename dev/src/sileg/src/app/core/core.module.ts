@@ -106,14 +106,12 @@ const routes: Routes = [
     MatAutocompleteModule,
     FormsModule,
     ReactiveFormsModule,
-    OAuthModule.forRoot(),
-    /*
     OAuthModule.forRoot({
       resourceServer: {
         allowedUrls: ['http'],
         sendAccessToken: true
       }
-    })*/
+    }),
     RouterModule.forChild(routes)
   ],
   exports: [

@@ -121,7 +121,6 @@ export class Oauth2Service {
     return environment.client_id;
   }
 
-  /*
   logout():Observable<LogoutData> {
     let url = `${environment.loginApiUrl}/logout`;
     //let url = `${OIDC}oauth2/auth/sessions/login/revoke`;
@@ -135,11 +134,13 @@ export class Oauth2Service {
         this.oauthService.logOut(true);
         return of(ld);
     });
-  }*/
+  }
 
+  /*
   logout(): Observable<LogoutData> {
     this.oauthService.logOut(true);
     return of({redirect_to:''});
   }
+  */
 
 }
