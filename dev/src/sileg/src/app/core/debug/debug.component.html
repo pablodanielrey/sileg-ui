@@ -11,9 +11,19 @@
 </div>
 <div>
     <form [formGroup]='form' (ngSubmit)='navegar()'>
+        <!--
         <mat-form-field>
             <mat-label>Ruta</mat-label>
             <input matInput formControlName='ruta'/>
+        </mat-form-field>
+        -->
+        <mat-form-field>
+            <mat-label>Ruta</mat-label>
+            <mat-select formControlName='ruta'>
+                <mat-option *ngFor='let r of rutas' [value]="r.path">
+                    {{r.path}}
+                </mat-option>
+            </mat-select>
         </mat-form-field>
         <button type='submit'>navegar</button>
     </form>

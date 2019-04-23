@@ -29,14 +29,12 @@ export class LoaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.oauthService.loadTokens().subscribe(() => {
-      if (this.oauthService.hasValidToken()) {
-        //se obtiene state y se redirecciona a esa url.
-        this.router.navigate(['/sistema']);
-      } else {
-        this.visible = true;
-      }
-    });
+    if (this.oauthService.hasValidToken()) {
+      //se obtiene state y se redirecciona a esa url.
+      this.router.navigate(['/sistema/inicio']);
+    } else {
+      this.visible = true;
+    }
   }
 
   acceder() {

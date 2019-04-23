@@ -34,7 +34,6 @@ export class Oauth2Component implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
     let f = this.router.routerState.snapshot.root.fragment;
     if (f != null) {
       let ff = f.split('&');
@@ -45,7 +44,7 @@ export class Oauth2Component implements OnInit, OnDestroy {
       }
     }
 
-    this.oauthService.loadTokens().subscribe(() => {
+    this.subscriptions.push(this.oauthService.loadTokens().subscribe(() => {
 
       if (this.oauthService.hasError()) {
         this.router.navigate(['/error', this.oauthService.getError()]);
@@ -56,10 +55,9 @@ export class Oauth2Component implements OnInit, OnDestroy {
           this.oauthService.login();
         } else {
           //se obtiene state y se redirecciona a esa url.
-          this.router.navigate(['/sistema/inicial']);
+          this.router.navigate(['/sistema/inicio']);
         }
       }
-
-    });
+    }));
   }
 }
