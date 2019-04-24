@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { SilegService } from '../../services/sileg.service';
 import { switchMap, scan, map, tap, filter, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { reduce } from 'rxjs-compat/operator/reduce';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Lugar } from '../../entities/sileg';
 
 @Component({
@@ -21,21 +21,34 @@ export class SelecionMultipleLugarComponent implements OnInit {
   private cargando: boolean = false;
   private lugares$: Observable<any[]>;
   private existen_resultados$: Observable<boolean>;
-  private campoBusqueda: FormControl;
+  //private campoBusqueda: FormControl;
   seleccionados: any[] = [];
+
+
+  form = new FormGroup({
+    campoBusqueda: new FormControl('')
+  });
+
   
+  constructor(private service: SilegService, private fb: FormBuilder) { 
+    this.form = fb.group({
+      campoBusqueda: ['']
+    }, { updateOn: 'change'});
+  }
 
-
-
-  constructor(private service: SilegService) { }
+  display_lugar(lugar?): string | undefined {
+    return lugar ? lugar.nombre : undefined;
+  }
 
   ngOnInit() {
-    this.campoBusqueda = new FormControl();
-    this.lugares$ = this.campoBusqueda.valueChanges.pipe(      
+    //this.campoBusqueda = new FormControl();
+    this.lugares$ = this.form.get('campoBusqueda').valueChanges.pipe(      
       debounceTime(1000),
       distinctUntilChanged(),
-      filter( v => v.trim() != ''),
+      tap( v => console.log(v) ),
+      tap( v => console.log(typeof v)),
       tap(_ => (this.cargando = true)),
+      map(term => (term != undefined) ? '' : (typeof term === 'string') ? term : term.nombre ),
       switchMap(term => this.service.buscarLugares(term)),
       tap(v => console.log(v)),
       map( ls => ls.filter( l => this.seleccionados.filter( l2 => l2.id == l.id).length <= 0)),
@@ -48,6 +61,11 @@ export class SelecionMultipleLugarComponent implements OnInit {
       );
   }
 
+  seleccionar_lugar() {
+    console.log(this.form.get('campoBusqueda'));
+  }
+
+  /*
   seleccionarLugar(lugar:any) {
     this.campoBusqueda.setValue('');
     if (this.seleccionados.filter(v => v.id == lugar.id).length > 0) {
@@ -55,6 +73,7 @@ export class SelecionMultipleLugarComponent implements OnInit {
     }
     this.seleccionados.push(lugar);
   }
+  */
 
   finalizar_seleccion() {
     this.seleccionado.emit(this.seleccionados);

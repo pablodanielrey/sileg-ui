@@ -1,12 +1,12 @@
 <!-- FORMULARIO DE BUSQUEDA -->
-<form >
+<form [formGroup]='form' (ngSubmit)='seleccionar_lugar()'>
     <mat-form-field appearance="fill" class="contenedorFormulario">
-        <input matInput placeholder="Buscar Lugares" aria-label="State" [matAutocomplete]="auto" [formControl]="campoBusqueda" >
+        <input matInput placeholder="Buscar Lugares" aria-label="State" [matAutocomplete]="auto" formControlName="campoBusqueda" >
         <mat-icon class="animacionCargando" *ngIf="cargando" matSuffix>clear</mat-icon>
         <mat-icon *ngIf="!cargando" matSuffix>search</mat-icon>
 
-        <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let l of lugares$ | async" [value]="l.id" (click)='seleccionarLugar(l)' >
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="display_lugar">
+            <mat-option *ngFor="let l of lugares$ | async" [value]="l" >
                 <div class="itemLugar" >
                     <i class="material-icons-outlined iconoLista">local_offer</i>
                     <span class="nombre">{{l.nombre}} </span>
@@ -16,7 +16,6 @@
 
         <mat-hint *ngIf='existen_resultados$ | async'>No se encontraron resultados!</mat-hint>
     </mat-form-field>
-
 </form>
 
 <!-- CONTENEDOR DE LUGARES SELECCIONADOS -->
@@ -37,4 +36,6 @@
     <button class="btnSiguiente" mat-flat-button color="primary" (click)='finalizar_seleccion()'>Siguiente</button>
 
 </div>
+
+
 

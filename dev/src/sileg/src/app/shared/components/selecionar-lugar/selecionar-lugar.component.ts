@@ -24,7 +24,7 @@ export class SelecionarLugarComponent implements OnInit {
     this.lugares$ = this.campoBusqueda.valueChanges.pipe(      
       debounceTime(1000),
       distinctUntilChanged(),
-      filter( v => v.trim() != ''),
+      filter( v => v != undefined && v.trim() != ''),
       tap(_ => (this.cargando = true)),
       switchMap(term => this.service.buscarLugares(term)),
       tap(v => console.log(v)),
