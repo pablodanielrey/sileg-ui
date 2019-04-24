@@ -13,6 +13,12 @@ import { PendientesComponent as MovimientosPendientesComponent } from './modules
 import { SeleccionarPersonaComponent as AltaMovimientoSeleccionarPersonaComponent } from './modules/designaciones/movimientos/crear/seleccionar-persona/seleccionar-persona.component';
 import { CrearPersonaComponent as AltaMovimientoCrearPersonaComponent } from './modules/designaciones/movimientos/crear/crear-persona/crear-persona.component';
 import { AltaCargoComponent as AltaMovimientoAltaCargoComponent } from './modules/designaciones/movimientos/crear/alta-cargo/alta-cargo.component';
+
+import { SeleccionarComponent as SeleccionarLugarComponent } from './modules/lugares/seleccionar/seleccionar.component';
+import { DetalleComponent as DetalleLugarComponent } from './modules/lugares/detalle/detalle.component';
+
+ 
+
 import { DebugComponent } from './core/debug/debug.component';
 import { EjemploErrorComponent } from './modules/ejemplo-error/ejemplo-error.component';
 import { OidpGuard } from './core/oauth2/oidp.guard';
@@ -156,6 +162,13 @@ const routes: Routes = [
         children: [
           { path: 'modificar/:id', component: ModificarDesignacionComponent},
           { path: 'seleccionar-lugar', component: SeleccionarLugaresDesignacionComponent }
+        ]
+      },
+      {
+        path: 'lugares',
+        children: [
+           { path: 'seleccionar', component: SeleccionarLugarComponent },
+           { path: 'detalle/:lid', component: DetalleLugarComponent }
         ]
       }
     ]

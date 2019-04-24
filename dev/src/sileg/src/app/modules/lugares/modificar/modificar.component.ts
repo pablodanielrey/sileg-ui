@@ -3,7 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-modificar',
+  selector: 'app-modificar-lugar',
   templateUrl: './modificar.component.html',
   styleUrls: ['./modificar.component.scss']
 })
