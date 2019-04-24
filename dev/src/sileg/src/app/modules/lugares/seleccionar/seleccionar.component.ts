@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-seleccionar',
@@ -7,13 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SeleccionarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
   seleccionado(l) {
-    console.log(l);
+    this.router.navigate(['/sistema/lugares/detalle/sdsdffsd']);
   }
 
 }

@@ -11,6 +11,9 @@ import { InicioComponent } from './modules/inicio/inicio.component';
 
 import { PendientesComponent as MovimientosPendientesComponent } from './modules/designaciones/movimientos/pendientes/pendientes.component';
 import { SeleccionarPersonaComponent as AltaMovimientoSeleccionarPersonaComponent } from './modules/designaciones/movimientos/crear/seleccionar-persona/seleccionar-persona.component';
+import { ListarComponent as ListarDesignacionesComponent } from './modules/designaciones/listar/listar.component';
+
+
 import { CrearPersonaComponent as AltaMovimientoCrearPersonaComponent } from './modules/designaciones/movimientos/crear/crear-persona/crear-persona.component';
 import { AltaCargoComponent as AltaMovimientoAltaCargoComponent } from './modules/designaciones/movimientos/crear/alta-cargo/alta-cargo.component';
 
@@ -160,6 +163,7 @@ const routes: Routes = [
       {
         path: 'designaciones',
         children: [
+          { path: 'listar/:id', component: ListarDesignacionesComponent },
           { path: 'modificar/:id', component: ModificarDesignacionComponent},
           { path: 'seleccionar-lugar', component: SeleccionarLugaresDesignacionComponent }
         ]
