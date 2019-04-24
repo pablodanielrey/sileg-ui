@@ -1,1 +1,14 @@
-<app-selecionar-lugar (seleccionado)='seleccionado($event)'></app-selecionar-lugar>
+<mat-toolbar-row>
+    <button mat-button color="primary"><mat-icon>undo </mat-icon> VOLVER</button>
+    <span>&nbsp; Lugares | Buscar Lugar</span>
+</mat-toolbar-row>
+  
+<mat-divider></mat-divider>
+  
+<div class="pantalla">
+    <app-selecionar-lugar (seleccionado)='seleccionado($event)'></app-selecionar-lugar>
+</div>
+
+
+
+
