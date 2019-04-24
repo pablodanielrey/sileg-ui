@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { NavegarService } from '../../../../../core/navegar.service';
 
 @Component({
   selector: 'app-crear-persona',
@@ -17,7 +18,7 @@ export class CrearPersonaComponent implements OnInit {
     email: new FormControl('')
   });
 
-  constructor() { }
+  constructor(private navegar: NavegarService) { }
 
   ngOnInit() {
   }
@@ -25,5 +26,16 @@ export class CrearPersonaComponent implements OnInit {
   submit() {
     let v = this.form.value;
   }
+
+  alta() {
+    this.navegar.navegar({
+      url:'/sistema/movimientos/crear/alta/xxx/xxx',
+      params:{}
+    }).subscribe();
+  }
+
+  volver() {
+    this.navegar.volver().subscribe().unsubscribe();
+  }  
 
 }

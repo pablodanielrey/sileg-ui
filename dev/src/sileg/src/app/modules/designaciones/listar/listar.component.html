@@ -2,25 +2,33 @@
 
   <h1>Designaciones</h1>
 
-  <div *ngFor="let l of (v$ | async)">
+  <div *ngFor="let l of (lugares$ | async)">
     <p> {{ l.lugar.nombre }} </p>
+
+    <button (click)='dar_de_alta(l.id)'>Nueva Designacion</button>
 
     <div class="desginaciones">
       <mat-table [dataSource]="l.designaciones$ | async">
 
           <ng-container matColumnDef="usuario">
                 <mat-header-cell *matHeaderCellDef> Usuario </mat-header-cell>
-                <mat-cell *matCellDef="let desig"> {{desig.usuario.nombre}} {{desig.usuario.apellido}}</mat-cell>
+                <mat-cell *matCellDef="let desig"> {{desig?.usuario?.nombre}} {{desig?.usuario?.apellido}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="puntos">
                 <mat-header-cell *matHeaderCellDef> Puntos </mat-header-cell>
-                <mat-cell *matCellDef="let desig"> {{desig.ptos}} </mat-cell>
+                <mat-cell *matCellDef="let desig"> {{desig?.ptos}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="acciones">
                 <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
-                <mat-cell *matCellDef="let desig"> <button (click)="modificar(desig.id)">Modificar</button> </mat-cell>
+                <mat-cell *matCellDef="let desig">
+                  <button mat-button [matMenuTriggerFor]='acciones'><mat-icon>apps</mat-icon></button>
+                  <mat-menu #acciones='matMenu'>
+                      <button mat-menu-item (click)="modificar(desig.id)">Modificar</button> 
+                      <button mat-menu-item (click)="dar_de_baja(desig.id)">Pedir de Baja</button> 
+                  </mat-menu>
+                </mat-cell>
           </ng-container>
       
           <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>

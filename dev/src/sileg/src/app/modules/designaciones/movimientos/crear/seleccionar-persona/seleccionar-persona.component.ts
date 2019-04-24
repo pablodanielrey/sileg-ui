@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, forkJoin, of } from 'rxjs';
 import { mergeMap, switchMap, tap, map } from 'rxjs/operators';
+import { NavegarService } from '../../../../../core/navegar.service';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class SeleccionarPersonaComponent implements OnInit {
 
   persona$ = new BehaviorSubject<any>(null);
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router, private route: ActivatedRoute, private navegar: NavegarService) {
     /*
     this.persona$.pipe(
       mergeMap(p => forkJoin(
@@ -38,8 +39,23 @@ export class SeleccionarPersonaComponent implements OnInit {
     this.persona$.next(e);
   }
 
-  navegar(pid, lid) {
-    this.router.navigate(['/sistema/movimientos/crear/alta/',pid,lid]);
+  crear() {
+    this.navegar.navegar({
+      url:'/sistema/movimientos/crear/alta/xxx/xxx',
+      params:{}
+    }).subscribe();
+  }
+
+  crear_persona() {
+    this.navegar.navegar({
+      url:'/sistema/movimientos/crear/crear/lid',
+      params:{}
+    }).subscribe();
+  }
+
+
+  volver() {
+    this.navegar.volver().subscribe().unsubscribe();
   }
 
 }

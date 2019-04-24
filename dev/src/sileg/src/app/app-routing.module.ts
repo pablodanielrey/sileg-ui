@@ -17,6 +17,8 @@ import { ListarComponent as ListarDesignacionesComponent } from './modules/desig
 import { CrearPersonaComponent as AltaMovimientoCrearPersonaComponent } from './modules/designaciones/movimientos/crear/crear-persona/crear-persona.component';
 import { AltaCargoComponent as AltaMovimientoAltaCargoComponent } from './modules/designaciones/movimientos/crear/alta-cargo/alta-cargo.component';
 
+import { CrearComponent as BajaMovimientoCrearComponent } from './modules/designaciones/movimientos/baja/crear/crear.component';
+
 import { SeleccionarComponent as SeleccionarLugarComponent } from './modules/lugares/seleccionar/seleccionar.component';
 import { DetalleComponent as DetalleLugarComponent } from './modules/lugares/detalle/detalle.component';
 
@@ -157,6 +159,12 @@ const routes: Routes = [
               { path: 'crear/:lid', component: AltaMovimientoCrearPersonaComponent },
               { path: 'alta/:lid/:pid', component: AltaMovimientoAltaCargoComponent }
             ] 
+          },
+          { 
+            path: 'baja',
+            children: [
+              { path: 'crear/:lid', component: BajaMovimientoCrearComponent }
+            ]
           }
         ]
       },

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { SilegService } from '../../../shared/services/sileg.service';
 import { map, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { NavegarService } from '../../../core/navegar.service';
 
 @Component({
   selector: 'app-listar',
@@ -10,10 +12,10 @@ import { map, tap } from 'rxjs/operators';
 })
 export class ListarComponent implements OnInit {
 
-  columnas: string[] = ['usuario','puntos'];
+  columnas: string[] = ['usuario','puntos','acciones'];
   lugares$: Observable<any[]>;
 
-  constructor(private service : SilegService) { }
+  constructor(private service : SilegService, private navegar: NavegarService) { }
 
   ngOnInit() {
     let lid = "1f7b87ea-96b7-428c-8a00-fd33e1ba3ee6";
@@ -33,6 +35,25 @@ export class ListarComponent implements OnInit {
       }),
       tap(v => console.log(v))
     )  
+  }
+
+
+  modificar(did) {
+
+  }
+
+  dar_de_baja(did) {
+    this.navegar.navegar({
+      url: '/sistema/movimientos/baja/crear/did',
+      params: {did:did}
+    }).subscribe()
+  }
+
+  dar_de_alta(lid) {
+    this.navegar.navegar({
+      url: '/sistema/movimientos/crear/seleccionar/lid',
+      params: {}
+    }).subscribe()
   }
 
 }

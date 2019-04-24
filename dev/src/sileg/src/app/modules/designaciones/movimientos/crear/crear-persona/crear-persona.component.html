@@ -1,5 +1,5 @@
 <mat-toolbar-row>
-    <button mat-button color="primary"><mat-icon>undo </mat-icon> VOLVER</button>
+    <button mat-button color="primary" (click)='volver()'><mat-icon>undo </mat-icon> VOLVER</button>
     <span>&nbsp;  Nueva Designación | Crear Usuario</span>
   </mat-toolbar-row>
   
@@ -60,7 +60,7 @@
         </mat-card-content>
     </mat-card>
 
-    <button class="btnSiguiente" mat-flat-button color="primary">Siguiente</button>
+    <button class="btnSiguiente" mat-flat-button color="primary" (click)='alta()'>Siguiente</button>
 
 
     </div>

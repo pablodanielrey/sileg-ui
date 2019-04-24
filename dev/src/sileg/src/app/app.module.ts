@@ -39,6 +39,8 @@ import { DetalleComponent } from './modules/lugares/detalle/detalle.component';
 
 import { environment } from '../environments/environment';
 import { EjemploErrorComponent } from './modules/ejemplo-error/ejemplo-error.component';
+import { BajaComponent } from './modules/designaciones/movimientos/baja/baja.component';
+import { CrearComponent } from './modules/designaciones/movimientos/baja/crear/crear.component';
 
 //import { SeleccionarUsuarioComponent } from '../usuarios/seleccionar-usuario/seleccionar-usuario.component';
 //import { DetalleUsuarioComponent } from '../usuarios/detalle-usuario/detalle-usuario.component';
@@ -100,7 +102,9 @@ import { EjemploErrorComponent } from './modules/ejemplo-error/ejemplo-error.com
     ListarComponent,
     SeleccionarComponent,
     DetalleComponent,
-    EjemploErrorComponent
+    EjemploErrorComponent,
+    BajaComponent,
+    CrearComponent
   ],
   entryComponents: [
   ],

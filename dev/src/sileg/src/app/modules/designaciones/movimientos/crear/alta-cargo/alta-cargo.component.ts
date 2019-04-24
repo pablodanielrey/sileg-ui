@@ -4,6 +4,7 @@ import { Observable, BehaviorSubject, of, forkJoin } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { SilegService } from '../../../../../shared/services/sileg.service';
 import { switchMap, map, tap, mergeMap } from 'rxjs/operators';
+import { NavegarService } from '../../../../../core/navegar.service';
 
 @Component({
   selector: 'app-alta-cargo',
@@ -33,7 +34,8 @@ export class AltaCargoComponent implements OnInit {
 
   constructor(
     private route : ActivatedRoute,
-    private service: SilegService
+    private service: SilegService,
+    private navegar: NavegarService
   ) { }  
 
   ngOnInit() {
@@ -89,4 +91,9 @@ export class AltaCargoComponent implements OnInit {
     let v = this.form.value;
     this.cambio$.next(v.cargo);
   }
+
+  volver() {
+    this.navegar.volver().subscribe().unsubscribe();
+  }
+
 }

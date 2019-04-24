@@ -1,5 +1,5 @@
 <mat-toolbar-row>
-  <button mat-button color="primary"><mat-icon>undo </mat-icon> VOLVER</button>
+  <button mat-button color="primary" (click)='volver()'><mat-icon>undo </mat-icon> VOLVER</button>
   <span>&nbsp;  Nueva Designación | Seleccionar Usuario</span>
 </mat-toolbar-row>
 
@@ -7,6 +7,7 @@
 
 <div class="pantalla">
   <app-seleccionar-usuario (seleccionado)='seleccionado($event)'></app-seleccionar-usuario>
-  <button mat-button color="primary" routerLink="/sistema/movimientos/crear/alta/:xxx/:xxx">SIGUIENTE PROVISORIO (ESTE NO VA)</button>
+  <button mat-button color="primary" (click)='crear_persona()'>Crear Presona (ESTE NO VA)</button>
+  <button mat-button color="primary" (click)='crear()'>SIGUIENTE PROVISORIO (ESTE NO VA)</button>
 
 </div>
