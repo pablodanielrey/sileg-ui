@@ -5,6 +5,12 @@
 		},
 		{
 			"path": "/src/gitlab/stacks"
+		},
+		{
+			"path": "/home/src/github/warden-api"
+		},
+		{
+			"path": "/home/src/github/sileg-api"
 		}
 	],
 	"settings": {}

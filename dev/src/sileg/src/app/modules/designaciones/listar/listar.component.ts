@@ -12,7 +12,7 @@ import { NavegarService } from '../../../core/navegar.service';
 })
 export class ListarComponent implements OnInit {
 
-  columnas: string[] = ['usuario','puntos','acciones'];
+  columnas: string[] = ['usuario','cargo','dedicacion','caracter','fecha','nota','resolucion','expediente','estado','acciones'];
   lugares$: Observable<any[]>;
 
   constructor(private service : SilegService, private navegar: NavegarService) { }

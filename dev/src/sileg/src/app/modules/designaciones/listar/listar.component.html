@@ -1,43 +1,128 @@
-<div>
-    <mat-toolbar-row>
-        <button mat-button color="primary" (click)='volver()'><mat-icon>undo </mat-icon> VOLVER</button>
-        <span>&nbsp; Designaciones</span>
-    </mat-toolbar-row>  
+<mat-toolbar-row>
+    <button mat-button color="primary" (click)='volver()'><mat-icon>undo </mat-icon> VOLVER</button>
+    <span>&nbsp; Designaciones | Listado</span>
+</mat-toolbar-row>
+  
+<mat-divider></mat-divider>
+  
+<div class="pantalla">
 
-  <div *ngFor="let l of (lugares$ | async)">
-    <p> {{ l.lugar.nombre }} </p>
+    <mat-tab-group *ngFor="let l of (lugares$ | async)" class="tab">
+     
+        <mat-tab label="{{ l.lugar.nombre }}">  
+  
+            <mat-table [dataSource]="l.designaciones$ | async" >
+  
+                <ng-container matColumnDef="usuario" sticky>
+                      <mat-header-cell *matHeaderCellDef> Usuario </mat-header-cell>
+                      <mat-cell *matCellDef="let desig"> {{desig.usuario.nombre}} {{desig.usuario.apellido}}</mat-cell>
+                </ng-container>
+  
+                <ng-container matColumnDef="cargo">
+                    <mat-header-cell *matHeaderCellDef> Cargo </mat-header-cell>
+                    <mat-cell *matCellDef="let desig">{{desig.designacion.cargo.nombre}}</mat-cell>
+                 </ng-container>
+  
+                <ng-container matColumnDef="dedicacion">
+                    <mat-header-cell *matHeaderCellDef> Dedicación </mat-header-cell>
+                    <mat-cell *matCellDef="let desig">DS</mat-cell>
+                </ng-container>
+  
+                <ng-container matColumnDef="caracter">
+                    <mat-header-cell *matHeaderCellDef> Caracter </mat-header-cell>
+                    <mat-cell *matCellDef="let desig"> Interino</mat-cell>
+                </ng-container>
+  
+  
+                <ng-container matColumnDef="fecha">
+                  <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
+                  <mat-cell *matCellDef="let desig">02/03/19</mat-cell>
+                </ng-container>
+  
+                <ng-container matColumnDef="nota">
+                    <mat-header-cell *matHeaderCellDef> Nota </mat-header-cell>
+                    <mat-cell *matCellDef="let desig">  <button mat-icon-button><mat-icon >save_alt</mat-icon></button></mat-cell>
+                </ng-container>
+  
+                <ng-container matColumnDef="resolucion">
+                    <mat-header-cell *matHeaderCellDef> Resolución </mat-header-cell>
+                    <mat-cell *matCellDef="let desig">256/19</mat-cell>
+                </ng-container>
+  
+                <ng-container matColumnDef="expediente">
+                    <mat-header-cell *matHeaderCellDef> Expediente </mat-header-cell>
+                    <mat-cell *matCellDef="let desig">25-457/19</mat-cell>
+                </ng-container>
+  
+                <ng-container matColumnDef="estado">
+                    <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
+                    <mat-cell *matCellDef="let desig">
+                        <div class="estado" placeholder="Alta de Designación">A</div>
+                        <div class="estado">C</div>
+                    </mat-cell>
+                </ng-container>
+  
+  
+                <ng-container matColumnDef="puntos">
+                      <mat-header-cell *matHeaderCellDef> Puntos </mat-header-cell>
+                      <mat-cell *matCellDef="let desig">{{desig.ptos}} </mat-cell>
+                </ng-container>
+  
+                <ng-container matColumnDef="acciones" stickyEnd>
+                      <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+                      <mat-cell *matCellDef="let desig">
+  
+                          <button mat-icon-button [matMenuTriggerFor]="menu">
+                              <mat-icon>apps</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item>
+                                  <mat-icon>check</mat-icon>
+                                  <span>Aprobar</span>
+                                </button>
+                                <button mat-menu-item>
+                                  <mat-icon>highlight_off</mat-icon>
+                                  <span>Denegar</span>
+                                </button>
+                                <button mat-menu-item>
+                                    <mat-icon>delete_outline</mat-icon>
+                                    <span>Cancelar</span>
+                                </button>
+                                <button (click)="modificar(desig.id)" mat-menu-item >
+                                    <mat-icon>edit</mat-icon>
+                                    <span>Modificar</span>
+                                </button>
+                                <button (click)="dar_de_baja(desig.id)" mat-menu-item>
+                                    <mat-icon>trending_down</mat-icon>
+                                    <span>Dar de Baja</span>
+                                </button>
+                                <button mat-menu-item>
+                                    <mat-icon>zoom_in</mat-icon>
+                                    <span>Detalle</span>
+                                </button>
 
-    <button (click)='dar_de_alta(l.id)'>Nueva Designacion</button>
-
-    <div class="desginaciones">
-      <mat-table [dataSource]="l.designaciones$ | async">
-
-          <ng-container matColumnDef="usuario">
-                <mat-header-cell *matHeaderCellDef> Usuario </mat-header-cell>
-                <mat-cell *matCellDef="let desig"> {{desig?.usuario?.nombre}} {{desig?.usuario?.apellido}}</mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="puntos">
-                <mat-header-cell *matHeaderCellDef> Puntos </mat-header-cell>
-                <mat-cell *matCellDef="let desig"> {{desig?.ptos}} </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="acciones">
-                <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
-                <mat-cell *matCellDef="let desig">
-                  <button mat-button [matMenuTriggerFor]='acciones'><mat-icon>apps</mat-icon></button>
-                  <mat-menu #acciones='matMenu'>
-                      <button mat-menu-item (click)="modificar(desig.id)">Modificar</button> 
-                      <button mat-menu-item (click)="dar_de_baja(desig.id)">Pedir de Baja</button> 
-                  </mat-menu>
-                </mat-cell>
-          </ng-container>
-      
-          <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: columnas;"></mat-row>    
-
-        </mat-table>
-    </div>
+                            </mat-menu>
+  
+                      </mat-cell>
+                </ng-container>
+  
+                <ng-container matColumnDef="footer">
+                    <mat-footer-cell *matFooterCellDef>
+                        <button mat-button color="primary" (click)='dar_de_alta(l.id)'>+ NUEVA DESIGNACIÓN</button>
+                    </mat-footer-cell>
+                </ng-container>
+  
+                
+            
+                <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: columnas;"></mat-row>   
+                <mat-footer-row mat-footer-row *matFooterRowDef="['footer']" class="example-second-footer-row"></mat-footer-row>
+   
+  
+              </mat-table>
     
-  </div>  
+          </mat-tab>
+  
+    </mat-tab-group>
+  
 </div>

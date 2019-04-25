@@ -21,14 +21,10 @@ export class SelecionMultipleLugarComponent implements OnInit {
   private cargando: boolean = false;
   private lugares$: Observable<any[]>;
   private existen_resultados$: Observable<boolean>;
-  //private campoBusqueda: FormControl;
   seleccionados: any[] = [];
 
 
-  form = new FormGroup({
-    campoBusqueda: new FormControl('')
-  });
-
+  form : FormGroup = null;
   
   constructor(private service: SilegService, private fb: FormBuilder) { 
     this.form = fb.group({
@@ -41,39 +37,38 @@ export class SelecionMultipleLugarComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.campoBusqueda = new FormControl();
-    // this.lugares$ = this.form.get('campoBusqueda').valueChanges.pipe(      
-    //   debounceTime(1000),
-    //   distinctUntilChanged(),
-    //   tap( v => console.log(v) ),
-    //   tap( v => console.log(typeof v)),
-    //   tap(_ => (this.cargando = true)),
-    //   map(term => (term != undefined) ? '' : (typeof term === 'string') ? term : term.nombre ),
-    //   switchMap(term => this.service.buscarLugares(term)),
-    //   tap(v => console.log(v)),
-    //   map( ls => ls.filter( l => this.seleccionados.filter( l2 => l2.id == l.id).length <= 0)),
-    //   tap(_ => (this.cargando = false))
-    // );
+    //this.lugares$ = this.form.get('campoBusqueda').valueChanges.pipe(      
+    this.lugares$ = this.form.valueChanges.pipe(      
+      debounceTime(1000),
+      distinctUntilChanged(),
+      tap( v => console.log(v) ),
+      tap( v => console.log(typeof v)),
+      tap(_ => (this.cargando = true)),
+      map(term => (term != undefined) ? '' : (typeof term === 'string') ? term : term.nombre ),
+      switchMap(term => this.service.buscarLugares(term)),
+      tap(v => console.log('v' + v)),
+      //map( ls => ls.filter( l => this.seleccionados.filter( l2 => l2.id == l.id).length <= 0)),
+      tap(_ => (this.cargando = false))
+    );
 
     this.existen_resultados$ = this.lugares$.pipe(
         map(ls => ls.length <= 0),
-        tap(v => console.log(v))
+        tap(v => console.log('tap--' + v))
       );
   }
 
   seleccionar_lugar() {
-    console.log(this.form.get('campoBusqueda'));
+    this._seleccionar_lugar(this.form.get('campoBusqueda').value);
+    console.log('lugar seleccionado');
   }
-
-  /*
-  seleccionarLugar(lugar:any) {
-    this.campoBusqueda.setValue('');
+  
+  _seleccionar_lugar(lugar:any) {
+    this.form.get('campoBusqueda').setValue('');
     if (this.seleccionados.filter(v => v.id == lugar.id).length > 0) {
       return;
     }
     this.seleccionados.push(lugar);
   }
-  */
 
   finalizar_seleccion() {
     this.seleccionado.emit(this.seleccionados);
