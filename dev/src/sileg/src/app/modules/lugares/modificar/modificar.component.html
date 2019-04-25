@@ -1,40 +1,44 @@
-
 <form [formGroup]='form' (ngSubmit)='submit()'>
-  <mat-form-field>
-      <mat-label>Nombre</mat-label>
-      <input matInput formControlName='nombre'/>
-  </mat-form-field>
+  
+    <mat-form-field class="itemFormulario" appearance="outline" >
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName='nombre' value="Administración Pública I" />
+    </mat-form-field>
 
-  <mat-form-field>
-      <mat-label>Descripcion</mat-label>
-      <input matInput formControlName='descripcion'/>
-  </mat-form-field>
+    <mat-form-field class="itemFormulario" appearance="outline">
+        <mat-label>Descripción</mat-label>
+        <input matInput formControlName='descripcion' value="Cátedra Original" />
+    </mat-form-field>
 
-  <mat-form-field>
-      <mat-label>Tipo de Lugar</mat-label>
-      <mat-select formControlName='tipo'>
-          <mat-option *ngFor="let tipo of (tipos$ | async)" [value]="tipo">
-              {{tipo.nombre}}
-          </mat-option>
-      </mat-select>    
-  </mat-form-field>
+    <mat-form-field class="itemFormulario" appearance="outline">
+        <mat-label>Tipo de Lugar</mat-label>
+        <mat-select formControlName='tipo'>
+            <mat-option *ngFor="let tipo of (tipos$ | async)" [value]="tipo" >
+                {{tipo.nombre}}
+            </mat-option>
+        </mat-select>    
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Nº Oficina</mat-label>
-    <input matInput formControlName='oficina'/>
-  </mat-form-field>
+    <div class="dobleItemFormulario">
 
-  <mat-form-field>
-    <mat-label>Teléfono</mat-label>
-    <input matInput formControlName='telefono'/>
-  </mat-form-field>
+        <mat-form-field class="itemMedioFormulario" appearance="outline">
+          <mat-label>Nº Oficina</mat-label>
+          <input matInput formControlName='oficina' value="315" />
+        </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Correo</mat-label>
-    <input matInput formControlName='correo'/>
-  </mat-form-field>
+        <mat-form-field class="itemMedioFormulario" appearance="outline">
+          <mat-label>Teléfono / Interno</mat-label>
+          <input matInput formControlName='telefono' value="4576569 - 125" />
+        </mat-form-field>
+
+    </div>    
+
+    <mat-form-field class="itemFormulario" appearance="outline">
+      <mat-label>Correo Electrónico</mat-label>
+      <input matInput formControlName='correo' value="administracionpublica@econo.unlp.edu.ar" />
+    </mat-form-field>
 
 
-  <button type="submit" [disabled]="!form.valid">Actualizar</button>
+  <!-- <button type="submit" [disabled]="!form.valid">Actualizar</button> -->
 
 </form>
