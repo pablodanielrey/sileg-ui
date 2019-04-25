@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-detalle',
@@ -7,7 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetalleComponent implements OnInit {
 
-  constructor() { }
+
+  form = new FormGroup({
+    nombre: new FormControl(''),
+    descripcion: new FormControl(''),
+    tipo: new FormControl(''),
+    oficina: new FormControl(''),
+    telefono: new FormControl(''),
+    correo: new FormControl('')
+  });
+
+  constructor() { 
+  }
+ 
 
   ngOnInit() {
   }

@@ -17,6 +17,27 @@
       }
 }
 
+.itemFormulario {
+    width: 100%;
+}
+
+.dobleItemFormulario {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    @media screen and ( max-width: 768px){
+    flex-direction: column;
+    }
+}
+
+.itemMedioFormulario {
+    width: 48%;
+    @media screen and ( max-width: 768px){
+        width:100%;
+    }
+        
+}
+
 .contenedorAcciones {
     padding: 4px 0 20px 40px;
     display: flex;
