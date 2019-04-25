@@ -52,14 +52,18 @@ export class SelecionarLugarComponent implements OnInit {
       );
   }
 
+  display_lugar(lugar?): string | undefined {
+    return lugar ? lugar.nombre : undefined;
+  }
+
   /*
     Método llamado cuando se selecciona un lugar dentro del autocomplete
     NO se usa el submit del form para este caso.
   */
- autocomplete_seleccionado(event:MatAutocompleteSelectedEvent) {
-  this.form.get('campoBusqueda').setValue('');
-  let lugar = event.option.value;
-  this._seleccionar_lugar(lugar);
+  autocomplete_seleccionado(event:MatAutocompleteSelectedEvent) {
+    this.form.get('campoBusqueda').setValue('');
+    let lugar = event.option.value;
+    this._seleccionar_lugar(lugar);
   }
 
   private _seleccionar_lugar(lugar:any) {

@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, forkJoin, of } from 'rxjs';
 import { mergeMap, switchMap, tap, map } from 'rxjs/operators';
 import { NavegarService } from '../../../../../core/navegar.service';
+import { CrearComponent } from '../../baja/crear/crear.component';
+import { SWITCH_COMPILE_INJECTABLE__POST_R3__ } from '@angular/core/src/di/injectable';
 
 
 @Component({
@@ -35,15 +37,21 @@ export class SeleccionarPersonaComponent implements OnInit {
   ngOnInit() {
   }
 
-  seleccionado(e) {
-    this.persona$.next(e);
+  seleccionado(persona) {
+    this.crear(persona);
   }
 
-  crear() {
-    this.navegar.navegar({
-      url:'/sistema/movimientos/crear/alta/xxx/xxx',
-      params:{}
-    }).subscribe();
+  crear(persona) {
+    this.route.paramMap.pipe(
+      switchMap(params => {
+        let lid = params.get('lid');
+        let pid = persona.id;
+        return this.navegar.navegar({
+          url:'/sistema/movimientos/crear/alta/' + lid + "/" + pid,
+          params:{}
+        })
+      })
+    ).subscribe();
   }
 
   crear_persona() {

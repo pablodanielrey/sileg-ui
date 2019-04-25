@@ -1,12 +1,12 @@
 <!-- FORMULARIO DE BUSQUEDA -->
-<form >
+<form [formGroup]='form'>
   <mat-form-field appearance="fill" class="contenedorFormulario">
-      <input matInput placeholder="Buscar Usuario" aria-label="State" [matAutocomplete]="auto" [formControl]="campoBusqueda" >
+      <input matInput placeholder="Buscar Usuario" aria-label="State" [matAutocomplete]="auto" formControlName="campoBusqueda" >
       <mat-icon class="animacionCargando" *ngIf="cargando" matSuffix>clear</mat-icon>
       <mat-icon *ngIf="!cargando" matSuffix>search</mat-icon>
 
-      <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor='let p of (personas$ | async)' >
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)='autocomplete_seleccionado($event)' [displayWith]="display_usuario">
+          <mat-option *ngFor='let p of (personas$ | async)' [value]='p'>
               <div class="itemLugar" >
                   <i class="material-icons-outlined iconoLista">account_circle</i>
                   <span class="nombre">{{p.nombre}} {{p.apellido}}  </span>
