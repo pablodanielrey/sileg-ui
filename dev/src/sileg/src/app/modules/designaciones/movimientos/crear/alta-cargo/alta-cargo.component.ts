@@ -92,6 +92,15 @@ export class AltaCargoComponent implements OnInit {
     this.cambio$.next(v.cargo);
   }
 
+  crear() {
+    console.log(this.form.value);
+    // se genera el cargo
+
+    // navegamos al final del proceso
+    let ruta = JSON.parse(sessionStorage.getItem('finalizar_proceso'));
+    this.navegar.navegar(ruta).subscribe()
+  }
+
   volver() {
     this.navegar.volver().subscribe().unsubscribe();
   }

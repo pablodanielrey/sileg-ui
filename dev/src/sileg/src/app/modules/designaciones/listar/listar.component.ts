@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { SilegService } from '../../../shared/services/sileg.service';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { NavegarService } from '../../../core/navegar.service';
 
@@ -50,10 +50,18 @@ export class ListarComponent implements OnInit {
   }
 
   dar_de_alta(lid) {
-    this.navegar.navegar({
+
+    let navegar_alta = this.navegar.navegar({
       url: '/sistema/movimientos/crear/seleccionar/lid',
       params: {}
-    }).subscribe()
+    })    
+
+    this.navegar.obtenerRuta().pipe(
+      tap(ruta_actual => {
+        sessionStorage.setItem('finalizar_proceso', JSON.stringify(ruta_actual));
+      }),
+      switchMap(v => navegar_alta)
+    ).subscribe()
   }
 
 }

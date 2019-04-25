@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 export interface Ruta {
   url: string;
@@ -40,6 +40,17 @@ export class NavegarService {
       })
     )
 
+  }
+
+  obtenerRuta():Observable<Ruta> {
+    return this.route.queryParamMap.pipe(
+      map(params => {
+        return {
+          url: this.router.url.split('?')[0],
+          params:params
+        }
+      })
+    )
   }
 
   navegar(ruta: Ruta):Observable<boolean> {
