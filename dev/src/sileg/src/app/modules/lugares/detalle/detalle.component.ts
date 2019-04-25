@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { NavegarService } from '../../../core/navegar.service';
 
 @Component({
   selector: 'app-detalle',
@@ -18,11 +19,22 @@ export class DetalleComponent implements OnInit {
     correo: new FormControl('')
   });
 
-  constructor() { 
+  constructor(private navegar: NavegarService) { 
   }
  
 
   ngOnInit() {
+  }
+
+  volver() {
+    this.navegar.volver().subscribe().unsubscribe();
+  }
+
+  designaciones() {
+    this.navegar.navegar({
+      url: '/sistema/designaciones/listar/sdfsdfd',
+      params: {}
+    }).subscribe().unsubscribe();
   }
 
 }

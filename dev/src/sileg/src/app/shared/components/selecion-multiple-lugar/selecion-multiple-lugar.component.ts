@@ -42,18 +42,18 @@ export class SelecionMultipleLugarComponent implements OnInit {
 
   ngOnInit() {
     //this.campoBusqueda = new FormControl();
-    this.lugares$ = this.form.get('campoBusqueda').valueChanges.pipe(      
-      debounceTime(1000),
-      distinctUntilChanged(),
-      tap( v => console.log(v) ),
-      tap( v => console.log(typeof v)),
-      tap(_ => (this.cargando = true)),
-      map(term => (term != undefined) ? '' : (typeof term === 'string') ? term : term.nombre ),
-      switchMap(term => this.service.buscarLugares(term)),
-      tap(v => console.log(v)),
-      map( ls => ls.filter( l => this.seleccionados.filter( l2 => l2.id == l.id).length <= 0)),
-      tap(_ => (this.cargando = false))
-    );
+    // this.lugares$ = this.form.get('campoBusqueda').valueChanges.pipe(      
+    //   debounceTime(1000),
+    //   distinctUntilChanged(),
+    //   tap( v => console.log(v) ),
+    //   tap( v => console.log(typeof v)),
+    //   tap(_ => (this.cargando = true)),
+    //   map(term => (term != undefined) ? '' : (typeof term === 'string') ? term : term.nombre ),
+    //   switchMap(term => this.service.buscarLugares(term)),
+    //   tap(v => console.log(v)),
+    //   map( ls => ls.filter( l => this.seleccionados.filter( l2 => l2.id == l.id).length <= 0)),
+    //   tap(_ => (this.cargando = false))
+    // );
 
     this.existen_resultados$ = this.lugares$.pipe(
         map(ls => ls.length <= 0),

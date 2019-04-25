@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NavegarService } from '../../../core/navegar.service';
 
 @Component({
   selector: 'app-seleccionar',
@@ -8,13 +9,20 @@ import { Router } from '@angular/router';
 })
 export class SeleccionarComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private navegar: NavegarService) { }
 
   ngOnInit() {
   }
 
+  volver() {
+    this.navegar.volver().subscribe().unsubscribe();
+  }
+
   seleccionado(l) {
-    this.router.navigate(['/sistema/lugares/detalle/sdsdffsd']);
+    this.navegar.navegar({
+      url: '/sistema/lugares/detalle/sdsdffsd',
+      params: {}
+    }).subscribe().unsubscribe();
   }
 
 }

@@ -64,4 +64,8 @@ export class ListarComponent implements OnInit {
     ).subscribe()
   }
 
+  volver() {
+    this.navegar.volver().subscribe().unsubscribe();
+  }  
+
 }

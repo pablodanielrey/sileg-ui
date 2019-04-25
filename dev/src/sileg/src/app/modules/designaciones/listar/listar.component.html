@@ -1,6 +1,8 @@
 <div>
-
-  <h1>Designaciones</h1>
+    <mat-toolbar-row>
+        <button mat-button color="primary" (click)='volver()'><mat-icon>undo </mat-icon> VOLVER</button>
+        <span>&nbsp; Designaciones</span>
+    </mat-toolbar-row>  
 
   <div *ngFor="let l of (lugares$ | async)">
     <p> {{ l.lugar.nombre }} </p>
