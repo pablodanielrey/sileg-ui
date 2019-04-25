@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SilegService } from '../../../../shared/services/sileg.service';
 import { Observable, of } from 'rxjs';
 import { switchMap, map, tap } from 'rxjs/operators';
+import { NavegarService } from '../../../../core/navegar.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class PendientesComponent implements OnInit {
   columnas: string[] = ['usuario','cargo','dedicacion','caracter','fecha','nota','resolucion','expediente','estado','acciones'];
   lugares$: Observable<any[]>;
 
-  constructor(private service : SilegService) {  }
+  constructor(private service : SilegService, private navegar: NavegarService) {  }
 
   ngOnInit() { 
     let lid = "1f7b87ea-96b7-428c-8a00-fd33e1ba3ee6";
@@ -40,5 +41,20 @@ export class PendientesComponent implements OnInit {
   obtenerDesignacionesPendientes(ids: string[]): Observable<Array<any>> {
     return this.service.desginacionesPendientes(ids);
   }
+
+  dar_de_alta(lid) {
+
+    let navegar_alta = this.navegar.navegar({
+      url: '/sistema/movimientos/crear/seleccionar/lid',
+      params: {}
+    })    
+
+    this.navegar.obtenerRuta().pipe(
+      tap(ruta_actual => {
+        sessionStorage.setItem('finalizar_proceso', JSON.stringify(ruta_actual));
+      }),
+      switchMap(v => navegar_alta)
+    ).subscribe()
+  }  
 
  }
