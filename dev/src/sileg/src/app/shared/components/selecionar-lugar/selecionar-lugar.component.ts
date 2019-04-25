@@ -2,7 +2,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap, debounceTime, distinctUntilChanged, filter, tap, map } from 'rxjs/operators';
 import { SilegService } from '../../services/sileg.service';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { MatAutocompleteSelectedEvent } from '@angular/material';
 
 @Component({
   selector: 'app-selecionar-lugar',
@@ -17,32 +18,52 @@ export class SelecionarLugarComponent implements OnInit {
   private cargando: boolean = false;
   private lugares$: Observable<any[]>;
   private existen_resultados$: Observable<boolean>;
-  private campoBusqueda: FormControl;
+  
+  form : FormGroup = null;
 
-  constructor(private service: SilegService) { 
-    this.campoBusqueda = new FormControl();
-    this.lugares$ = this.campoBusqueda.valueChanges.pipe(      
+
+  constructor(private service: SilegService, private fb: FormBuilder) { 
+    this.form = fb.group({
+      campoBusqueda: ['']
+    }, { updateOn: 'change'});
+  }
+  
+  ngOnInit() {
+    this.lugares$ = this.form.get('campoBusqueda').valueChanges.pipe(      
       debounceTime(1000),
       distinctUntilChanged(),
-      filter( v => v != undefined && v.trim() != ''),
       tap(_ => (this.cargando = true)),
+      map(term => {
+        if (term != null && term != undefined) {
+          if (typeof term === 'string') {
+            return term;
+          }
+          return term.nombre;
+        }
+        return '';
+      }),
       switchMap(term => this.service.buscarLugares(term)),
-      tap(v => console.log(v)),
+      //map( ls => ls.filter( l => this.seleccionados.filter( l2 => l2.id == l.id).length <= 0)),
       tap(_ => (this.cargando = false))
     );
 
     this.existen_resultados$ = this.lugares$.pipe(
-        map(ls => ls.length <= 0),
-        tap(v => console.log(v))
+        map(ls => ls.length <= 0)
       );
-
   }
 
-  ngOnInit() {
+  /*
+    Método llamado cuando se selecciona un lugar dentro del autocomplete
+    NO se usa el submit del form para este caso.
+  */
+ autocomplete_seleccionado(event:MatAutocompleteSelectedEvent) {
+  this.form.get('campoBusqueda').setValue('');
+  let lugar = event.option.value;
+  this._seleccionar_lugar(lugar);
   }
 
-  seleccionar(l) {
-    this.seleccionado.emit(l);
+  private _seleccionar_lugar(lugar:any) {
+    this.seleccionado.emit(lugar);
   }
 
 }

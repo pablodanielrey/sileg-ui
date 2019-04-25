@@ -1,19 +1,19 @@
-<form>
-  <mat-form-field appearance="fill" class="contenedorFormulario">
-      <input matInput placeholder="Buscar Lugar" aria-label="State" [matAutocomplete]="auto" [formControl]="campoBusqueda" >
-      <mat-icon class="animacionCargando" *ngIf="cargando" matSuffix>clear</mat-icon>
-      <mat-icon *ngIf="!cargando" matSuffix>search</mat-icon>
+<form [formGroup]='form'>
+    <mat-form-field appearance="fill" class="contenedorFormulario">
+        <input matInput placeholder="Buscar Lugar" aria-label="State" formControlName="campoBusqueda" [matAutocomplete]="auto">
+        <mat-icon class="animacionCargando" *ngIf="cargando" matSuffix>clear</mat-icon>
+        <mat-icon *ngIf="!cargando" matSuffix>search</mat-icon>
 
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor='let l of (lugares$ | async)' >
-            <div class="itemLugar" >
-              <i class="material-icons-outlined iconoLista">local_offer</i>
-              <span class="nombre">{{l.nombre}} </span>
-          </div>
-        </mat-option>
-      </mat-autocomplete>
+        <!-- el mat autocomplete no es parte del post del formulario -->
+        <mat-autocomplete (optionSelected)='autocomplete_seleccionado($event)' #auto="matAutocomplete" [displayWith]="display_lugar">
+            <mat-option *ngFor="let l of lugares$ | async" [value]="l" >
+                <div class="itemLugar" >
+                    <i class="material-icons-outlined iconoLista">local_offer</i>
+                    <span class="nombre">{{l.nombre}} </span>
+                </div>
+            </mat-option>
+        </mat-autocomplete>
 
-      <mat-hint *ngIf='existen_resultados$ | async'>No se encontraron resultados!</mat-hint>
-  </mat-form-field>
-
+        <mat-hint *ngIf='existen_resultados$ | async'>No se encontraron resultados!</mat-hint>
+    </mat-form-field>
 </form>
