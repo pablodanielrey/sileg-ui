@@ -1,4 +1,74 @@
-<button>volver</button>
+<mat-toolbar-row>
+        <button mat-button color="primary"><mat-icon>undo </mat-icon> VOLVER</button>
+        <span>&nbsp; Lugares | Detalle Lugar</span>
+</mat-toolbar-row>
+      
+<mat-divider></mat-divider>
+      
+<div class="pantalla">
+
+    <div class="contenedorForm">
+        <!-- <mat-card >
+            <mat-card-content > -->
+                <form id='lugar' [formGroup]='form' (ngSubmit)='submit()'>
+                
+
+                        <mat-form-field class="itemFormulario" appearance="outline" >
+                                <mat-label>Nombre</mat-label>
+                                <input matInput formControlName='nombre' value="Administración Pública I" />
+                            </mat-form-field>
+                        
+                            <mat-form-field class="itemFormulario" appearance="outline">
+                                <mat-label>Descripción</mat-label>
+                                <input matInput formControlName='descripcion' value="Cátedra Original" />
+                            </mat-form-field>
+                        
+                            <mat-form-field class="itemFormulario" appearance="outline">
+                                <mat-label>Tipo de Lugar</mat-label>
+                                <mat-select formControlName='tipo'>
+                                    <mat-option *ngFor="let tipo of (tipos$ | async)" [value]="tipo" >
+                                        {{tipo.nombre}}
+                                    </mat-option>
+                                </mat-select>    
+                            </mat-form-field>
+                        
+                            <div class="dobleItemFormulario">
+                        
+                                <mat-form-field class="itemMedioFormulario" appearance="outline">
+                                  <mat-label>Nº Oficina</mat-label>
+                                  <input matInput formControlName='oficina' value="315" />
+                                </mat-form-field>
+                        
+                                <mat-form-field class="itemMedioFormulario" appearance="outline">
+                                  <mat-label>Teléfono / Interno</mat-label>
+                                  <input matInput formControlName='telefono' value="4576569 - 125" />
+                                </mat-form-field>
+                        
+                            </div>    
+                        
+                            <mat-form-field class="itemFormulario" appearance="outline">
+                              <mat-label>Correo Electrónico</mat-label>
+                              <input matInput formControlName='correo' value="administracionpublica@econo.unlp.edu.ar" />
+                            </mat-form-field>
+                        
+
+
+
+                </form>
+            <!-- </mat-card-content>
+        </mat-card> -->
+    </div>
+
+    <div class="contenedorAcciones"> 
+            <button class="btnItems" mat-stroked-button color="accent" routerLink='/sistema/designaciones/listar/sdfsdfd'>DESIGNACIONES</button>
+            <button type="submit" form='lugar' [disabled]="!form.valid" class="btnGuardar" mat-flat-button color="primary" >GUARDAR</button>
+
+    </div>
+
+</div>
+
+
+<!-- <button>volver</button>
 <app-modificar-lugar></app-modificar-lugar>
 <button>nueva designacion</button>
-<button routerLink='/sistema/designaciones/listar/sdfsdfd'>designaciones</button>
+<button routerLink='/sistema/designaciones/listar/sdfsdfd'>designaciones</button> -->

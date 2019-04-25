@@ -27,8 +27,6 @@ import { AltaCargoComponent } from './modules/designaciones/movimientos/crear/al
 import { SeleccionarUsuarioComponent } from './shared/components/seleccionar-usuario/seleccionar-usuario.component';
 
 import { SelecionarLugarComponent } from './shared/components/selecionar-lugar/selecionar-lugar.component';
-import { ModificarComponent as ModificarLugarComponent } from './modules/lugares/modificar/modificar.component';
-
 
 import { SelecionMultipleLugarComponent } from './shared/components/selecion-multiple-lugar/selecion-multiple-lugar.component';
 import { SeleccionarLugaresComponent } from './modules/designaciones/seleccionar-lugares/seleccionar-lugares.component';
@@ -95,7 +93,6 @@ import { CrearComponent } from './modules/designaciones/movimientos/baja/crear/c
     CrearPersonaComponent,
     AltaCargoComponent,
     SeleccionarUsuarioComponent,
-    ModificarLugarComponent,
     SelecionarLugarComponent,
     SelecionMultipleLugarComponent,
     SeleccionarLugaresComponent,

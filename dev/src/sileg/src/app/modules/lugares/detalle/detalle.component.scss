@@ -1,0 +1,67 @@
+.pantalla {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+    }
+}
+
+
+.contenedorForm {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+    @media screen and (max-width: 768px) {
+          max-width: 100%;
+      }
+}
+
+.itemFormulario {
+    width: 100%;
+}
+
+.dobleItemFormulario {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    @media screen and ( max-width: 768px){
+    flex-direction: column;
+    }
+}
+
+.itemMedioFormulario {
+    width: 48%;
+    @media screen and ( max-width: 768px){
+        width:100%;
+    }
+        
+}
+
+.contenedorAcciones {
+    padding: 4px 0 20px 40px;
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+    max-width: 300px;
+    width: 100%;
+    @media screen and (max-width: 768px) {
+          max-width: 100%;
+          padding: 0px;
+      }
+}
+
+
+.btnItems {
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.btnGuardar {
+    padding: 5px;
+    margin-bottom: 10px;
+    @media screen and (max-width: 768px) {
+    padding: 10px;
+    }
+
+}
