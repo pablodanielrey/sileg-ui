@@ -42,6 +42,10 @@ export class NavegarService {
 
   }
 
+  obtenerRuta():Observable<Ruta> {
+    return null;
+  }
+
   navegar(ruta: Ruta):Observable<boolean> {
     return Observable.create((obs) => {
       let url = this.router.url.split('?')[0];
