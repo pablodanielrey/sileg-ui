@@ -5,6 +5,7 @@ import { switchMap, scan, map, tap, filter, debounceTime, distinctUntilChanged }
 import { reduce } from 'rxjs-compat/operator/reduce';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Lugar } from '../../entities/sileg';
+import { MatAutocompleteSelectedEvent } from '@angular/material';
 
 @Component({
   selector: 'app-selecion-multiple-lugar',
@@ -37,33 +38,40 @@ export class SelecionMultipleLugarComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.lugares$ = this.form.get('campoBusqueda').valueChanges.pipe(      
-    this.lugares$ = this.form.valueChanges.pipe(      
+    this.lugares$ = this.form.get('campoBusqueda').valueChanges.pipe(      
       debounceTime(1000),
       distinctUntilChanged(),
-      tap( v => console.log(v) ),
-      tap( v => console.log(typeof v)),
       tap(_ => (this.cargando = true)),
-      map(term => (term != undefined) ? '' : (typeof term === 'string') ? term : term.nombre ),
+      map(term => {
+        if (term != null && term != undefined) {
+          if (typeof term === 'string') {
+            return term;
+          }
+          return term.nombre;
+        }
+        return '';
+      }),
       switchMap(term => this.service.buscarLugares(term)),
-      tap(v => console.log('v' + v)),
       //map( ls => ls.filter( l => this.seleccionados.filter( l2 => l2.id == l.id).length <= 0)),
       tap(_ => (this.cargando = false))
     );
 
     this.existen_resultados$ = this.lugares$.pipe(
-        map(ls => ls.length <= 0),
-        tap(v => console.log('tap--' + v))
+        map(ls => ls.length <= 0)
       );
   }
 
-  seleccionar_lugar() {
-    this._seleccionar_lugar(this.form.get('campoBusqueda').value);
-    console.log('lugar seleccionado');
+  /*
+    Método llamado cuando se selecciona un lugar dentro del autocomplete
+    NO se usa el submit del form para este caso.
+  */
+  autocomplete_seleccionado(event:MatAutocompleteSelectedEvent) {
+    this.form.get('campoBusqueda').setValue('');
+    let lugar = event.option.value;
+    this._seleccionar_lugar(lugar);
   }
   
-  _seleccionar_lugar(lugar:any) {
-    this.form.get('campoBusqueda').setValue('');
+  private _seleccionar_lugar(lugar:any) {
     if (this.seleccionados.filter(v => v.id == lugar.id).length > 0) {
       return;
     }

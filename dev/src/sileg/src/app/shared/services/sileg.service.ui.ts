@@ -325,8 +325,9 @@ export class SilegService {
         abreviatura:'P'
       }
     ];
-    lugares = lugares.filter( v => v.nombre.toLowerCase().includes(texto.toLowerCase()));
-    return of(lugares).delay(1500);
+    console.log('filtrando lugares: ' + texto);
+    let lugares_filtrados = lugares.filter( v => v.nombre.toLowerCase().includes(texto.toLowerCase()));
+    return of(lugares_filtrados).delay(1500);
   }  
 
 

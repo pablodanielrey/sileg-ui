@@ -1,11 +1,13 @@
 <!-- FORMULARIO DE BUSQUEDA -->
-<form [formGroup]='form' (ngSubmit)='seleccionar_lugar()'>
+<!-- <form [formGroup]='form' (ngSubmit)='seleccionar_lugar()'> -->
+<form [formGroup]='form'>
     <mat-form-field appearance="fill" class="contenedorFormulario">
-        <input matInput placeholder="Buscar Lugares" aria-label="State" [matAutocomplete]="auto" formControlName="campoBusqueda" >
+        <input matInput placeholder="Buscar Lugares" aria-label="State" formControlName="campoBusqueda" [matAutocomplete]="auto">
         <mat-icon class="animacionCargando" *ngIf="cargando" matSuffix>clear</mat-icon>
         <mat-icon *ngIf="!cargando" matSuffix>search</mat-icon>
 
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="display_lugar">
+        <!-- el mat autocomplete no es parte del post del formulario -->
+        <mat-autocomplete (optionSelected)='autocomplete_seleccionado($event)' #auto="matAutocomplete" [displayWith]="display_lugar">
             <mat-option *ngFor="let l of lugares$ | async" [value]="l" >
                 <div class="itemLugar" >
                     <i class="material-icons-outlined iconoLista">local_offer</i>
@@ -20,7 +22,6 @@
 
 <!-- CONTENEDOR DE LUGARES SELECCIONADOS -->
 <div *ngIf='seleccionados.length > 0' class="contenedorSeleccionados">
-
     <mat-card >
         <mat-card-content>
             <div class="textLS">Lugares Seleccionados</div>
@@ -34,7 +35,6 @@
     </mat-card>
    
     <button class="btnSiguiente" mat-flat-button color="primary" (click)='finalizar_seleccion()'>Siguiente</button>
-
 </div>
 
 
