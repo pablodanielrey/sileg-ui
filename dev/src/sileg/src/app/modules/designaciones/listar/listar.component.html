@@ -78,29 +78,43 @@
                               <mat-icon>apps</mat-icon>
                             </button>
                             <mat-menu #menu="matMenu">
-                                <button mat-menu-item (click)='dar_de_alta(l.lugar.id)'>
+
+                                <!-- operaciones del dueño de la designación -->
+
+                                <button mat-menu-item (click)='detalle(desig.id)'>
+                                    <mat-icon>zoom_in</mat-icon>
+                                    <span>Detalle</span>
+                                </button>
+ 
+                                <!-- operaciones del departamento -->
+
+                                <button (click)="dar_de_baja(desig.id)" mat-menu-item>
+                                    <mat-icon>trending_down</mat-icon>
+                                    <span>Pedir Baja</span>
+                                </button>
+
+                                <!-- operaciones de las autoridades -->
+
+                                <button mat-menu-item (click)='aprobar(desig.id)'>
                                   <mat-icon>check</mat-icon>
                                   <span>Aprobar</span>
                                 </button>
-                                <button mat-menu-item>
+
+                                <button mat-menu-item (click)='denegar(desig.id)'>
                                   <mat-icon>highlight_off</mat-icon>
                                   <span>Denegar</span>
                                 </button>
-                                <button mat-menu-item>
+
+                                <!-- operaciones del dueño del movimiento -->
+
+                                <button mat-menu-item (click)='cancelar(desig.id)'>
                                     <mat-icon>delete_outline</mat-icon>
                                     <span>Cancelar</span>
                                 </button>
+
                                 <button (click)="modificar(desig.id)" mat-menu-item >
                                     <mat-icon>edit</mat-icon>
                                     <span>Modificar</span>
-                                </button>
-                                <button (click)="dar_de_baja(desig.id)" mat-menu-item>
-                                    <mat-icon>trending_down</mat-icon>
-                                    <span>Dar de Baja</span>
-                                </button>
-                                <button mat-menu-item>
-                                    <mat-icon>zoom_in</mat-icon>
-                                    <span>Detalle</span>
                                 </button>
 
                             </mat-menu>
@@ -110,7 +124,7 @@
   
                 <ng-container matColumnDef="footer">
                     <mat-footer-cell *matFooterCellDef>
-                        <button mat-button color="primary" (click)='dar_de_alta(l.id)'>+ NUEVA DESIGNACIÓN</button>
+                        <button mat-button color="primary" (click)='crear_alta(l.id)'>+ NUEVA DESIGNACIÓN</button>
                     </mat-footer-cell>
                 </ng-container>
             

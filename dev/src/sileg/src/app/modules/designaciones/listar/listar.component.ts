@@ -40,20 +40,61 @@ export class ListarComponent implements OnInit {
     )  
   }
 
+  detalle(did) {
+    let s = this.navegar.navegar({
+      url: '/sistema/designaciones/listar/:id/baja/crear/:lid',
+      params: {did:did}
+    }).subscribe(_ => {
+      s.unsubscribe();
+    })
+  }
 
   modificar(did) {
+    let s = this.navegar.navegar({
+      url: '/sistema/designaciones/listar/:id/baja/crear/:lid',
+      params: {did:did}
+    }).subscribe(_ => {
+      s.unsubscribe();
+    })
+  }
 
+  aprobar(did) {
+    let s = this.navegar.navegar({
+      url: '/sistema/designaciones/listar/:id/baja/crear/:lid',
+      params: {did:did}
+    }).subscribe(_ => {
+      s.unsubscribe();
+    })
+  }
+
+  denegar(did) {
+    let s = this.navegar.navegar({
+      url: '/sistema/designaciones/listar/:id/baja/crear/:lid',
+      params: {did:did}
+    }).subscribe(_ => {
+      s.unsubscribe();
+    })
+  }
+
+  cancelar(did) {
+    let s = this.navegar.navegar({
+      url: '/sistema/designaciones/listar/:id/baja/crear/:lid',
+      params: {did:did}
+    }).subscribe(_ => {
+      s.unsubscribe();
+    })
   }
 
   dar_de_baja(did) {
-    this.navegar.navegar({
+    let s = this.navegar.navegar({
       url: '/sistema/designaciones/listar/:id/baja/crear/:lid',
       params: {did:did}
-    }).subscribe()
+    }).subscribe(_ => {
+      s.unsubscribe();
+    })
   }
 
-  dar_de_alta(lid) {
-
+  crear_alta(lid) {
     let navegar_alta = this.navegar.navegar({
       url: '/sistema/movimientos/crear/seleccionar/lid',
       params: {}
@@ -68,9 +109,10 @@ export class ListarComponent implements OnInit {
   }
 
   volver() {
-    this.navegar.volver().subscribe().unsubscribe();
+    let s = this.navegar.volver().subscribe(_ => {
+      s.unsubscribe();
+    });
   }  
-
 
   mostrar_error() {
     this.error_service.error({'error': true, 'mensaje': 'designacion creada con éxito'});

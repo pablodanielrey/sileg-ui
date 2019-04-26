@@ -39,6 +39,9 @@ import { environment } from '../environments/environment';
 import { EjemploErrorComponent } from './modules/ejemplo-error/ejemplo-error.component';
 import { BajaComponent } from './modules/designaciones/movimientos/baja/baja.component';
 import { CrearComponent } from './modules/designaciones/movimientos/baja/crear/crear.component';
+import { AprobarComponent } from './modules/designaciones/movimientos/aprobar/aprobar.component';
+import { DenegarComponent } from './modules/designaciones/movimientos/denegar/denegar.component';
+import { EditarComponent } from './modules/designaciones/movimientos/editar/editar.component';
 
 //import { SeleccionarUsuarioComponent } from '../usuarios/seleccionar-usuario/seleccionar-usuario.component';
 //import { DetalleUsuarioComponent } from '../usuarios/detalle-usuario/detalle-usuario.component';
@@ -101,7 +104,10 @@ import { CrearComponent } from './modules/designaciones/movimientos/baja/crear/c
     DetalleComponent,
     EjemploErrorComponent,
     BajaComponent,
-    CrearComponent
+    CrearComponent,
+    AprobarComponent,
+    DenegarComponent,
+    EditarComponent
   ],
   entryComponents: [
   ],
