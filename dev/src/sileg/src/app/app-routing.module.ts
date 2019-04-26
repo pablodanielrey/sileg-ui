@@ -171,7 +171,18 @@ const routes: Routes = [
       {
         path: 'designaciones',
         children: [
-          { path: 'listar/:id', component: ListarDesignacionesComponent },
+          { 
+            path: 'listar/:id', 
+            component: ListarDesignacionesComponent,
+            children: [
+              { 
+                path: 'baja',
+                children: [
+                  { path: 'crear/:lid', component: BajaMovimientoCrearComponent }
+                ]
+              }              
+            ]
+          },
           { path: 'modificar/:id', component: ModificarDesignacionComponent},
           { path: 'seleccionar-lugar', component: SeleccionarLugaresDesignacionComponent }
         ]

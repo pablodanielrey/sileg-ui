@@ -17,7 +17,7 @@
             <input matInput formControlName='ruta'/>
         </mat-form-field>
         -->
-        <mat-form-field>
+        <mat-form-field class='listado-rutas'>
             <mat-label>Ruta</mat-label>
             <mat-select formControlName='ruta'>
                 <mat-option *ngFor='let r of rutas' [value]="r.path">

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PreloadService } from '../../../../core/preload/preload.service';
 
 @Component({
   selector: 'app-baja',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BajaComponent implements OnInit {
 
-  constructor() { }
+  constructor(private preload: PreloadService) { }
 
   ngOnInit() {
+    //this.preload.activar_preload_completo();
   }
 
 }

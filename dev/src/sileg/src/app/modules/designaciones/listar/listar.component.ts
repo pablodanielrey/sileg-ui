@@ -4,6 +4,7 @@ import { SilegService } from '../../../shared/services/sileg.service';
 import { map, tap, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { NavegarService } from '../../../core/navegar.service';
+import { ErrorService } from '../../../core/error/error.service';
 
 @Component({
   selector: 'app-listar',
@@ -15,7 +16,9 @@ export class ListarComponent implements OnInit {
   columnas: string[] = ['usuario','cargo','dedicacion','caracter','fecha','nota','resolucion','expediente','estado','acciones'];
   lugares$: Observable<any[]>;
 
-  constructor(private service : SilegService, private navegar: NavegarService) { }
+  constructor(private error_service: ErrorService,
+              private service : SilegService, 
+              private navegar: NavegarService) { }
 
   ngOnInit() {
     let lid = "1f7b87ea-96b7-428c-8a00-fd33e1ba3ee6";
@@ -44,7 +47,7 @@ export class ListarComponent implements OnInit {
 
   dar_de_baja(did) {
     this.navegar.navegar({
-      url: '/sistema/movimientos/baja/crear/did',
+      url: '/sistema/designaciones/listar/:id/baja/crear/:lid',
       params: {did:did}
     }).subscribe()
   }
@@ -67,5 +70,10 @@ export class ListarComponent implements OnInit {
   volver() {
     this.navegar.volver().subscribe().unsubscribe();
   }  
+
+
+  mostrar_error() {
+    this.error_service.error({'error': true, 'mensaje': 'designacion creada con éxito'});
+  }    
 
 }

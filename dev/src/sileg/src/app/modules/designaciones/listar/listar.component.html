@@ -4,7 +4,9 @@
 </mat-toolbar-row>
   
 <mat-divider></mat-divider>
-  
+ 
+<router-outlet></router-outlet>
+
 <div class="pantalla">
 
     <mat-tab-group *ngFor="let l of (lugares$ | async)" class="tab">
@@ -76,7 +78,7 @@
                               <mat-icon>apps</mat-icon>
                             </button>
                             <mat-menu #menu="matMenu">
-                                <button mat-menu-item>
+                                <button mat-menu-item (click)='mostrar_error()'>
                                   <mat-icon>check</mat-icon>
                                   <span>Aprobar</span>
                                 </button>
@@ -111,18 +113,15 @@
                         <button mat-button color="primary" (click)='dar_de_alta(l.id)'>+ NUEVA DESIGNACIÓN</button>
                     </mat-footer-cell>
                 </ng-container>
-  
-                
             
                 <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: columnas;"></mat-row>   
                 <mat-footer-row mat-footer-row *matFooterRowDef="['footer']" class="example-second-footer-row"></mat-footer-row>
-   
-  
               </mat-table>
     
           </mat-tab>
   
     </mat-tab-group>
-  
+
+
 </div>

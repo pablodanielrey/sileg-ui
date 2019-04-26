@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SilegService } from '../../../../shared/services/sileg.service';
-import { Observable, of } from 'rxjs';
-import { switchMap, map, tap } from 'rxjs/operators';
+import { Observable, of, timer } from 'rxjs';
+import { switchMap, map, tap, delay } from 'rxjs/operators';
 import { NavegarService } from '../../../../core/navegar.service';
 
 
@@ -18,6 +18,20 @@ export class PendientesComponent implements OnInit {
   constructor(private service : SilegService, private navegar: NavegarService) {  }
 
   ngOnInit() { 
+    /*
+      obtengo el lugar raiz de todo el arbol para fce y llamo a la lista de designaciones para ese lugar.
+    */
+    let lid_raiz = 'asdfsadasasasdsassd'
+    let ruta = {
+      url: '/sistema/designaciones/listar/' + lid_raiz,
+      params: {}
+    }
+    let s = timer(1000).pipe(
+      switchMap(_ => this.navegar.navegar(ruta))
+    ).subscribe(_ => {
+      s.unsubscribe();
+    })
+    /*
     let lid = "1f7b87ea-96b7-428c-8a00-fd33e1ba3ee6";
  
     this.lugares$ = this.service.desginacionesPendientes([lid]).pipe(
@@ -35,7 +49,7 @@ export class PendientesComponent implements OnInit {
       }),
       tap(v => console.log(v))
     )    
-
+      */
   }
 
   obtenerDesignacionesPendientes(ids: string[]): Observable<Array<any>> {

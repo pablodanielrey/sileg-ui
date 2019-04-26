@@ -3,6 +3,7 @@ import { switchMap, tap } from 'rxjs/operators';
 import { interval } from 'rxjs';
 import { NavegarService } from '../../../../../core/navegar.service';
 import { PreloadService } from '../../../../../core/preload/preload.service';
+import { ErrorService } from '../../../../../core/error/error.service';
 
 @Component({
   selector: 'app-crear',
@@ -11,9 +12,12 @@ import { PreloadService } from '../../../../../core/preload/preload.service';
 })
 export class CrearComponent implements OnInit {
 
-  constructor(private navegar: NavegarService, private preload: PreloadService) { }
+  constructor(private navegar: NavegarService, 
+              private preload: PreloadService,
+              private error_service: ErrorService) { }
 
   ngOnInit() {
+    /*
     this.preload.activar_preload_completo();
     let s = interval(2000).pipe(
       switchMap(v => this.navegar.volver()),
@@ -22,6 +26,20 @@ export class CrearComponent implements OnInit {
       console.log(v);
       s.unsubscribe();
     });
+    */
+    this.mostrar_error();
+    /*
+    let s = this.navegar.navegar({
+      url:'/sistema/designaciones/listar/:id',
+      params:{}
+    }).subscribe(_ => {
+      s.unsubscribe();
+    });
+    */
   }
+
+  mostrar_error() {
+    this.error_service.error({'error': true, 'mensaje': 'baja exitosa'});
+  }    
 
 }
