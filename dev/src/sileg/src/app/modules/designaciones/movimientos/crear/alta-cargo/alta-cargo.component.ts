@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Observable, BehaviorSubject, of, forkJoin } from 'rxjs';
+import { Observable, BehaviorSubject, of, forkJoin, timer } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { SilegService } from '../../../../../shared/services/sileg.service';
 import { switchMap, map, tap, mergeMap } from 'rxjs/operators';
 import { NavegarService } from '../../../../../core/navegar.service';
+import { ErrorService } from '../../../../../core/error/error.service';
 
 @Component({
   selector: 'app-alta-cargo',
@@ -35,7 +36,8 @@ export class AltaCargoComponent implements OnInit {
   constructor(
     private route : ActivatedRoute,
     private service: SilegService,
-    private navegar: NavegarService
+    private navegar: NavegarService,
+    private error: ErrorService
   ) { }  
 
   ngOnInit() {
@@ -98,7 +100,16 @@ export class AltaCargoComponent implements OnInit {
 
     // navegamos al final del proceso
     let ruta = JSON.parse(sessionStorage.getItem('finalizar_proceso'));
-    this.navegar.navegar(ruta).subscribe()
+    let s = timer(2000).pipe(
+      tap(_ => {this.mostrar_error('se ha creado existósamente el alta')}),
+      switchMap(_ => this.navegar.navegar(ruta))
+      ).subscribe(_ => {
+        s.unsubscribe();
+    });
+  }
+
+  mostrar_error(e) {
+    this.error.error({error:true, mensaje:e});
   }
 
   volver() {

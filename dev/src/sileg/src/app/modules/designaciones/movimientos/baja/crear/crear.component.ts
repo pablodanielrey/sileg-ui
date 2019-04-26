@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { switchMap, tap } from 'rxjs/operators';
-import { interval } from 'rxjs';
+import { interval, timer } from 'rxjs';
 import { NavegarService } from '../../../../../core/navegar.service';
 import { PreloadService } from '../../../../../core/preload/preload.service';
 import { ErrorService } from '../../../../../core/error/error.service';
@@ -27,15 +27,14 @@ export class CrearComponent implements OnInit {
       s.unsubscribe();
     });
     */
-    this.mostrar_error();
-    /*
-    let s = this.navegar.navegar({
-      url:'/sistema/designaciones/listar/:id',
-      params:{}
-    }).subscribe(_ => {
-      s.unsubscribe();
-    });
-    */
+    let s = timer(2000).pipe(
+      tap(_ => { this.mostrar_error() }),
+      switchMap(_ => this.navegar.navegar({
+          url:'/sistema/designaciones/listar/:id',
+          params:{}
+      }))).subscribe(_ => {
+          s.unsubscribe();
+      });
   }
 
   mostrar_error() {
