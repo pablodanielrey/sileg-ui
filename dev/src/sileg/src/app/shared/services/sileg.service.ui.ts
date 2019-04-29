@@ -145,6 +145,7 @@ export class SilegService {
         }, 
         designaciones: [
           { 
+            id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
             designacion: {
               id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
               expediente: 'dsfsdf',
@@ -155,6 +156,7 @@ export class SilegService {
                 nombre: 'Titular',
                 id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
               },
+              lugar_id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
               usuario_id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
             },
             usuario: { id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4', nombre: 'Walter', apellido: '', dni: ''  },
