@@ -5,76 +5,52 @@
       
 <mat-divider></mat-divider>
     
-    
-<div class="pantalla">
+ <div class="pantalla">
 
-    <mat-card class="example-card">
-                <mat-card-header>
-                  <mat-card-title>{{(persona$ | async)?.nombre}}</mat-card-title>
-                  <mat-card-subtitle>{{(lugar$ | async)?.nombre}}</mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content>
-                </mat-card-content>
-    </mat-card>
+    <div class="contenedorForm">
 
-        <mat-tab-group>
-                <mat-tab label="{{(lugar$ | async)?.nombre}}"> 
+        <mat-card class="contenedorUsuario">
+            <mat-card-header>
+                <mat-card-title>{{(persona$ | async)?.nombre}}</mat-card-title>
+                <mat-card-subtitle>{{(lugar$ | async)?.nombre}}</mat-card-subtitle>
+            </mat-card-header>
+        </mat-card>
 
-                        <mat-card >
-                                <mat-card-content >
-                    
-                        <form [formGroup]='form' (ngSubmit)='submit()'>
+        <form [formGroup]='form' (ngSubmit)='submit()' class="formulario" >
 
-                                <span>{{(persona$ | async)?.nombre}}</span>
-
-                                <mat-form-field>
-                                    <mat-label>Cargo</mat-label>
-                                    <mat-select formControlName='cargo'>
-                                        <mat-option *ngFor="let cargo of (cargos$ | async)" [value]="cargo">
-                                            {{cargo.nombre}}
-                                        </mat-option>
-                                    </mat-select>    
-                                </mat-form-field>
+            <mat-form-field class="itemFormulario" appearance="outline">
+                <mat-label>Cargo</mat-label>
+                    <mat-select formControlName='cargo'>
+                        <mat-option *ngFor="let cargo of (cargos$ | async)" [value]="cargo">
+                            {{cargo.nombre}}
+                        </mat-option>
+                    </mat-select>    
+            </mat-form-field>
                             
-                                <mat-form-field>
-                                    <mat-label>Dedicación</mat-label>
-                                    <mat-select formControlName='cargo'>
-                                        <mat-option *ngFor="let cargo of (dedicaciones$ | async)" [value]="cargo">
-                                            {{cargo.dedicacion}}
-                                        </mat-option>
-                                    </mat-select>    
-                                </mat-form-field>
+            <mat-form-field class="itemFormulario" appearance="outline">
+                <mat-label>Dedicación</mat-label>
+                    <mat-select formControlName='cargo'>
+                        <mat-option *ngFor="let cargo of (dedicaciones$ | async)" [value]="cargo">
+                            {{cargo.dedicacion}}
+                        </mat-option>
+                    </mat-select>    
+            </mat-form-field>
                             
-                                <mat-form-field>
-                                    <mat-label>Dedicación</mat-label>
-                                    <mat-select formControlName='cargo'>
-                                        <mat-option *ngFor="let cargo of (caracteres$ | async)" [value]="cargo">
-                                            {{cargo.caracter}}
-                                        </mat-option>
-                                    </mat-select>    
-                                </mat-form-field>
+            <mat-form-field class="itemFormulario" appearance="outline">
+                <mat-label>Dedicación</mat-label>
+                    <mat-select formControlName='cargo'>
+                        <mat-option *ngFor="let cargo of (caracteres$ | async)" [value]="cargo">
+                            {{cargo.caracter}}
+                        </mat-option>
+                    </mat-select>    
+            </mat-form-field>
                                 
-                                <button type="submit" [disabled]="!form.valid">Actualizar</button>
-                            
-                        </form>
+        </form>
 
-                </mat-card-content >
-            </mat-card >
+    </div>
 
-
-
-
-                </mat-tab>
-        </mat-tab-group>
-
-
-puntos: {{puntos$ | async}}
-
-lugar: {{(lugar$ | async)?.nombre}}
-nombre: {{(persona$ | async)?.nombre}}
-
-
-
-        <button (click)='crear()'>Crear</button>
+    <div class="contenedorAcciones"> 
+        <button type="submit" [disabled]="!form.valid" mat-flat-button color="primary" class="btnGuardar">GUARDAR</button>
+    </div>
 
 </div>
