@@ -40,19 +40,11 @@ export class ListarComponent implements OnInit {
     )  
   }
 
-  detalle(did) {
-    let s = this.navegar.navegar({
-      url: '/sistema/designaciones/listar/:id/baja/crear/:lid',
-      params: {did:did}
-    }).subscribe(_ => {
-      s.unsubscribe();
-    })
-  }
 
-  modificar(did) {
+  modificar(mid) {
     let s = this.navegar.navegar({
-      url: '/sistema/designaciones/listar/:id/baja/crear/:lid',
-      params: {did:did}
+      url: '/sistema/movimientos/editar/:mid',
+      params: {mid:mid}
     }).subscribe(_ => {
       s.unsubscribe();
     })
@@ -85,10 +77,20 @@ export class ListarComponent implements OnInit {
     })
   }
 
-  dar_de_baja(did) {
+
+  detalle(did) {
     let s = this.navegar.navegar({
-      url: '/sistema/designaciones/listar/:id/baja/crear/:lid',
+      url: '/sistema/designaciones/detalle/:id',
       params: {did:did}
+    }).subscribe(_ => {
+      s.unsubscribe();
+    })
+  }
+
+  dar_de_baja(mid) {
+    let s = this.navegar.navegar({
+      url: '/sistema/designaciones/listar/:id/baja/:mid',
+      params: {did:mid}
     }).subscribe(_ => {
       s.unsubscribe();
     })

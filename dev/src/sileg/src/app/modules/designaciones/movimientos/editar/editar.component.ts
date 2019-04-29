@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-editar',
@@ -7,7 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditarComponent implements OnInit {
 
-  constructor() { }
+  form: FormGroup = null;
+
+  constructor(private fb: FormBuilder) { 
+    this.form = fb.group({
+      cargo: [''],
+      dedicacion: [''],
+      caracter: ['']
+    });
+  }
 
   ngOnInit() {
   }

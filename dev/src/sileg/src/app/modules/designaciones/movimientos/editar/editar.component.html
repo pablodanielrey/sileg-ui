@@ -1,3 +1,43 @@
-<p>
-  editar works!
-</p>
+<form [formGroup]='form' (ngSubmit)='submit()'>
+
+      Estado:
+        Fecha de movimiento: 02/12/1979
+        Origen: Walter Blanco 27294557
+    
+      Persona:
+        Nombre: Pablo Daniel
+        Apellido: Rey
+        DNI: 2729452
+        Teléfono: 0221 - ... 12
+        Correo: pablo.rey@dominio.com
+
+      <mat-form-field>
+          <mat-label>Cargo</mat-label>
+          <mat-select formControlName='cargo'>
+              <mat-option *ngFor="let cargo of (cargos$ | async)" [value]="cargo">
+                  {{cargo.nombre}}
+              </mat-option>
+          </mat-select>    
+      </mat-form-field>
+  
+      <mat-form-field>
+          <mat-label>Dedicación</mat-label>
+          <mat-select formControlName='dedicacion'>
+              <mat-option *ngFor="let cargo of (dedicaciones$ | async)" [value]="cargo">
+                  {{cargo.dedicacion}}
+              </mat-option>
+          </mat-select>    
+      </mat-form-field>
+  
+      <mat-form-field>
+          <mat-label>Dedicación</mat-label>
+          <mat-select formControlName='caracter'>
+              <mat-option *ngFor="let cargo of (caracteres$ | async)" [value]="cargo">
+                  {{cargo.caracter}}
+              </mat-option>
+          </mat-select>    
+      </mat-form-field>
+      
+      <button type="submit" [disabled]="!form.valid">Actualizar</button>
+        
+</form>

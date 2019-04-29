@@ -18,6 +18,7 @@ import { CrearPersonaComponent as AltaMovimientoCrearPersonaComponent } from './
 import { AltaCargoComponent as AltaMovimientoAltaCargoComponent } from './modules/designaciones/movimientos/crear/alta-cargo/alta-cargo.component';
 
 import { CrearComponent as BajaMovimientoCrearComponent } from './modules/designaciones/movimientos/baja/crear/crear.component';
+import { EditarComponent as EditarMovimientoComponent } from './modules/designaciones/movimientos/editar/editar.component';
 
 import { SeleccionarComponent as SeleccionarLugarComponent } from './modules/lugares/seleccionar/seleccionar.component';
 import { DetalleComponent as DetalleLugarComponent } from './modules/lugares/detalle/detalle.component';
@@ -151,6 +152,7 @@ const routes: Routes = [
       {
         path: 'movimientos',
         children: [
+          { path: 'editar/:mid', component: EditarMovimientoComponent },
           { path:'pendientes', component: MovimientosPendientesComponent },
           { 
             path: 'crear',
@@ -159,12 +161,6 @@ const routes: Routes = [
               { path: 'crear/:lid', component: AltaMovimientoCrearPersonaComponent },
               { path: 'alta/:lid/:pid', component: AltaMovimientoAltaCargoComponent }
             ] 
-          },
-          { 
-            path: 'baja',
-            children: [
-              { path: 'crear/:lid', component: BajaMovimientoCrearComponent }
-            ]
           }
         ]
       },
@@ -175,12 +171,7 @@ const routes: Routes = [
             path: 'listar/:id', 
             component: ListarDesignacionesComponent,
             children: [
-              { 
-                path: 'baja',
-                children: [
-                  { path: 'crear/:lid', component: BajaMovimientoCrearComponent }
-                ]
-              }              
+              { path: 'baja/:mid', component: BajaMovimientoCrearComponent }
             ]
           },
           { path: 'modificar/:id', component: ModificarDesignacionComponent},
