@@ -1,38 +1,57 @@
+<mat-toolbar color="primary" >DEBUG</mat-toolbar>
 
-<div>
-    Preload Completo
-    <button (click)='activar_preload_completo()'>activar</button>
-    <button (click)='desactivar_preload_completo()'>desactivar</button>
+<div class="pantalla">
+
+        <mat-card class="bloques">
+            <mat-card-title>Rutas</mat-card-title>
+            <mat-card-content>
+                    <form [formGroup]='form' (ngSubmit)='navegar()'>
+                            <!--
+                            <mat-form-field>
+                                <mat-label>Ruta</mat-label>
+                                <input matInput formControlName='ruta'/>
+                            </mat-form-field>
+                            -->
+                            <mat-form-field class='listadoRutas'>
+                                <mat-label>Seleccionar Ruta</mat-label>
+                                <mat-select formControlName='ruta'>
+                                    <mat-option *ngFor='let r of rutas' [value]="r.path">
+                                        {{r.path}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <button mat-stroked-button color="primary" type='submit'>Navegar</button>
+                        </form>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="bloques"> 
+                <mat-card-title>Preload's</mat-card-title>
+                <mat-card-content>
+                        Preload Completo
+                        <button mat-stroked-button color="primary" (click)='activar_preload_completo()' class="btnPreload">Activar</button>
+                        <button mat-stroked-button color="primary" (click)='desactivar_preload_completo()' class="btnPreload">Desactivar</button>
+
+                        Preload Parcial
+                        <button mat-stroked-button color="primary" (click)='activar_preload_parcial()' class="btnPreload">Activar</button>
+                        <button mat-stroked-button color="primary" (click)='desactivar_preload_parcial()' class="btnPreload">Desactivar</button>
+                </mat-card-content>
+        </mat-card>
+
+        <mat-card class="bloques"> 
+                <mat-card-title>Permisos</mat-card-title>
+                <mat-card-content>
+                        <div *ngFor='let p of permisos._load_perms() | async'>
+                                {{p}}
+                            </div>
+                            <p>urn:*:*:*</p>  
+                            <div>
+                                <button mat-stroked-button color="primary" (click)='configurar_permisos()'>Configurar Permisos</button>
+                            </div>
+                </mat-card-content>
+        </mat-card>
+
 </div>
-<div>
-    Preload Parcial
-    <button (click)='activar_preload_parcial()'>activar</button>
-    <button (click)='desactivar_preload_parcial()'>desactivar</button>
-</div>
-<div>
-    <form [formGroup]='form' (ngSubmit)='navegar()'>
-        <!--
-        <mat-form-field>
-            <mat-label>Ruta</mat-label>
-            <input matInput formControlName='ruta'/>
-        </mat-form-field>
-        -->
-        <mat-form-field class='listado-rutas'>
-            <mat-label>Ruta</mat-label>
-            <mat-select formControlName='ruta'>
-                <mat-option *ngFor='let r of rutas' [value]="r.path">
-                    {{r.path}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <button type='submit'>navegar</button>
-    </form>
-</div>
-<div>
-    Permisos
-    <div *ngFor='let p of permisos._load_perms() | async'>
-        {{p}}
-    </div>
-    <label>urn:*:*:*</label>    
-    <button (click)='configurar_permisos()'>Configurar ejemplo</button>
-</div>
+
+
+
