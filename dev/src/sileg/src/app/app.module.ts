@@ -42,6 +42,8 @@ import { CrearComponent } from './modules/designaciones/movimientos/baja/crear/c
 import { AprobarComponent } from './modules/designaciones/movimientos/aprobar/aprobar.component';
 import { DenegarComponent } from './modules/designaciones/movimientos/denegar/denegar.component';
 import { EditarComponent } from './modules/designaciones/movimientos/editar/editar.component';
+import { AdjuntarArchivoComponent } from './shared/components/adjuntar-archivo/adjuntar-archivo.component';
+import { AdjuntarArchivosComponent } from './shared/components/adjuntar-archivos/adjuntar-archivos.component';
 
 //import { SeleccionarUsuarioComponent } from '../usuarios/seleccionar-usuario/seleccionar-usuario.component';
 //import { DetalleUsuarioComponent } from '../usuarios/detalle-usuario/detalle-usuario.component';
@@ -107,7 +109,9 @@ import { EditarComponent } from './modules/designaciones/movimientos/editar/edit
     CrearComponent,
     AprobarComponent,
     DenegarComponent,
-    EditarComponent
+    EditarComponent,
+    AdjuntarArchivoComponent,
+    AdjuntarArchivosComponent
   ],
   entryComponents: [
   ],
