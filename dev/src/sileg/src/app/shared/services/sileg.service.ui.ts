@@ -145,6 +145,7 @@ export class SilegService {
         }, 
         designaciones: [
           { 
+            id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
             designacion: {
               id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
               expediente: 'dsfsdf',
