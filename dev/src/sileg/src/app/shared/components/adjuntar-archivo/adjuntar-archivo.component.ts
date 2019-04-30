@@ -26,7 +26,7 @@ export class AdjuntarArchivoComponent implements OnInit {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       let reader = new FileReader();
-      reader.onload = _ => {
+      reader.onloadstart = _ => {
         this.zone.run(_ => {
           this.cargando = true;
         });
