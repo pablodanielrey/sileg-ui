@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material';
 
@@ -11,9 +11,12 @@ import { MatFormFieldControl } from '@angular/material';
 export class AdjuntarArchivoComponent implements OnInit {
 
   @Output()
-  seleccionado: EventEmitter<File> = new EventEmitter<File>();
+  seleccionado: EventEmitter<Object> = new EventEmitter<Object>();
 
-  constructor(private fb: FormBuilder) { 
+  cargando = false;
+  
+
+  constructor(private zone: NgZone) { 
   }
 
   ngOnInit() {
@@ -22,7 +25,25 @@ export class AdjuntarArchivoComponent implements OnInit {
   onFileChange(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      this.seleccionado.emit(file);
+      let reader = new FileReader();
+      reader.onload = _ => {
+        this.zone.run(_ => {
+          this.cargando = true;
+        });
+      }
+      reader.onloadend = _ => {
+        let archivo = {
+          nombre: file.name,
+          tamano: file.size,
+          tipo: file.type,
+          contenido: window.btoa(<string>reader.result)
+        }
+        this.zone.run(_ => {
+          this.cargando = false;
+        });
+        this.seleccionado.emit(archivo);
+      }
+      reader.readAsBinaryString(file);
     }
   }  
 
