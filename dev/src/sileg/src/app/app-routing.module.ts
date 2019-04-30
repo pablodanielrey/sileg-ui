@@ -24,6 +24,7 @@ import { SeleccionarComponent as SeleccionarLugarComponent } from './modules/lug
 import { DetalleComponent as DetalleLugarComponent } from './modules/lugares/detalle/detalle.component';
 
 import { AdjuntarArchivoComponent } from './shared/components/adjuntar-archivo/adjuntar-archivo.component'; 
+import { AdjuntarArchivosComponent } from './shared/components/adjuntar-archivos/adjuntar-archivos.component'; 
 
 import { DebugComponent } from './core/debug/debug.component';
 import { EjemploErrorComponent } from './modules/ejemplo-error/ejemplo-error.component';
@@ -84,7 +85,8 @@ const routes: Routes = [
       {
         path: 'componentes',
         children: [
-          { path: 'adjuntar-archivo', component: AdjuntarArchivoComponent }
+          { path: 'adjuntar-archivo', component: AdjuntarArchivoComponent },
+          { path: 'adjuntar-archivos', component: AdjuntarArchivosComponent }
         ]
       }
 

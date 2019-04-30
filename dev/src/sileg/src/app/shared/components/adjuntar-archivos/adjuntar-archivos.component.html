@@ -1,3 +1,13 @@
-<p>
-  adjuntar-archivos works!
-</p>
+<div class="container">
+
+  <input hidden type="file" multiple #fileInput (change)='onFileChange($event)'>
+  <button mat-raised-button color="primary" (click)="fileInput.click()">Seleccionar</button>
+
+  <div *ngFor='let f of archivos'>
+    {{f.name}}
+    {{f.size}}
+  </div>
+
+  <button mat-raised-button color='primary' (click)='seleccionar()'>Cargar</button>
+
+</div>
