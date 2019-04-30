@@ -3,11 +3,11 @@
   <input hidden type="file" multiple #fileInput (change)='onFileChange($event)'>
   <button mat-raised-button color="primary" (click)="fileInput.click()">Seleccionar</button>
 
-  <div *ngFor='let f of archivos_a_cargar'>
-    {{f.archivo.name}}
-    {{f.archivo.size}}
-    {{f.cargando}}
-    {{f.contenido}}
+  <div *ngFor='let f of archivos'>
+    <div>nombre:{{f.archivo.name}}</div>
+    <div>tamaño:{{f.archivo.size}}</div>
+    <div>cargando:{{f.cargando}}</div>
+    <div>{{f.contenido}}</div>
   </div>
 
   <button mat-raised-button color='primary' (click)='seleccionar()'>Cargar</button>

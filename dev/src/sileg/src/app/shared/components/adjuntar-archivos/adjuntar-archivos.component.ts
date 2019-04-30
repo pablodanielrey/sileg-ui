@@ -15,10 +15,7 @@ export class AdjuntarArchivosComponent implements OnInit {
 
   @Output()
   seleccionado: EventEmitter<Object[]> = new EventEmitter<Object[]>();
-  archivos: Object[] = [];
-  archivos_a_cargar: Archivo[] = [];
-
-
+  archivos: Archivo[] = [];
 
   constructor(private zone: NgZone) { 
   }
@@ -27,8 +24,8 @@ export class AdjuntarArchivosComponent implements OnInit {
   }
 
   chequear(f:File) {
-    for (let o = 0; o < this.archivos_a_cargar.length; o++) {
-      let d = this.archivos_a_cargar[o].archivo;
+    for (let o = 0; o < this.archivos.length; o++) {
+      let d = this.archivos[o].archivo;
       if (d.name == f.name && d.size == f.size && d.lastModified == f.lastModified) {
         return true;
       }
@@ -37,7 +34,7 @@ export class AdjuntarArchivosComponent implements OnInit {
   }
 
   cargar_archivos() {
-    this.archivos_a_cargar.forEach(f => {
+    this.archivos.forEach(f => {
       // leo archivo por archivo
       let reader = new FileReader();
       reader.onloadstart = _ => {
@@ -64,7 +61,7 @@ export class AdjuntarArchivosComponent implements OnInit {
       for (let i = 0; i < event.target.files.length; i++) {
         let f = event.target.files[i];
         if (!this.chequear(f)) {
-          this.archivos_a_cargar.push({archivo:f, cargando:false, contenido:null});
+          this.archivos.push({archivo:f, cargando:false, contenido:null});
         }
       }
     }
@@ -72,7 +69,16 @@ export class AdjuntarArchivosComponent implements OnInit {
   }  
 
   seleccionar() {
-    this.seleccionado.emit(this.archivos);
+    let evento = [];
+    this.archivos.forEach(f => {
+      evento.push({
+        nombre: f.archivo.name,
+        tamano: f.archivo.size,
+        tipo: f.archivo.type,
+        contenido: f.contenido
+      })
+    });
+    this.seleccionado.emit(evento);
   }
 
 }
