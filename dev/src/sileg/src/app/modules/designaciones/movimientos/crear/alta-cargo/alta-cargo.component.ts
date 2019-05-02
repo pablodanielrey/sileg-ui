@@ -108,6 +108,8 @@ export class AltaCargoComponent implements OnInit {
     });
   }
 
+  ////////////////////////////
+
   archivo_depto = null;
   archivo_docente = null;
 
@@ -120,6 +122,17 @@ export class AltaCargoComponent implements OnInit {
     console.log(archivo);
     this.archivo_docente = archivo;
   }
+
+  //////////////////////
+
+  archivos: Object[] = [];
+
+  notas(archivos) {
+    console.log(archivos);
+    this.archivos = archivos;
+  }
+
+  ////////////////////
 
   mostrar_error(e) {
     this.error.error({error:true, mensaje:e});

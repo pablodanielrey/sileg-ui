@@ -45,16 +45,17 @@
                 </mat-select>    
             </mat-form-field>
            
-
+            <mat-form-field>
+                <app-adjuntar-archivos></app-adjuntar-archivos>
+            </mat-form-field>
         </form>
 
+        <!-- ejemplo de archivo multiple -->
+        Archivos:<app-adjuntar-archivos (seleccionado)='notas($event)'></app-adjuntar-archivos>
+        <mat-chip-list *ngFor='let archivo of archivos'>
+            <mat-chip>{{archivo.nombre}}</mat-chip>
+        </mat-chip-list>
 
-        Nota Docente<app-adjuntar-archivo (seleccionado)='nota_docente($event)'></app-adjuntar-archivo>
-        <div *ngIf='archivo_docente'>
-            archivo: {{archivo_docente?.nombre}}
-        </div>
-        
-        Nota Depto<app-adjuntar-archivo (seleccionado)='nota_depto($event)'></app-adjuntar-archivo>
 
     </div>
 

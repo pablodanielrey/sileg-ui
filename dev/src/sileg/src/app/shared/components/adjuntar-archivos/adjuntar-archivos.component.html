@@ -1,15 +1,12 @@
-<div class="container">
-
+<mat-form-field>
   <input hidden type="file" multiple #fileInput (change)='onFileChange($event)'>
-  <button mat-raised-button color="primary" (click)="fileInput.click()">Seleccionar</button>
-
-  <div *ngFor='let f of archivos'>
-    <div>nombre:{{f.archivo.name}}</div>
-    <div>tamaño:{{f.archivo.size}}</div>
-    <div>cargando:{{f.cargando}}</div>
-    <div>{{f.contenido}}</div>
-  </div>
-
-  <button mat-raised-button color='primary' (click)='seleccionar()'>Cargar</button>
-
-</div>
+  <mat-chip-list #chipList>
+    <mat-chip *ngFor='let f of archivos' (removed)='deseleccionar(f)'>
+      {{f.archivo.name}}
+      <mat-progress-bar *ngIf='f.cargando' mode='determinate' [value]='f.cargado'></mat-progress-bar>
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+  </mat-chip-list>
+  <button matSuffix mat-mini-fab (click)="fileInput.click()">file</button>
+  <input mat-input placeholder="Archivos...." [matChipInputFor]="chipList">
+</mat-form-field>
