@@ -2,7 +2,6 @@
 
     <input hidden type="file" #fileInput (change)='onFileChange($event)'>
     <button mat-raised-button color="primary" (click)="fileInput.click()">Upload</button>
-
-    <div *ngIf='cargando'>Cargando Archivo</div>
+    <mat-progress-bar *ngIf='cargando' mode='determinate' [value]='cargado'></mat-progress-bar>
 
 </div>

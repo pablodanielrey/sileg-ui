@@ -44,13 +44,18 @@
                     </mat-option>
                 </mat-select>    
             </mat-form-field>
-                    
-            
+           
             <mat-form-field>
-                <app-adjuntar-archivo formControlName='archivo'></app-adjuntar-archivo>
+                <app-adjuntar-archivos></app-adjuntar-archivos>
             </mat-form-field>
-
         </form>
+
+        <!-- ejemplo de archivo multiple -->
+        Archivos:<app-adjuntar-archivos (seleccionado)='notas($event)'></app-adjuntar-archivos>
+        <mat-chip-list *ngFor='let archivo of archivos'>
+            <mat-chip>{{archivo.nombre}}</mat-chip>
+        </mat-chip-list>
+
 
     </div>
 
