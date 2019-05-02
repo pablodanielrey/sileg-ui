@@ -1,4 +1,4 @@
-<mat-form-field>
+
   <input hidden type="file" multiple #fileInput (change)='onFileChange($event)'>
   <mat-chip-list #chipList>
     <mat-chip *ngFor='let f of archivos' (removed)='deseleccionar(f)'>
@@ -9,4 +9,3 @@
   </mat-chip-list>
   <button matSuffix mat-mini-fab (click)="fileInput.click()">file</button>
   <input mat-input placeholder="Archivos...." [matChipInputFor]="chipList">
-</mat-form-field>

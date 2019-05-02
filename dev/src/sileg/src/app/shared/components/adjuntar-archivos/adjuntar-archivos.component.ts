@@ -1,4 +1,7 @@
-import { Component, OnInit, Output, EventEmitter, NgZone } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, NgZone, Input, OnDestroy } from '@angular/core';
+import { MatFormFieldControl } from '@angular/material';
+import { getQueryValue } from '@angular/core/src/view/query';
+import { Subject } from 'rxjs';
 
 interface Archivo {
   archivo: File,
@@ -12,16 +15,57 @@ interface Archivo {
   templateUrl: './adjuntar-archivos.component.html',
   styleUrls: ['./adjuntar-archivos.component.scss']
 })
-export class AdjuntarArchivosComponent implements OnInit {
+export class AdjuntarArchivosComponent implements OnInit, OnDestroy, MatFormFieldControl<Archivo[]> {
+
+  ///////////////////////// MatFormFieldControl ///////////////
+
+  value: Archivo[];
+  stateChanges = new Subject<void>();
+  id: string;
+  placeholder: string;
+  ngControl: import("@angular/forms").NgControl;
+  focused: boolean;
+  empty: boolean;
+  shouldLabelFloat: boolean;
+  required: boolean;
+  disabled: boolean;
+  errorState: boolean;
+  controlType?: string;
+  autofilled?: boolean;
+  
+  setDescribedByIds(ids: string[]): void {
+    throw new Error("Method not implemented.");
+  }
+  
+  onContainerClick(event: MouseEvent): void {
+    throw new Error("Method not implemented.");
+  }
+
+  /////////////////////////////////////////////////////////
+
 
   @Output()
   seleccionado: EventEmitter<Object[]> = new EventEmitter<Object[]>();
+
+  @Input()
+  getValue(): Archivo[] | null {
+    return this.archivos;
+  }
+  setValue(archivos: Archivo[] | null) {
+    this.archivos = archivos;
+    this.stateChanges.next();
+  } 
+
   archivos: Archivo[] = [];
 
   constructor(private zone: NgZone) { 
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.stateChanges.complete();
   }
 
   chequear(f:File) {
