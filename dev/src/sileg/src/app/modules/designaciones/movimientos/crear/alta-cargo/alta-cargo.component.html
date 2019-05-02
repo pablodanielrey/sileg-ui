@@ -44,13 +44,17 @@
                     </mat-option>
                 </mat-select>    
             </mat-form-field>
-                    
-            
-            <mat-form-field>
-                <app-adjuntar-archivo formControlName='archivo'></app-adjuntar-archivo>
-            </mat-form-field>
+           
 
         </form>
+
+
+        Nota Docente<app-adjuntar-archivo (seleccionado)='nota_docente($event)'></app-adjuntar-archivo>
+        <div *ngIf='archivo_docente'>
+            archivo: {{archivo_docente?.nombre}}
+        </div>
+        
+        Nota Depto<app-adjuntar-archivo (seleccionado)='nota_depto($event)'></app-adjuntar-archivo>
 
     </div>
 
