@@ -1,5 +1,43 @@
 import { Usuario } from '../entities/usuario';
 
+// =================================================
+// ================== NUEVO ========================
+// =================================================
+
+export class Cargo {
+  id: string;
+  nombre: string;
+  descripcion: string;
+  tipo: string;
+  codigo: string;
+  puntos: number;
+
+  constructor(o:Object) {
+    try {
+      Object.assign(this, o);
+    } catch(e) {
+      console.log(e);
+    }
+  }
+
+}
+
+export class Caracter {
+  id: string;
+  nombre: string;
+
+  constructor(o:Object) {
+    try {
+      Object.assign(this, o);
+    } catch(e) {
+      console.log(e);
+    }
+  }  
+}
+
+// =================================================
+// ============== FIN NUEVO ========================
+// =================================================
 export class Sileg {
   actualizado: string;
   creado: string;
@@ -93,20 +131,20 @@ export class PedidoDesignacion {
   correo: string;
 }
 
-export class Cargo {
-  nombre: string;
-  id: string;
-  tipo: string;
+// export class Cargo {
+//   nombre: string;
+//   id: string;
+//   tipo: string;
 
-  constructor(o:Object) {
-    try {
-      Object.assign(this, o);
-    } catch(e) {
-      console.log(e);
-    }
-  }
+//   constructor(o:Object) {
+//     try {
+//       Object.assign(this, o);
+//     } catch(e) {
+//       console.log(e);
+//     }
+//   }
 
-}
+// }
 
 export class Designacion {
   desde: Date;

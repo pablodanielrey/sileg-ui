@@ -37,10 +37,10 @@
       </mat-form-field>
                       
       <mat-form-field class="itemFormulario" appearance="outline">
-          <mat-label>Dedicación</mat-label>
-              <mat-select formControlName='cargo'>
-                  <mat-option *ngFor="let cargo of (caracteres$ | async)" [value]="cargo">
-                      {{cargo.caracter}}
+          <mat-label>Caracter</mat-label>
+              <mat-select formControlName='caracter'>
+                  <mat-option *ngFor="let caracter of (caracteres$ | async)" [value]="caracter">
+                      {{caracter.nombre}}
                   </mat-option>
               </mat-select>    
       </mat-form-field>

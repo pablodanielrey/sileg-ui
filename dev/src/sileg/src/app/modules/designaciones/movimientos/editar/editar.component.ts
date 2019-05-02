@@ -6,6 +6,7 @@ import { SilegService } from '../../../../shared/services/sileg.service';
 import { switchMap, map, tap, mergeMap } from 'rxjs/operators';
 import { NavegarService } from '../../../../core/navegar.service';
 import { ErrorService } from '../../../../core/error/error.service';
+import { Cargo } from '../../../../shared/entities/sileg';
 
 @Component({
   selector: 'app-editar',
@@ -24,7 +25,7 @@ export class EditarComponent implements OnInit {
 
   caracteres$: Observable<any>;
   dedicaciones$: Observable<any>;
-  cargos$: Observable<any>;
+  cargos$: Observable<Cargo[]>;
 
   datos$: Observable<any>;
   puntos$: Observable<any>;
@@ -45,15 +46,13 @@ export class EditarComponent implements OnInit {
 
     this.cargos$ = this.service.obtenerCargosDisponibles();
 
-    this.caracteres$ = this.cambio$.pipe(
-      switchMap(c => this.cargos$.pipe(
-          map(vs => vs.filter(v => v.nombre == c.nombre))
-        )
-      )
-    );
+    this.caracteres$ = this.service.obtenerCaracter();
+  
     this.dedicaciones$ = this.cambio$.pipe(
       switchMap(c => this.cargos$.pipe(
-          map(vs => vs.filter(v => v.nombre == c.nombre))
+          tap(v => console.log(v)),
+          map(vs => vs.filter(v => v.nombre == c.nombre)),
+          tap(v => console.log(v))
         )
       )
     );
