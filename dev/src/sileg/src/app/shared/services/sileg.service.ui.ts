@@ -10,7 +10,7 @@ import { map, tap } from 'rxjs/operators';
 import 'rxjs/Rx';
 
 import { Mail, Usuario, ResetClave } from '../entities/usuario';
-import { Sileg, DatosSileg, Lugar, PedidoDesignacion, Designacion, Cargo, DatosLugarDesignaciones, DatoDesignacion, Dato2Designacion, Configuracion, Caracter } from '../entities/sileg';
+import { Sileg, DatosSileg, Lugar, PedidoDesignacion, Designacion, Cargo, DatosLugarDesignaciones, DatoDesignacion, Dato2Designacion, Configuracion, Caracter, Estado } from '../entities/sileg';
 
 const SILEG_API_URL = environment.silegApiUrl;
 const LOGIN_API_URL = environment.loginApiUrl;
@@ -21,10 +21,19 @@ export class SilegService {
 
   tipos_cargos:Array<Cargo> = [];
   tipos_caracter: Array<Caracter> = [];
+  lugares: Array<Lugar> = [];
+  designaciones: Array<Designacion> = [];
+  tipos_estado: Array<string> = [
+    'Alta Pendiente', 'Alta Aprobada', 'Alta Enviada a UNLP',
+    'Baja Pendiente', 'Baja Aprobada', 'Baja Enviada a UNLP',
+    'Activa'
+  ];
   
   constructor(private http: HttpClient) {
     this.setear_cargos();
     this.setear_caracter();
+    this.setear_lugares();
+    this.setear_designaciones();
    }
 
   setear_caracter(): void {
@@ -387,6 +396,108 @@ export class SilegService {
         'puntos': 0
       })
     ];
+  }
+
+  setear_lugares(): void {
+    this.lugares = [
+      new Lugar({
+        id: '2dc45e33-1433-43ef-ac44-61300611e5e5',
+        nombre: 'secretaría academica',
+        padre_id:'2b3fab6f-5545-453a-b672-4539d6850bab'
+      }),
+      new Lugar({
+        id: 'a7498331-3afd-4881-b899-25ff2b8dd0f2',
+        nombre: 'Departamento De Economía',
+        padre_id: 'f948ac90-82c1-42ea-a34a-018c17eb36d7'
+      }),
+      new Lugar({
+        id: '5a765400-9b2d-4eb4-91d3-ac861a7eb608',
+        nombre: 'Microeconomía I',
+        padre_id: 'a7498331-3afd-4881-b899-25ff2b8dd0f2'
+      }),
+      new Lugar({
+        id: '48733c04-ad4e-40c9-8662-8d0eae1f931a',
+        nombre: 'Política Económica I',
+        padre_id: 'a7498331-3afd-4881-b899-25ff2b8dd0f2'
+      }),
+      new Lugar({
+        id: 'b72240ab-9b85-440c-b15d-496c5e3c765d',
+        nombre: 'Economía Espacial',
+        padre_id: 'a7498331-3afd-4881-b899-25ff2b8dd0f2'
+      }),
+      new Lugar({
+        id: '9f09b08d-607a-4192-bc54-5cc5db16ad39',
+        nombre: 'Departamento De Ciencias Administrativas',
+        padre_id: 'f948ac90-82c1-42ea-a34a-018c17eb36d7'
+      }),
+      new Lugar({
+        id: '1c6b8b9d-c41d-4956-8ab0-9ef2ffc4cd6f',
+        nombre: 'Finanzas de Empresas I',
+        padre_id: '9f09b08d-607a-4192-bc54-5cc5db16ad39'
+      }),
+      new Lugar({
+        id: '8333a81a-17bc-4b9d-8798-d7f59b502f39',
+        nombre: 'Administración I A',
+        padre_id: '9f09b08d-607a-4192-bc54-5cc5db16ad39'
+      }),
+      new Lugar({
+        id: 'ada09687-6a3b-447a-a2a6-aaf58c7a2a66',
+        nombre: 'Administración I B',
+        padre_id: '9f09b08d-607a-4192-bc54-5cc5db16ad39'
+      }),
+      new Lugar({
+        id: 'c0081511-2edc-4323-880d-848162679889',
+        nombre: 'Departamento De Contabilidad',
+        padre_id: 'f948ac90-82c1-42ea-a34a-018c17eb36d7'
+      }),
+      new Lugar({
+        id: 'bbd9ba0b-90ba-4931-9d4a-a2f584111e76',
+        nombre: 'Interpretacion de los Estados Contables A',
+        padre_id: 'c0081511-2edc-4323-880d-848162679889'
+      }),
+      new Lugar({
+        id: 'ee65341d-71b4-4168-ac0e-a34ecd24bc03',
+        nombre: 'Interpretacion de los Estados Contables C',
+        padre_id: 'c0081511-2edc-4323-880d-848162679889'
+      }),
+      new Lugar({
+        id: '228d1381-b2b4-4043-8e30-28738f9397d8',
+        nombre: 'Actuación Judicial',
+        padre_id: 'c0081511-2edc-4323-880d-848162679889'
+      })
+    ]
+
+  }
+  private S4(): string {
+    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+  }
+
+  private uuid(): string {
+    return this.S4() + this.S4() + '-' + this.S4() + '-' + this.S4() + '-' + this.S4() + '-' +this.S4() + this.S4()
+  }
+
+  setear_designaciones(): void {
+    this.tipos_cargos.filter( x => x.tipo == 'Docente').forEach(cargo => {
+      this.tipos_caracter.forEach( caracter => {
+        this.tipos_estado.forEach( estado => {
+          this.designaciones.push(
+            new Designacion({
+              id: this.uuid(),
+              usuario_id: '',
+              cargo_id: cargo.id,
+              cargo: cargo,
+              caracter_id: caracter.id,
+              caracter: caracter,
+              lugar_id: '',
+              lugar: null,
+              desde: null,
+              expediente: '',
+              resolucion: ''
+            })            
+          )      
+        })
+      })
+    })
   }
 
   desginacionesPendientes(lids): Observable<any[]> {

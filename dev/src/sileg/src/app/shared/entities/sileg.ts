@@ -35,6 +35,88 @@ export class Caracter {
   }  
 }
 
+export class Estado {
+  id: string;
+  fecha: Date;
+  nombre: string;
+  autorizador_id: string;
+
+  constructor(o:Object) {
+    try {
+      Object.assign(this, o);
+    } catch(e) {
+      console.log(e);
+    }
+  }    
+}
+
+export class Designacion {
+  id: string;
+  usuario_id: string;
+  cargo_id: string;
+  cargo: Cargo;
+  caracter_id: string;
+  caracter: Caracter;
+  lugar_id: string;
+  lugar: Lugar;
+  historico: boolean = false;
+  desde: Date;
+  expediente: string;
+  resolucion: string;
+  corresponde: string;
+
+  constructor(o:Object) {
+    try {
+      Object.assign(this, o);
+      if (this.desde != null && typeof this.desde == "string" ) {
+        // "fecha" = 'yyyy-mm-dd'
+        // el mes del Date empieza desde 0 (0-11)
+        let f = o["desde"].split("-");
+        this.desde = new Date(f[0], f[1] - 1, f[2]);
+      }
+    } catch(e) {
+      console.log(e);
+    }
+  }
+}
+
+export class DatosDesignacion {
+  usuario: Usuario;
+  designacion: Designacion;
+  estado: Estado;
+}
+
+export class DatosLugarDesignacion {
+  designaciones: Array<DatosDesignacion>;
+  lugar: Lugar;
+  puntos_alta: number;
+  puntos_baja: number;
+}
+
+export class Lugar {
+  id: string;
+  tipo: string;
+  nombre: string;
+  descripcion: string;
+  numero: string;
+  telefono: string;
+  email: string;
+  eliminado: Date;
+  padre_id: string;
+  padre: Lugar;
+  abreviatura: string;
+
+
+  constructor(o:Object) {
+    try {
+      Object.assign(this, o);
+      this.abreviatura = (this.nombre.length > 0) ? this.nombre.charAt(0) : '';
+    } catch(e) {
+      console.log(e);
+    }
+  }
+}
+
 // =================================================
 // ============== FIN NUEVO ========================
 // =================================================
@@ -104,26 +186,6 @@ export class Dato2Designacion {
   }
 }
 
-export class Lugar {
-  id: string;
-  tipo: string;
-  nombre: string;
-  descripcion: string;
-  numero: string;
-  telefono: string;
-  email: string;
-  eliminado: Date;
-  padre_id: string;
-
-
-  constructor(o:Object) {
-    try {
-      Object.assign(this, o);
-    } catch(e) {
-      console.log(e);
-    }
-  }
-}
 
 export class PedidoDesignacion {
   lugar_id: string;
@@ -146,31 +208,31 @@ export class PedidoDesignacion {
 
 // }
 
-export class Designacion {
-  desde: Date;
-  designacion_id: string;
-  usuario_id: string;
-  cargo_id: string;
-  cargo: Cargo;
-  lugar_id: string;
-  lugar: Lugar;
-  historico: boolean;
-  id: string;
+// export class Designacion {
+//   desde: Date;
+//   designacion_id: string;
+//   usuario_id: string;
+//   cargo_id: string;
+//   cargo: Cargo;
+//   lugar_id: string;
+//   lugar: Lugar;
+//   historico: boolean;
+//   id: string;
 
-  constructor(o:Object) {
-    try {
-      Object.assign(this, o);
-      if (this.desde != null && typeof this.desde == "string" ) {
-        // "fecha" = 'yyyy-mm-dd'
-        // el mes del Date empieza desde 0 (0-11)
-        let f = o["desde"].split("-");
-        this.desde = new Date(f[0], f[1] - 1, f[2]);
-      }
-    } catch(e) {
-      console.log(e);
-    }
-  }
-}
+//   constructor(o:Object) {
+//     try {
+//       Object.assign(this, o);
+//       if (this.desde != null && typeof this.desde == "string" ) {
+//         // "fecha" = 'yyyy-mm-dd'
+//         // el mes del Date empieza desde 0 (0-11)
+//         let f = o["desde"].split("-");
+//         this.desde = new Date(f[0], f[1] - 1, f[2]);
+//       }
+//     } catch(e) {
+//       console.log(e);
+//     }
+//   }
+// }
 
 export class Configuracion {
 
