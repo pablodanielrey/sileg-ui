@@ -1,36 +1,58 @@
-<h1>Modificar</h1>
-id: {{(desig$ | async)?.id }}
+<mat-toolbar-row>
+    <button mat-button color="primary" (click)='volver()'><mat-icon>undo </mat-icon> VOLVER</button>
+    <span>&nbsp; Designaciones | Modificar</span>
+</mat-toolbar-row>
+  
+<mat-divider></mat-divider>
 
-puntos: {{puntos$ | async}}
+<div class="pantalla">
 
-<form [formGroup]='form' (ngSubmit)='submit()'>
-    <mat-form-field>
-        <mat-label>Cargo</mat-label>
-        <mat-select formControlName='cargo'>
-            <mat-option *ngFor="let cargo of (cargos$ | async)" [value]="cargo">
-                {{cargo.nombre}}
-            </mat-option>
-        </mat-select>    
-    </mat-form-field>
+    <div class="contenedorForm">
 
-    <mat-form-field>
-        <mat-label>Dedicación</mat-label>
-        <mat-select formControlName='cargo'>
-            <mat-option *ngFor="let cargo of (dedicaciones$ | async)" [value]="cargo">
-                {{cargo.dedicacion}}
-            </mat-option>
-        </mat-select>    
-    </mat-form-field>
+        <mat-card class="contenedorUsuario">
+            <mat-card-header>
+                <mat-card-title>Nombre y Apellido</mat-card-title>
+                <mat-card-subtitle>Designación - {{puntos$ | async}}</mat-card-subtitle>
+            </mat-card-header>
+        </mat-card>    
 
-    <mat-form-field>
-        <mat-label>Dedicación</mat-label>
-        <mat-select formControlName='cargo'>
-            <mat-option *ngFor="let cargo of (caracteres$ | async)" [value]="cargo">
-                {{cargo.caracter}}
-            </mat-option>
-        </mat-select>    
-    </mat-form-field>
-    
-    <button type="submit" [disabled]="!form.valid">Actualizar</button>
 
-</form>
+        <form [formGroup]='form' (ngSubmit)='submit()' class="formulario">
+            
+            <mat-form-field class="itemFormulario" appearance="outline">
+                <mat-label>Cargo</mat-label>
+                <mat-select formControlName='cargo'>
+                    <mat-option *ngFor="let cargo of (cargos$ | async)" [value]="cargo">
+                        {{cargo.nombre}}
+                    </mat-option>
+                </mat-select>    
+            </mat-form-field>
+
+            <mat-form-field class="itemFormulario" appearance="outline">
+                <mat-label>Dedicación</mat-label>
+                <mat-select formControlName='cargo'>
+                    <mat-option *ngFor="let cargo of (dedicaciones$ | async)" [value]="cargo">
+                        {{cargo.dedicacion}}
+                    </mat-option>
+                </mat-select>    
+            </mat-form-field>
+
+            <mat-form-field class="itemFormulario" appearance="outline">
+                <mat-label>Dedicación</mat-label>
+                <mat-select formControlName='cargo'>
+                    <mat-option *ngFor="let cargo of (caracteres$ | async)" [value]="cargo">
+                        {{cargo.caracter}}
+                    </mat-option>
+                </mat-select>    
+            </mat-form-field>
+            
+        </form>
+
+
+    </div>
+
+    <div class="contenedorAcciones"> 
+         <button type="submit" [disabled]="!form.valid" mat-flat-button color="primary" class="btnGuardar">ACTUALIZAR</button>
+    </div>
+
+</div>
