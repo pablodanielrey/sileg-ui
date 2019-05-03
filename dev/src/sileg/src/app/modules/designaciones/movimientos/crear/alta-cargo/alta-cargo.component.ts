@@ -47,7 +47,7 @@ export class AltaCargoComponent implements OnInit {
 
     this.caracteres$ = this.cambio$.pipe(
       switchMap(c => this.cargos$.pipe(
-          map(vs => vs.filter(v => v.nombre == c.nombre))
+          map(vs => vs.filter(v => c != null && v.nombre == c.nombre))
         )
       )
     );
