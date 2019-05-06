@@ -91,7 +91,9 @@ export class AltaCargoComponent implements OnInit {
 
   submit() {
     let v = this.form.value;
-    this.cambio$.next(v.cargo);
+    //this.cambio$.next(v.cargo);
+    //this.navegar.volver();
+    this.crear();
   }
 
   crear() {

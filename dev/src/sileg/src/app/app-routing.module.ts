@@ -17,7 +17,10 @@ import { ListarComponent as ListarDesignacionesComponent } from './modules/desig
 import { CrearPersonaComponent as AltaMovimientoCrearPersonaComponent } from './modules/designaciones/movimientos/alta/crear-persona/crear-persona.component';
 import { AltaCargoComponent as AltaMovimientoAltaCargoComponent } from './modules/designaciones/movimientos/alta/alta-cargo/alta-cargo.component';
 
-import { CrearComponent as BajaMovimientoCrearComponent } from './modules/designaciones/movimientos/baja/crear/crear.component';
+import { CancelarComponent as CancelarMovimientoComponent } from './modules/designaciones/movimientos/cancelar/cancelar.component';
+import { DenegarComponent as DenegarMovimientoComponent } from './modules/designaciones/movimientos/denegar/denegar.component';
+import { AprobarComponent as AprobarMovimientoComponent } from './modules/designaciones/movimientos/aprobar/aprobar.component';
+import { BajaComponent as BajaMovimientoComponent } from './modules/designaciones/movimientos/baja/baja.component';
 import { EditarComponent as EditarMovimientoComponent } from './modules/designaciones/movimientos/editar/editar.component';
 
 import { SeleccionarComponent as SeleccionarLugarComponent } from './modules/lugares/seleccionar/seleccionar.component';
@@ -49,16 +52,20 @@ const routes: Routes = [
       {
         path: 'movimientos',
         children: [
+          { path: 'pendientes', component: MovimientosPendientesComponent },
           { path: 'editar/:mid', component: EditarMovimientoComponent },
-          { path:'pendientes', component: MovimientosPendientesComponent },
-          { 
-            path: 'crear',
+          {
+            path: 'alta',
             children: [
-              { path: 'seleccionar/:lid', component: AltaMovimientoSeleccionarPersonaComponent },
-              { path: 'crear/:lid', component: AltaMovimientoCrearPersonaComponent },
-              { path: 'alta/:lid/:pid', component: AltaMovimientoAltaCargoComponent }
+              { path: 'seleccionar-persona/:lid', component: AltaMovimientoSeleccionarPersonaComponent },
+              { path: 'crear-persona/:lid', component: AltaMovimientoCrearPersonaComponent },
+              { path: 'alta-cargo/:lid/:pid', component: AltaMovimientoAltaCargoComponent }
             ] 
-          }
+          },
+          { path: 'aprobar', component: AprobarMovimientoComponent },
+          { path: 'denegar', component: DenegarMovimientoComponent },
+          { path: 'baja', component: BajaMovimientoComponent },
+          { path: 'cancelar', component: CancelarMovimientoComponent },
         ]
       },
       {
@@ -71,7 +78,10 @@ const routes: Routes = [
               { 
                 path: 'listar/:mid', component: ListarDesignacionesComponent,
                 children: [
-                  { path: 'baja/:mid', component: BajaMovimientoCrearComponent }
+                  { path: 'aprobar', component: AprobarMovimientoComponent },
+                  { path: 'denegar', component: DenegarMovimientoComponent },
+                  { path: 'cancelar', component: CancelarMovimientoComponent },
+                  { path: 'baja', component: BajaMovimientoComponent }
                 ]
               }
             ]

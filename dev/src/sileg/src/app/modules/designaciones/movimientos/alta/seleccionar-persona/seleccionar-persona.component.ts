@@ -3,8 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, forkJoin, of } from 'rxjs';
 import { mergeMap, switchMap, tap, map } from 'rxjs/operators';
 import { NavegarService } from '../../../../../core/navegar.service';
-import { CrearComponent } from '../../baja/crear/crear.component';
-import { SWITCH_COMPILE_INJECTABLE__POST_R3__ } from '@angular/core/src/di/injectable';
+
 
 
 @Component({
@@ -47,7 +46,7 @@ export class SeleccionarPersonaComponent implements OnInit {
         let lid = params.get('lid');
         let pid = persona.id;
         return this.navegar.navegar({
-          url:'/sistema/movimientos/crear/alta/' + lid + "/" + pid,
+          url:'/sistema/movimientos/alta/alta-cargo/' + lid + '/' + pid,
           params:{}
         })
       })
@@ -56,7 +55,7 @@ export class SeleccionarPersonaComponent implements OnInit {
 
   crear_persona() {
     this.navegar.navegar({
-      url:'/sistema/movimientos/crear/crear/lid',
+      url:'/sistema/movimientos/alta/crear-persona/sdffdsf',
       params:{}
     }).subscribe();
   }
