@@ -60,15 +60,20 @@ export class SistemaComponent implements OnInit {
               private permisos: PermisosService) { 
 
     let menu_temp: Observable<[Observable<MenuItemResuelto>]> = of(menu).pipe(
-        mergeMap(items => items.map(i => this.resolver_permisos(i))),
+        tap(v => {console.log(1), console.log(v)}),
+        map(items => items.map(i => this.resolver_permisos(i))),
+        tap(v => {console.log(2), console.log(v)}),
         combineLatest()
     )
     let menu_temp2: Observable<Observable<MenuItemResuelto[]>> = menu_temp.pipe(
+      tap(v => {console.log(3), console.log(v)}),
       combineLatest()
     )
 
     this.menu_sistema = menu_temp2.pipe(
-      mergeMap(items => items)
+      tap(v => {console.log(4), console.log(v)}),
+      mergeMap(items => items),
+      tap(v => {console.log(5), console.log(v)})
     );
       
   }
