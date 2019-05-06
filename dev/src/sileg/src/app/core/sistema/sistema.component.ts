@@ -10,8 +10,8 @@ import { EventsService } from '../events.service';
 import { RouterService } from '../router.service';
 import { PermisosService } from '../permisos.service';
 import { Router } from '@angular/router';
-import { Observable, of, Subject } from 'rxjs';
-import { map, mergeMap, combineAll, combineLatest,  tap } from 'rxjs/operators';
+import { Observable, of, Subject, forkJoin } from 'rxjs';
+import { map, mergeMap, combineAll, combineLatest,  tap, flatMap, mergeAll } from 'rxjs/operators';
 
 
 
@@ -78,6 +78,11 @@ export class SistemaComponent implements OnInit {
       
   }
 
+  tengo_permisos(item:MenuItem):Observable<boolean> {
+    return of(true);
+  }
+
+
   resolver_permisos(o:MenuItem) : Observable<MenuItemResuelto> {
     return this.tengo_permisos(o).pipe(
       map(b => {
@@ -109,9 +114,6 @@ export class SistemaComponent implements OnInit {
 
   }
 
-  tengo_permisos(item:MenuItem):Observable<boolean> {
-    return of(true);
-  }
 
 
   cerrar_menu(d) {
