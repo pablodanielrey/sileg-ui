@@ -53,14 +53,12 @@
         </mat-toolbar>
 
         <!-- NUEVO -->
-        <!--
         <button *ngIf="permisos.has('urn:sileg:lugares:read') | async" class="btnMenu" mat-button routerLink="/sistema/lugares/seleccionar" (click)='cerrar_menu(drawer)'>
             <mat-icon class="iconoMenu">filter_1</mat-icon>Lugares
         </button>
         <button class="btnMenu" mat-button routerLink="/sistema/movimientos/pendientes" (click)='cerrar_menu(drawer)'>
             <mat-icon class="iconoMenu">notifications_none</mat-icon>Pendientes
         </button>
-        -->
 
         <button *ngFor='let menu of menu_sistema | async' class="btnMenu" mat-button (click)='navegar(menu.item)'>
             <!--
