@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { SilegService } from '../../../shared/services/sileg.service';
+import { SilegService } from '../../../../shared/services/sileg.service';
 import { map, tap, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { NavegarService } from '../../../core/navegar.service';
-import { ErrorService } from '../../../core/error/error.service';
+import { NavegarService } from '../../../../core/navegar.service';
+import { ErrorService } from '../../../../core/error/error.service';
 
 @Component({
   selector: 'app-listar',

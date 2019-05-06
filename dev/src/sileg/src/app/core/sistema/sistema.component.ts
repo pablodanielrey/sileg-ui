@@ -10,6 +10,30 @@ import { EventsService } from '../events.service';
 import { RouterService } from '../router.service';
 import { PermisosService } from '../permisos.service';
 import { Router } from '@angular/router';
+import { Observable, of, Subject, combineLatest, concat } from 'rxjs';
+import { map, mergeMap, combineAll,  tap } from 'rxjs/operators';
+
+
+
+declare type MenuItemResuelto = {
+  item: MenuItem,
+  mostrar: boolean
+}
+
+declare type MenuItem = {
+  item: string,
+  menu: MenuSistema,
+  ruta: string,
+  permisos: string[],
+  icono: string
+}
+
+declare type MenuSistema = MenuItem[];
+
+const menu : MenuSistema = [
+  { item: 'Lugares', menu: null, ruta: '/sistema/lugares/seleccionar', icono: 'filter_1', permisos: ['urn:sileg:lugares:read'] },
+  { item: 'Pendientes', menu: null, ruta: '/sistema/movimientos/pendientes', icono: 'notifications_none', permisos: [] }
+];
 
 
 @Component({
@@ -19,6 +43,7 @@ import { Router } from '@angular/router';
 })
 export class SistemaComponent implements OnInit {
   
+  menu_sistema: Observable<MenuItemResuelto[]> = null;
   identity = null;
 
   subscriptions: any[] = [];
@@ -33,7 +58,28 @@ export class SistemaComponent implements OnInit {
               private router: Router,
               private routerEvents: RouterService,
               private permisos: PermisosService) { 
-              
+
+    this.menu_sistema = combineLatest(
+      of(menu).pipe(
+        mergeMap(items => items.map(i => this.resolver_permisos(i)))
+      )
+    ).pipe(
+      tap(v => console.log(v)),
+      map(items => concat(items)),
+      tap(v => console.log(v))
+    );
+      
+  }
+
+  resolver_permisos(o:MenuItem) : Observable<MenuItemResuelto> {
+    return this.tengo_permisos(o).pipe(
+      map(b => {
+        return {
+          item: o,
+          mostrar: b
+        }
+      })
+    );
   }
 
   ngOnInit() {
@@ -43,7 +89,6 @@ export class SistemaComponent implements OnInit {
       })
     )
     this.subscriptions.push(this.routerEvents.subscribir());
-
     this.identity = this.oauthService.getIdentity();
   }
 
@@ -51,6 +96,16 @@ export class SistemaComponent implements OnInit {
     this.subscriptions.forEach(s => s.unsubscribe());
     this.subscriptions = [];
   }
+
+
+  navegar(item:MenuItem) {
+
+  }
+
+  tengo_permisos(item:MenuItem):Observable<boolean> {
+    return of(true);
+  }
+
 
   cerrar_menu(d) {
     d.toggle();
