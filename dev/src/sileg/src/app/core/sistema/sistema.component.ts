@@ -10,8 +10,8 @@ import { EventsService } from '../events.service';
 import { RouterService } from '../router.service';
 import { PermisosService } from '../permisos.service';
 import { Router } from '@angular/router';
-import { Observable, of, Subject, combineLatest, concat } from 'rxjs';
-import { map, mergeMap, combineAll,  tap } from 'rxjs/operators';
+import { Observable, of, Subject } from 'rxjs';
+import { map, mergeMap, combineAll, combineLatest,  tap } from 'rxjs/operators';
 
 
 
@@ -59,14 +59,16 @@ export class SistemaComponent implements OnInit {
               private routerEvents: RouterService,
               private permisos: PermisosService) { 
 
-    this.menu_sistema = combineLatest(
-      of(menu).pipe(
-        mergeMap(items => items.map(i => this.resolver_permisos(i)))
-      )
-    ).pipe(
-      tap(v => console.log(v)),
-      map(items => concat(items)),
-      tap(v => console.log(v))
+    let menu_temp: Observable<[Observable<MenuItemResuelto>]> = of(menu).pipe(
+        mergeMap(items => items.map(i => this.resolver_permisos(i))),
+        combineLatest()
+    )
+    let menu_temp2: Observable<Observable<MenuItemResuelto[]>> = menu_temp.pipe(
+      combineLatest()
+    )
+
+    this.menu_sistema = menu_temp2.pipe(
+      mergeMap(items => items)
     );
       
   }
