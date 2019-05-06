@@ -23,6 +23,14 @@ export class Mail {
   confirmado: string;
   actualizado: string;
   creado: string;
+
+  constructor(o:Object) {
+    try {
+      Object.assign(this, o);
+    } catch(e) {
+      console.log(e);
+    }
+  }   
 }
 
 export class Telefono {

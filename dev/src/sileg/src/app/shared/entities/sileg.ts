@@ -53,6 +53,7 @@ export class Estado {
 export class Designacion {
   id: string;
   usuario_id: string;
+  usuario: Usuario;
   cargo_id: string;
   cargo: Cargo;
   caracter_id: string;
@@ -84,6 +85,14 @@ export class DatosDesignacion {
   usuario: Usuario;
   designacion: Designacion;
   estado: Estado;
+
+  constructor(o:Object) {
+    try {
+      Object.assign(this, o);
+    } catch(e) {
+      console.log(e);
+    }
+  }  
 }
 
 export class DatosLugarDesignacion {
@@ -91,6 +100,14 @@ export class DatosLugarDesignacion {
   lugar: Lugar;
   puntos_alta: number;
   puntos_baja: number;
+
+  constructor(o:Object) {
+    try {
+      Object.assign(this, o);
+    } catch(e) {
+      console.log(e);
+    }
+  }  
 }
 
 export class Lugar {

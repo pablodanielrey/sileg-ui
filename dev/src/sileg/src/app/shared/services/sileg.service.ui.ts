@@ -10,7 +10,7 @@ import { map, tap } from 'rxjs/operators';
 import 'rxjs/Rx';
 
 import { Mail, Usuario, ResetClave } from '../entities/usuario';
-import { Sileg, DatosSileg, Lugar, PedidoDesignacion, Designacion, Cargo, DatosLugarDesignaciones, DatoDesignacion, Dato2Designacion, Configuracion, Caracter, Estado } from '../entities/sileg';
+import { Sileg, DatosSileg, Lugar, PedidoDesignacion, Designacion, Cargo, DatosLugarDesignaciones, DatoDesignacion, Dato2Designacion, Configuracion, Caracter, Estado, DatosLugarDesignacion, DatosDesignacion } from '../entities/sileg';
 
 const SILEG_API_URL = environment.silegApiUrl;
 const LOGIN_API_URL = environment.loginApiUrl;
@@ -28,13 +28,86 @@ export class SilegService {
     'Baja Pendiente', 'Baja Aprobada', 'Baja Enviada a UNLP',
     'Activa'
   ];
+  datos_lugar_designacion: Array<DatosLugarDesignacion> = [];
+  catedras: Array<Lugar> = [];
+  usuarios: Array<Usuario> = [];
   
   constructor(private http: HttpClient) {
+    this.setear_usuarios();
     this.setear_cargos();
     this.setear_caracter();
     this.setear_lugares();
     this.setear_designaciones();
-   }
+  }
+   
+  private setear_usuarios() {
+    this.usuarios = [
+      new Usuario({
+        id: 'd44e92c1-d277-4a45-81dc-a72a76f6ef8d',
+        nombre: 'Ivan cesar',
+        apellido: 'Castaneda',
+        dni: '31073351',
+        genero: 'Masculino',
+        mails: [new Mail({email: 'ivan.castaneda@econo.unlp.edu.ar'})]   
+      }),
+      new Usuario({
+        id: '89d88b81-fbc0-48fa-badb-d32854d3d93a',
+        nombre: 'Pablo daniel',
+        apellido: 'Rey',
+        dni: '27294557',
+        genero: 'Masculino',
+        mails: [new Mail({email: 'pablo@econo.unlp.edu.ar'})]   
+      }),
+      new Usuario({
+        id: '0cd70f16-aebb-4274-bc67-a57da88ab6c7',
+        nombre: 'Emanuel Joaquin',
+        apellido: 'Pais',
+        dni: '31381082',
+        genero: 'Masculino',
+        mails: [new Mail({email: 'emanuel@econo.unlp.edu.ar'})]   
+      }),
+      new Usuario({
+        id: '205de802-2a15-4652-8fde-f23c674a1246',
+        nombre: 'Walter',
+        apellido: 'Blanco',
+        dni: '30001823',
+        genero: 'Masculino',
+        mails: [new Mail({email: 'walter.blanco@econo.unlp.edu.ar'})]   
+      }),
+      new Usuario({
+        id: '13b2471b-507e-44d7-a440-efdb66d5aaa8',
+        nombre: 'Leonardo',
+        apellido: 'Consolini',
+        dni: '34770038',
+        genero: 'Masculino',
+        mails: [new Mail({email: 'leonardo.consolini@econo.unlp.edu.ar'})]   
+      }),
+      new Usuario({
+        id: '3ca3057b-adba-49b3-8b99-550311fc9c81',
+        nombre: 'Miguel',
+        apellido: 'Macagno',
+        dni: '34928857',
+        genero: 'Masculino',
+        mails: [new Mail({email: 'miguel.macagno@econo.unlp.edu.ar'})]   
+      }),
+      new Usuario({
+        id: '35f7a8a6-d844-4d6f-b60b-aab810610809',
+        nombre: 'Alejandro agustin',
+        apellido: 'Oporto',
+        dni: '29694757',
+        genero: 'Masculino',
+        mails: [new Mail({email: 'alejandro@econo.unlp.edu.ar'})]   
+      }),
+      new Usuario({
+        id: 'cd8fbf39-4ad2-4d11-b17b-3b070105f870',
+        nombre: 'Maximiliano',
+        apellido: 'Saucedo',
+        dni: '27821597',
+        genero: 'Masculino',
+        mails: [new Mail({email: 'maxi.saucedo@econo.unlp.edu.ar'})]   
+      })
+    ];
+  }
 
   setear_caracter(): void {
     this.tipos_caracter = [
@@ -426,6 +499,31 @@ export class SilegService {
         padre_id: 'a7498331-3afd-4881-b899-25ff2b8dd0f2'
       }),
       new Lugar({
+        id: '5a765400-9b2d-4eb4-91d3-ac861a7eb608',
+        nombre: 'Microeconomía I',
+        padre_id: 'a7498331-3afd-4881-b899-25ff2b8dd0f2'
+      }),
+      new Lugar({
+        id: '917d0319-89b1-460c-bd9d-3c9e4898344f',
+        nombre: 'Microeconomía II',
+        padre_id: 'a7498331-3afd-4881-b899-25ff2b8dd0f2'
+      }),
+      new Lugar({
+        id: 'aa6c569d-1e90-46f1-8842-37f0caa8245d',
+        nombre: 'Macroeconomía I',
+        padre_id: 'a7498331-3afd-4881-b899-25ff2b8dd0f2'
+      }),
+      new Lugar({
+        id: 'b422f980-10da-4fd3-98c8-0fdb8f4aeaae',
+        nombre: 'Política Económica Mundial',
+        padre_id: 'a7498331-3afd-4881-b899-25ff2b8dd0f2'
+      }),
+      new Lugar({
+        id: '04cc186e-6a3a-4d29-8340-83ec257efdf0',
+        nombre: 'Teoría Económica Coyuntural',
+        padre_id: 'a7498331-3afd-4881-b899-25ff2b8dd0f2'
+      }),
+      new Lugar({
         id: '9f09b08d-607a-4192-bc54-5cc5db16ad39',
         nombre: 'Departamento De Ciencias Administrativas',
         padre_id: 'f948ac90-82c1-42ea-a34a-018c17eb36d7'
@@ -446,26 +544,95 @@ export class SilegService {
         padre_id: '9f09b08d-607a-4192-bc54-5cc5db16ad39'
       }),
       new Lugar({
+        id: 'd6ac5bea-d89d-406b-88a4-a5b2ce90e4f3',
+        nombre: 'Administración I C',
+        padre_id: '9f09b08d-607a-4192-bc54-5cc5db16ad39'
+      }),
+      new Lugar({
+        id: '970e888b-8c32-4fee-b086-8a90e6721cd8',
+        nombre: 'Sistemas de Información',
+        padre_id: '9f09b08d-607a-4192-bc54-5cc5db16ad39'
+      }),
+      new Lugar({
+        id: '0a588198-1635-4c39-9d98-7f85bcbaa4c5',
+        nombre: 'Psicología Organizacional',
+        padre_id: '9f09b08d-607a-4192-bc54-5cc5db16ad39'
+      }),
+      new Lugar({
+        id: 'de9f0747-c0bb-4f88-8ef6-f1c97f323e35',
+        nombre: 'Política y Derecho Social',
+        padre_id: '9f09b08d-607a-4192-bc54-5cc5db16ad39'
+      }),
+      new Lugar({
+        id: '9647a6cb-e0e9-4061-9312-c8ce9f8771b6',
+        nombre: 'Administración Pública I',
+        padre_id: '9f09b08d-607a-4192-bc54-5cc5db16ad39'
+      }),
+      new Lugar({
+        id: '03799b05-f054-475b-98ff-a34c1ff81634',
+        nombre: 'Administración Pública II',
+        padre_id: '9f09b08d-607a-4192-bc54-5cc5db16ad39'
+      }),
+      new Lugar({
+        id: '854f44c5-4da7-4425-a496-6dfb31079f65',
+        nombre: 'Administración de Organizaciones de Salud',
+        padre_id: '9f09b08d-607a-4192-bc54-5cc5db16ad39'
+      }),
+      new Lugar({
         id: 'c0081511-2edc-4323-880d-848162679889',
         nombre: 'Departamento De Contabilidad',
         padre_id: 'f948ac90-82c1-42ea-a34a-018c17eb36d7'
       }),
       new Lugar({
         id: 'bbd9ba0b-90ba-4931-9d4a-a2f584111e76',
-        nombre: 'Interpretacion de los Estados Contables A',
+        nombre: 'Interpretacion de los Estados Contables (Plan VII) A',
+        padre_id: 'c0081511-2edc-4323-880d-848162679889'
+      }),
+      new Lugar({
+        id: '457c3afa-2e51-43a6-b8e3-18b0c63f94ac',
+        nombre: 'Interpretacion de los Estados Contables (Plan VII) B',
         padre_id: 'c0081511-2edc-4323-880d-848162679889'
       }),
       new Lugar({
         id: 'ee65341d-71b4-4168-ac0e-a34ecd24bc03',
-        nombre: 'Interpretacion de los Estados Contables C',
+        nombre: 'Interpretacion de los Estados Contables (Plan VII) C',
         padre_id: 'c0081511-2edc-4323-880d-848162679889'
       }),
       new Lugar({
         id: '228d1381-b2b4-4043-8e30-28738f9397d8',
         nombre: 'Actuación Judicial',
         padre_id: 'c0081511-2edc-4323-880d-848162679889'
+      }),
+      new Lugar({
+        id: '4ae14404-80ff-46f4-bbd4-0e1810db01c0',
+        nombre: 'Estructura Economica Societaria',
+        padre_id: 'c0081511-2edc-4323-880d-848162679889'
+      }),
+      new Lugar({
+        id: '831e6ec8-ec53-4369-aca7-37fe725f0cac',
+        nombre: 'Contabilidad VIII (Auditoría)',
+        padre_id: 'c0081511-2edc-4323-880d-848162679889'
+      }),
+      new Lugar({
+        id: 'ccc5af80-5925-4d78-909a-18d178d55d51',
+        nombre: 'Contabilidad IV (Hacienda Pública)',
+        padre_id: 'c0081511-2edc-4323-880d-848162679889'
+      }),
+      new Lugar({
+        id: '5a114271-1022-42ec-9832-cace79f265da',
+        nombre: 'Auditoría Siglo XXI',
+        padre_id: 'c0081511-2edc-4323-880d-848162679889'
+      }),
+      new Lugar({
+        id: 'b451eae8-268a-4204-9deb-5dfa7a589f2e',
+        nombre: 'Actuación Laboral',
+        padre_id: 'c0081511-2edc-4323-880d-848162679889'
       })
     ]
+
+    this.catedras = this.lugares.filter( l => 
+      !(l.nombre.includes('Departamento') || l.nombre.includes('secretaría'))
+    );
 
   }
   private S4(): string {
@@ -476,28 +643,105 @@ export class SilegService {
     return this.S4() + this.S4() + '-' + this.S4() + '-' + this.S4() + '-' + this.S4() + '-' +this.S4() + this.S4()
   }
 
-  setear_designaciones(): void {
+  private generar_expediente(estado: string): string {
+    if (estado.includes('Pendiente') || estado.includes('Aprobada')) {
+      return ''
+    }
+    let exp = ['900-7715/13', '900-7898/13', '900-7898/13', '900-7898/13', '900-7687/13',
+    '900-7687/13', '900-8010/13', '900-8010/13', '900-8059/13', '900-8062/13', '900-8062/13',
+    '900-7773/13', '900-7773/13', '900-7772/13', '900-7772/13', '900-8060/13', '900-8060/13',
+    '900-7937/13', '900-398/09', '900-398/09', '900-4471/11', '900-2096/10', '900-2096/11',
+    '900-398/09', '900-3643/11', '900-2096/10', '900-2096/11', '900-17993/96', '900-399/14',
+    '900-20403/99', '900-4988/08', '900-4988/08', '900-4988/08', '900-20626/99', '900-20626/99',
+    '900-882/14', '900-2097/10', '900-2097/11', '900-2097/12', '900-2097/13', '900-882/14',
+    '900-882/14', '900-927/09', '900-927/09', '900-927/09', '900-16998/95', '900-3362/11'];
+    return exp[Math.floor(Math.random() * exp.length)];
+  }
+
+  private generar_resolucion(estado): string {
+    if (estado.includes('Pendiente') || estado.includes('Aprobada')) {
+      return ''
+    }
+    let res = ['643/13', '640/13', '644/15', '644/15', '645/13', '995/14', '706/13', '706/13',
+      '657/13', '660/13', '660/13', '663/13', '663/13', '664/13', '664/13', '658/13', '711/14',
+      '633/13', '451/09', '451/09', '022/12', '568/10', '351/11', '451/09', '451/09', '505/11',
+      '568/10', '351/11', '528/97', '229/14', '569/00', '373/09', '299/09', '483/11', '404/08',
+      '655/15', '568/10', '332/11', '441/12', '565/13', '514/14', '655/15', '491/09', '903/14',
+      '315/96', '334/11', '638/00', '717/13', '316/96', '612/14', '1017/16', '358/17', '1151/18',
+      '766/07', '886/07', '328/09', '764/05', '834/14', '360/10', '557/00', '599/13', '726/08'          
+    ];    
+    let aux = (estado == 'Activa') ? res : res.concat(['']);
+    return aux[Math.floor(Math.random() * aux.length)];
+  }
+
+  private generar_usuario() {
+    return this.usuarios[Math.floor(Math.random() * this.usuarios.length)];
+  }
+
+  private cant_desig_lug = {};
+  private obtener_catedra(): Lugar {    
+    let l = this.catedras[Math.floor(Math.random() * this.catedras.length)];
+    if (!(l.id in this.cant_desig_lug) || this.cant_desig_lug[l.id] < 18) {
+      this.cant_desig_lug[l.id] = (l.id in this.cant_desig_lug) ? this.cant_desig_lug[l.id] + 1 : 1;
+      return l;
+    } else {
+      return this.obtener_catedra();
+    }
+  }
+
+  setear_designaciones(): void {    
+    let datos_designacion:Array<DatosDesignacion> = [];
     this.tipos_cargos.filter( x => x.tipo == 'Docente').forEach(cargo => {
       this.tipos_caracter.forEach( caracter => {
         this.tipos_estado.forEach( estado => {
-          this.designaciones.push(
-            new Designacion({
+          let l = this.obtener_catedra();
+          let u = this.generar_usuario();
+          let f = Math.floor(Math.random() * 365 * 20);
+          let d = new Designacion({
               id: this.uuid(),
-              usuario_id: '',
+              usuario_id: u.id,
+              usuario: u,
               cargo_id: cargo.id,
               cargo: cargo,
               caracter_id: caracter.id,
               caracter: caracter,
-              lugar_id: '',
-              lugar: null,
-              desde: null,
-              expediente: '',
-              resolucion: ''
-            })            
-          )      
+              lugar_id: l.id,
+              lugar: l,
+              desde: new Date((new Date()).getTime() - (f * 24 * 360000)) ,
+              expediente: this.generar_expediente(estado),
+              resolucion: this.generar_resolucion(estado)
+          });
+          this.designaciones.push(d);
+          datos_designacion.push(new DatosDesignacion({
+            usuario: u,
+            designacion: d,
+            estado: new Estado({nombre:estado})
+          }));
+
         })
       })
+    });
+    this.datos_lugar_designacion = [];
+    let dl_desig_map = {};
+    datos_designacion.forEach(d => {
+      if (d.designacion.lugar_id in dl_desig_map) {
+        let dld = dl_desig_map[d.designacion.lugar_id];
+        dld.designaciones.push(d);
+        dld.puntos_alta = parseFloat((dld.puntos_alta + ((d.estado.nombre.includes('Alta')) ? d.designacion.cargo.puntos : 0)).toFixed(2));
+        dld.puntos_baja = parseFloat((dld.puntos_baja + ((d.estado.nombre.includes('Baja')) ? d.designacion.cargo.puntos : 0)).toFixed(2));
+      } else {
+        dl_desig_map[d.designacion.lugar_id] = new DatosLugarDesignacion({
+          designaciones: [d],
+          lugar: d.designacion.lugar,
+          puntos_alta: (d.estado.nombre.includes('Alta'))? d.designacion.cargo.puntos : 0,
+          puntos_baja: (d.estado.nombre.includes('Baja'))? d.designacion.cargo.puntos : 0, 
+        })
+      }
+    });
+    Object.keys(dl_desig_map).forEach( d => {
+      this.datos_lugar_designacion.push(dl_desig_map[d]);
     })
+    console.log(this.datos_lugar_designacion);    
   }
 
   desginacionesPendientes(lids): Observable<any[]> {
