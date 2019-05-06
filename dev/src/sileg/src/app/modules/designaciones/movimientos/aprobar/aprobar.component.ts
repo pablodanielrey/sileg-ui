@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavegarService } from '../../../../core/navegar.service';
 
 @Component({
   selector: 'app-aprobar',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AprobarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private navegar: NavegarService) { }
 
   ngOnInit() {
+    let s = this.navegar.navegar({url: '/sistema/designaciones/listar/listar/asdsaasasd', params: []}).subscribe(_ => {
+      s.unsubscribe();
+    })
   }
 
 }

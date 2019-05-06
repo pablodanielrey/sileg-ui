@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { SilegService } from '../../../shared/services/sileg.service';
+import { SilegService } from '../../../../shared/services/sileg.service';
 import { map, tap, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { NavegarService } from '../../../core/navegar.service';
-import { ErrorService } from '../../../core/error/error.service';
+import { NavegarService } from '../../../../core/navegar.service';
+import { ErrorService } from '../../../../core/error/error.service';
 
 @Component({
   selector: 'app-listar',
@@ -52,7 +52,7 @@ export class ListarComponent implements OnInit {
 
   aprobar(did) {
     let s = this.navegar.navegar({
-      url: '/sistema/designaciones/listar/:id/baja/crear/:lid',
+      url: '/sistema/designaciones/listar/listar/asdsadasd/aprobar',
       params: {did:did}
     }).subscribe(_ => {
       s.unsubscribe();
@@ -61,7 +61,7 @@ export class ListarComponent implements OnInit {
 
   denegar(did) {
     let s = this.navegar.navegar({
-      url: '/sistema/designaciones/listar/:id/baja/crear/:lid',
+      url: '/sistema/designaciones/listar/listar/asdsadasd/denegar',
       params: {did:did}
     }).subscribe(_ => {
       s.unsubscribe();
@@ -70,7 +70,7 @@ export class ListarComponent implements OnInit {
 
   cancelar(did) {
     let s = this.navegar.navegar({
-      url: '/sistema/designaciones/listar/:id/baja/crear/:lid',
+      url: '/sistema/designaciones/listar/listar/asdsadasd/cancelar',
       params: {did:did}
     }).subscribe(_ => {
       s.unsubscribe();
@@ -89,7 +89,7 @@ export class ListarComponent implements OnInit {
 
   dar_de_baja(mid) {
     let s = this.navegar.navegar({
-      url: '/sistema/designaciones/listar/:id/baja/:mid',
+      url: '/sistema/designaciones/listar/listar/asdsadasd/baja',
       params: {did:mid}
     }).subscribe(_ => {
       s.unsubscribe();
@@ -98,7 +98,7 @@ export class ListarComponent implements OnInit {
 
   crear_alta(lid) {
     let navegar_alta = this.navegar.navegar({
-      url: '/sistema/movimientos/crear/seleccionar/lid',
+      url: '/sistema/movimientos/alta/seleccionar-persona/sdfdsfsd',
       params: {}
     })    
 

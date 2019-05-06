@@ -28,8 +28,10 @@ export class CrearPersonaComponent implements OnInit {
   }
 
   alta() {
+    let lid = 'sdfsdfsdfdf';
+    let pid = 'ssdfsdfsd';
     this.navegar.navegar({
-      url:'/sistema/movimientos/crear/alta/xxx/xxx',
+      url:'/sistema/movimientos/alta/alta-cargo/' + lid + '/' + pid,
       params:{}
     }).subscribe();
   }

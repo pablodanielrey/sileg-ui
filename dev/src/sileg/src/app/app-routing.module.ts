@@ -4,20 +4,23 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 
 import { ModificarComponent as ModificarDesignacionComponent } from './modules/designaciones/modificar/modificar.component';
-import { SeleccionarLugaresComponent as SeleccionarLugaresDesignacionComponent } from './modules/designaciones/seleccionar-lugares/seleccionar-lugares.component';
+import { SeleccionarLugaresComponent as SeleccionarLugaresDesignacionComponent } from './modules/designaciones/lista/seleccionar-lugares/seleccionar-lugares.component';
 
 import { SistemaComponent } from './core/sistema/sistema.component';
 import { InicioComponent } from './modules/inicio/inicio.component';
 
 import { PendientesComponent as MovimientosPendientesComponent } from './modules/designaciones/movimientos/pendientes/pendientes.component';
-import { SeleccionarPersonaComponent as AltaMovimientoSeleccionarPersonaComponent } from './modules/designaciones/movimientos/crear/seleccionar-persona/seleccionar-persona.component';
-import { ListarComponent as ListarDesignacionesComponent } from './modules/designaciones/listar/listar.component';
+import { SeleccionarPersonaComponent as AltaMovimientoSeleccionarPersonaComponent } from './modules/designaciones/movimientos/alta/seleccionar-persona/seleccionar-persona.component';
+import { ListarComponent as ListarDesignacionesComponent } from './modules/designaciones/lista/listar/listar.component';
 
 
-import { CrearPersonaComponent as AltaMovimientoCrearPersonaComponent } from './modules/designaciones/movimientos/crear/crear-persona/crear-persona.component';
-import { AltaCargoComponent as AltaMovimientoAltaCargoComponent } from './modules/designaciones/movimientos/crear/alta-cargo/alta-cargo.component';
+import { CrearPersonaComponent as AltaMovimientoCrearPersonaComponent } from './modules/designaciones/movimientos/alta/crear-persona/crear-persona.component';
+import { AltaCargoComponent as AltaMovimientoAltaCargoComponent } from './modules/designaciones/movimientos/alta/alta-cargo/alta-cargo.component';
 
-import { CrearComponent as BajaMovimientoCrearComponent } from './modules/designaciones/movimientos/baja/crear/crear.component';
+import { CancelarComponent as CancelarMovimientoComponent } from './modules/designaciones/movimientos/cancelar/cancelar.component';
+import { DenegarComponent as DenegarMovimientoComponent } from './modules/designaciones/movimientos/denegar/denegar.component';
+import { AprobarComponent as AprobarMovimientoComponent } from './modules/designaciones/movimientos/aprobar/aprobar.component';
+import { BajaComponent as BajaMovimientoComponent } from './modules/designaciones/movimientos/baja/baja.component';
 import { EditarComponent as EditarMovimientoComponent } from './modules/designaciones/movimientos/editar/editar.component';
 
 import { SeleccionarComponent as SeleccionarLugarComponent } from './modules/lugares/seleccionar/seleccionar.component';
@@ -49,30 +52,41 @@ const routes: Routes = [
       {
         path: 'movimientos',
         children: [
+          { path: 'pendientes', component: MovimientosPendientesComponent },
           { path: 'editar/:mid', component: EditarMovimientoComponent },
-          { path:'pendientes', component: MovimientosPendientesComponent },
-          { 
-            path: 'crear',
+          {
+            path: 'alta',
             children: [
-              { path: 'seleccionar/:lid', component: AltaMovimientoSeleccionarPersonaComponent },
-              { path: 'crear/:lid', component: AltaMovimientoCrearPersonaComponent },
-              { path: 'alta/:lid/:pid', component: AltaMovimientoAltaCargoComponent }
+              { path: 'seleccionar-persona/:lid', component: AltaMovimientoSeleccionarPersonaComponent },
+              { path: 'crear-persona/:lid', component: AltaMovimientoCrearPersonaComponent },
+              { path: 'alta-cargo/:lid/:pid', component: AltaMovimientoAltaCargoComponent }
             ] 
-          }
+          },
+          { path: 'aprobar', component: AprobarMovimientoComponent },
+          { path: 'denegar', component: DenegarMovimientoComponent },
+          { path: 'baja', component: BajaMovimientoComponent },
+          { path: 'cancelar', component: CancelarMovimientoComponent },
         ]
       },
       {
         path: 'designaciones',
         children: [
           { 
-            path: 'listar/:id', 
-            component: ListarDesignacionesComponent,
+            path: 'listar', 
             children: [
-              { path: 'baja/:mid', component: BajaMovimientoCrearComponent }
+              { path: 'seleccionar-lugar', component: SeleccionarLugaresDesignacionComponent },
+              { 
+                path: 'listar/:mid', component: ListarDesignacionesComponent,
+                children: [
+                  { path: 'aprobar', component: AprobarMovimientoComponent },
+                  { path: 'denegar', component: DenegarMovimientoComponent },
+                  { path: 'cancelar', component: CancelarMovimientoComponent },
+                  { path: 'baja', component: BajaMovimientoComponent }
+                ]
+              }
             ]
           },
-          { path: 'modificar/:id', component: ModificarDesignacionComponent},
-          { path: 'seleccionar-lugar', component: SeleccionarLugaresDesignacionComponent }
+          { path: 'modificar/:id', component: ModificarDesignacionComponent}
         ]
       },
       {

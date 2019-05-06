@@ -23,7 +23,7 @@ export class PendientesComponent implements OnInit {
     */
     let lid_raiz = 'asdfsadasasasdsassd'
     let ruta = {
-      url: '/sistema/designaciones/listar/' + lid_raiz,
+      url: '/sistema/designaciones/listar/listar/' + lid_raiz,
       params: {}
     }
     let s = timer(1000).pipe(
