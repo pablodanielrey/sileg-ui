@@ -80,7 +80,7 @@ export class ListarComponent implements OnInit {
 
   detalle(did) {
     let s = this.navegar.navegar({
-      url: '/sistema/designaciones/detalle/:id',
+      url: '/sistema/designaciones/detalle/' + did,
       params: {did:did}
     }).subscribe(_ => {
       s.unsubscribe();

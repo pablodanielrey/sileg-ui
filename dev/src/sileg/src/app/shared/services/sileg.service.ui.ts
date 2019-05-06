@@ -1067,4 +1067,9 @@ export class SilegService {
   obtenerCaracter(): Observable<Caracter[]> {
     return of(this.tipos_caracter);
   }
+
+  detalleDesignacion(lid): Observable<any[]> {
+    return this.desginacionesPendientes([lid]);
+  }
+
 }

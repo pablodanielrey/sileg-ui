@@ -21,6 +21,10 @@ export class SilegService {
   
   constructor(private http: HttpClient) { }
 
+  detalleDesignacion(lid): Observable<any[]> {
+    return null;
+  }
+
   desginacionesPendientes(lid): Observable<any[]> {
     return null;
   }

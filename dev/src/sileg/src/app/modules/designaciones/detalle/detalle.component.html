@@ -1,0 +1,88 @@
+<mat-toolbar-row>
+    <button mat-button color="primary" (click)='volver()'><mat-icon>undo </mat-icon> VOLVER</button>
+    <span>&nbsp; Designación | Detalle</span>
+    <span>&nbsp; {{(usuario$ | async).nombre}}</span>
+</mat-toolbar-row>
+  
+<mat-divider></mat-divider>
+ 
+<router-outlet></router-outlet>
+
+<div class="pantalla">
+
+    <mat-tab-group *ngFor="let l of (lugares$ | async)" class="tab">
+
+        <mat-tab label="{{(usuario$ | async).nombre}} - {{ l.lugar.nombre }}">  
+  
+            <mat-table [dataSource]="l.designaciones$ | async" >
+  
+                <ng-container matColumnDef="usuario" sticky>
+                      <mat-header-cell *matHeaderCellDef> Usuario </mat-header-cell>
+                      <mat-cell *matCellDef="let desig"> {{desig.usuario.nombre}} {{desig.usuario.apellido}}</mat-cell>
+                </ng-container>
+  
+                <ng-container matColumnDef="cargo">
+                    <mat-header-cell *matHeaderCellDef> Cargo </mat-header-cell>
+                    <mat-cell *matCellDef="let desig">{{desig.designacion.cargo.nombre}}</mat-cell>
+                 </ng-container>
+  
+                <ng-container matColumnDef="dedicacion">
+                    <mat-header-cell *matHeaderCellDef> Dedicación </mat-header-cell>
+                    <mat-cell *matCellDef="let desig">DS</mat-cell>
+                </ng-container>
+  
+                <ng-container matColumnDef="caracter">
+                    <mat-header-cell *matHeaderCellDef> Caracter </mat-header-cell>
+                    <mat-cell *matCellDef="let desig"> Interino</mat-cell>
+                </ng-container>
+  
+  
+                <ng-container matColumnDef="desde">
+                  <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
+                  <mat-cell *matCellDef="let desig">02/03/19</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="hasta">
+                    <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
+                    <mat-cell *matCellDef="let desig">02/03/19</mat-cell>
+                  </ng-container>                
+  
+                <ng-container matColumnDef="nota">
+                    <mat-header-cell *matHeaderCellDef> Nota </mat-header-cell>
+                    <mat-cell *matCellDef="let desig">  <button mat-icon-button><mat-icon >save_alt</mat-icon></button></mat-cell>
+                </ng-container>
+  
+                <ng-container matColumnDef="resolucion">
+                    <mat-header-cell *matHeaderCellDef> Resolución </mat-header-cell>
+                    <mat-cell *matCellDef="let desig">256/19</mat-cell>
+                </ng-container>
+  
+                <ng-container matColumnDef="expediente">
+                    <mat-header-cell *matHeaderCellDef> Expediente </mat-header-cell>
+                    <mat-cell *matCellDef="let desig">25-457/19</mat-cell>
+                </ng-container>
+  
+                <ng-container matColumnDef="estado">
+                    <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
+                    <mat-cell *matCellDef="let desig">
+                        <div class="estado" placeholder="Alta de Designación">A</div>
+                        <div class="estado">C</div>
+                    </mat-cell>
+                </ng-container>
+  
+  
+                <ng-container matColumnDef="puntos">
+                      <mat-header-cell *matHeaderCellDef> Puntos </mat-header-cell>
+                      <mat-cell *matCellDef="let desig">{{desig.ptos}} </mat-cell>
+                </ng-container>
+  
+                <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: columnas;"></mat-row>   
+              </mat-table>
+    
+          </mat-tab>
+  
+    </mat-tab-group>
+
+
+</div>

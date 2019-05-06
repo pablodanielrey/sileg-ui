@@ -29,12 +29,13 @@ import { SeleccionarLugaresComponent } from './modules/designaciones/lista/selec
 
 import { ListarComponent } from './modules/designaciones/lista/listar/listar.component';
 import { SeleccionarComponent } from './modules/lugares/seleccionar/seleccionar.component';
-import { DetalleComponent } from './modules/lugares/detalle/detalle.component';
+import { DetalleComponent as DetalleDesigancionComponent } from './modules/designaciones/detalle/detalle.component';
+
+import { DetalleComponent as DetalleLugarComponent } from './modules/lugares/detalle/detalle.component';
 
 import { environment } from '../environments/environment';
 import { EjemploErrorComponent } from './modules/ejemplo-error/ejemplo-error.component';
 import { BajaComponent } from './modules/designaciones/movimientos/baja/baja.component';
-import { CrearComponent } from './modules/designaciones/movimientos/baja/crear/crear.component';
 import { AprobarComponent } from './modules/designaciones/movimientos/aprobar/aprobar.component';
 import { DenegarComponent } from './modules/designaciones/movimientos/denegar/denegar.component';
 import { EditarComponent } from './modules/designaciones/movimientos/editar/editar.component';
@@ -58,10 +59,10 @@ import { CancelarComponent } from './modules/designaciones/movimientos/cancelar/
     SeleccionarLugaresComponent,
     ListarComponent,
     SeleccionarComponent,
-    DetalleComponent,
+    DetalleDesigancionComponent,
+    DetalleLugarComponent,
     EjemploErrorComponent,
     BajaComponent,
-    CrearComponent,
     AprobarComponent,
     DenegarComponent,
     EditarComponent,

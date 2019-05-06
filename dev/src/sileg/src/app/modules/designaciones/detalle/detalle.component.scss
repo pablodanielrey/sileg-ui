@@ -1,0 +1,29 @@
+.pantalla {
+    padding: 0 20PX 20PX 20px;
+}
+
+.espacioEjemplo {
+    flex: 1 1 auto;
+}
+
+.tab {
+    margin-top: 10px;
+}
+
+.estado {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    border: 2px solid #2196f3;
+    font-size: 12px;
+    min-width: 16px;
+    min-height: 16px;
+    width: 16px;
+    height: 16px;
+    color: #2196f3;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+

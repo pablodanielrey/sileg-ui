@@ -11,8 +11,9 @@ import { InicioComponent } from './modules/inicio/inicio.component';
 
 import { PendientesComponent as MovimientosPendientesComponent } from './modules/designaciones/movimientos/pendientes/pendientes.component';
 import { SeleccionarPersonaComponent as AltaMovimientoSeleccionarPersonaComponent } from './modules/designaciones/movimientos/alta/seleccionar-persona/seleccionar-persona.component';
-import { ListarComponent as ListarDesignacionesComponent } from './modules/designaciones/lista/listar/listar.component';
 
+import { ListarComponent as ListarDesignacionesComponent } from './modules/designaciones/lista/listar/listar.component';
+import { DetalleComponent as DetalleDesignacionComponent } from './modules/designaciones/detalle/detalle.component';
 
 import { CrearPersonaComponent as AltaMovimientoCrearPersonaComponent } from './modules/designaciones/movimientos/alta/crear-persona/crear-persona.component';
 import { AltaCargoComponent as AltaMovimientoAltaCargoComponent } from './modules/designaciones/movimientos/alta/alta-cargo/alta-cargo.component';
@@ -86,7 +87,8 @@ const routes: Routes = [
               }
             ]
           },
-          { path: 'modificar/:id', component: ModificarDesignacionComponent}
+          { path: 'modificar/:id', component: ModificarDesignacionComponent},
+          { path: 'detalle/:lid', component: DetalleDesignacionComponent }
         ]
       },
       {
