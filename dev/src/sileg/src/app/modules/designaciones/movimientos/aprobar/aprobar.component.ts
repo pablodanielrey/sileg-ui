@@ -11,9 +11,11 @@ export class AprobarComponent implements OnInit {
   constructor(private navegar: NavegarService) { }
 
   ngOnInit() {
+  }
+
+  aprobar() {
     let s = this.navegar.navegar({url: '/sistema/designaciones/listar/listar/asdsaasasd', params: []}).subscribe(_ => {
       s.unsubscribe();
     })
   }
-
 }

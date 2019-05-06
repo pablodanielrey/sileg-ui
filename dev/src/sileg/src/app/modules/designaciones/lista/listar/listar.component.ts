@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { SilegService } from '../../../../shared/services/sileg.service';
 import { map, tap, switchMap } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { NavegarService } from '../../../../core/navegar.service';
 import { ErrorService } from '../../../../core/error/error.service';
 
@@ -18,7 +18,8 @@ export class ListarComponent implements OnInit {
 
   constructor(private error_service: ErrorService,
               private service : SilegService, 
-              private navegar: NavegarService) { }
+              private navegar: NavegarService,
+              private router: Router) { }
 
   ngOnInit() {
     let lid = "1f7b87ea-96b7-428c-8a00-fd33e1ba3ee6";
@@ -38,7 +39,17 @@ export class ListarComponent implements OnInit {
       }),
       tap(v => console.log(v))
     )  
+
+    /*
+    this.router.events.subscribe(e => {
+      if (e instanceof NavigationStart) {
+        this.mostrar_dialogo = false;
+      }
+    })
+    */
   }
+
+
 
 
   modificar(mid) {

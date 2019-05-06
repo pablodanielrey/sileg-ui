@@ -54,6 +54,7 @@ import { DebugComponent } from './debug/debug.component';
 import { ErrorComponent } from './error/error.component';
 import { PermisosService } from './permisos.service';
 import { ErrorService } from './error/error.service';
+import { DialogoComponent } from './dialogo/dialogo.component';
 
 
 const routes: Routes = [
@@ -73,7 +74,8 @@ const routes: Routes = [
     PreloadParcialComponent,
     PreloadTotalComponent,
     DebugComponent,
-    ErrorComponent
+    ErrorComponent,
+    DialogoComponent
   ],
   imports: [
     MatButtonModule,
@@ -142,7 +144,8 @@ const routes: Routes = [
     BrowserAnimationsModule,
     MatTooltipModule,
     MatBadgeModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    DialogoComponent
   ],
   providers: [
     PermisosService,
