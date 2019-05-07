@@ -13,21 +13,21 @@ import { ErrorService } from '../../../../core/error/error.service';
 })
 export class ListarComponent implements OnInit {
 
-  columnas: string[] = ['usuario','cargo','dedicacion','caracter','fecha','nota','resolucion','expediente','estado','acciones'];
+  columnas: string[] = ['usuario', 'cargo', 'dedicacion', 'caracter', 'fecha', 'nota', 'resolucion', 'expediente', 'estado', 'acciones'];
   lugares$: Observable<any[]>;
 
   constructor(private error_service: ErrorService,
-              private service : SilegService, 
-              private navegar: NavegarService,
-              private router: Router) { }
+    private service: SilegService,
+    private navegar: NavegarService,
+    private router: Router) { }
 
   ngOnInit() {
     let lid = "1f7b87ea-96b7-428c-8a00-fd33e1ba3ee6";
- 
+
     this.lugares$ = this.service.desginacionesPendientes([lid]).pipe(
-      map( v => {
+      map(v => {
         let a = [];
-        for(let e of v) {
+        for (let e of v) {
           a.push({
             lugar: e.lugar,
             ptos_alta: e.ptos_alta,
@@ -38,7 +38,9 @@ export class ListarComponent implements OnInit {
         return a
       }),
       tap(v => console.log(v))
-    )  
+    )
+
+
 
     /*
     this.router.events.subscribe(e => {
@@ -49,10 +51,25 @@ export class ListarComponent implements OnInit {
     */
   }
 
+  estado_tipo(desig) {
+    let t = ['A','B','C']
+    let i = Math.floor(Math.random() * (t.length))
+    //return desig.estado.nombre.substr(0,1);
+    return t[i];    
+    //return desig.estado.nombre.substr(0,1);
+  }
+
+  estado_estado(desig) {
+    let t = ['A','B','C']
+    let i = Math.floor(Math.random() * (t.length))
+    //return desig.estado.nombre.substr(0,1);
+    return t[i];
+  }
+
   adjuntar_resolucion(mid) {
     let s = this.navegar.navegar({
       url: '/sistema/designaciones/listar/listar/asdsadasd/adjuntar-resolucion',
-      params: {mid:mid}
+      params: { mid: mid }
     }).subscribe(_ => {
       s.unsubscribe();
     })
@@ -61,7 +78,7 @@ export class ListarComponent implements OnInit {
   modificar(mid) {
     let s = this.navegar.navegar({
       url: '/sistema/movimientos/editar/:mid',
-      params: {mid:mid}
+      params: { mid: mid }
     }).subscribe(_ => {
       s.unsubscribe();
     })
@@ -70,7 +87,7 @@ export class ListarComponent implements OnInit {
   aprobar(did) {
     let s = this.navegar.navegar({
       url: '/sistema/designaciones/listar/listar/asdsadasd/aprobar',
-      params: {did:did}
+      params: { did: did }
     }).subscribe(_ => {
       s.unsubscribe();
     })
@@ -79,7 +96,7 @@ export class ListarComponent implements OnInit {
   denegar(did) {
     let s = this.navegar.navegar({
       url: '/sistema/designaciones/listar/listar/asdsadasd/denegar',
-      params: {did:did}
+      params: { did: did }
     }).subscribe(_ => {
       s.unsubscribe();
     })
@@ -88,7 +105,7 @@ export class ListarComponent implements OnInit {
   cancelar(did) {
     let s = this.navegar.navegar({
       url: '/sistema/designaciones/listar/listar/asdsadasd/cancelar',
-      params: {did:did}
+      params: { did: did }
     }).subscribe(_ => {
       s.unsubscribe();
     })
@@ -98,7 +115,7 @@ export class ListarComponent implements OnInit {
   detalle(did) {
     let s = this.navegar.navegar({
       url: '/sistema/designaciones/detalle/' + did,
-      params: {did:did}
+      params: { did: did }
     }).subscribe(_ => {
       s.unsubscribe();
     })
@@ -107,7 +124,7 @@ export class ListarComponent implements OnInit {
   dar_de_baja(mid) {
     let s = this.navegar.navegar({
       url: '/sistema/designaciones/listar/listar/asdsadasd/baja',
-      params: {did:mid}
+      params: { did: mid }
     }).subscribe(_ => {
       s.unsubscribe();
     })
@@ -117,7 +134,7 @@ export class ListarComponent implements OnInit {
     let navegar_alta = this.navegar.navegar({
       url: '/sistema/movimientos/alta/seleccionar-persona/sdfdsfsd',
       params: {}
-    })    
+    })
 
     this.navegar.obtenerRuta().pipe(
       tap(ruta_actual => {
@@ -131,10 +148,10 @@ export class ListarComponent implements OnInit {
     let s = this.navegar.volver().subscribe(_ => {
       s.unsubscribe();
     });
-  }  
+  }
 
   mostrar_error() {
-    this.error_service.error({'error': true, 'mensaje': 'designacion creada con éxito'});
-  }    
+    this.error_service.error({ 'error': true, 'mensaje': 'designacion creada con éxito' });
+  }
 
 }

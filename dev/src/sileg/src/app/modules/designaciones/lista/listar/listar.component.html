@@ -59,8 +59,15 @@
                 <ng-container matColumnDef="estado">
                     <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
                     <mat-cell *matCellDef="let desig">
-                        <div class="estado" placeholder="Alta de Designación">A</div>
-                        <div class="estado">C</div>
+
+                        <div *ngIf='true'>
+                            <div class="estado {{estado_tipo(desig)}}">{{estado_tipo(desig)}}</div>
+                            <div class="estado {{estado_estado(desig)}}">{{estado_estado(desig)}}</div>
+                        </div>
+                        <div *ngIf='true'>
+                            <mat-chip>Activa</mat-chip>
+                        </div>
+
                     </mat-cell>
                 </ng-container>
   

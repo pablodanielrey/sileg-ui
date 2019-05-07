@@ -12,6 +12,7 @@ import { PermisosService } from '../permisos.service';
 import { Router } from '@angular/router';
 import { Observable, of, Subject, forkJoin, observable } from 'rxjs';
 import { map, mergeMap, combineAll, combineLatest,  tap, flatMap, mergeAll } from 'rxjs/operators';
+import { NavegarService } from '../navegar.service';
 
 
 
@@ -57,7 +58,8 @@ export class SistemaComponent implements OnInit {
               private events: EventsService,
               private router: Router,
               private routerEvents: RouterService,
-              private permisos: PermisosService) { 
+              private permisos: PermisosService,
+              private navegar: NavegarService) { 
 
     let menu$ = of(menu);
     this.menu_sistema$ = menu$.pipe(
@@ -96,8 +98,13 @@ export class SistemaComponent implements OnInit {
   }
 
 
-  navegar(item:MenuItem) {
-
+  navegar_hacia(item:MenuItem) {
+    let s = this.navegar.navegar({
+      url: item.ruta,
+      params: []
+    }).subscribe(_ => {
+      s.unsubscribe();
+    })
   }
 
 
