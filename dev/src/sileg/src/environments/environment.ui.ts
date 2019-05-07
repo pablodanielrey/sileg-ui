@@ -13,7 +13,7 @@ export const environment = {
       cabecera: 'GELIS | FCE',
       version: '0.1.1a',
       tituloSistema: 'GELIS',
-      subtituloSistema: 'Administracción y Designación Docente y NoDocente',
+      subtituloSistema: 'Sistema de Legajos y Designaciones',
       desarrolloSistema: 'DiTeSI | Dirección de Tecnologías y Sistemas Informáticos',
       logoSistema: '/assets/img/fce/logofce2018.png',
     },

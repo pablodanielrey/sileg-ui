@@ -1,32 +1,56 @@
-.loader {
-  // display: flex;
-  // flex-direction: column;
-  height: 100vh;
+$colorPrimario: #E22748;
 
+.loader {
+  height: 100vh;
 }
 
+.toolbar {
+  background-color: #3e3e3e;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.textSistema {
+  font-weight: 200;
+}
+
+.textVersion {
+  font-size: 11px;
+  opacity: 0.5;
+}
+
+.contenido {
+  height: calc(100% - 64px);
+  display: flex;
+  flex-direction: column;
+  justify-content:space-around;
+  align-items: center; 
+  @media screen and (min-width: 1800px) {
+    zoom: 1.2;
+  }
+}
+
+.bloqueContenido {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .logo {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 50px 0 10px 0;
+  margin: 10px 0 10px 0;
   width: 20px;
   height: 20px;
   font-size: 80px;
   font-weight: 700;
   padding: 40px;
   color: white;
-  background-color: #4C8EF4;
+  background-color: $colorPrimario;
   border-radius: 100%;
-
 }
-
-
-
-
-
-
 
 /* ----------  ANIMACION TITULO  ----------------------- */
 
@@ -64,58 +88,34 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-.contenido {
-
-  display: flex;
-  flex-direction: column;
-  justify-content:space-between;
-  align-items: center; 
-
-}
-
-.imgLogo {
-  width: 150px;
-}
-
-.tituloLogo {
-  font-size: 50px;
-  color: #222222
-}
-
-
-
-.desarrollo {
-  font-size: 12px;
-  color: #333333;
+.subTitulo {
+  font-weight: 100;
+  font-size: 20px;
 }
 
 button {
   width: 200px;
   margin: 50px;
+  border: 1px solid $colorPrimario;
+}
+
+.textoDesarrollo {
+  font-size: 11px;
+  color: #333333;
+}
+
+.logoFce {
+  max-width: 270px;
 }
 
 
-h1 {
-  font-family:monospace;
-}
 
-@keyframes slide {
-  0% {
-    transform:translateX(-25%);
-  }
-  100% {
-    transform:translateX(25%);
-  }
-}
+
+
+
+
+
+
 
 
 

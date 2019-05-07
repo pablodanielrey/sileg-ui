@@ -1,11 +1,6 @@
- <mat-toolbar-row>
-    <button mat-button color="primary"><mat-icon>undo </mat-icon> VOLVER</button>
-    <span>&nbsp;  Designaciones Pendientes</span>
-    <span class="espacioEjemplo"></span>
-    <button mat-button [matMenuTriggerFor]="menu"><mat-icon>help_outline </mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-    </mat-menu>
+<mat-toolbar-row>
+        <button mat-button color="primary" (click)='volver()'><mat-icon>undo </mat-icon> VOLVER</button>
+        <span>&nbsp; Designaciones | Listado</span>
 </mat-toolbar-row>
 
 <mat-divider></mat-divider>
