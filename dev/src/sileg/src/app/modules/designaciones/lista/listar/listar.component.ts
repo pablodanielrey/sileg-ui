@@ -49,8 +49,14 @@ export class ListarComponent implements OnInit {
     */
   }
 
-
-
+  adjuntar_resolucion(mid) {
+    let s = this.navegar.navegar({
+      url: '/sistema/designaciones/listar/listar/asdsadasd/adjuntar-resolucion',
+      params: {mid:mid}
+    }).subscribe(_ => {
+      s.unsubscribe();
+    })
+  }
 
   modificar(mid) {
     let s = this.navegar.navegar({

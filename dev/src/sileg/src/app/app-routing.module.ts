@@ -23,6 +23,7 @@ import { DenegarComponent as DenegarMovimientoComponent } from './modules/design
 import { AprobarComponent as AprobarMovimientoComponent } from './modules/designaciones/movimientos/aprobar/aprobar.component';
 import { BajaComponent as BajaMovimientoComponent } from './modules/designaciones/movimientos/baja/baja.component';
 import { EditarComponent as EditarMovimientoComponent } from './modules/designaciones/movimientos/editar/editar.component';
+import { AdjuntarResolucionComponent } from './modules/designaciones/movimientos/adjuntar-resolucion/adjuntar-resolucion.component';
 
 import { SeleccionarComponent as SeleccionarLugarComponent } from './modules/lugares/seleccionar/seleccionar.component';
 import { DetalleComponent as DetalleLugarComponent } from './modules/lugares/detalle/detalle.component';
@@ -67,6 +68,7 @@ const routes: Routes = [
           { path: 'denegar', component: DenegarMovimientoComponent },
           { path: 'baja', component: BajaMovimientoComponent },
           { path: 'cancelar', component: CancelarMovimientoComponent },
+          { path: 'adjuntar-resolucion', component: AdjuntarResolucionComponent },
         ]
       },
       {
@@ -82,7 +84,8 @@ const routes: Routes = [
                   { path: 'aprobar', component: AprobarMovimientoComponent },
                   { path: 'denegar', component: DenegarMovimientoComponent },
                   { path: 'cancelar', component: CancelarMovimientoComponent },
-                  { path: 'baja', component: BajaMovimientoComponent }
+                  { path: 'baja', component: BajaMovimientoComponent },
+                  { path: 'adjuntar-resolucion', component: AdjuntarResolucionComponent }
                 ]
               }
             ]

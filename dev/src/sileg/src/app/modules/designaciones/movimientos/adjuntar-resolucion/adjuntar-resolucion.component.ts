@@ -2,20 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { NavegarService } from '../../../../core/navegar.service';
 
 @Component({
-  selector: 'app-baja',
-  templateUrl: './baja.component.html',
-  styleUrls: ['./baja.component.scss']
+  selector: 'app-adjuntar-resolucion',
+  templateUrl: './adjuntar-resolucion.component.html',
+  styleUrls: ['./adjuntar-resolucion.component.scss']
 })
-export class BajaComponent implements OnInit {
+export class AdjuntarResolucionComponent implements OnInit {
 
   constructor(private navegar: NavegarService) { }
 
   ngOnInit() {
   }
 
-  confirmar() {
+  adjuntar() {
     let s = this.navegar.navegar({url: '/sistema/designaciones/listar/listar/asdsaasasd', params: []}).subscribe(_ => {
       s.unsubscribe();
     })
   }
+
 }

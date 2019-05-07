@@ -10,7 +10,7 @@ import { EventsService } from '../events.service';
 import { RouterService } from '../router.service';
 import { PermisosService } from '../permisos.service';
 import { Router } from '@angular/router';
-import { Observable, of, Subject, forkJoin } from 'rxjs';
+import { Observable, of, Subject, forkJoin, observable } from 'rxjs';
 import { map, mergeMap, combineAll, combineLatest,  tap, flatMap, mergeAll } from 'rxjs/operators';
 
 
@@ -43,7 +43,7 @@ const menu : MenuSistema = [
 })
 export class SistemaComponent implements OnInit {
   
-  menu_sistema: Observable<MenuItemResuelto[]> = null;
+  menu_sistema$: Observable<MenuItemResuelto[]> = null;
   identity = null;
 
   subscriptions: any[] = [];
@@ -59,39 +59,25 @@ export class SistemaComponent implements OnInit {
               private routerEvents: RouterService,
               private permisos: PermisosService) { 
 
-    let menu_temp: Observable<[Observable<MenuItemResuelto>]> = of(menu).pipe(
-        tap(v => {console.log(1), console.log(v)}),
-        map(items => items.map(i => this.resolver_permisos(i))),
-        tap(v => {console.log(2), console.log(v)}),
-        combineLatest()
+    let menu$ = of(menu);
+    this.menu_sistema$ = menu$.pipe(
+      map(rs => rs.map(e => 
+        this.tengo_permisos(e).pipe(
+          map(b => {
+            return {
+              item: e,
+              mostrar: b
+            }
+          })
+        )
+      )),
+      mergeMap(a => forkJoin(a))
     )
-    let menu_temp2: Observable<Observable<MenuItemResuelto[]>> = menu_temp.pipe(
-      tap(v => {console.log(3), console.log(v)}),
-      combineLatest()
-    )
-
-    this.menu_sistema = menu_temp2.pipe(
-      tap(v => {console.log(4), console.log(v)}),
-      mergeMap(items => items),
-      tap(v => {console.log(5), console.log(v)})
-    );
       
   }
 
   tengo_permisos(item:MenuItem):Observable<boolean> {
     return of(true);
-  }
-
-
-  resolver_permisos(o:MenuItem) : Observable<MenuItemResuelto> {
-    return this.tengo_permisos(o).pipe(
-      map(b => {
-        return {
-          item: o,
-          mostrar: b
-        }
-      })
-    );
   }
 
   ngOnInit() {
