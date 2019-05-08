@@ -499,8 +499,8 @@ export class SilegService {
         padre_id: 'a7498331-3afd-4881-b899-25ff2b8dd0f2'
       }),
       new Lugar({
-        id: '5a765400-9b2d-4eb4-91d3-ac861a7eb608',
-        nombre: 'Microeconomía I',
+        id: '1e751435-9671-4568-b61e-5dd22efa377b',
+        nombre: 'Teoría del Desarrollo Económico',
         padre_id: 'a7498331-3afd-4881-b899-25ff2b8dd0f2'
       }),
       new Lugar({
@@ -911,66 +911,11 @@ export class SilegService {
   }
   
   obtenerPersona(uid: string): Observable<any> {
-    return of({
-      id: '23423',
-      nombre: 'prueba de persona',
-      apellido: 'prueba de apellido',
-      dni: '23456'
-    });
+    return of(this.usuarios.filter( u => u.id == uid));
   }
 
   buscarPersonas(texto: string): Observable<any[]> {
-    let personas = [
-      {
-        id: '23423',
-        nombre: 'Walter',
-        apellido: 'Blanco',
-        dni: '30001823'
-      },
-      {
-        id: '23424',
-        nombre: 'Alejandro Agustin',
-        apellido: 'Oporto',
-        dni: '29587695'
-      },
-      {
-        id: '23425',
-        nombre: 'Emanuel Joaquin',
-        apellido: 'Pais',
-        dni: '33548456'
-      },
-      {
-        id: '23426',
-        nombre: 'Pablo Daniel',
-        apellido: 'Rey',
-        dni: '27635984'
-      },
-      {
-        id: '23427',
-        nombre: 'Miguel',
-        apellido: 'Macagno',
-        dni: '35626943'
-      },
-      {
-        id: '23428',
-        nombre: 'Leonardo',
-        apellido: 'Consolini',
-        dni: '35666215'
-      },
-      {
-        id: '23429',
-        nombre: 'Ivan Cesar',
-        apellido: 'Castañeda',
-        dni: '312569525'
-      },
-      {
-        id: '23430',
-        nombre: 'Maximiliano',
-        apellido: 'Sauceso',
-        dni: '28569885'
-      }
-    ];
-    let personas2 = personas.filter( v => 
+    let personas2 = this.usuarios.filter( v => 
         v.nombre.toLowerCase().includes(texto.toLowerCase()) ||
         v.apellido.toLowerCase().includes(texto.toLowerCase()) ||
         v.dni.toLowerCase().includes(texto.toLocaleLowerCase())
@@ -979,79 +924,11 @@ export class SilegService {
   }  
 
   obtenerLugar(lid: string): Observable<any> {
-    return of(
-      {
-        id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
-        nombre: 'DiTeSI'
-      }
-    );
+    return of(this.lugares.find( l => l.id == lid));
   }
 
   buscarLugares(texto: string): Observable<any[]> {
-    let lugares = [
-      {
-        id: '1',
-        nombre: 'Microeconomía I',
-        superior:'Departamento de Economía',
-        abreviatura:'M'
-      },
-      {
-        id: '2',
-        nombre: 'Microeconomía II',
-        superior:'Departamento de Economía',
-        abreviatura:'M'
-      },
-      {
-        id: '3',
-        nombre: 'Derecho Constitucional y Administrativo',
-        superior:'Departamento de Contabilidad',
-        abreviatura:'D'
-      },
-      {
-        id: '4',
-        nombre: 'Matemática para Economistas I',
-        superior:'Departamento de Economía',
-        abreviatura:'M'
-      },
-      {
-        id: '5',
-        nombre: 'Estadística para Economistas I',
-        superior:'Departamento de Ciencias Administrativas',
-        abreviatura:'E'
-      },
-      {
-        id: '6',
-        nombre: 'Estadística para Economistas II',
-        superior:'Departamento de Economía',
-        abreviatura:'E'
-      },
-      {
-        id: '7',
-        nombre: 'Economía Internacional',
-        superior:'Departamento de Contabilidad',
-        abreviatura:'E'
-      },
-      {
-        id: '8',
-        nombre: 'Finanzas Internacionales',
-        superior:'Departamento de Ciencias Administrativas',
-        abreviatura:'F'
-      },
-      {
-        id: '9',
-        nombre: 'Economía y Regulación de los Servicios Públicos',
-        superior:'Departamento de Economía',
-        abreviatura:'E'
-      },
-      {
-        id: '10',
-        nombre: 'Política Económica II',
-        superior:'Departamento de Ciencias Administrativas',
-        abreviatura:'P'
-      }
-    ];
-    console.log('filtrando lugares: ' + texto);
-    let lugares_filtrados = lugares.filter( v => v.nombre.toLowerCase().includes(texto.toLowerCase()));
+    let lugares_filtrados = this.lugares.filter( v => v.nombre.toLowerCase().includes(texto.toLowerCase()));
     return of(lugares_filtrados).delay(1500);
   }  
 

@@ -18,9 +18,9 @@ export class SeleccionarComponent implements OnInit {
     this.navegar.volver().subscribe().unsubscribe();
   }
 
-  seleccionado(l) {
+  seleccionado(l) {    
     this.navegar.navegar({
-      url: '/sistema/lugares/detalle/sdsdffsd',
+      url: '/sistema/lugares/detalle/' + l.id,
       params: {}
     }).subscribe().unsubscribe();
   }

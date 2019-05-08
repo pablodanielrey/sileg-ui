@@ -65,4 +65,6 @@
 
     </div>
 
+    <div *ngIf="(lugar$ | async)?.nombre">{{ (lugar$ | async)?.nombre }}</div>    
+
 </div>
