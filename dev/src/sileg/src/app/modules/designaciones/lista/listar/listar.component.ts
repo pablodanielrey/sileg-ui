@@ -52,7 +52,7 @@ export class ListarComponent implements OnInit {
   }
 
   estado_tipo(desig) {
-    let t = ['A','B','C']
+    let t = ['A','B','C','D','E']
     let i = Math.floor(Math.random() * (t.length))
     //return desig.estado.nombre.substr(0,1);
     return t[i];    
@@ -60,7 +60,7 @@ export class ListarComponent implements OnInit {
   }
 
   estado_estado(desig) {
-    let t = ['A','B','C']
+    let t = ['M','N','L']
     let i = Math.floor(Math.random() * (t.length))
     //return desig.estado.nombre.substr(0,1);
     return t[i];

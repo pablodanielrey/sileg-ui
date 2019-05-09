@@ -1,3 +1,19 @@
+// VARIABLES DE COLOR PARA LOS ESTADOS DE LAS DESIGNACIONES
+
+// Tipo de designacion
+$colorAlta: #2196f3;
+$colorBaja: #5C7A95;
+$colorCambioCargo: #ECB057;
+$colorProrroga: #A4009D;
+$colorActiva: #e0e0e0;;
+// Estado de designacion
+$colorPendiente: #E22748;
+$colorAprobado: #2196f3;
+$colorUNLP: #96ba3a;
+
+
+
+
 .pantalla {
     padding: 0 20PX 20PX 20px;
 }
@@ -10,26 +26,80 @@
     margin-top: 10px;
 }
 
+.bloqueEstados {
+    display: flex;
+}
+
 .estado {
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 100%;
-    border: 2px solid #2196f3;
     font-size: 12px;
     min-width: 16px;
     min-height: 16px;
-    width: 16px;
-    height: 16px;
-    color: #2196f3;
+    width: 19px;
+    height: 19px;
     font-weight: bold;
     margin-right: 5px;
+    color: white;
+
 }
 
 .A {
-    color: blue;
+    // color: $colorAlta;
+    // border: 2px solid $colorAlta;
+    background-color: $colorAlta;
+}
+
+.B {
+    // color: $colorBaja;
+    // border: 2px solid $colorBaja;
+    background-color: $colorBaja;
 }
 
 .C {
-    color: red;
+    // color:$colorCambioCargo;
+    // border: 2px solid $colorCambioCargo;
+    background-color: $colorCambioCargo;
+
 }
+
+.D {
+    // color:$colorProrroga;
+    // border: 2px solid $colorProrroga;
+    background-color: $colorProrroga;
+
+}
+
+.E {
+    // color:$colorActiva;
+    // border: 2px solid $colorActiva;
+    background-color: $colorActiva;
+
+}
+
+
+
+
+.M {
+    // color:$colorPendiente;
+    // border: 2px solid $colorPendiente;
+    background-color: $colorPendiente;
+
+}
+
+
+.N {
+    // color:$colorAprobado;
+    // border: 2px solid $colorAprobado;
+    background-color: $colorAprobado;
+}
+
+.L {
+    // color:$colorUNLP;
+    // border: 2px solid $colorUNLP;
+    background-color: $colorUNLP;
+
+}
+

@@ -60,13 +60,13 @@
                     <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
                     <mat-cell *matCellDef="let desig">
 
-                        <div *ngIf='true'>
+                        <div class="bloqueEstados" *ngIf='true'>
                             <div class="estado {{estado_tipo(desig)}}">{{estado_tipo(desig)}}</div>
                             <div class="estado {{estado_estado(desig)}}">{{estado_estado(desig)}}</div>
                         </div>
-                        <div *ngIf='true'>
+                        <!-- <div *ngIf='true'>
                             <mat-chip>Activa</mat-chip>
-                        </div>
+                        </div> -->
 
                     </mat-cell>
                 </ng-container>
