@@ -43,6 +43,7 @@ import { AdjuntarArchivoComponent } from './shared/components/adjuntar-archivo/a
 import { AdjuntarArchivosComponent } from './shared/components/adjuntar-archivos/adjuntar-archivos.component';
 import { CancelarComponent } from './modules/designaciones/movimientos/cancelar/cancelar.component';
 import { AdjuntarResolucionComponent } from './modules/designaciones/movimientos/adjuntar-resolucion/adjuntar-resolucion.component';
+import { ReferenciasComponent } from './modules/designaciones/movimientos/referencias/referencias.component';
 
 
 @NgModule({
@@ -70,7 +71,8 @@ import { AdjuntarResolucionComponent } from './modules/designaciones/movimientos
     AdjuntarArchivoComponent,
     AdjuntarArchivosComponent,
     CancelarComponent,
-    AdjuntarResolucionComponent
+    AdjuntarResolucionComponent,
+    ReferenciasComponent
   ],
   entryComponents: [
   ],

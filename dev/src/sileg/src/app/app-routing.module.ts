@@ -12,6 +12,8 @@ import { InicioComponent } from './modules/inicio/inicio.component';
 import { PendientesComponent as MovimientosPendientesComponent } from './modules/designaciones/movimientos/pendientes/pendientes.component';
 import { SeleccionarPersonaComponent as AltaMovimientoSeleccionarPersonaComponent } from './modules/designaciones/movimientos/alta/seleccionar-persona/seleccionar-persona.component';
 
+import { ReferenciasComponent } from './modules/designaciones/movimientos/referencias/referencias.component';
+
 import { ListarComponent as ListarDesignacionesComponent } from './modules/designaciones/lista/listar/listar.component';
 import { DetalleComponent as DetalleDesignacionComponent } from './modules/designaciones/detalle/detalle.component';
 
@@ -69,6 +71,7 @@ const routes: Routes = [
           { path: 'baja', component: BajaMovimientoComponent },
           { path: 'cancelar', component: CancelarMovimientoComponent },
           { path: 'adjuntar-resolucion', component: AdjuntarResolucionComponent },
+          { path: 'referencias', component: ReferenciasComponent }
         ]
       },
       {

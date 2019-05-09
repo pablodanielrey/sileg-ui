@@ -15,6 +15,7 @@ export class ListarComponent implements OnInit {
 
   columnas: string[] = ['usuario', 'cargo', 'dedicacion', 'caracter', 'fecha', 'nota', 'resolucion', 'expediente', 'estado', 'acciones'];
   lugares$: Observable<any[]>;
+  referencias_visibles: boolean = false;
 
   constructor(private error_service: ErrorService,
     private service: SilegService,
@@ -39,7 +40,6 @@ export class ListarComponent implements OnInit {
       }),
       tap(v => console.log(v))
     )
-
 
 
     /*

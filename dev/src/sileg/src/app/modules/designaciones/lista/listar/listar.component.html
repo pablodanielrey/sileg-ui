@@ -1,6 +1,11 @@
 <mat-toolbar-row>
     <button mat-button color="primary" (click)='volver()'><mat-icon>undo </mat-icon> VOLVER</button>
     <span>&nbsp; Designaciones > Listado</span>
+    <button mat-icon-button (click)='referencias_visibles = true'>
+        <mat-icon matTooltip="Referencias">help_outline</mat-icon>
+    </button>
+    <app-referencias [visible]='referencias_visibles' (cerrar)='referencias_visibles=false' *ngIf='referencias_visibles'></app-referencias>
+    
 </mat-toolbar-row>
   
 <mat-divider></mat-divider>
