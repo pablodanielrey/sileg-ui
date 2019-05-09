@@ -2,12 +2,18 @@
   <mat-card class="contenedorDialogo">
 
       <mat-card-content class="contenedorDialogo">
-          <h2>¡Ha ocurrido un error!</h2>
-          <p>papa</p>
+          <mat-card-title class="titulo">Aprobar Designación</mat-card-title>
+          <mat-card-subtitle>¿Está seguro?, despues de aceptar esta operación no se podrá volver atrás.</mat-card-subtitle>
+
+<!-- 
+          <p>Aprobar Designación<p>
+          <p>¿Está seguro?, despues de aceptar esta operación no podra volver atras</p> -->
         </mat-card-content>
 
         <mat-card-actions>
           <button mat-flat-button color="primary" (click)="aprobar()">ACEPTAR</button>
+          <button mat-button (click)="cancelar()">CANCELAR</button>
+
         </mat-card-actions>
 
 

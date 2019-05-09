@@ -12,8 +12,13 @@
   }
 
   .contenedorDialogo {
-    max-width: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
+    max-width: 300px;
+    min-width: 300px;
+   }
+
+   .titulo {
+     margin-bottom: 20px;
+   }
