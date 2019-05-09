@@ -31,6 +31,10 @@ export class SilegService {
   datos_lugar_designacion: Array<DatosLugarDesignacion> = [];
   catedras: Array<Lugar> = [];
   usuarios: Array<Usuario> = [];
+  tipos_lugar = [
+    'area', 'catedra', 'categoria', 'departamento', 'direccion', 'division', 'facultad',
+    'instituto', 'lugar', 'lugar dictado', 'oficina', 'secretaria'
+  ]  
   
   constructor(private http: HttpClient) {
     this.setear_usuarios();
@@ -947,6 +951,10 @@ export class SilegService {
 
   detalleDesignacion(lid): Observable<any[]> {
     return this.desginacionesPendientes([lid]);
+  }
+
+  obterTipoLugar(): Observable<string[]> {
+    return of(this.tipos_lugar);
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { NavegarService } from '../../../core/navegar.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { SilegService } from '../../../shared/services/sileg.service';
@@ -14,26 +14,23 @@ import { switchMap, tap } from 'rxjs/operators';
 })
 export class DetalleComponent implements OnInit {
 
-
-  form = new FormGroup({
-    nombre: new FormControl(''),
-    descripcion: new FormControl(''),
-    tipo: new FormControl(''),
-    oficina: new FormControl(''),
-    telefono: new FormControl(''),
-    correo: new FormControl('')
-  });
+  form = this.fb.group({
+    nombre: ['', Validators.required],
+    descripcion: [''],
+    tipo: [''],
+    oficina: [''],
+    telefono: [''],
+    correo: ['']
+  })
 
   lugar$: Observable<Lugar>;
 
   constructor(private navegar: NavegarService, private service: SilegService,
-              private route: ActivatedRoute) {     
-  }
+              private route: ActivatedRoute, private fb: FormBuilder) { }
  
 
   ngOnInit() {
     this.lugar$ = this.route.paramMap.pipe(
-      tap(v => console.log(v)),
       switchMap((params: ParamMap) => {
         if (params.has('lid')) {
           let lid = params.get('lid');
@@ -43,7 +40,7 @@ export class DetalleComponent implements OnInit {
         }
       }),
       tap( lugar => this.form.patchValue(lugar))
-    )
+    ) 
   }
 
   volver() {
@@ -51,10 +48,18 @@ export class DetalleComponent implements OnInit {
   }
 
   designaciones() {
-    this.navegar.navegar({
-      url: '/sistema/designaciones/listar/sdfsdfd',
-      params: {}
-    }).subscribe().unsubscribe();
+    this.lugar$.pipe(
+      switchMap( l => {
+        return this.navegar.navegar({
+          url: '/sistema/designaciones/listar/listar/' + l.id,
+          params: {}
+        })
+      })
+    ).subscribe().unsubscribe();
+  }
+
+  submit() {
+    // this.service.guardarLugar();
   }
 
 }

@@ -60,4 +60,8 @@ export class SilegService {
   obtenerCaracter(): Observable<Caracter[]> {
     return null;
   }  
+
+  obterTipoLugar(): Observable<string[]> {
+    return null;
+  }
 }
