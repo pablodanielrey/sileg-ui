@@ -30,7 +30,7 @@ $colorUNLP: #96ba3a;
     display: flex;
 }
 
-.estado {
+.estados {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -46,43 +46,41 @@ $colorUNLP: #96ba3a;
 
 }
 
-.A {
+
+.A.tipo {
     // color: $colorAlta;
     // border: 2px solid $colorAlta;
     background-color: $colorAlta;
 }
 
-.B {
+.B.tipo {
     // color: $colorBaja;
     // border: 2px solid $colorBaja;
     background-color: $colorBaja;
 }
 
-.C {
+.C.tipo{
     // color:$colorCambioCargo;
     // border: 2px solid $colorCambioCargo;
     background-color: $colorCambioCargo;
 
 }
 
-.D {
+.P.tipo{
     // color:$colorProrroga;
     // border: 2px solid $colorProrroga;
     background-color: $colorProrroga;
 
 }
 
-.E {
-    // color:$colorActiva;
-    // border: 2px solid $colorActiva;
-    background-color: $colorActiva;
-
-}
+// .E.tipo{
+//     background-color: $colorActiva;
+// }
 
 
 
 
-.M {
+.P.estado {
     // color:$colorPendiente;
     // border: 2px solid $colorPendiente;
     background-color: $colorPendiente;
@@ -90,13 +88,13 @@ $colorUNLP: #96ba3a;
 }
 
 
-.N {
+.A.estado {
     // color:$colorAprobado;
     // border: 2px solid $colorAprobado;
     background-color: $colorAprobado;
 }
 
-.L {
+.U.estado{
     // color:$colorUNLP;
     // border: 2px solid $colorUNLP;
     background-color: $colorUNLP;
