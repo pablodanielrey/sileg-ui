@@ -6,27 +6,27 @@
 <mat-divider></mat-divider>
       
 <div class="pantalla">
-
+    
     <div class="contenedorForm">
         <!-- <mat-card >
             <mat-card-content > -->
-                <form id='lugar' [formGroup]='form' (ngSubmit)='submit()'>
+                <form id='lugar' [formGroup]='form' (ngSubmit)='submit()' *ngIf="lugar$ | async; else lugarNulo">
                 
 
                         <mat-form-field class="itemFormulario" appearance="outline" >
                                 <mat-label>Nombre</mat-label>
-                                <input matInput formControlName='nombre' value="Administración Pública I" />
+                                <input matInput formControlName='nombre' />
                             </mat-form-field>
                         
                             <mat-form-field class="itemFormulario" appearance="outline">
                                 <mat-label>Descripción</mat-label>
-                                <input matInput formControlName='descripcion' value="Cátedra Original" />
+                                <input matInput formControlName='descripcion' />
                             </mat-form-field>
                         
                             <mat-form-field class="itemFormulario" appearance="outline">
                                 <mat-label>Tipo de Lugar</mat-label>
                                 <mat-select formControlName='tipo'>
-                                    <mat-option *ngFor="let tipo of (tipos$ | async)" [value]="tipo" >
+                                    <mat-option *ngFor="let tipo of (tipos$ | async)"  >
                                         {{tipo.nombre}}
                                     </mat-option>
                                 </mat-select>    
@@ -36,35 +36,33 @@
                         
                                 <mat-form-field class="itemMedioFormulario" appearance="outline">
                                   <mat-label>Nº Oficina</mat-label>
-                                  <input matInput formControlName='oficina' value="315" />
+                                  <input matInput formControlName='oficina' />
                                 </mat-form-field>
                         
                                 <mat-form-field class="itemMedioFormulario" appearance="outline">
                                   <mat-label>Teléfono / Interno</mat-label>
-                                  <input matInput formControlName='telefono' value="4576569 - 125" />
+                                  <input matInput formControlName='telefono' />
                                 </mat-form-field>
                         
                             </div>    
                         
                             <mat-form-field class="itemFormulario" appearance="outline">
                               <mat-label>Correo Electrónico</mat-label>
-                              <input matInput formControlName='correo' value="administracionpublica@econo.unlp.edu.ar" />
-                            </mat-form-field>
-                        
-
-
+                              <input matInput formControlName='correo' />
+                            </mat-form-field>                    
 
                 </form>
+                <ng-template #lugarNulo>No se encontro el lugar</ng-template>
+
             <!-- </mat-card-content>
-        </mat-card> -->
+        </mat-card> -->        
     </div>
 
     <div class="contenedorAcciones"> 
-            <button class="btnItems" mat-stroked-button color="accent" (click)='designaciones()'>DESIGNACIONES</button>
+            <button class="btnItems" mat-stroked-button color="accent" (click)="designaciones()">DESIGNACIONES</button>
             <button type="submit" form='lugar' [disabled]="!form.valid" class="btnGuardar" mat-flat-button color="primary" >GUARDAR</button>
 
     </div>
 
-    <div *ngIf="(lugar$ | async)?.nombre">{{ (lugar$ | async)?.nombre }}</div>    
 
 </div>
