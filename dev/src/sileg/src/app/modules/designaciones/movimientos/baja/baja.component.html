@@ -1,16 +1,16 @@
-<div class="dialogo">
+  <div class="dialogo">
     <mat-card class="contenedorDialogo">
   
         <mat-card-content class="contenedorDialogo">
-            <h2>¡Ha ocurrido un error!</h2>
-            <p>papa</p>
-          </mat-card-content>
+            <mat-card-title class="titulo">Baja de Designación</mat-card-title>
+            <mat-card-subtitle>¿Está seguro?, despues de aceptar esta operación no se podrá volver atrás.</mat-card-subtitle>
+        </mat-card-content>
   
-          <mat-card-actions>
-            <button mat-flat-button color="primary" (click)="confirmar()">ACEPTAR</button>
-          </mat-card-actions>
+        <mat-card-actions>
+           <button mat-flat-button color="primary" (click)="confirmar()">ACEPTAR</button>
+           <button mat-button (click)="cancelar()">CANCELAR</button>
+        </mat-card-actions>
   
-  
-        </mat-card>
+    </mat-card>
   
   </div>

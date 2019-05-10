@@ -4,19 +4,13 @@
       <mat-card-content class="contenedorDialogo">
           <mat-card-title class="titulo">Aprobar Designación</mat-card-title>
           <mat-card-subtitle>¿Está seguro?, despues de aceptar esta operación no se podrá volver atrás.</mat-card-subtitle>
+      </mat-card-content>
 
-<!-- 
-          <p>Aprobar Designación<p>
-          <p>¿Está seguro?, despues de aceptar esta operación no podra volver atras</p> -->
-        </mat-card-content>
+      <mat-card-actions>
+         <button mat-flat-button color="primary" (click)="aprobar()">ACEPTAR</button>
+         <button mat-button (click)="cancelar()">CANCELAR</button>
+      </mat-card-actions>
 
-        <mat-card-actions>
-          <button mat-flat-button color="primary" (click)="aprobar()">ACEPTAR</button>
-          <button mat-button (click)="cancelar()">CANCELAR</button>
-
-        </mat-card-actions>
-
-
-      </mat-card>
+  </mat-card>
 
 </div>
