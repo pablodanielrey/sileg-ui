@@ -14,27 +14,13 @@ import { Observable, of, Subject, forkJoin, observable } from 'rxjs';
 import { map, mergeMap, combineAll, combineLatest,  tap, flatMap, mergeAll } from 'rxjs/operators';
 import { NavegarService } from '../navegar.service';
 
-
+import { MenuItem } from './types';
+import { menu } from '../../modules/menu';
 
 declare type MenuItemResuelto = {
   item: MenuItem,
   mostrar: boolean
 }
-
-declare type MenuItem = {
-  item: string,
-  menu: MenuSistema,
-  ruta: string,
-  permisos: string[],
-  icono: string
-}
-
-declare type MenuSistema = MenuItem[];
-
-const menu : MenuSistema = [
-  { item: 'Lugares', menu: null, ruta: '/sistema/lugares/seleccionar', icono: 'filter_1', permisos: ['urn:sileg:lugares:read'] },
-  { item: 'Pendientes', menu: null, ruta: '/sistema/movimientos/pendientes', icono: 'notifications_none', permisos: [] }
-];
 
 
 @Component({
