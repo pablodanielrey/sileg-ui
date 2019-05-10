@@ -93,8 +93,6 @@ export class SistemaComponent implements OnInit {
     })
   }
 
-
-
   cerrar_menu(d) {
     d.toggle();
     console.log('cerrar_menu');

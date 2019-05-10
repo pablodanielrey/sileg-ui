@@ -28,7 +28,8 @@ import { MatButtonModule,
          MatCheckboxModule,
          MatTooltipModule,
          MatBadgeModule,
-         MatAutocompleteModule
+         MatAutocompleteModule,
+         MatExpansionModule
        } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -78,6 +79,7 @@ const routes: Routes = [
     DialogoComponent
   ],
   imports: [
+    MatExpansionModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatIconModule,
