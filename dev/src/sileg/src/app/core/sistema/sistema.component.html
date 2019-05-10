@@ -52,7 +52,7 @@
             <span>GELIS</span>
         </mat-toolbar>
 
-        <button *ngFor='let menu of menu_sistema$ | async' class="btnMenu" mat-button (click)='navegar_hacia(menu.item)'>
+        <button *ngFor='let menu of menu_sistema$ | async' class="btnMenu" mat-button (click)='navegar_hacia(menu.item); cerrar_menu(drawer)'>
             <mat-icon class="iconoMenu">{{menu.item.icono}}</mat-icon>{{menu.item.item}}
         </button>
 
