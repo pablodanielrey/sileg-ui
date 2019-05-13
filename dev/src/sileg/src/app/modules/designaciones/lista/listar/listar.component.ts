@@ -55,6 +55,7 @@ export class ListarComponent implements OnInit {
     let t = ['A','B','C','P']
     let i = Math.floor(Math.random() * (t.length))
     //return desig.estado.nombre.substr(0,1);
+    i = 1;
     return t[i];    
     //return desig.estado.nombre.substr(0,1);
   }
@@ -62,6 +63,7 @@ export class ListarComponent implements OnInit {
   estado_estado(desig) {
     let t = ['P','A','U']
     let i = Math.floor(Math.random() * (t.length))
+    i = 1;
     //return desig.estado.nombre.substr(0,1);
     return t[i];
   }

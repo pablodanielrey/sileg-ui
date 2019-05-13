@@ -64,6 +64,26 @@ export class SistemaComponent implements OnInit {
       
   }
 
+  tiene_submenu(menu:MenuItemResuelto):boolean {
+    return (menu.item.menu != null && menu.item.menu.length > 0);
+  }
+
+  submenu(menu:MenuItem): Observable<MenuItemResuelto[]> {
+    return of(menu.menu).pipe(
+      map(rs => rs.map(e => 
+        this.tengo_permisos(e).pipe(
+          map(b => {
+            return {
+              item: e,
+              mostrar: b
+            }
+          })
+        )
+      )),
+      mergeMap(a => forkJoin(a))
+    )
+  }
+
   tengo_permisos(item:MenuItem):Observable<boolean> {
     return of(true);
   }
@@ -85,6 +105,7 @@ export class SistemaComponent implements OnInit {
 
 
   navegar_hacia(item:MenuItem) {
+    console.log(item);
     let s = this.navegar.navegar({
       url: item.ruta,
       params: []

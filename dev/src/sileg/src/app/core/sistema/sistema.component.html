@@ -52,22 +52,24 @@
             <span>GELIS</span>
         </mat-toolbar>
 
-        <mat-accordion>
-            <mat-expansion-panel *ngFor='let menu of menu_sistema$ | async'>
-                <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <mat-icon class="iconoMenu">{{menu.item.icono}}</mat-icon>{{menu.item.item}}
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                <button  *ngFor='let menu of menu_sistema$ | async' class="btnMenu" mat-button (click)='navegar_hacia(menu.item); cerrar_menu(drawer)'>
-                        <mat-icon class="iconoMenu">{{menu.item.icono}}</mat-icon>{{menu.item.item}}
-                </button>
-            </mat-expansion-panel>
-        </mat-accordion>
+        <div *ngFor='let menu of menu_sistema$ | async'>
 
-        <button  *ngFor='let menu of menu_sistema$ | async' class="btnMenu" mat-button (click)='navegar_hacia(menu.item); cerrar_menu(drawer)'>
+            <mat-expansion-panel *ngIf='tiene_submenu(menu)'>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon class="iconoMenu">{{menu.item.icono}}</mat-icon>{{menu.item.item}}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <a mat-button *ngFor='let submenu of submenu(menu.item) | async' class="btnMenu" (click)='navegar_hacia(menu.item)'>
+                    <mat-icon class="iconoMenu">{{submenu.item.icono}}</mat-icon>{{submenu.item.item}}
+                </a>
+                <mat-checkbox>text</mat-checkbox>
+            </mat-expansion-panel>
+
+        <button mat-button *ngIf='!tiene_submenu(menu)' class="btnMenu" (click)='navegar_hacia(menu.item); cerrar_menu(drawer)'>
             <mat-icon class="iconoMenu">{{menu.item.icono}}</mat-icon>{{menu.item.item}}
         </button>
+        </div>
 
         <!-- VIEJO -->
         <!-- <button *ngIf="chequearPerfil(['super-admin','buscar_usuario'])" class="btnMenu" mat-button (click)='cerrar_menu(drawer)' routerLink="/sistema/usuario/buscar">
