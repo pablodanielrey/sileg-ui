@@ -3,9 +3,10 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { NavegarService } from '../../../core/navegar.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { SilegService } from '../../../shared/services/sileg.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Lugar } from '../../../shared/entities/sileg';
 import { switchMap, tap } from 'rxjs/operators';
+import { PreloadService } from '../../../core/preload/preload.service';
 
 @Component({
   selector: 'app-detalle',
@@ -15,6 +16,7 @@ import { switchMap, tap } from 'rxjs/operators';
 export class DetalleComponent implements OnInit {
 
   form = this.fb.group({
+    id: [''],
     nombre: ['', Validators.required],
     descripcion: [''],
     tipo: [''],
@@ -24,12 +26,14 @@ export class DetalleComponent implements OnInit {
   })
 
   lugar$: Observable<Lugar>;
+  tipos$: Observable<string[]>;
 
   constructor(private navegar: NavegarService, private service: SilegService,
               private route: ActivatedRoute, private fb: FormBuilder) { }
  
 
   ngOnInit() {
+    this.tipos$ = this.service.obterTipoLugar();
     this.lugar$ = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
         if (params.has('lid')) {
@@ -39,8 +43,11 @@ export class DetalleComponent implements OnInit {
           return null;
         }
       }),
-      tap( lugar => this.form.patchValue(lugar))
-    ) 
+      tap( lugar => {
+        this.form.patchValue(lugar);
+      })
+    );
+    
   }
 
   volver() {
@@ -48,18 +55,22 @@ export class DetalleComponent implements OnInit {
   }
 
   designaciones() {
-    this.lugar$.pipe(
+    let s = this.lugar$.pipe(
       switchMap( l => {
         return this.navegar.navegar({
           url: '/sistema/designaciones/listar/listar/' + l.id,
           params: {}
         })
       })
-    ).subscribe().unsubscribe();
+    ).subscribe(_ => {
+      s.unsubscribe();
+    })
   }
 
   submit() {
-    // this.service.guardarLugar();
+    this.service.guardarLugar(this.form.value).subscribe(_ => {      
+      
+    })
   }
 
 }

@@ -64,4 +64,8 @@ export class SilegService {
   obterTipoLugar(): Observable<string[]> {
     return null;
   }
+
+  guardarLugar(lugar: Object): Observable<string> {
+    return null;
+  }
 }

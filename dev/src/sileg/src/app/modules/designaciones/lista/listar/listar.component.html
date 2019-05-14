@@ -27,17 +27,17 @@
   
                 <ng-container matColumnDef="cargo">
                     <mat-header-cell *matHeaderCellDef> Cargo </mat-header-cell>
-                    <mat-cell *matCellDef="let desig">{{desig.designacion.cargo.nombre}}</mat-cell>
+                    <mat-cell *matCellDef="let desig">{{desig.designacion.cargo.nombre | slice: 0: desig.designacion.cargo.nombre.length-4}}</mat-cell>
                  </ng-container>
   
                 <ng-container matColumnDef="dedicacion">
                     <mat-header-cell *matHeaderCellDef> Dedicación </mat-header-cell>
-                    <mat-cell *matCellDef="let desig">DS</mat-cell>
+                    <mat-cell *matCellDef="let desig">{{desig.designacion.cargo.nombre | slice: desig.designacion.cargo.nombre.length-4}}</mat-cell>
                 </ng-container>
   
                 <ng-container matColumnDef="caracter">
                     <mat-header-cell *matHeaderCellDef> Caracter </mat-header-cell>
-                    <mat-cell *matCellDef="let desig"> Interino</mat-cell>
+                    <mat-cell *matCellDef="let desig"> {{desig.designacion.caracter.nombre}}</mat-cell>
                 </ng-container>
   
   

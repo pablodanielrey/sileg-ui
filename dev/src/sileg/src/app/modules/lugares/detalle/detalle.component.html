@@ -20,14 +20,14 @@
                         
                             <mat-form-field class="itemFormulario" appearance="outline">
                                 <mat-label>Descripción</mat-label>
-                                <input matInput formControlName='descripcion' />
+                                <input matInput formControlName='descripcion'/>
                             </mat-form-field>
                         
                             <mat-form-field class="itemFormulario" appearance="outline">
                                 <mat-label>Tipo de Lugar</mat-label>
                                 <mat-select formControlName='tipo'>
-                                    <mat-option *ngFor="let tipo of (tipos$ | async)"  >
-                                        {{tipo.nombre}}
+                                    <mat-option *ngFor="let t of (tipos$|async)" [value]="t">
+                                        {{t}}
                                     </mat-option>
                                 </mat-select>    
                             </mat-form-field>

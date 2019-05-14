@@ -515,7 +515,8 @@ export class SilegService {
       new Lugar({
         id: 'aa6c569d-1e90-46f1-8842-37f0caa8245d',
         nombre: 'Macroeconomía I',
-        padre_id: 'a7498331-3afd-4881-b899-25ff2b8dd0f2'
+        padre_id: 'a7498331-3afd-4881-b899-25ff2b8dd0f2',
+        tipo: 'catedra'
       }),
       new Lugar({
         id: 'b422f980-10da-4fd3-98c8-0fdb8f4aeaae',
@@ -748,156 +749,158 @@ export class SilegService {
     console.log(this.datos_lugar_designacion);    
   }
 
-  desginacionesPendientes(lids): Observable<any[]> {
-    let d = [
-      {
-        lugar: {
-          id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
-          nombre: 'DiTeSI'
-        }, 
-        designaciones: [
-          { 
-            usuario: { id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4', nombre: 'Walter', apellido: 'Blanco', dni: ''  },
-            designacion: {
-              id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
-              expediente: 'dsfsdf',
-              resolucion: '23r32r',
-              corresponde: 'sdf',
-              cargo: { 
-                nombre: 'Titular',
-                id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
-              },
-              usuario_id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
-            },
-            ptos: 10,
-            estado: { fecha: new Date(), nombre: 'Alta Pendiente', autorizador_id: 'sdfdsfsdfsdfdsfsdfd' }
-          },
+  desginacionesPendientes(lids: string[]): Observable<DatosLugarDesignacion[]> {
+    return of(this.datos_lugar_designacion.filter( dl => lids.includes(dl.lugar.id)));
+    
+    // let d = [
+    //   {
+    //     lugar: {
+    //       id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
+    //       nombre: 'DiTeSI'
+    //     }, 
+    //     designaciones: [
+    //       { 
+    //         usuario: { id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4', nombre: 'Walter', apellido: 'Blanco', dni: ''  },
+    //         designacion: {
+    //           id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
+    //           expediente: 'dsfsdf',
+    //           resolucion: '23r32r',
+    //           corresponde: 'sdf',
+    //           cargo: { 
+    //             nombre: 'Titular',
+    //             id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
+    //           },
+    //           usuario_id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
+    //         },
+    //         ptos: 10,
+    //         estado: { fecha: new Date(), nombre: 'Alta Pendiente', autorizador_id: 'sdfdsfsdfsdfdsfsdfd' }
+    //       },
 
-          { 
-            usuario: { id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4', nombre: 'Walter', apellido: '', dni: ''  },
-            designacion: {
-              id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
-              expediente: 'dsfsdf',
-              resolucion: '23r32r',
-              corresponde: 'sdf',
-              cargo: { 
-                nombre: 'Titular',
-                id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
-              },
-              usuario_id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
-            },
-            ptos: 10,
-            estado: { fecha: new Date(), nombre: 'Alta Pendiente', autorizador_id: 'sdfdsfsdfsdfdsfsdfd' }
-          },
+    //       { 
+    //         usuario: { id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4', nombre: 'Walter', apellido: '', dni: ''  },
+    //         designacion: {
+    //           id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
+    //           expediente: 'dsfsdf',
+    //           resolucion: '23r32r',
+    //           corresponde: 'sdf',
+    //           cargo: { 
+    //             nombre: 'Titular',
+    //             id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
+    //           },
+    //           usuario_id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
+    //         },
+    //         ptos: 10,
+    //         estado: { fecha: new Date(), nombre: 'Alta Pendiente', autorizador_id: 'sdfdsfsdfsdfdsfsdfd' }
+    //       },
           
-          { 
-            usuario: { id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4', nombre: 'Walter', apellido: '', dni: ''  },
-            designacion: {
-              id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
-              expediente: 'dsfsdf',
-              resolucion: '23r32r',
-              corresponde: 'sdf',
-              cargo: { 
-                nombre: 'Titular',
-                id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
-              },
-              usuario_id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
-            },
-            ptos: 10,
-            estado: { fecha: new Date(), nombre: 'Alta Pendiente', autorizador_id: 'sdfdsfsdfsdfdsfsdfd' }
-          }          
-        ],
-        ptos_alta: 65, 
-        ptos_baja: 60
-      },
+    //       { 
+    //         usuario: { id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4', nombre: 'Walter', apellido: '', dni: ''  },
+    //         designacion: {
+    //           id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
+    //           expediente: 'dsfsdf',
+    //           resolucion: '23r32r',
+    //           corresponde: 'sdf',
+    //           cargo: { 
+    //             nombre: 'Titular',
+    //             id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
+    //           },
+    //           usuario_id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
+    //         },
+    //         ptos: 10,
+    //         estado: { fecha: new Date(), nombre: 'Alta Pendiente', autorizador_id: 'sdfdsfsdfsdfdsfsdfd' }
+    //       }          
+    //     ],
+    //     ptos_alta: 65, 
+    //     ptos_baja: 60
+    //   },
 
-      {
-        lugar: {
-          id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
-          nombre: 'Economia'
-        }, 
-        designaciones: [
-          { 
-            usuario: { id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4', nombre: 'Walter', apellido: '', dni: ''  },
-            designacion: {
-              id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
-              expediente: 'dsfsdf',
-              resolucion: '23r32r',
-              corresponde: 'sdf',
-              cargo: { 
-                nombre: 'Titular',
-                id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
-              },
-              usuario_id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
-            },
-            ptos: 10,
-            estado: { fecha: new Date(), nombre: 'Alta Pendiente', autorizador_id: 'sdfdsfsdfsdfdsfsdfd' }
-          }
-        ],
-        ptos_alta: 65, 
-        ptos_baja: 60
-      },
+    //   {
+    //     lugar: {
+    //       id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
+    //       nombre: 'Economia'
+    //     }, 
+    //     designaciones: [
+    //       { 
+    //         usuario: { id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4', nombre: 'Walter', apellido: '', dni: ''  },
+    //         designacion: {
+    //           id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
+    //           expediente: 'dsfsdf',
+    //           resolucion: '23r32r',
+    //           corresponde: 'sdf',
+    //           cargo: { 
+    //             nombre: 'Titular',
+    //             id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
+    //           },
+    //           usuario_id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
+    //         },
+    //         ptos: 10,
+    //         estado: { fecha: new Date(), nombre: 'Alta Pendiente', autorizador_id: 'sdfdsfsdfsdfdsfsdfd' }
+    //       }
+    //     ],
+    //     ptos_alta: 65, 
+    //     ptos_baja: 60
+    //   },
 
-      {
-        lugar: {
-          id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
-          nombre: 'DiTeSI'
-        }, 
-        designaciones: [
-          { 
-            usuario: { id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4', nombre: 'Walter', apellido: '', dni: ''  },
-            designacion: {
-              id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
-              expediente: 'dsfsdf',
-              resolucion: '23r32r',
-              corresponde: 'sdf',
-              cargo: { 
-                nombre: 'Titular',
-                id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
-              },
-              usuario_id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
-            },
-            ptos: 10,
-            estado: { fecha: new Date(), nombre: 'Alta Pendiente', autorizador_id: 'sdfdsfsdfsdfdsfsdfd' }
-          }
-        ],
-        ptos_alta: 65, 
-        ptos_baja: 60
-      },
+    //   {
+    //     lugar: {
+    //       id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
+    //       nombre: 'DiTeSI'
+    //     }, 
+    //     designaciones: [
+    //       { 
+    //         usuario: { id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4', nombre: 'Walter', apellido: '', dni: ''  },
+    //         designacion: {
+    //           id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
+    //           expediente: 'dsfsdf',
+    //           resolucion: '23r32r',
+    //           corresponde: 'sdf',
+    //           cargo: { 
+    //             nombre: 'Titular',
+    //             id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
+    //           },
+    //           usuario_id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
+    //         },
+    //         ptos: 10,
+    //         estado: { fecha: new Date(), nombre: 'Alta Pendiente', autorizador_id: 'sdfdsfsdfsdfdsfsdfd' }
+    //       }
+    //     ],
+    //     ptos_alta: 65, 
+    //     ptos_baja: 60
+    //   },
 
-      {
-        lugar: {
-          id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
-          nombre: 'DiTeSI'
-        }, 
-        designaciones: [
-          { 
-            id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
-            designacion: {
-              id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
-              expediente: 'dsfsdf',
-              resolucion: '23r32r',
-              corresponde: 'sdf',
-              cargo_id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
-              cargo: { 
-                nombre: 'Titular',
-                id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
-              },
-              lugar_id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
-              usuario_id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
-            },
-            usuario: { id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4', nombre: 'Walter', apellido: '', dni: ''  },
-            ptos: 10,
-            estado: { fecha: new Date(), nombre: 'Alta Pendiente', autorizador_id: 'sdfdsfsdfsdfdsfsdfd' }
-          }
-        ],
-        ptos_alta: 65, 
-        ptos_baja: 60
-      },
+    //   {
+    //     lugar: {
+    //       id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
+    //       nombre: 'DiTeSI'
+    //     }, 
+    //     designaciones: [
+    //       { 
+    //         id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
+    //         designacion: {
+    //           id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
+    //           expediente: 'dsfsdf',
+    //           resolucion: '23r32r',
+    //           corresponde: 'sdf',
+    //           cargo_id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
+    //           cargo: { 
+    //             nombre: 'Titular',
+    //             id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
+    //           },
+    //           lugar_id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4',
+    //           usuario_id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
+    //         },
+    //         usuario: { id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4', nombre: 'Walter', apellido: '', dni: ''  },
+    //         ptos: 10,
+    //         estado: { fecha: new Date(), nombre: 'Alta Pendiente', autorizador_id: 'sdfdsfsdfsdfdsfsdfd' }
+    //       }
+    //     ],
+    //     ptos_alta: 65, 
+    //     ptos_baja: 60
+    //   },
 
 
-    ]
-    return of(d);
+    // ]
+    // return of(d);
   }
 
   obtenerDesignacion(id: string): Observable<any> {
@@ -928,7 +931,7 @@ export class SilegService {
   }  
 
   obtenerLugar(lid: string): Observable<any> {
-    return of(this.lugares.find( l => l.id == lid));
+    return of(this.lugares.find( l => l.id == lid)).delay(2000);
   }
 
   buscarLugares(texto: string): Observable<any[]> {
@@ -955,6 +958,12 @@ export class SilegService {
 
   obterTipoLugar(): Observable<string[]> {
     return of(this.tipos_lugar);
+  }
+
+  guardarLugar(lugar: Object): Observable<string> {
+    let l = this.lugares.find( l => l.id == lugar["id"]);
+    Object.assign(l, lugar);
+    return of(l.id);
   }
 
 }
