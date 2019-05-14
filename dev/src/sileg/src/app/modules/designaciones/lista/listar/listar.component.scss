@@ -11,7 +11,12 @@ $colorPendiente: #E22748;
 $colorAprobado: #2196f3;
 $colorUNLP: #96ba3a;
 
-
+.cabecera {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
 
 
 .pantalla {
