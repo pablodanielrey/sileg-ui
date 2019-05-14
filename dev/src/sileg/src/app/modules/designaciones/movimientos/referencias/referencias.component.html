@@ -1,4 +1,45 @@
-<p>
-  <button (click)='_cerrar()'>X</button>
-  referencias works!
-</p>
+<div class="dialogo">
+  <mat-card class="contenedorDialogo">
+
+      <mat-card-content class="contenidoCard">
+
+        <div class="cabeceraCard">
+            <div class="tituloCabecera">
+                <mat-icon>help_outline</mat-icon> 
+                <span class="textotitulo">Referencias</span>
+            </div>
+             <button mat-button color="primary"  (click)='_cerrar()'>CERRAR</button>
+             
+        </div>
+        
+        <mat-divider></mat-divider>
+
+      </mat-card-content>
+
+
+      <div class="contenedorTyE">
+          <div>
+              <div>Tipos</div>
+              <div class="item"><div class="estados a">A</div><div class="textItem">Alta</div></div>
+              <div class="item"><div class="estados b">B</div><div class="textItem">Baja</div></div>
+              <div class="item"><div class="estados c">C</div><div class="textItem">Cambio de Cargo</div></div>
+              <div class="item"><div class="estados p">P</div><div class="textItem">Prórroga de Cargo</div></div>
+          </div>
+
+          <div>
+              <div>Estados</div>
+              <div class="item"><div class="estados pe">P</div><div class="textItem">Pendiente de Aprobación</div></div>
+              <div class="item"><div class="estados a">A</div><div class="textItem">Aprobado</div></div>
+              <div class="item"><div class="estados u">U</div><div class="textItem">Enviado a UNLP</div></div>
+              <div class="item"><div class="estados2 ac">Activa</div><div class="textItem"></div></div>
+              <div class="item"><div class="estados2 ac">Baja</div><div class="textItem"></div></div>
+
+
+          </div>
+      </div>
+
+
+
+  </mat-card>
+
+</div>

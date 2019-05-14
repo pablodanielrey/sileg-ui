@@ -1,9 +1,17 @@
-<mat-toolbar-row>
+<mat-toolbar-row class="cabecera">
+    <div>
         <button mat-button color="primary" (click)='volver()'><mat-icon>undo </mat-icon> VOLVER</button>
-        <span>&nbsp; Designaciones | Listado</span>
+        <span>&nbsp; Designaciones > Listado</span>
+    </div>
+    <div>
+        <button mat-icon-button color="primary" (click)='referencias_visibles = true'>
+            <mat-icon matTooltip="Referencias">help_outline</mat-icon>
+        </button>
+     </div>
 </mat-toolbar-row>
 
 <mat-divider></mat-divider>
+
 
 <div class="pantalla">
 </div>

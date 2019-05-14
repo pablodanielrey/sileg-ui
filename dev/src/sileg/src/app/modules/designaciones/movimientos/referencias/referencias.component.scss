@@ -1,0 +1,120 @@
+.dialogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top:0;
+    left: 0;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    height: 100%;
+  
+  }
+
+  .contenedorDialogo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 350px;
+    min-width: 350px;
+   }
+
+   .contenidoCard {
+     width: 100%;
+   }
+
+   .tituloCabecera {
+     display: flex;
+     flex-direction: row;
+     align-items: center;
+   }
+
+   .cabeceraCard {
+     display: flex;
+     flex-direction: row;
+     align-items: center;
+     justify-content: space-between;
+     margin-bottom: 10px;
+   }
+
+   .textotitulo {
+      font-size: 18px;
+      margin-left: 5px;
+
+   }
+   
+   .contenedorTyE {
+     width: 100%;
+     display: flex;
+     flex-direction: row;
+     justify-content: space-between;
+   }
+
+
+   .estados {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    font-size: 12px;
+    min-width: 16px;
+    min-height: 16px;
+    width: 19px;
+    height: 19px;
+    font-weight: bold;
+    margin-right: 5px;
+    color: white;
+
+}
+
+.estados2 {
+  font-size: 12px;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.textItem {
+  font-size: 12px;
+}
+
+// Tipo de designacion
+$colorAlta: #2196f3;
+$colorBaja: #5C7A95;
+$colorCambioCargo: #ECB057;
+$colorProrroga: #A4009D;
+$colorActiva: #e0e0e0;;
+// Estado de designacion
+$colorPendiente: #E22748;
+$colorAprobado: #2196f3;
+$colorUNLP: #96ba3a;
+ 
+
+.a {
+  background-color:  $colorAlta;
+}
+.b {
+  background-color:  $colorBaja;
+}
+.c {
+  background-color:  $colorCambioCargo;
+}
+.p {
+  background-color:  $colorProrroga;
+}
+.pe {
+  background-color:  $colorPendiente;
+}
+.u {
+  background-color:  $colorUNLP;
+}
+.ac {
+  background-color:  $colorActiva;
+}
