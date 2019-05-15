@@ -49,7 +49,7 @@
   
                 <ng-container matColumnDef="fecha">
                   <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
-                  <mat-cell *matCellDef="let desig">02/03/19</mat-cell>
+                  <mat-cell *matCellDef="let desig">{{desig.designacion.desde | date: 'dd/MM/yyyy'}}</mat-cell>
                 </ng-container>
   
                 <ng-container matColumnDef="nota">
@@ -59,25 +59,32 @@
   
                 <ng-container matColumnDef="resolucion">
                     <mat-header-cell *matHeaderCellDef> Resolución </mat-header-cell>
-                    <mat-cell *matCellDef="let desig">256/19</mat-cell>
+                    <mat-cell *matCellDef="let desig">{{desig.designacion.resolucion}}</mat-cell>
                 </ng-container>
   
                 <ng-container matColumnDef="expediente">
                     <mat-header-cell *matHeaderCellDef> Expediente </mat-header-cell>
-                    <mat-cell *matCellDef="let desig">25-457/19</mat-cell>
+                    <mat-cell *matCellDef="let desig">{{desig.designacion.expediente}}</mat-cell>
                 </ng-container>
   
                 <ng-container matColumnDef="estado">
                     <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
                     <mat-cell *matCellDef="let desig">
 
-                        <div class="bloqueEstados" *ngIf='true'>
+                        <div class="bloqueEstados" *ngIf="desig.estado.nombre != 'Activa' && desig.estado.nombre != 'Baja'">
                             <div class="estados tipo {{estado_tipo(desig)}}">{{estado_tipo(desig)}}</div>
                             <div class="estados estado {{estado_estado(desig)}}">{{estado_estado(desig)}}</div>
                         </div>
-                        <!-- <div *ngIf='true'>
-                            <mat-chip>Activa</mat-chip>
-                        </div> -->
+                        <div *ngIf="desig.estado.nombre == 'Activa'">
+                            <mat-chip-list>
+                                <mat-chip>Activa</mat-chip>
+                            </mat-chip-list>
+                        </div>
+                        <div *ngIf="desig.estado.nombre == 'Baja'">
+                            <mat-chip-list>
+                                <mat-chip>Baja</mat-chip>
+                            </mat-chip-list>
+                        </div>
 
                     </mat-cell>
                 </ng-container>

@@ -26,7 +26,7 @@ export class SilegService {
   tipos_estado: Array<string> = [
     'Alta Pendiente', 'Alta Aprobada', 'Alta Enviada a UNLP',
     'Baja Pendiente', 'Baja Aprobada', 'Baja Enviada a UNLP',
-    'Activa'
+    'Activa', 'Baja'
   ];
   datos_lugar_designacion: Array<DatosLugarDesignacion> = [];
   catedras: Array<Lugar> = [];
@@ -686,7 +686,7 @@ export class SilegService {
   private cant_desig_lug = {};
   private obtener_catedra(): Lugar {    
     let l = this.catedras[Math.floor(Math.random() * this.catedras.length)];
-    if (!(l.id in this.cant_desig_lug) || this.cant_desig_lug[l.id] < 18) {
+    if (!(l.id in this.cant_desig_lug) || this.cant_desig_lug[l.id] < 20) {
       this.cant_desig_lug[l.id] = (l.id in this.cant_desig_lug) ? this.cant_desig_lug[l.id] + 1 : 1;
       return l;
     } else {
