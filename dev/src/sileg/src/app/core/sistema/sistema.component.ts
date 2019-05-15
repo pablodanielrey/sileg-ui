@@ -59,7 +59,8 @@ export class SistemaComponent implements OnInit {
           })
         )
       )),
-      mergeMap(a => forkJoin(a))
+      mergeMap(a => forkJoin(a)),
+      map(perms => perms.filter(e => e.mostrar))
     )
       
   }
@@ -80,12 +81,14 @@ export class SistemaComponent implements OnInit {
           })
         )
       )),
-      mergeMap(a => forkJoin(a))
+      mergeMap(a => forkJoin(a)),
+      map(perms => perms.filter(e => e.mostrar))
     )
   }
 
   tengo_permisos(item:MenuItem):Observable<boolean> {
-    return of(true);
+    return this.permisos.all(item.permisos)
+    //return of(true);
   }
 
   ngOnInit() {

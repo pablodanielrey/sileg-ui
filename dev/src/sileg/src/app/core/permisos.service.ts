@@ -42,10 +42,13 @@ export class PermisosService {
       if (permissions.expire > new Date().getTime()) {
         return of(permissions.granted);
       }
-    }
+    } 
     let apiUrl = `${WARDEN_API_URL}/permissions`;
     return this.http.get<response>(apiUrl).pipe(
-      catchError(e => of({status:500, expire:0, granted:[]})), 
+      catchError(e => {
+        console.log(e);
+        return of({status:500, expire:0, granted:[]});
+      }), 
       map(
         r => {
           let permissions = {
@@ -77,7 +80,15 @@ export class PermisosService {
     if (system == '*' || system == toCheck[1]) {
       if (r == '*' || r == toCheck[2]) {
         if (action == '*' || action == toCheck[3]) {
-          return true;
+          if (perms.length <= 4) {
+            return true;
+          } else {
+            let scope = perms[4];
+            if (toCheck.length > 4 && scope == toCheck[4]) {
+              return true;          
+            }
+          }
+          
         }
       }
     }

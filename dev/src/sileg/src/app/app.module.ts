@@ -83,14 +83,14 @@ import { ReferenciasComponent } from './modules/designaciones/movimientos/refere
     ReactiveFormsModule,
     AppRoutingModule,
     CoreModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
     /*
     CoreModule.forRoot({
       resourceServer: {
         allowedUrls: ['http'],
         sendAccessToken: true
       }
-    })*/
+    }),*/
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     SilegService,
