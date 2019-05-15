@@ -77,20 +77,13 @@ export class ListarComponent implements OnInit {
   }
 
   estado_tipo(desig) {
-    let t = ['A','B','C','P']
-    let i = Math.floor(Math.random() * (t.length))
-    //return desig.estado.nombre.substr(0,1);
-    i = 1;
-    return t[i];    
-    //return desig.estado.nombre.substr(0,1);
+    return desig.estado.nombre.substr(0,1);
   }
 
   estado_estado(desig) {
-    let t = ['P','A','U']
-    let i = Math.floor(Math.random() * (t.length))
-    i = 1;
-    //return desig.estado.nombre.substr(0,1);
-    return t[i];
+    let arr = desig.estado.nombre.split(' ');
+    console.log(arr);
+    return (arr.length > 1) ? arr[arr.length-1].substr(0,1) : '';
   }
 
   adjuntar_resolucion(mid) {
