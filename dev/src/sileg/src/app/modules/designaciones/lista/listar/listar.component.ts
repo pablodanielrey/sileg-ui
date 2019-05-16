@@ -6,6 +6,8 @@ import { Router, NavigationEnd, NavigationStart, ActivatedRoute, ParamMap } from
 import { NavegarService } from '../../../../core/navegar.service';
 import { ErrorService } from '../../../../core/error/error.service';
 import { Designacion } from '../../../../shared/entities/sileg';
+import { DenegarComponent } from '../../movimientos/denegar/denegar.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-listar',
@@ -13,8 +15,6 @@ import { Designacion } from '../../../../shared/entities/sileg';
   styleUrls: ['./listar.component.scss']
 })
 export class ListarComponent implements OnInit {
-  private subscriptions: Subscription[] = [];
-
   columnas: string[] = ['usuario', 'cargo', 'dedicacion', 'caracter', 'fecha', 'nota', 'resolucion', 'expediente', 'estado', 'acciones'];
   lugares$: Observable<any[]>;
   referencias_visibles: boolean = false;
@@ -23,6 +23,7 @@ export class ListarComponent implements OnInit {
     private service: SilegService,
     private navegar: NavegarService,
     private route: ActivatedRoute,
+    public dialog: MatDialog,
     private router: Router) { }
 
   ngOnInit() {
@@ -60,94 +61,93 @@ export class ListarComponent implements OnInit {
     return (arr.length > 1) ? arr[arr.length-1].substr(0,1) : '';
   }
 
-  adjuntar_resolucion(mid) {
-    this.subscriptions.push(this.navegar.navegar({
-      url: '/sistema/designaciones/listar/listar/asdsadasd/adjuntar-resolucion',
-      params: { mid: mid }
-    }).subscribe(_ => {
-    }));
-  }
+  // adjuntar_resolucion(mid) {
+  //   this.subscriptions.push(this.navegar.navegar({
+  //     url: '/sistema/designaciones/listar/listar/asdsadasd/adjuntar-resolucion',
+  //     params: { mid: mid }
+  //   }).subscribe(_ => {
+  //   }));
+  // }
 
-  modificar(mid) {
-    this.subscriptions.push(this.navegar.navegar({
-      url: '/sistema/movimientos/editar/:mid',
-      params: { mid: mid }
-    }).subscribe(_ => {
-    }));
-  }
+  // modificar(mid) {
+  //   this.subscriptions.push(this.navegar.navegar({
+  //     url: '/sistema/movimientos/editar/:mid',
+  //     params: { mid: mid }
+  //   }).subscribe(_ => {
+  //   }));
+  // }
 
   aprobar(desig: Designacion) {
-    this.subscriptions.push(this.navegar.navegar({
+    let s = this.navegar.navegar({
       url: '/sistema/designaciones/listar/listar/'+desig.lugar_id+'/aprobar',
       params: { did: desig.id }
     }).subscribe(_ => {
-      console.log("subscribe hola");
-    }))
+      console.log("unsubscribe");
+      s.unsubscribe();
+    })
   }
 
   denegar(did) {
-    let s = this.navegar.navegar({
-      url: '/sistema/designaciones/listar/listar/asdsadasd/denegar',
-      params: { did: did }
-    }).subscribe(_ => {
-      s.unsubscribe();
-    })
-  }
+    const dialogRef = this.dialog.open(DenegarComponent, {
+      width: '250px',
+      data: did
+    });
 
-  cancelar(did) {
-    let s = this.navegar.navegar({
-      url: '/sistema/designaciones/listar/listar/asdsadasd/cancelar',
-      params: { did: did }
-    }).subscribe(_ => {
-      s.unsubscribe();
-    })
-  }
-
-
-  detalle(did) {
-    let s = this.navegar.navegar({
-      url: '/sistema/designaciones/detalle/' + did,
-      params: { did: did }
-    }).subscribe(_ => {
-      s.unsubscribe();
-    })
-  }
-
-  dar_de_baja(mid) {
-    let s = this.navegar.navegar({
-      url: '/sistema/designaciones/listar/listar/asdsadasd/baja',
-      params: { did: mid }
-    }).subscribe(_ => {
-      s.unsubscribe();
-    })
-  }
-
-  crear_alta(lid) {
-    let navegar_alta = this.navegar.navegar({
-      url: '/sistema/movimientos/alta/seleccionar-persona/sdfdsfsd',
-      params: {}
-    })
-
-    this.subscriptions.push(this.navegar.obtenerRuta().pipe(
-      tap(ruta_actual => {
-        sessionStorage.setItem('finalizar_proceso', JSON.stringify(ruta_actual));
-      }),
-      switchMap(v => navegar_alta)
-    ).subscribe());
-  }
-
-  volver() {
-    let s = this.navegar.volver().subscribe(_ => {
-      s.unsubscribe();
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed  --- id:' + result);
     });
   }
 
-  mostrar_error() {
-    this.error_service.error({ 'error': true, 'mensaje': 'designacion creada con éxito' });
-  }
+  // cancelar(did) {
+  //   let s = this.navegar.navegar({
+  //     url: '/sistema/designaciones/listar/listar/asdsadasd/cancelar',
+  //     params: { did: did }
+  //   }).subscribe(_ => {
+  //     s.unsubscribe();
+  //   })
+  // }
 
-  ngOnDestroy() {
-    this.subscriptions.forEach( s => s.unsubscribe());
-  }
+
+  // detalle(did) {
+  //   let s = this.navegar.navegar({
+  //     url: '/sistema/designaciones/detalle/' + did,
+  //     params: { did: did }
+  //   }).subscribe(_ => {
+  //     s.unsubscribe();
+  //   })
+  // }
+
+  // dar_de_baja(mid) {
+  //   let s = this.navegar.navegar({
+  //     url: '/sistema/designaciones/listar/listar/asdsadasd/baja',
+  //     params: { did: mid }
+  //   }).subscribe(_ => {
+  //     s.unsubscribe();
+  //   })
+  // }
+
+  // crear_alta(lid) {
+  //   let navegar_alta = this.navegar.navegar({
+  //     url: '/sistema/movimientos/alta/seleccionar-persona/sdfdsfsd',
+  //     params: {}
+  //   })
+
+  //   this.subscriptions.push(this.navegar.obtenerRuta().pipe(
+  //     tap(ruta_actual => {
+  //       sessionStorage.setItem('finalizar_proceso', JSON.stringify(ruta_actual));
+  //     }),
+  //     switchMap(v => navegar_alta)
+  //   ).subscribe());
+  // }
+
+  // volver() {
+  //   let s = this.navegar.volver().subscribe(_ => {
+  //     s.unsubscribe();
+  //   });
+  // }
+
+  // mostrar_error() {
+  //   this.error_service.error({ 'error': true, 'mensaje': 'designacion creada con éxito' });
+  // }
 
 }

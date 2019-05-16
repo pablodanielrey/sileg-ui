@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { Observable, of, from } from 'rxjs';
+import { map, switchMap, tap, mergeMap } from 'rxjs/operators';
 
 export interface Ruta {
   url: string;
@@ -43,7 +43,7 @@ export class NavegarService {
   }
 
   obtenerRuta():Observable<Ruta> {
-    return this.route.queryParams.pipe(
+    return of(this.route.snapshot.queryParams).pipe(
       map(params => {
         return {
           url: this.router.url.split('?')[0],
@@ -57,16 +57,8 @@ export class NavegarService {
   navegar(ruta: Ruta):Observable<boolean> {
     return this.obtenerRuta().pipe(
       tap( ruta_actual => this.generarVolver(ruta.url, ruta_actual)),
-      switchMap( r => {
-        return this.router.navigate([ruta.url], {queryParams: ruta.params}) 
+      mergeMap( r => {
+        return from(this.router.navigate([ruta.url], {queryParams: ruta.params}))
       }))
-    // )
-    // return Observable.create((obs) => {
-    //   let url = this.router.url.split('?')[0];
-    //   let params = this.route.snapshot.queryParams;
-    //   this.generarVolver(ruta.url, {url: url, params: params});
-    //   let b = this.router.navigate([ruta.url], {queryParams: ruta.params} )
-    //   obs.next(b);
-    // })
   }
 }

@@ -68,4 +68,8 @@ export class SilegService {
   guardarLugar(lugar: Object): Observable<string> {
     return null;
   }
+
+  aprobarMovimiento(mid: string): Observable<boolean> {
+    return null;
+  }
 }

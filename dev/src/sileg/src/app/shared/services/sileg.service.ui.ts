@@ -29,6 +29,7 @@ export class SilegService {
     'Activa', 'Baja'
   ];
   datos_lugar_designacion: Array<DatosLugarDesignacion> = [];
+  datos_designacion:Array<DatosDesignacion> = [];
   catedras: Array<Lugar> = [];
   usuarios: Array<Usuario> = [];
   tipos_lugar = [
@@ -694,8 +695,7 @@ export class SilegService {
     }
   }
 
-  setear_designaciones(): void {    
-    let datos_designacion:Array<DatosDesignacion> = [];
+  private setear_designaciones(): void {    
     this.tipos_cargos.filter( x => x.tipo == 'Docente').forEach(cargo => {
       this.tipos_caracter.forEach( caracter => {
         this.tipos_estado.forEach( estado => {
@@ -717,7 +717,7 @@ export class SilegService {
               resolucion: this.generar_resolucion(estado)
           });
           this.designaciones.push(d);
-          datos_designacion.push(new DatosDesignacion({
+          this.datos_designacion.push(new DatosDesignacion({
             usuario: u,
             designacion: d,
             estado: new Estado({nombre:estado})
@@ -728,7 +728,7 @@ export class SilegService {
     });
     this.datos_lugar_designacion = [];
     let dl_desig_map = {};
-    datos_designacion.forEach(d => {
+    this.datos_designacion.forEach(d => {
       if (d.designacion.lugar_id in dl_desig_map) {
         let dld = dl_desig_map[d.designacion.lugar_id];
         dld.designaciones.push(d);
@@ -746,25 +746,14 @@ export class SilegService {
     Object.keys(dl_desig_map).forEach( d => {
       this.datos_lugar_designacion.push(dl_desig_map[d]);
     })
-    console.log(this.datos_lugar_designacion);    
   }
 
   desginacionesPendientes(lids: string[]): Observable<DatosLugarDesignacion[]> {
     return of(this.datos_lugar_designacion.filter( dl => lids.includes(dl.lugar.id)));
   }
 
-  obtenerDesignacion(id: string): Observable<any> {
-    let d = {
-      id: id,
-      expediente: 'dsfsdf',
-      resolucion: '23r32r',
-      corresponde: 'sdf',
-      cargo: { 
-        nombre: 'Titular',
-        id: 'dd9dfc98-a4a0-49a3-9d6d-18eb634ea0d4'
-      }
-    }      
-    return of(d);
+  obtenerDesignacion(id: string): Observable<Designacion> {    
+    return of(this.designaciones.find( d => d.id == id));
   }
   
   obtenerPersona(uid: string): Observable<any> {
@@ -786,7 +775,7 @@ export class SilegService {
 
   buscarLugares(texto: string): Observable<any[]> {
     let lugares_filtrados = this.lugares.filter( v => v.nombre.toLowerCase().includes(texto.toLowerCase()));
-    return of(lugares_filtrados).delay(1500);
+    return of(lugares_filtrados).delay(500);
   }  
 
 
@@ -814,6 +803,20 @@ export class SilegService {
     let l = this.lugares.find( l => l.id == lugar["id"]);
     Object.assign(l, lugar);
     return of(l.id);
+  }
+
+  private obtenerDatosDesignacion(id: string): DatosDesignacion {
+    return this.datos_designacion.find( dd => dd.designacion.id == id);
+  }
+
+  aprobarMovimiento(mid: string): Observable<boolean> {
+    let dd = this.obtenerDatosDesignacion(mid);
+    let ok = false;
+    switch(dd.estado.nombre.split(' ')[0]) {
+      case 'Alta': dd.estado.nombre = 'Alta Aprobada'; ok = true; break;
+      case 'Baja': dd.estado.nombre = 'Baja Aprobada'; ok=true; break;
+    }
+    return of(ok);
   }
 
 }

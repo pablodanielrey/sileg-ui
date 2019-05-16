@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavegarService } from '../../../../core/navegar.service';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { switchMap, map, tap } from 'rxjs/operators';
+import { SilegService } from '../../../../shared/services/sileg.service';
 
 @Component({
   selector: 'app-aprobar',
@@ -10,15 +11,34 @@ import { switchMap } from 'rxjs/operators';
   styleUrls: ['./aprobar.component.scss']
 })
 export class AprobarComponent implements OnInit {
-  lid$: Observable<string>;
+  did$: Observable<string>;
   
-  constructor(private navegar: NavegarService, private route: ActivatedRoute) { }
+  constructor(private service: SilegService,
+              private navegar: NavegarService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-    console.log("aprobar component");
+    this.did$ = this.route.queryParamMap.pipe(
+      map(params => {
+        return (params.has('did')) ? params.get('did') :null;
+      })
+    );    
   }
 
   aprobar() {
-    
+    let s = this.did$.pipe(
+      switchMap( did => {
+        return this.service.aprobarMovimiento(did)
+      }),
+      switchMap( ok => {
+        if (ok) {
+          return this.navegar.volver()
+        } else {
+          of(null)
+        }
+      })
+    ).subscribe( _ => {
+      s.unsubscribe();
+    })
   }
 }

@@ -21,7 +21,7 @@ import { CrearPersonaComponent as AltaMovimientoCrearPersonaComponent } from './
 import { AltaCargoComponent as AltaMovimientoAltaCargoComponent } from './modules/designaciones/movimientos/alta/alta-cargo/alta-cargo.component';
 
 import { CancelarComponent as CancelarMovimientoComponent } from './modules/designaciones/movimientos/cancelar/cancelar.component';
-import { DenegarComponent as DenegarMovimientoComponent } from './modules/designaciones/movimientos/denegar/denegar.component';
+// import { DenegarComponent as DenegarMovimientoComponent } from './modules/designaciones/movimientos/denegar/denegar.component';
 import { AprobarComponent as AprobarMovimientoComponent } from './modules/designaciones/movimientos/aprobar/aprobar.component';
 import { BajaComponent as BajaMovimientoComponent } from './modules/designaciones/movimientos/baja/baja.component';
 import { EditarComponent as EditarMovimientoComponent } from './modules/designaciones/movimientos/editar/editar.component';
@@ -67,7 +67,7 @@ const routes: Routes = [
             ] 
           },
           { path: 'aprobar', component: AprobarMovimientoComponent },
-          { path: 'denegar', component: DenegarMovimientoComponent },
+          // { path: 'denegar', component: DenegarMovimientoComponent },
           { path: 'baja', component: BajaMovimientoComponent },
           { path: 'cancelar', component: CancelarMovimientoComponent },
           { path: 'adjuntar-resolucion', component: AdjuntarResolucionComponent },
@@ -85,7 +85,7 @@ const routes: Routes = [
                 path: 'listar/:mid', component: ListarDesignacionesComponent,
                 children: [
                   { path: 'aprobar', component: AprobarMovimientoComponent },
-                  { path: 'denegar', component: DenegarMovimientoComponent },
+                  // { path: 'denegar', component: DenegarMovimientoComponent },
                   { path: 'cancelar', component: CancelarMovimientoComponent },
                   { path: 'baja', component: BajaMovimientoComponent },
                   { path: 'adjuntar-resolucion', component: AdjuntarResolucionComponent }
@@ -119,6 +119,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  exports: [ RouterModule ],
 })
 export class AppRoutingModule { }

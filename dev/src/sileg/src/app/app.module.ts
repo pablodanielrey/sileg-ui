@@ -44,6 +44,7 @@ import { AdjuntarArchivosComponent } from './shared/components/adjuntar-archivos
 import { CancelarComponent } from './modules/designaciones/movimientos/cancelar/cancelar.component';
 import { AdjuntarResolucionComponent } from './modules/designaciones/movimientos/adjuntar-resolucion/adjuntar-resolucion.component';
 import { ReferenciasComponent } from './modules/designaciones/movimientos/referencias/referencias.component';
+import { MatDialogModule } from '@angular/material';
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import { ReferenciasComponent } from './modules/designaciones/movimientos/refere
     ReferenciasComponent
   ],
   entryComponents: [
+    DenegarComponent
   ],
   imports: [
     BrowserModule,

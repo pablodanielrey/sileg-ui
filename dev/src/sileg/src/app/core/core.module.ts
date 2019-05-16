@@ -29,7 +29,9 @@ import { MatButtonModule,
          MatTooltipModule,
          MatBadgeModule,
          MatAutocompleteModule,
-         MatExpansionModule
+         MatExpansionModule,
+         MAT_DIALOG_DEFAULT_OPTIONS,
+         MAT_DIALOG_DATA
        } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -155,7 +157,9 @@ const routes: Routes = [
     ErrorService,
     OidpGuard,
     Oauth2Service,
-    { provide: OAuthStorage, useValue: localStorage }
+    { provide: OAuthStorage, useValue: localStorage },
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}},
+    { provide: MAT_DIALOG_DATA, useValue: {} },
   ]
 })
 export class CoreModule { }
