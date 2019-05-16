@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavegarService } from '../../../../core/navegar.service';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-aprobar',
@@ -7,15 +10,15 @@ import { NavegarService } from '../../../../core/navegar.service';
   styleUrls: ['./aprobar.component.scss']
 })
 export class AprobarComponent implements OnInit {
-
-  constructor(private navegar: NavegarService) { }
+  lid$: Observable<string>;
+  
+  constructor(private navegar: NavegarService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    console.log("aprobar component");
   }
 
   aprobar() {
-    let s = this.navegar.navegar({url: '/sistema/designaciones/listar/listar/asdsaasasd', params: []}).subscribe(_ => {
-      s.unsubscribe();
-    })
+    
   }
 }

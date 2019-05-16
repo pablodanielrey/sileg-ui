@@ -113,14 +113,14 @@
  
                                 <!-- operaciones del departamento -->
 
-                                <button (click)="dar_de_baja(desig.id)" mat-menu-item>
+                                <button (click)="dar_de_baja(desig.designacion.id)" mat-menu-item>
                                     <mat-icon>trending_down</mat-icon>
                                     <span>Pedir Baja</span>
                                 </button>
 
                                 <!-- operaciones de las autoridades -->
 
-                                <button mat-menu-item (click)='aprobar(desig.id)'>
+                                <button mat-menu-item (click)='aprobar(desig.designacion)'>
                                   <mat-icon>check</mat-icon>
                                   <span>Aprobar</span>
                                 </button>

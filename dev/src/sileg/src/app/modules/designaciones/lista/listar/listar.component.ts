@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { SilegService } from '../../../../shared/services/sileg.service';
 import { map, tap, switchMap } from 'rxjs/operators';
 import { Router, NavigationEnd, NavigationStart, ActivatedRoute, ParamMap } from '@angular/router';
 import { NavegarService } from '../../../../core/navegar.service';
 import { ErrorService } from '../../../../core/error/error.service';
+import { Designacion } from '../../../../shared/entities/sileg';
 
 @Component({
   selector: 'app-listar',
@@ -12,6 +13,7 @@ import { ErrorService } from '../../../../core/error/error.service';
   styleUrls: ['./listar.component.scss']
 })
 export class ListarComponent implements OnInit {
+  private subscriptions: Subscription[] = [];
 
   columnas: string[] = ['usuario', 'cargo', 'dedicacion', 'caracter', 'fecha', 'nota', 'resolucion', 'expediente', 'estado', 'acciones'];
   lugares$: Observable<any[]>;
@@ -24,8 +26,7 @@ export class ListarComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    let lid = "1f7b87ea-96b7-428c-8a00-fd33e1ba3ee6";
-
+    console.log("listar component");
     this.lugares$ = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
         if (params.has('mid')) {
@@ -46,34 +47,8 @@ export class ListarComponent implements OnInit {
           })
         }
         return a
-      }),
-      tap(v => console.log(v))      
+      })
     );
-
-    // this.lugares$ = this.service.desginacionesPendientes([lid]).pipe(
-    //   map(v => {
-    //     let a = [];
-    //     for (let e of v) {
-    //       a.push({
-    //         lugar: e.lugar,
-    //         ptos_alta: e.ptos_alta,
-    //         ptos_baja: e.ptos_baja,
-    //         designaciones$: of(e.designaciones)
-    //       })
-    //     }
-    //     return a
-    //   }),
-    //   tap(v => console.log(v))
-    // )
-
-
-    /*
-    this.router.events.subscribe(e => {
-      if (e instanceof NavigationStart) {
-        this.mostrar_dialogo = false;
-      }
-    })
-    */
   }
 
   estado_tipo(desig) {
@@ -82,35 +57,32 @@ export class ListarComponent implements OnInit {
 
   estado_estado(desig) {
     let arr = desig.estado.nombre.split(' ');
-    console.log(arr);
     return (arr.length > 1) ? arr[arr.length-1].substr(0,1) : '';
   }
 
   adjuntar_resolucion(mid) {
-    let s = this.navegar.navegar({
+    this.subscriptions.push(this.navegar.navegar({
       url: '/sistema/designaciones/listar/listar/asdsadasd/adjuntar-resolucion',
       params: { mid: mid }
     }).subscribe(_ => {
-      s.unsubscribe();
-    })
+    }));
   }
 
   modificar(mid) {
-    let s = this.navegar.navegar({
+    this.subscriptions.push(this.navegar.navegar({
       url: '/sistema/movimientos/editar/:mid',
       params: { mid: mid }
     }).subscribe(_ => {
-      s.unsubscribe();
-    })
+    }));
   }
 
-  aprobar(did) {
-    let s = this.navegar.navegar({
-      url: '/sistema/designaciones/listar/listar/asdsadasd/aprobar',
-      params: { did: did }
+  aprobar(desig: Designacion) {
+    this.subscriptions.push(this.navegar.navegar({
+      url: '/sistema/designaciones/listar/listar/'+desig.lugar_id+'/aprobar',
+      params: { did: desig.id }
     }).subscribe(_ => {
-      s.unsubscribe();
-    })
+      console.log("subscribe hola");
+    }))
   }
 
   denegar(did) {
@@ -156,12 +128,12 @@ export class ListarComponent implements OnInit {
       params: {}
     })
 
-    this.navegar.obtenerRuta().pipe(
+    this.subscriptions.push(this.navegar.obtenerRuta().pipe(
       tap(ruta_actual => {
         sessionStorage.setItem('finalizar_proceso', JSON.stringify(ruta_actual));
       }),
       switchMap(v => navegar_alta)
-    ).subscribe()
+    ).subscribe());
   }
 
   volver() {
@@ -172,6 +144,10 @@ export class ListarComponent implements OnInit {
 
   mostrar_error() {
     this.error_service.error({ 'error': true, 'mensaje': 'designacion creada con éxito' });
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach( s => s.unsubscribe());
   }
 
 }
