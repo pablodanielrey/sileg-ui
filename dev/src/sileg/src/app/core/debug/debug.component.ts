@@ -35,7 +35,7 @@ export class DebugComponent implements OnInit {
   }
  
   configurar_permisos() {
-    this.permisos._save_example();
+    //this.permisos._save_example();
   }
 
   activar_preload_parcial() {

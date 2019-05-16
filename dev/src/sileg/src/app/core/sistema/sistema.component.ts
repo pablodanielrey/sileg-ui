@@ -87,8 +87,7 @@ export class SistemaComponent implements OnInit {
   }
 
   tengo_permisos(item:MenuItem):Observable<boolean> {
-    return this.permisos.all(item.permisos)
-    //return of(true);
+    return this.permisos.has(item.permisos)
   }
 
   ngOnInit() {
