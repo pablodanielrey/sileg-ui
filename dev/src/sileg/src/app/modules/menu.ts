@@ -1,7 +1,7 @@
 import { MenuSistema } from '../core/sistema/types';
   
 export const menu : MenuSistema = [
-    { item: 'Lugares', menu: null, ruta: '/sistema/lugares/seleccionar', icono: 'filter_1', permisos: ['urn:sileg:lugares:read','urn:assistance:para:papa:many:restricted'] },
+    { item: 'Lugares', menu: null, ruta: '/sistema/lugares/seleccionar', icono: 'filter_1', permisos: [] },
     { item: 'Pendientes', menu: null, ruta: '/sistema/movimientos/pendientes', icono: 'notifications_none', permisos: ['urn:sileg:lugares:read'] },
     { 
         item: 'Con Submenu', ruta: null, icono: 'notifications_none', permisos: [], 
