@@ -15,14 +15,11 @@
 
 </div> -->
 
-<h1 mat-dialog-title>Hi {{data}}</h1>
-<div mat-dialog-content>
-  <p>What's your favorite animal?</p>
-  <mat-form-field>
-    <input matInput [(ngModel)]="data">
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
-</div>
+<h1 mat-dialog-title>Denegar Designación</h1>
+<mat-dialog-content>
+  <p>¿Está seguro de denegar la designación?</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-flat-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>SI</button>
+  <button mat-button (click)="onNoClick()">cancelar</button>
+</mat-dialog-actions>
