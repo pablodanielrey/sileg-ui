@@ -62,14 +62,12 @@
                 </mat-expansion-panel-header>
                 <a mat-button *ngFor='let submenu of submenu(menu.item) | async' class="btnMenu" (click)='navegar_hacia(menu.item)'>
                     <mat-icon class="iconoMenu">{{submenu.item.icono}}</mat-icon>{{submenu.item.item}}
-                    {{submenu.mostrar}}
                 </a>
                 <mat-checkbox>text</mat-checkbox>
             </mat-expansion-panel>
 
         <button mat-button *ngIf='!tiene_submenu(menu)' class="btnMenu" (click)='navegar_hacia(menu.item); cerrar_menu(drawer)'>
             <mat-icon class="iconoMenu">{{menu.item.icono}}</mat-icon>{{menu.item.item}}
-            {{menu.mostrar}}
         </button>
         </div>
 

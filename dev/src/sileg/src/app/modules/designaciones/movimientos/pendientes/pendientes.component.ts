@@ -21,7 +21,7 @@ export class PendientesComponent implements OnInit {
     /*
       obtengo el lugar raiz de todo el arbol para fce y llamo a la lista de designaciones para ese lugar.
     */
-    let lid_raiz = 'asdfsadasasasdsassd'
+    let lid_raiz = '4ae14404-80ff-46f4-bbd4-0e1810db01c0'
     let ruta = {
       url: '/sistema/designaciones/listar/listar/' + lid_raiz,
       params: {}
