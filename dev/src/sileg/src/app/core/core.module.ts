@@ -158,7 +158,7 @@ const routes: Routes = [
     OidpGuard,
     Oauth2Service,
     { provide: OAuthStorage, useValue: localStorage },
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}},
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true, disableClose: true}},
     { provide: MAT_DIALOG_DATA, useValue: {} },
   ]
 })

@@ -486,7 +486,7 @@ export class SilegService {
       new Lugar({
         id: 'a7498331-3afd-4881-b899-25ff2b8dd0f2',
         nombre: 'Departamento De Economía',
-        padre_id: 'f948ac90-82c1-42ea-a34a-018c17eb36d7'
+        padre_id: '2dc45e33-1433-43ef-ac44-61300611e5e5'
       }),
       new Lugar({
         id: '5a765400-9b2d-4eb4-91d3-ac861a7eb608',
@@ -532,7 +532,7 @@ export class SilegService {
       new Lugar({
         id: '9f09b08d-607a-4192-bc54-5cc5db16ad39',
         nombre: 'Departamento De Ciencias Administrativas',
-        padre_id: 'f948ac90-82c1-42ea-a34a-018c17eb36d7'
+        padre_id: '2dc45e33-1433-43ef-ac44-61300611e5e5'
       }),
       new Lugar({
         id: '1c6b8b9d-c41d-4956-8ab0-9ef2ffc4cd6f',
@@ -587,7 +587,7 @@ export class SilegService {
       new Lugar({
         id: 'c0081511-2edc-4323-880d-848162679889',
         nombre: 'Departamento De Contabilidad',
-        padre_id: 'f948ac90-82c1-42ea-a34a-018c17eb36d7'
+        padre_id: '2dc45e33-1433-43ef-ac44-61300611e5e5'
       }),
       new Lugar({
         id: 'bbd9ba0b-90ba-4931-9d4a-a2f584111e76',
@@ -748,8 +748,20 @@ export class SilegService {
     })
   }
 
+  _sublugares(lids): string[] {
+    let sublugares = [];
+    for (let i=0; i<lids.length; i++) {
+      let lid = lids[i];
+      let aux = this.lugares.filter( l => l.padre_id == lid).map( l => l.id);
+      sublugares = sublugares.concat(this._sublugares(aux));
+      sublugares.push(lid);
+    }    
+    return sublugares;
+  }
+
   desginacionesPendientes(lids: string[]): Observable<DatosLugarDesignacion[]> {
-    return of(this.datos_lugar_designacion.filter( dl => lids.includes(dl.lugar.id)));
+    let ids = this._sublugares(lids);
+    return of(this.datos_lugar_designacion.filter( dl => ids.includes(dl.lugar.id)));
   }
 
   obtenerDesignacion(id: string): Observable<Designacion> {    
