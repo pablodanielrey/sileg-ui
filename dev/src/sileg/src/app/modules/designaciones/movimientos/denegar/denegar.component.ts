@@ -11,8 +11,7 @@ export class DenegarComponent {
 
   constructor(public dialogRef: MatDialogRef<DenegarComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string,
-    private service: SilegService) {
-    }
+    private service: SilegService) { }
 
   denegar(): void {
     this.service.denegarMovimiento(this.data).subscribe( b => {

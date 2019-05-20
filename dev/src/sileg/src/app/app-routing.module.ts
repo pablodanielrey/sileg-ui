@@ -66,8 +66,6 @@ const routes: Routes = [
               { path: 'alta-cargo/:lid/:pid', component: AltaMovimientoAltaCargoComponent }
             ] 
           },
-          { path: 'aprobar', component: AprobarMovimientoComponent },
-          // { path: 'denegar', component: DenegarMovimientoComponent },
           { path: 'baja', component: BajaMovimientoComponent },
           { path: 'cancelar', component: CancelarMovimientoComponent },
           { path: 'adjuntar-resolucion', component: AdjuntarResolucionComponent },
@@ -84,8 +82,6 @@ const routes: Routes = [
               { 
                 path: 'listar/:mid', component: ListarDesignacionesComponent,
                 children: [
-                  { path: 'aprobar', component: AprobarMovimientoComponent },
-                  // { path: 'denegar', component: DenegarMovimientoComponent },
                   { path: 'cancelar', component: CancelarMovimientoComponent },
                   { path: 'baja', component: BajaMovimientoComponent },
                   { path: 'adjuntar-resolucion', component: AdjuntarResolucionComponent }

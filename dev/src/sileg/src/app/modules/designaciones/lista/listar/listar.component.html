@@ -132,19 +132,19 @@
 
                                 <!-- operaciones del dueño del movimiento -->
 
-                                <button mat-menu-item (click)='cancelar(desig.id)'>
+                                <button mat-menu-item (click)='cancelar(desig.designacion.id)'>
                                     <mat-icon>delete_outline</mat-icon>
                                     <span>Cancelar</span>
                                 </button>
 
-                                <button (click)="modificar(desig.id)" mat-menu-item >
+                                <button (click)="modificar(desig.designacion.id)" mat-menu-item >
                                     <mat-icon class="material-icons-outlined">edit</mat-icon>
                                     <span>Modificar</span>
                                 </button>
 
                                 <!-- despacho -->
 
-                                <button mat-menu-item (click)='adjuntar_resolucion(desig.id)'>
+                                <button mat-menu-item (click)='adjuntar_resolucion(desig.designacion)'>
                                     <mat-icon>attachment</mat-icon>
                                     <span>Adjuntar Resolución</span>
                                 </button>

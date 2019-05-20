@@ -1,25 +1,8 @@
-<!-- <div class="dialogo">
-  <mat-card class="contenedorDialogo">
-
-      <mat-card-content class="contenedorDialogo">
-          <mat-card-title class="titulo">Denegar Designación</mat-card-title>
-          <mat-card-subtitle>¿Está seguro?, despues de aceptar esta operación no se podrá volver atrás.</mat-card-subtitle>
-      </mat-card-content>
-
-      <mat-card-actions>
-         <button mat-flat-button color="primary" (click)="aprobar()">ACEPTAR</button>
-         <button mat-button (click)="cancelar()">CANCELAR</button>
-      </mat-card-actions>
-
-  </mat-card>
-
-</div> -->
-
 <h1 mat-dialog-title>Denegar Designación</h1>
 <mat-dialog-content>
   <p>¿Está seguro de denegar la designación?</p>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-flat-button color="primary" (click)="denegar()" cdkFocusInitial>SI</button>
-  <button mat-button [mat-dialog-close]="id">cancelar</button>
+  <button mat-button [mat-dialog-close]="data">cancelar</button>
 </mat-dialog-actions>
