@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material';
 import { AprobarComponent } from '../../movimientos/aprobar/aprobar.component';
 import { CancelarComponent } from '../../movimientos/cancelar/cancelar.component';
 import { BajaComponent } from '../../movimientos/baja/baja.component';
+import { EnviarUnlpComponent } from '../../movimientos/enviar-unlp/enviar-unlp.component';
 
 @Component({
   selector: 'app-listar',
@@ -121,6 +122,13 @@ export class ListarComponent implements OnInit {
     });
   }
 
+  enviar_unlp(desig: Designacion) {
+    const dialogRef = this.dialog.open(EnviarUnlpComponent, {
+      width: '250px',
+      data: desig.id
+    });    
+  }
+
   // crear_alta(lid) {
   //   let navegar_alta = this.navegar.navegar({
   //     url: '/sistema/movimientos/alta/seleccionar-persona/sdfdsfsd',
@@ -135,14 +143,14 @@ export class ListarComponent implements OnInit {
   //   ).subscribe());
   // }
 
-  // volver() {
-  //   let s = this.navegar.volver().subscribe(_ => {
-  //     s.unsubscribe();
-  //   });
-  // }
+  volver() {
+    let s = this.navegar.volver().subscribe(_ => {
+      s.unsubscribe();
+    });
+  }
 
-  // mostrar_error() {
-  //   this.error_service.error({ 'error': true, 'mensaje': 'designacion creada con éxito' });
-  // }
+  mostrar_error() {
+    this.error_service.error({ 'error': true, 'mensaje': 'designacion creada con éxito' });
+  }
 
 }

@@ -843,11 +843,23 @@ export class SilegService {
   } 
   
   cancelarMovimiento(mid: string): Observable<boolean> {
+    let dd = this.obtenerDatosDesignacion(mid);
+    dd.estado.nombre = 'Cancelada';
     return of(true);
   }  
 
   bajaMovimiento(mid: string): Observable<boolean> {
     return of(true);
+  } 
+
+  enviarUnlpMovimiento(mid: string): Observable<boolean> {
+    let dd = this.obtenerDatosDesignacion(mid);
+    let ok = false;
+    switch(dd.estado.nombre.split(' ')[0]) {
+      case 'Alta': dd.estado.nombre = 'Alta Enviada a UNLP'; ok = true; break;
+      case 'Baja': dd.estado.nombre = 'Baja Enviada a UNLP'; ok = true; break;
+    }
+    return of(ok);
   }  
 
 }

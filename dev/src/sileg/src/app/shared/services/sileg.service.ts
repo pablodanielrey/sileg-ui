@@ -84,4 +84,8 @@ export class SilegService {
   bajaMovimiento(mid: string): Observable<boolean> {
     return null;
   }
+
+  enviarUnlpMovimiento(mid: string): Observable<boolean> {
+    return null;
+  }
 }

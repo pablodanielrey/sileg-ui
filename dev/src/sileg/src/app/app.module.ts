@@ -45,6 +45,7 @@ import { CancelarComponent } from './modules/designaciones/movimientos/cancelar/
 import { AdjuntarResolucionComponent } from './modules/designaciones/movimientos/adjuntar-resolucion/adjuntar-resolucion.component';
 import { ReferenciasComponent } from './modules/designaciones/movimientos/referencias/referencias.component';
 import { MatDialogModule } from '@angular/material';
+import { EnviarUnlpComponent } from './modules/designaciones/movimientos/enviar-unlp/enviar-unlp.component';
 
 
 @NgModule({
@@ -73,13 +74,15 @@ import { MatDialogModule } from '@angular/material';
     AdjuntarArchivosComponent,
     CancelarComponent,
     AdjuntarResolucionComponent,
-    ReferenciasComponent
+    ReferenciasComponent,
+    EnviarUnlpComponent
   ],
   entryComponents: [
     DenegarComponent,
     AprobarComponent,
     CancelarComponent,
-    BajaComponent
+    BajaComponent,
+    EnviarUnlpComponent
   ],
   imports: [
     BrowserModule,
