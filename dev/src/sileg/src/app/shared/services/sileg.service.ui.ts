@@ -840,6 +840,10 @@ export class SilegService {
       case 'Baja': dd.estado.nombre = 'Baja Denegada'; ok = true; break;
     }
     return of(ok);
+  } 
+  
+  cancelarMovimiento(mid: string): Observable<boolean> {
+    return null;
   }  
 
 }

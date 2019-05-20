@@ -9,6 +9,7 @@ import { Designacion } from '../../../../shared/entities/sileg';
 import { DenegarComponent } from '../../movimientos/denegar/denegar.component';
 import { MatDialog } from '@angular/material';
 import { AprobarComponent } from '../../movimientos/aprobar/aprobar.component';
+import { CancelarComponent } from '../../movimientos/cancelar/cancelar.component';
 
 @Component({
   selector: 'app-listar',
@@ -95,14 +96,12 @@ export class ListarComponent implements OnInit {
     });
   }
 
-  // cancelar(did) {
-  //   let s = this.navegar.navegar({
-  //     url: '/sistema/designaciones/listar/listar/asdsadasd/cancelar',
-  //     params: { did: did }
-  //   }).subscribe(_ => {
-  //     s.unsubscribe();
-  //   })
-  // }
+  cancelar(desig) {
+    const dialogRef = this.dialog.open(CancelarComponent, {
+      width: '250px',
+      data: desig.id
+    });
+  }
 
 
   // detalle(did) {

@@ -67,7 +67,6 @@ const routes: Routes = [
             ] 
           },
           { path: 'baja', component: BajaMovimientoComponent },
-          { path: 'cancelar', component: CancelarMovimientoComponent },
           { path: 'adjuntar-resolucion', component: AdjuntarResolucionComponent },
           { path: 'referencias', component: ReferenciasComponent }
         ]
@@ -82,7 +81,6 @@ const routes: Routes = [
               { 
                 path: 'listar/:mid', component: ListarDesignacionesComponent,
                 children: [
-                  { path: 'cancelar', component: CancelarMovimientoComponent },
                   { path: 'baja', component: BajaMovimientoComponent },
                   { path: 'adjuntar-resolucion', component: AdjuntarResolucionComponent }
                 ]
