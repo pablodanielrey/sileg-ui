@@ -121,7 +121,7 @@
     
                                     <!-- operaciones del departamento -->
 
-                                    <button (click)="dar_de_baja(desig.designacion.id)" mat-menu-item>
+                                    <button (click)="dar_de_baja(desig.designacion)" mat-menu-item>
                                         <mat-icon>trending_down</mat-icon>
                                         <span>Pedir Baja</span>
                                     </button>
@@ -152,7 +152,7 @@
 
                                     <!-- despacho -->
 
-                                    <button mat-menu-item (click)='adjuntar_resolucion(desig.id)'>
+                                    <button mat-menu-item (click)='adjuntar_resolucion(desig.designacion)'>
                                         <mat-icon>attachment</mat-icon>
                                         <span>Adjuntar Resolución</span>
                                     </button>

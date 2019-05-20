@@ -10,6 +10,7 @@ import { DenegarComponent } from '../../movimientos/denegar/denegar.component';
 import { MatDialog } from '@angular/material';
 import { AprobarComponent } from '../../movimientos/aprobar/aprobar.component';
 import { CancelarComponent } from '../../movimientos/cancelar/cancelar.component';
+import { BajaComponent } from '../../movimientos/baja/baja.component';
 
 @Component({
   selector: 'app-listar',
@@ -113,14 +114,12 @@ export class ListarComponent implements OnInit {
   //   })
   // }
 
-  // dar_de_baja(mid) {
-  //   let s = this.navegar.navegar({
-  //     url: '/sistema/designaciones/listar/listar/asdsadasd/baja',
-  //     params: { did: mid }
-  //   }).subscribe(_ => {
-  //     s.unsubscribe();
-  //   })
-  // }
+  dar_de_baja(desig: Designacion) {
+    const dialogRef = this.dialog.open(BajaComponent, {
+      width: '250px',
+      data: desig.id
+    });
+  }
 
   // crear_alta(lid) {
   //   let navegar_alta = this.navegar.navegar({

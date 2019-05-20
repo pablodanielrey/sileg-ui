@@ -1,16 +1,8 @@
-  <div class="dialogo">
-    <mat-card class="contenedorDialogo">
-  
-        <mat-card-content class="contenedorDialogo">
-            <mat-card-title class="titulo">Baja de Designación</mat-card-title>
-            <mat-card-subtitle>¿Está seguro?, despues de aceptar esta operación no se podrá volver atrás.</mat-card-subtitle>
-        </mat-card-content>
-  
-        <mat-card-actions>
-           <button mat-flat-button color="primary" (click)="confirmar()">ACEPTAR</button>
-           <button mat-button (click)="cancelar()">CANCELAR</button>
-        </mat-card-actions>
-  
-    </mat-card>
-  
-  </div>
+<h1 mat-dialog-title>Baja de Designación</h1>
+<mat-dialog-content>
+  <p>¿Está seguro?, despues de aceptar esta operación no se podrá volver atrás.</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-flat-button color="primary" (click)="baja_movimiento()" cdkFocusInitial>ACEPTAR</button>
+  <button mat-button [mat-dialog-close]="data">CANCELAR</button>
+</mat-dialog-actions>

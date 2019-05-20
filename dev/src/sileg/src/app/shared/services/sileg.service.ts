@@ -80,4 +80,8 @@ export class SilegService {
   cancelarMovimiento(mid: string): Observable<boolean> {
     return null;
   }
+
+  bajaMovimiento(mid: string): Observable<boolean> {
+    return null;
+  }
 }

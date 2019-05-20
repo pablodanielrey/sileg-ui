@@ -78,7 +78,8 @@ import { MatDialogModule } from '@angular/material';
   entryComponents: [
     DenegarComponent,
     AprobarComponent,
-    CancelarComponent
+    CancelarComponent,
+    BajaComponent
   ],
   imports: [
     BrowserModule,

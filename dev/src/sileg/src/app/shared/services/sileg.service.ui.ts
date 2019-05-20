@@ -843,7 +843,11 @@ export class SilegService {
   } 
   
   cancelarMovimiento(mid: string): Observable<boolean> {
-    return null;
+    return of(true);
+  }  
+
+  bajaMovimiento(mid: string): Observable<boolean> {
+    return of(true);
   }  
 
 }

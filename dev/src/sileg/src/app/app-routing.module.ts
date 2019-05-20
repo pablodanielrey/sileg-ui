@@ -66,7 +66,6 @@ const routes: Routes = [
               { path: 'alta-cargo/:lid/:pid', component: AltaMovimientoAltaCargoComponent }
             ] 
           },
-          { path: 'baja', component: BajaMovimientoComponent },
           { path: 'adjuntar-resolucion', component: AdjuntarResolucionComponent },
           { path: 'referencias', component: ReferenciasComponent }
         ]
@@ -81,7 +80,6 @@ const routes: Routes = [
               { 
                 path: 'listar/:mid', component: ListarDesignacionesComponent,
                 children: [
-                  { path: 'baja', component: BajaMovimientoComponent },
                   { path: 'adjuntar-resolucion', component: AdjuntarResolucionComponent }
                 ]
               }

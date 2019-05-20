@@ -13,7 +13,7 @@ export class CancelarComponent {
     @Inject(MAT_DIALOG_DATA) public data: string,
     private service: SilegService) { }
 
-  cancelar(): void {
+  cancelar_movimiento(): void {
     this.service.cancelarMovimiento(this.data).subscribe( b => {
       this.dialogRef.close(b);
     })
