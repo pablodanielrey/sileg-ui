@@ -23,181 +23,190 @@
     <mat-tab-group *ngFor="let l of (lugares$ | async)" class="tab">
      
         <mat-tab label="{{ l.lugar.nombre }}">  
-  
-            <mat-table [dataSource]="l.designaciones$ | async" >
-  
-                <ng-container matColumnDef="usuario" sticky>
-                      <mat-header-cell *matHeaderCellDef> Usuario </mat-header-cell>
-                      <mat-cell *matCellDef="let desig"> {{desig.usuario.nombre}} {{desig.usuario.apellido}}</mat-cell>
-                </ng-container>
-  
-                <ng-container matColumnDef="cargo">
-                    <mat-header-cell *matHeaderCellDef> Cargo </mat-header-cell>
-                    <mat-cell *matCellDef="let desig">{{desig.designacion.cargo.nombre | slice: 0: desig.designacion.cargo.nombre.length-4}}</mat-cell>
-                 </ng-container>
-  
-                <ng-container matColumnDef="dedicacion">
-                    <mat-header-cell *matHeaderCellDef> Dedicación </mat-header-cell>
-                    <mat-cell *matCellDef="let desig">{{desig.designacion.cargo.nombre | slice: desig.designacion.cargo.nombre.length-4}}</mat-cell>
-                </ng-container>
-  
-                <ng-container matColumnDef="caracter">
-                    <mat-header-cell *matHeaderCellDef> Caracter </mat-header-cell>
-                    <mat-cell *matCellDef="let desig"> {{desig.designacion.caracter.nombre}}</mat-cell>
-                </ng-container>
-  
-  
-                <ng-container matColumnDef="fecha">
-                  <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
-                  <mat-cell *matCellDef="let desig">{{desig.designacion.desde | date: 'dd/MM/yyyy'}}</mat-cell>
-                </ng-container>
-  
-                <ng-container matColumnDef="nota">
-                    <mat-header-cell *matHeaderCellDef> Nota </mat-header-cell>
-                    <mat-cell *matCellDef="let desig">  <button mat-icon-button><mat-icon >save_alt</mat-icon></button></mat-cell>
-                </ng-container>
-  
-                <ng-container matColumnDef="resolucion">
-                    <mat-header-cell *matHeaderCellDef> Resolución </mat-header-cell>
-                    <mat-cell *matCellDef="let desig">{{desig.designacion.resolucion}}</mat-cell>
-                </ng-container>
-  
-                <ng-container matColumnDef="expediente">
-                    <mat-header-cell *matHeaderCellDef> Expediente </mat-header-cell>
-                    <mat-cell *matCellDef="let desig">{{desig.designacion.expediente}}</mat-cell>
-                </ng-container>
-  
-                <ng-container matColumnDef="estado">
-                    <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
-                    <mat-cell *matCellDef="let desig">
 
-                        <div class="bloqueEstados" *ngIf="desig.estado.nombre != 'Activa' && desig.estado.nombre != 'Baja'">
-                            <div class="estados tipo {{estado_tipo(desig)}}">{{estado_tipo(desig)}}</div>
-                            <div class="estados estado {{estado_estado(desig)}}">{{estado_estado(desig)}}</div>
-                        </div>
-                        <div *ngIf="desig.estado.nombre == 'Activa'">
-                            <mat-chip-list>
-                                <mat-chip>Activa</mat-chip>
-                            </mat-chip-list>
-                        </div>
-                        <div *ngIf="desig.estado.nombre == 'Baja'" matBadge="8" matBadgePosition="below before" matBadgeOverlap="true">
-                            <mat-chip-list >
-                                <mat-chip >Baja</mat-chip>
-                            </mat-chip-list>
-                        </div>
+            <div class="tabla">
+  
+                <mat-table [dataSource]="l.designaciones$ | async">
+    
+                    <ng-container matColumnDef="usuario" sticky>
+                        <mat-header-cell *matHeaderCellDef class="columnaUsuario"> Usuario </mat-header-cell>
+                        <mat-cell *matCellDef="let desig" class="columnaUsuario"> {{desig.usuario.nombre}} {{desig.usuario.apellido}}</mat-cell>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="cargo">
+                        <mat-header-cell *matHeaderCellDef> Cargo </mat-header-cell>
+                        <mat-cell *matCellDef="let desig">{{desig.designacion.cargo.nombre | slice: 0: desig.designacion.cargo.nombre.length-4}}</mat-cell>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="dedicacion">
+                        <mat-header-cell *matHeaderCellDef> Dedicación </mat-header-cell>
+                        <mat-cell *matCellDef="let desig">{{desig.designacion.cargo.nombre | slice: desig.designacion.cargo.nombre.length-4}}</mat-cell>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="caracter">
+                        <mat-header-cell *matHeaderCellDef> Caracter </mat-header-cell>
+                        <mat-cell *matCellDef="let desig"> {{desig.designacion.caracter.nombre}}</mat-cell>
+                    </ng-container>
+    
+    
+                    <ng-container matColumnDef="fecha">
+                    <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
+                    <mat-cell *matCellDef="let desig">{{desig.designacion.desde | date: 'dd/MM/yyyy'}}</mat-cell>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="nota">
+                        <mat-header-cell *matHeaderCellDef> Nota </mat-header-cell>
+                        <mat-cell *matCellDef="let desig">  <button mat-icon-button><mat-icon >save_alt</mat-icon></button></mat-cell>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="resolucion">
+                        <mat-header-cell *matHeaderCellDef> Resolución </mat-header-cell>
+                        <mat-cell *matCellDef="let desig">{{desig.designacion.resolucion}}</mat-cell>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="expediente">
+                        <mat-header-cell *matHeaderCellDef> Expediente </mat-header-cell>
+                        <mat-cell *matCellDef="let desig">{{desig.designacion.expediente}}</mat-cell>
+                    </ng-container>
 
-                    </mat-cell>
-                </ng-container>
-  
-  
-                <ng-container matColumnDef="puntos">
-                      <mat-header-cell *matHeaderCellDef> Puntos </mat-header-cell>
-                      <mat-cell *matCellDef="let desig">{{desig.ptos}} </mat-cell>
-                </ng-container>
-  
-                <ng-container matColumnDef="acciones" stickyEnd>
-                      <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
-                      <mat-cell *matCellDef="let desig">
-  
-                          <button mat-icon-button [matMenuTriggerFor]="menu">
-                              <mat-icon>apps</mat-icon>
-                            </button>
-                            <mat-menu #menu="matMenu">
+                    <ng-container matColumnDef="expedienteU">
+                        <mat-header-cell *matHeaderCellDef> Expediente U. </mat-header-cell>
+                        <mat-cell *matCellDef="let desig">{{desig.designacion.expediente}}</mat-cell>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="estado" class="columnaEstado">
+                        <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
+                        <mat-cell *matCellDef="let desig">
 
-                                <!-- operaciones del dueño de la designación -->
+                            <div class="bloqueEstados" *ngIf="desig.estado.nombre != 'Activa' && desig.estado.nombre != 'Baja'">
+                                <div class="estados tipo {{estado_tipo(desig)}}">{{estado_tipo(desig)}}</div>
+                                <div class="estados estado {{estado_estado(desig)}}">{{estado_estado(desig)}}</div>
+                            </div>
+                            <div *ngIf="desig.estado.nombre == 'Activa'">
+                                <mat-chip-list>
+                                    <mat-chip>Activa</mat-chip>
+                                </mat-chip-list>
+                            </div>
+                            <div *ngIf="desig.estado.nombre == 'Baja'" matBadge="8" matBadgePosition="below before" matBadgeOverlap="true">
+                                <mat-chip-list >
+                                    <mat-chip >Baja</mat-chip>
+                                </mat-chip-list>
+                            </div>
 
-                                <button mat-menu-item (click)='detalle(desig.id)'>
-                                    <mat-icon>zoom_in</mat-icon>
-                                    <span>Detalle</span>
+                        </mat-cell>
+                    </ng-container>
+    
+    
+                    <ng-container matColumnDef="puntos">
+                        <mat-header-cell *matHeaderCellDef> Puntos </mat-header-cell>
+                        <mat-cell *matCellDef="let desig">{{desig.ptos}} </mat-cell>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="acciones" stickyEnd>
+                        <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+                        <mat-cell *matCellDef="let desig">
+    
+                            <button mat-icon-button [matMenuTriggerFor]="menu">
+                                <mat-icon>apps</mat-icon>
                                 </button>
- 
-                                <!-- operaciones del departamento -->
+                                <mat-menu #menu="matMenu">
 
-                                <button (click)="dar_de_baja(desig.designacion.id)" mat-menu-item>
-                                    <mat-icon>trending_down</mat-icon>
-                                    <span>Pedir Baja</span>
-                                </button>
+                                    <!-- operaciones del dueño de la designación -->
 
-                                <!-- operaciones de las autoridades -->
+                                    <button mat-menu-item (click)='detalle(desig.id)'>
+                                        <mat-icon>zoom_in</mat-icon>
+                                        <span>Detalle</span>
+                                    </button>
+    
+                                    <!-- operaciones del departamento -->
 
-                                <button mat-menu-item (click)='aprobar(desig.designacion)'>
-                                  <mat-icon>check</mat-icon>
-                                  <span>Aprobar</span>
-                                </button>
+                                    <button (click)="dar_de_baja(desig.designacion.id)" mat-menu-item>
+                                        <mat-icon>trending_down</mat-icon>
+                                        <span>Pedir Baja</span>
+                                    </button>
 
-                                <button mat-menu-item (click)='denegar(desig.id)'>
-                                  <mat-icon>highlight_off</mat-icon>
-                                  <span>Denegar</span>
-                                </button>
+                                    <!-- operaciones de las autoridades -->
 
-                                <!-- operaciones del dueño del movimiento -->
+                                    <button mat-menu-item (click)='aprobar(desig.designacion)'>
+                                    <mat-icon>check</mat-icon>
+                                    <span>Aprobar</span>
+                                    </button>
 
-                                <button mat-menu-item (click)='cancelar(desig.id)'>
-                                    <mat-icon>delete_outline</mat-icon>
-                                    <span>Cancelar</span>
-                                </button>
+                                    <button mat-menu-item (click)='denegar(desig.id)'>
+                                    <mat-icon>highlight_off</mat-icon>
+                                    <span>Denegar</span>
+                                    </button>
 
-                                <button (click)="modificar(desig.id)" mat-menu-item >
-                                    <mat-icon class="material-icons-outlined">edit</mat-icon>
-                                    <span>Modificar</span>
-                                </button>
+                                    <!-- operaciones del dueño del movimiento -->
 
-                                <!-- despacho -->
+                                    <button mat-menu-item (click)='cancelar(desig.id)'>
+                                        <mat-icon>delete_outline</mat-icon>
+                                        <span>Cancelar</span>
+                                    </button>
 
-                                <button mat-menu-item (click)='adjuntar_resolucion(desig.id)'>
-                                    <mat-icon>attachment</mat-icon>
-                                    <span>Adjuntar Resolución</span>
-                                </button>
+                                    <button (click)="modificar(desig.id)" mat-menu-item >
+                                        <mat-icon class="material-icons-outlined">edit</mat-icon>
+                                        <span>Modificar</span>
+                                    </button>
 
-                                <!-- Mesa de entradas -->
+                                    <!-- despacho -->
 
-                                <button mat-menu-item>
-                                    <mat-icon>attachment</mat-icon>
-                                    <span>Adjuntar Expediente</span>
-                                </button>
-                                
-                                <button mat-menu-item>
-                                    <mat-icon class="material-icons-outlined">insert_drive_file</mat-icon>
-                                    <span>Verificado Aptitud</span>
-                                </button>
+                                    <button mat-menu-item (click)='adjuntar_resolucion(desig.id)'>
+                                        <mat-icon>attachment</mat-icon>
+                                        <span>Adjuntar Resolución</span>
+                                    </button>
 
-                                <button mat-menu-item>
-                                    <mat-icon class="material-icons-outlined">local_shipping</mat-icon>
-                                    <span>Enviada a Universidad</span>
-                                </button>
+                                    <!-- Mesa de entradas -->
 
-                                <!-- Personal -->
+                                    <button mat-menu-item>
+                                        <mat-icon>attachment</mat-icon>
+                                        <span>Adjuntar Expediente</span>
+                                    </button>
+                                    
+                                    <button mat-menu-item>
+                                        <mat-icon class="material-icons-outlined">insert_drive_file</mat-icon>
+                                        <span>Verificado Aptitud</span>
+                                    </button>
 
-                                <button mat-menu-item>
-                                    <mat-icon class="material-icons-outlined">insert_drive_file</mat-icon>
-                                    <span>Verificado Aptitud</span>
-                                </button>
+                                    <button mat-menu-item>
+                                        <mat-icon class="material-icons-outlined">local_shipping</mat-icon>
+                                        <span>Enviada a Universidad</span>
+                                    </button>
 
-                                <button mat-menu-item>
-                                    <mat-icon class="material-icons-outlined">insert_drive_file</mat-icon>
-                                    <span>Declaración Jurada</span>
-                                </button>
+                                    <!-- Personal -->
 
-                                <button mat-menu-item>
-                                    <mat-icon class="material-icons-outlined">check_circle</mat-icon>
-                                    <span>Verificar Prestación</span>
-                                </button>
+                                    <button mat-menu-item>
+                                        <mat-icon class="material-icons-outlined">insert_drive_file</mat-icon>
+                                        <span>Verificado Aptitud</span>
+                                    </button>
 
-                            </mat-menu>
-  
-                      </mat-cell>
-                </ng-container>
-  
-                <ng-container matColumnDef="footer">
-                    <mat-footer-cell *matFooterCellDef>
-                        <button mat-button color="primary" (click)='crear_alta(l.id)'>+ NUEVA DESIGNACIÓN</button>
-                    </mat-footer-cell>
-                </ng-container>
-            
-                <mat-header-row *matHeaderRowDef="columnasDesktop"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: columnasDesktop;"></mat-row>   
-                <mat-footer-row mat-footer-row *matFooterRowDef="['footer']" class="example-second-footer-row"></mat-footer-row>
-              </mat-table>
+                                    <button mat-menu-item>
+                                        <mat-icon class="material-icons-outlined">insert_drive_file</mat-icon>
+                                        <span>Declaración Jurada</span>
+                                    </button>
+
+                                    <button mat-menu-item>
+                                        <mat-icon class="material-icons-outlined">check_circle</mat-icon>
+                                        <span>Verificar Prestación</span>
+                                    </button>
+
+                                </mat-menu>
+    
+                        </mat-cell>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="footer">
+                        <mat-footer-cell *matFooterCellDef>
+                            <button mat-button color="primary" (click)='crear_alta(l.id)'>+ NUEVA DESIGNACIÓN</button>
+                        </mat-footer-cell>
+                    </ng-container>
+                
+                    <mat-header-row *matHeaderRowDef="columnasDesktop"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: columnasDesktop;"></mat-row>   
+                    <mat-footer-row mat-footer-row *matFooterRowDef="['footer']" class="example-second-footer-row"></mat-footer-row>
+                </mat-table>
+
+            </div>
     
           </mat-tab>
   

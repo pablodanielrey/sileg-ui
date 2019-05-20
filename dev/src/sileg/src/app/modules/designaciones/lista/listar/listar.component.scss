@@ -31,6 +31,51 @@ $colorUNLP: #96ba3a;
     margin-top: 10px;
 }
 
+
+.tabla{
+    width: 100%;
+    overflow: auto;
+  }
+  
+  mat-table {
+    width: 100%;
+  }
+
+
+  
+.mat-column-usuario {
+  flex: 0 0 15% !important;
+  min-width: 50px !important;
+  font-weight: bold;
+}
+
+.mat-column-acciones {
+    flex: 0 0 3% !important;
+    min-width: 25px !important;
+    padding-left: 5px;
+}
+
+  
+  th.mat-column-position, td.mat-column-position {
+    padding-left: 8px;
+  }
+  
+  .mat-table-sticky:first-child {
+    // border-right: 1px solid #e0e0e0;
+  }
+  
+  .mat-table-sticky:last-child {
+    border-left: 1px solid #e0e0e0;
+  }
+
+
+
+
+
+
+
+
+
 .bloqueEstados {
     display: flex;
 }
