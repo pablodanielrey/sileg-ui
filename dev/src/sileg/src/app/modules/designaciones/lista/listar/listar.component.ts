@@ -15,7 +15,8 @@ import { MatDialog } from '@angular/material';
   styleUrls: ['./listar.component.scss']
 })
 export class ListarComponent implements OnInit {
-  columnas: string[] = ['usuario', 'cargo', 'dedicacion', 'caracter', 'fecha', 'nota', 'resolucion', 'expediente', 'estado', 'acciones'];
+  columnasDesktop : string[] = ['usuario', 'cargo', 'dedicacion', 'caracter', 'fecha', 'nota', 'resolucion', 'expediente', 'estado', 'acciones'];
+  columnasCelular : string[] = ['usuario', 'fecha', 'estado', 'acciones'];
   lugares$: Observable<any[]>;
   referencias_visibles: boolean = false;
 

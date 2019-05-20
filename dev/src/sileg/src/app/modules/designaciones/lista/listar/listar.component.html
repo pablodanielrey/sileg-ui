@@ -80,9 +80,9 @@
                                 <mat-chip>Activa</mat-chip>
                             </mat-chip-list>
                         </div>
-                        <div *ngIf="desig.estado.nombre == 'Baja'">
-                            <mat-chip-list>
-                                <mat-chip>Baja</mat-chip>
+                        <div *ngIf="desig.estado.nombre == 'Baja'" matBadge="8" matBadgePosition="below before" matBadgeOverlap="true">
+                            <mat-chip-list >
+                                <mat-chip >Baja</mat-chip>
                             </mat-chip-list>
                         </div>
 
@@ -194,8 +194,8 @@
                     </mat-footer-cell>
                 </ng-container>
             
-                <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: columnas;"></mat-row>   
+                <mat-header-row *matHeaderRowDef="columnasDesktop"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: columnasDesktop;"></mat-row>   
                 <mat-footer-row mat-footer-row *matFooterRowDef="['footer']" class="example-second-footer-row"></mat-footer-row>
               </mat-table>
     
