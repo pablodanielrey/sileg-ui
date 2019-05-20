@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { SilegService } from '../../../../shared/services/sileg.service';
 
 @Component({
   selector: 'app-denegar',
@@ -8,12 +9,15 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 })
 export class DenegarComponent {
 
-  constructor(
-    public dialogRef: MatDialogRef<DenegarComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: string) {}
+  constructor(public dialogRef: MatDialogRef<DenegarComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: string,
+    private service: SilegService) { }
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  denegar(): void {
+    this.service.denegarMovimiento(this.data).subscribe( b => {
+      this.dialogRef.close(b);
+    })
+    
   }
 
 }

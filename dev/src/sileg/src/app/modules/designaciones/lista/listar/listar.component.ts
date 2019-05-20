@@ -8,6 +8,7 @@ import { ErrorService } from '../../../../core/error/error.service';
 import { Designacion } from '../../../../shared/entities/sileg';
 import { DenegarComponent } from '../../movimientos/denegar/denegar.component';
 import { MatDialog } from '@angular/material';
+import { AprobarComponent } from '../../movimientos/aprobar/aprobar.component';
 
 @Component({
   selector: 'app-listar',
@@ -62,40 +63,35 @@ export class ListarComponent implements OnInit {
     return (arr.length > 1) ? arr[arr.length-1].substr(0,1) : '';
   }
 
-  // adjuntar_resolucion(mid) {
-  //   this.subscriptions.push(this.navegar.navegar({
-  //     url: '/sistema/designaciones/listar/listar/asdsadasd/adjuntar-resolucion',
-  //     params: { mid: mid }
-  //   }).subscribe(_ => {
-  //   }));
-  // }
-
-  // modificar(mid) {
-  //   this.subscriptions.push(this.navegar.navegar({
-  //     url: '/sistema/movimientos/editar/:mid',
-  //     params: { mid: mid }
-  //   }).subscribe(_ => {
-  //   }));
-  // }
-
-  aprobar(desig: Designacion) {
+  adjuntar_resolucion(desig: Designacion) {
     let s = this.navegar.navegar({
-      url: '/sistema/designaciones/listar/listar/'+desig.lugar_id+'/aprobar',
-      params: { did: desig.id }
+      url: '/sistema/designaciones/listar/listar/'+desig.lugar_id+'/adjuntar-resolucion',
+      params: { mid: desig.id }
     }).subscribe(_ => {
-      console.log("unsubscribe");
       s.unsubscribe();
-    })
+    });
   }
 
-  denegar(did) {
+  modificar(mid) {
+    let s = this.navegar.navegar({
+      url: '/sistema/movimientos/editar/:mid',
+      params: { mid: mid }
+    }).subscribe(_ => {
+      s.unsubscribe();
+    });
+  }
+
+  aprobar(desig: Designacion) {
+    const dialogRef = this.dialog.open(AprobarComponent, {
+      width: '250px',
+      data: desig.id
+    });
+  }
+
+  denegar(desig) {
     const dialogRef = this.dialog.open(DenegarComponent, {
       width: '250px',
-      data: did
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed  --- id:' + result);
+      data: desig.id
     });
   }
 

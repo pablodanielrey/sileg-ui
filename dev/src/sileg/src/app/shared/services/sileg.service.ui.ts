@@ -11,6 +11,7 @@ import 'rxjs/Rx';
 
 import { Mail, Usuario, ResetClave } from '../entities/usuario';
 import { Sileg, DatosSileg, Lugar, PedidoDesignacion, Designacion, Cargo, DatosLugarDesignaciones, DatoDesignacion, Dato2Designacion, Configuracion, Caracter, Estado, DatosLugarDesignacion, DatosDesignacion } from '../entities/sileg';
+import { ok } from 'assert';
 
 const SILEG_API_URL = environment.silegApiUrl;
 const LOGIN_API_URL = environment.loginApiUrl;
@@ -826,9 +827,19 @@ export class SilegService {
     let ok = false;
     switch(dd.estado.nombre.split(' ')[0]) {
       case 'Alta': dd.estado.nombre = 'Alta Aprobada'; ok = true; break;
-      case 'Baja': dd.estado.nombre = 'Baja Aprobada'; ok=true; break;
+      case 'Baja': dd.estado.nombre = 'Baja Aprobada'; ok = true; break;
     }
     return of(ok);
   }
+
+  denegarMovimiento(mid: string): Observable<boolean> {
+    let dd = this.obtenerDatosDesignacion(mid);
+    let ok = false;
+    switch(dd.estado.nombre.split(' ')[0]) {
+      case 'Alta': dd.estado.nombre = 'Alta Denegada'; ok = true; break;
+      case 'Baja': dd.estado.nombre = 'Baja Denegada'; ok = true; break;
+    }
+    return of(ok);
+  }  
 
 }
