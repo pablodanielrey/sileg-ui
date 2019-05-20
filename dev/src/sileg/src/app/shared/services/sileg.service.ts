@@ -72,4 +72,8 @@ export class SilegService {
   aprobarMovimiento(mid: string): Observable<boolean> {
     return null;
   }
+
+  denegarMovimiento(mid: string): Observable<boolean> {
+    return null;
+  }
 }

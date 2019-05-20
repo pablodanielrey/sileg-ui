@@ -87,10 +87,11 @@ export class ListarComponent implements OnInit {
     })
   }
 
-  denegar(did) {
+  denegar(desig) {
+    console.log(desig);
     const dialogRef = this.dialog.open(DenegarComponent, {
       width: '250px',
-      data: did
+      data: desig.id
     });
 
     dialogRef.afterClosed().subscribe(result => {

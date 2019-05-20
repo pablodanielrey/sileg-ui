@@ -20,6 +20,6 @@
   <p>¿Está seguro de denegar la designación?</p>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-flat-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>SI</button>
-  <button mat-button (click)="onNoClick()">cancelar</button>
+  <button mat-flat-button color="primary" (click)="denegar()" cdkFocusInitial>SI</button>
+  <button mat-button [mat-dialog-close]="id">cancelar</button>
 </mat-dialog-actions>
