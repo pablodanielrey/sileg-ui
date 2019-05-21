@@ -32,6 +32,12 @@
                         <mat-header-cell *matHeaderCellDef class="columnaUsuario"> Usuario </mat-header-cell>
                         <mat-cell *matCellDef="let desig" class="columnaUsuario"> {{desig.usuario.nombre}} {{desig.usuario.apellido}}</mat-cell>
                     </ng-container>
+
+                    <ng-container matColumnDef="codigo">
+                        <mat-header-cell *matHeaderCellDef> Código </mat-header-cell>
+                        <mat-cell *matCellDef="let desig" matTooltip="{{desig.designacion.cargo.nombre}} - {{desig.designacion.caracter.nombre}}"  matTooltipPosition="left" >
+                            {{desig.designacion.cargo.codigo}}</mat-cell>
+                    </ng-container>
     
                     <ng-container matColumnDef="cargo">
                         <mat-header-cell *matHeaderCellDef> Cargo </mat-header-cell>
@@ -83,11 +89,11 @@
                                 <div class="estados estado {{estado_estado(desig)}}">{{estado_estado(desig)}}</div>
                             </div>
                             <div *ngIf="desig.estado.nombre == 'Activa'">
-                                <mat-chip-list>
+                                <mat-chip-list >
                                     <mat-chip>Activa</mat-chip>
                                 </mat-chip-list>
                             </div>
-                            <div *ngIf="desig.estado.nombre == 'Baja'" matBadge="8" matBadgePosition="below before" matBadgeOverlap="true">
+                            <div *ngIf="desig.estado.nombre == 'Baja'">
                                 <mat-chip-list >
                                     <mat-chip >Baja</mat-chip>
                                 </mat-chip-list>
@@ -121,7 +127,7 @@
     
                                     <!-- operaciones del departamento -->
 
-                                    <button (click)="dar_de_baja(desig.designacion)" mat-menu-item>
+                                    <button (click)="dar_de_baja(desig.designacion.id)" mat-menu-item>
                                         <mat-icon>trending_down</mat-icon>
                                         <span>Pedir Baja</span>
                                     </button>
@@ -152,7 +158,7 @@
 
                                     <!-- despacho -->
 
-                                    <button mat-menu-item (click)='adjuntar_resolucion(desig.designacion)'>
+                                    <button mat-menu-item (click)='adjuntar_resolucion(desig.id)'>
                                         <mat-icon>attachment</mat-icon>
                                         <span>Adjuntar Resolución</span>
                                     </button>
@@ -169,7 +175,7 @@
                                         <span>Verificado Aptitud</span>
                                     </button>
 
-                                    <button mat-menu-item (click)='enviar_unlp(desig.designacion)'>
+                                    <button mat-menu-item>
                                         <mat-icon class="material-icons-outlined">local_shipping</mat-icon>
                                         <span>Enviada a Universidad</span>
                                     </button>
