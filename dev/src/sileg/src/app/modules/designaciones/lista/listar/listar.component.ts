@@ -91,14 +91,14 @@ export class ListarComponent implements OnInit {
     });
   }
 
-  denegar(desig) {
+  denegar(desig: Designacion) {
     const dialogRef = this.dialog.open(DenegarComponent, {
       width: '250px',
       data: desig.id
     });
   }
 
-  cancelar(desig) {
+  cancelar(desig: Designacion) {
     const dialogRef = this.dialog.open(CancelarComponent, {
       width: '250px',
       data: desig.id
@@ -106,14 +106,14 @@ export class ListarComponent implements OnInit {
   }
 
 
-  // detalle(did) {
-  //   let s = this.navegar.navegar({
-  //     url: '/sistema/designaciones/detalle/' + did,
-  //     params: { did: did }
-  //   }).subscribe(_ => {
-  //     s.unsubscribe();
-  //   })
-  // }
+  detalle(desig:Designacion) {
+    let s = this.navegar.navegar({
+      url: '/sistema/designaciones/detalle/' + desig.id,
+      params: { }
+    }).subscribe(_ => {
+      s.unsubscribe();
+    })
+  }
 
   dar_de_baja(desig: Designacion) {
     const dialogRef = this.dialog.open(BajaComponent, {

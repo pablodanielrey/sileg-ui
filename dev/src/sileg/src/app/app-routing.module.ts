@@ -86,7 +86,7 @@ const routes: Routes = [
             ]
           },
           { path: 'modificar/:id', component: ModificarDesignacionComponent},
-          { path: 'detalle/:lid', component: DetalleDesignacionComponent }
+          { path: 'detalle/:id', component: DetalleDesignacionComponent }
         ]
       },
       {

@@ -804,8 +804,9 @@ export class SilegService {
     return of(this.tipos_caracter);
   }
 
-  detalleDesignacion(lid): Observable<any[]> {
-    return this.desginacionesPendientes([lid]);
+  detalleDesignacion(id): Observable<DatosDesignacion[]> {    
+    let desig = this.datos_designacion.find( dd => dd.designacion.id == id);
+    return of([desig]);
   }
 
   obterTipoLugar(): Observable<string[]> {

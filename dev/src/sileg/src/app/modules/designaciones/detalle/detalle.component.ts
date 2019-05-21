@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { SilegService } from '../../../shared/services/sileg.service';
-import { map, tap, switchMap, mergeMap } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { tap, switchMap } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 import { NavegarService } from '../../../core/navegar.service';
 import { ErrorService } from '../../../core/error/error.service';
-import { deepStrictEqual } from 'assert';
+import { DatoDesignacion, Lugar } from '../../../shared/entities/sileg';
+import { Usuario } from '../../../shared/entities/usuario';
 
 @Component({
   selector: 'app-detalle',
@@ -14,34 +15,33 @@ import { deepStrictEqual } from 'assert';
 })
 export class DetalleComponent implements OnInit {
 
-  columnas: string[] = ['cargo','dedicacion','caracter','desde','hasta','resolucion','expediente','estado'];
+  // columnas: string[] = ['cargo','dedicacion','caracter','desde','hasta','resolucion','expediente','estado'];
+  columnas: string[] = ['cargo', 'dedicacion', 'caracter', 'fecha', 'resolucion', 'expediente', 'estado'];
   lugares$: Observable<any[]>;
-  usuario$: Observable<any>;
+  usuario$: BehaviorSubject<Usuario> = new BehaviorSubject(null);
+  lugar$: BehaviorSubject<Lugar> = new BehaviorSubject(null);
+  designaciones$: Observable<Array<DatoDesignacion>>;
 
   constructor(private error_service: ErrorService,
-              private service : SilegService, 
+              private service : SilegService,
+              private route: ActivatedRoute, 
               private navegar: NavegarService) { }
 
   ngOnInit() {
-    let lid = "1f7b87ea-96b7-428c-8a00-fd33e1ba3ee6";
- 
-    this.lugares$ = this.service.desginacionesPendientes([lid]).pipe(
-      map( v => {
-        let a = [];
-        for(let e of v) {
-          a.push({
-            lugar: e.lugar,
-            ptos_alta: e.puntos_alta,
-            ptos_baja: e.puntos_baja,
-            designaciones$: of(e.designaciones)
-          })
+    this.designaciones$ = this.route.paramMap.pipe(
+      switchMap( params => {
+        if (params.has('id')) {
+          let id = params.get('id');
+          return this.service.detalleDesignacion(id);
+        } else {
+          return null;
         }
-        return a
       }),
-      tap(v => console.log(v))
+      tap( list => {
+        this.usuario$.next(list[0].usuario);
+        this.lugar$.next(list[0].designacion.lugar);
+      })
     )
-
-    this.usuario$ = of({nombre:'Walter Roberto', apellido:'Blanco', dni:'27294557', id:'asddsfsdfdsfsd'});
   }
 
   volver() {
