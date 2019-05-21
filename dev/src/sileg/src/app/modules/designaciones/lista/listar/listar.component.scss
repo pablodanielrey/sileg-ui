@@ -34,25 +34,47 @@ $colorUNLP: #96ba3a;
 
 .tabla{
     width: 100%;
-    overflow: auto;
+    
   }
   
   mat-table {
     width: 100%;
+    @media screen and (max-width: 768px) {
+        width: 120%;
+    }
+
   }
 
 
   
 .mat-column-usuario {
   flex: 0 0 15% !important;
-  min-width: 50px !important;
+  min-width: 100px !important;
   font-weight: bold;
+  @media screen and (max-width: 768px) {
+    width: 200px !important;
+}
 }
 
 .mat-column-acciones {
     flex: 0 0 3% !important;
     min-width: 25px !important;
     padding-left: 5px;
+}
+
+.mat-column-codigo {
+    @media screen and (max-width: 768px) {
+        max-width: 50px !important;
+    }
+}
+
+
+
+.mat-column-nota {
+    @media screen and (max-width: 768px) {
+        padding-right: 5px;
+        max-width: 25px !important;
+    }
 }
 
   
