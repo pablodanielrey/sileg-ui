@@ -37,6 +37,10 @@ export class SilegService {
     'area', 'catedra', 'categoria', 'departamento', 'direccion', 'division', 'facultad',
     'instituto', 'lugar', 'lugar dictado', 'oficina', 'secretaria'
   ]  
+
+  tipos_designacion = [
+    'prorroga', 'original', 'reemplaza a', 'extension', 'baja'
+  ]
   
   constructor(private http: HttpClient) {
     this.setear_usuarios();
@@ -696,6 +700,10 @@ export class SilegService {
     }
   }
 
+  private generar_tipo_designacion() {
+    return this.tipos_designacion[Math.floor(Math.random() * this.tipos_designacion.length)];
+  }
+
   private setear_designaciones(): void {    
     this.tipos_cargos.filter( x => x.tipo == 'Docente').forEach(cargo => {
       this.tipos_caracter.forEach( caracter => {
@@ -713,6 +721,7 @@ export class SilegService {
               caracter: caracter,
               lugar_id: l.id,
               lugar: l,
+              tipo: this.generar_tipo_designacion(),
               desde: new Date((new Date()).getTime() - (f * 24 * 360000)) ,
               expediente: this.generar_expediente(estado),
               resolucion: this.generar_resolucion(estado)
@@ -804,9 +813,20 @@ export class SilegService {
     return of(this.tipos_caracter);
   }
 
+  private crear_original(desig: DatoDesignacion): DatoDesignacion {
+    let aux = new DatosDesignacion(JSON.parse(JSON.stringify(desig)));
+    aux.designacion.tipo = 'original';
+    aux.designacion.desde = new Date(new Date(aux.designacion.desde).getTime() - 1000 * 60 * 60 * 24 * 365 * 5);
+    return aux;
+  }
+
   detalleDesignacion(id): Observable<DatosDesignacion[]> {    
-    let desig = this.datos_designacion.find( dd => dd.designacion.id == id);
-    return of([desig]);
+    let arr = []
+    arr.push(this.datos_designacion.find( dd => dd.designacion.id == id));
+    if (arr[0].designacion.tipo != "original") {
+      arr.push(this.crear_original(arr[0]));
+    }
+    return of(arr);
   }
 
   obterTipoLugar(): Observable<string[]> {

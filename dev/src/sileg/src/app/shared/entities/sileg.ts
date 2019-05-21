@@ -65,6 +65,7 @@ export class Designacion {
   expediente: string;
   resolucion: string;
   corresponde: string;
+  tipo: string;
 
   constructor(o:Object) {
     try {

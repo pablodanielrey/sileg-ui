@@ -16,7 +16,7 @@ import { Usuario } from '../../../shared/entities/usuario';
 export class DetalleComponent implements OnInit {
 
   // columnas: string[] = ['cargo','dedicacion','caracter','desde','hasta','resolucion','expediente','estado'];
-  columnas: string[] = ['cargo', 'dedicacion', 'caracter', 'fecha', 'resolucion', 'expediente', 'estado'];
+  columnas: string[] = ['cargo', 'dedicacion', 'caracter', 'tipo', 'fecha', 'resolucion', 'expediente', 'estado'];
   lugares$: Observable<any[]>;
   usuario$: BehaviorSubject<Usuario> = new BehaviorSubject(null);
   lugar$: BehaviorSubject<Lugar> = new BehaviorSubject(null);

@@ -26,6 +26,11 @@
                     <mat-cell *matCellDef="let desig"> {{desig.designacion.caracter.nombre}}</mat-cell>
                 </ng-container>
 
+                <ng-container matColumnDef="tipo">
+                    <mat-header-cell *matHeaderCellDef> Tipo </mat-header-cell>
+                    <mat-cell *matCellDef="let desig"> {{desig.designacion.tipo}}</mat-cell>
+                </ng-container>
+
 
                 <ng-container matColumnDef="fecha">
                     <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
