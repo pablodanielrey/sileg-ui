@@ -8,8 +8,8 @@
 <router-outlet></router-outlet>
 
 <div class="pantalla">
-    <mat-tab-group>
-        <mat-tab label="{{(usuario$ | async)?.nombre}} {{(usuario$ | async)?.apellido}} - {{ (lugar$ | async)?.nombre }}">
+    <mat-tab-group *ngFor="let l of (lugares$ | async)">
+        <mat-tab label="{{l.nombre }}">
         <mat-table [dataSource]="designaciones$ | async" >
                 <ng-container matColumnDef="cargo">
                     <mat-header-cell *matHeaderCellDef> Cargo </mat-header-cell>
