@@ -38,7 +38,8 @@ export class Caracter {
 export class Estado {
   id: string;
   fecha: Date;
-  nombre: string;
+  tipo: string;
+  estado: string;
   autorizador_id: string;
 
   constructor(o:Object) {
