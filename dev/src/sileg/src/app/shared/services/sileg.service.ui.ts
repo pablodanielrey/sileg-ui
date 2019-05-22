@@ -17,6 +17,12 @@ const SILEG_API_URL = environment.silegApiUrl;
 const LOGIN_API_URL = environment.loginApiUrl;
 const USUARIO_API_URL = environment.usuarioApiUrl;
 
+interface EstadoI {
+  tipo: string,
+  estado: string
+}
+
+
 @Injectable()
 export class SilegService {
 
@@ -24,11 +30,26 @@ export class SilegService {
   tipos_caracter: Array<Caracter> = [];
   lugares: Array<Lugar> = [];
   designaciones: Array<Designacion> = [];
+
+  tipos_estado: Array<EstadoI> = [
+    {tipo:'Alta', estado:'Pendiente'}, 
+    {tipo:'Alta', estado:'Aprobada'}, 
+    {tipo:'Alta', estado:'Enviada a UNLP'},
+    {tipo:'Baja', estado:'Pendiente'},
+    {tipo:'Baja', estado:'Aprobada'},
+    {tipo:'Baja', estado:'Enviada a UNLP'},
+    {tipo:'Activa', estado:''}, 
+    {tipo:'Baja', estado:''}
+  ];
+
+  /*
   tipos_estado: Array<string> = [
     'Alta Pendiente', 'Alta Aprobada', 'Alta Enviada a UNLP',
     'Baja Pendiente', 'Baja Aprobada', 'Baja Enviada a UNLP',
     'Activa', 'Baja'
   ];
+  */
+
   datos_lugar_designacion: Array<DatosLugarDesignacion> = [];
   datos_designacion:Array<DatosDesignacion> = [];
   catedras: Array<Lugar> = [];
@@ -654,8 +675,8 @@ export class SilegService {
     return this.S4() + this.S4() + '-' + this.S4() + '-' + this.S4() + '-' + this.S4() + '-' +this.S4() + this.S4()
   }
 
-  private generar_expediente(estado: string): string {
-    if (estado.includes('Pendiente') || estado.includes('Aprobada')) {
+  private generar_expediente(estado: EstadoI): string {
+    if (estado.estado.includes('Pendiente') || estado.estado.includes('Aprobada')) {
       return ''
     }
     let exp = ['900-7715/13', '900-7898/13', '900-7898/13', '900-7898/13', '900-7687/13',
@@ -669,8 +690,8 @@ export class SilegService {
     return exp[Math.floor(Math.random() * exp.length)];
   }
 
-  private generar_resolucion(estado): string {
-    if (estado.includes('Pendiente') || estado.includes('Aprobada')) {
+  private generar_resolucion(estado:EstadoI): string {
+    if (estado.estado.includes('Pendiente') || estado.estado.includes('Aprobada')) {
       return ''
     }
     let res = ['643/13', '640/13', '644/15', '644/15', '645/13', '995/14', '706/13', '706/13',
@@ -681,7 +702,7 @@ export class SilegService {
       '315/96', '334/11', '638/00', '717/13', '316/96', '612/14', '1017/16', '358/17', '1151/18',
       '766/07', '886/07', '328/09', '764/05', '834/14', '360/10', '557/00', '599/13', '726/08'          
     ];    
-    let aux = (estado == 'Activa') ? res : res.concat(['']);
+    let aux = (estado.tipo == 'Activa') ? res : res.concat(['']);
     return aux[Math.floor(Math.random() * aux.length)];
   }
 
@@ -730,7 +751,7 @@ export class SilegService {
           this.datos_designacion.push(new DatosDesignacion({
             usuario: u,
             designacion: d,
-            estado: new Estado({nombre:estado})
+            estado: new Estado({tipo:estado.tipo, estado:estado.estado})
           }));
 
         })
@@ -742,14 +763,14 @@ export class SilegService {
       if (d.designacion.lugar_id in dl_desig_map) {
         let dld = dl_desig_map[d.designacion.lugar_id];
         dld.designaciones.push(d);
-        dld.puntos_alta = parseFloat((dld.puntos_alta + ((d.estado.nombre.includes('Alta')) ? d.designacion.cargo.puntos : 0)).toFixed(2));
-        dld.puntos_baja = parseFloat((dld.puntos_baja + ((d.estado.nombre.includes('Baja')) ? d.designacion.cargo.puntos : 0)).toFixed(2));
+        dld.puntos_alta = parseFloat((dld.puntos_alta + ((d.estado.tipo.includes('Alta')) ? d.designacion.cargo.puntos : 0)).toFixed(2));
+        dld.puntos_baja = parseFloat((dld.puntos_baja + ((d.estado.tipo.includes('Baja')) ? d.designacion.cargo.puntos : 0)).toFixed(2));
       } else {
         dl_desig_map[d.designacion.lugar_id] = new DatosLugarDesignacion({
           designaciones: [d],
           lugar: d.designacion.lugar,
-          puntos_alta: (d.estado.nombre.includes('Alta'))? d.designacion.cargo.puntos : 0,
-          puntos_baja: (d.estado.nombre.includes('Baja'))? d.designacion.cargo.puntos : 0, 
+          puntos_alta: (d.estado.tipo.includes('Alta'))? d.designacion.cargo.puntos : 0,
+          puntos_baja: (d.estado.tipo.includes('Baja'))? d.designacion.cargo.puntos : 0, 
         })
       }
     });
@@ -848,9 +869,9 @@ export class SilegService {
   aprobarMovimiento(mid: string): Observable<boolean> {
     let dd = this.obtenerDatosDesignacion(mid);
     let ok = false;
-    switch(dd.estado.nombre.split(' ')[0]) {
-      case 'Alta': dd.estado.nombre = 'Alta Aprobada'; ok = true; break;
-      case 'Baja': dd.estado.nombre = 'Baja Aprobada'; ok = true; break;
+    switch(dd.estado.tipo) {
+      case 'Alta': dd.estado.estado = 'Aprobada'; ok = true; break;
+      case 'Baja': dd.estado.estado = 'Aprobada'; ok = true; break;
     }
     return of(ok);
   }
@@ -858,16 +879,16 @@ export class SilegService {
   denegarMovimiento(mid: string): Observable<boolean> {
     let dd = this.obtenerDatosDesignacion(mid);
     let ok = false;
-    switch(dd.estado.nombre.split(' ')[0]) {
-      case 'Alta': dd.estado.nombre = 'Alta Denegada'; ok = true; break;
-      case 'Baja': dd.estado.nombre = 'Baja Denegada'; ok = true; break;
+    switch(dd.estado.tipo) {
+      case 'Alta': dd.estado.estado = 'Denegada'; ok = true; break;
+      case 'Baja': dd.estado.estado = 'Denegada'; ok = true; break;
     }
     return of(ok);
   } 
   
   cancelarMovimiento(mid: string): Observable<boolean> {
     let dd = this.obtenerDatosDesignacion(mid);
-    dd.estado.nombre = 'Cancelada';
+    dd.estado.estado = 'Cancelada';
     return of(true);
   }  
 
@@ -878,9 +899,9 @@ export class SilegService {
   enviarUnlpMovimiento(mid: string): Observable<boolean> {
     let dd = this.obtenerDatosDesignacion(mid);
     let ok = false;
-    switch(dd.estado.nombre.split(' ')[0]) {
-      case 'Alta': dd.estado.nombre = 'Alta Enviada a UNLP'; ok = true; break;
-      case 'Baja': dd.estado.nombre = 'Baja Enviada a UNLP'; ok = true; break;
+    switch(dd.estado.tipo) {
+      case 'Alta': dd.estado.estado = 'Enviada a UNLP'; ok = true; break;
+      case 'Baja': dd.estado.estado = 'Enviada a UNLP'; ok = true; break;
     }
     return of(ok);
   }  

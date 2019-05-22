@@ -19,7 +19,7 @@ import { EnviarUnlpComponent } from '../../movimientos/enviar-unlp/enviar-unlp.c
   styleUrls: ['./listar.component.scss']
 })
 export class ListarComponent implements OnInit {
-  columnasDesktop : string[] = ['usuario', 'codigo', 'cargo', 'dedicacion', 'caracter', 'fecha', 'nota', 'resolucion', 'expediente', 'expedienteU', 'estado', 'acciones'];
+  columnasDesktop : string[] = ['usuario', 'cargo', 'dedicacion', 'caracter', 'fecha', 'nota', 'resolucion', 'expediente', 'expedienteU', 'estado', 'acciones'];
   columnasCelular : string[] = ['usuario', 'codigo', 'fecha', 'estado', 'acciones'];
   lugares$: Observable<any[]>;
   referencias_visibles: boolean = false;
