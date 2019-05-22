@@ -58,12 +58,19 @@ export class ListarComponent implements OnInit {
   }
 
   estado_tipo(desig) {
-    return desig.estado.nombre.substr(0,1);
+    return desig.estado.tipo;
+  }
+
+  clase_estado_tipo(desig) {
+    return this.estado_tipo(desig);
   }
 
   estado_estado(desig) {
-    let arr = desig.estado.nombre.split(' ');
-    return (arr.length > 1) ? arr[arr.length-1].substr(0,1) : '';
+    return desig.estado.estado.substr(0,1);
+  }
+
+  clase_estado_estado(desig) {
+    return this.estado_estado(desig);
   }
 
   adjuntar_resolucion(desig: Designacion) {

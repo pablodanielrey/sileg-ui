@@ -5,11 +5,38 @@ $colorAlta: #2196f3;
 $colorBaja: #5C7A95;
 $colorCambioCargo: #ECB057;
 $colorProrroga: #A4009D;
-$colorActiva: #e0e0e0;;
+$colorActiva: #88C642;
 // Estado de designacion
 $colorPendiente: #E22748;
-$colorAprobado: #2196f3;
-$colorUNLP: #96ba3a;
+$colorAprobado: #96ba3a;
+$colorUNLP: #2c9684;
+
+
+// .colorPendiente {
+// 	-webkit-animation: color-change-2x 2s linear infinite alternate both;
+// 	        animation: color-change-2x 2s linear infinite alternate both;
+// }
+
+
+//  @-webkit-keyframes color-change-2x {
+//     0% {
+//       background: #19dcea;
+//     }
+//     100% {
+//       background: #b22cff;
+//     }
+//   }
+//   @keyframes color-change-2x {
+//     0% {
+//       background: #19dcea;
+//     }
+//     100% {
+//       background: #b22cff;
+//     }
+//   }
+  
+
+
 
 .cabecera {
     display: flex;
@@ -103,6 +130,22 @@ $colorUNLP: #96ba3a;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 10%;
+    font-size: 12px;
+    // min-width: 16px;
+    // min-height: 16px;
+    width: 19px;
+    height: 19px;
+    font-weight: bold;
+    margin-right: 5px;
+    color: white;
+    padding: 5px 20px 5px 20px;
+}
+
+.estados2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 100%;
     font-size: 12px;
     min-width: 16px;
@@ -112,20 +155,25 @@ $colorUNLP: #96ba3a;
     font-weight: bold;
     margin-right: 5px;
     color: white;
-
+    // padding: 5px 20px 5px 20px;
+    margin-left: -15px;
+    margin-top: -5px;
 }
 
 
-.A.tipo {
+.Alta.tipo {
     // color: $colorAlta;
     // border: 2px solid $colorAlta;
     background-color: $colorAlta;
 }
 
-.B.tipo {
+.Baja.tipo {
     // color: $colorBaja;
     // border: 2px solid $colorBaja;
     background-color: $colorBaja;
+}
+.Activa.tipo {
+    background-color:$colorActiva;
 }
 
 .C.tipo{
@@ -142,9 +190,10 @@ $colorUNLP: #96ba3a;
 
 }
 
-// .E.tipo{
-//     background-color: $colorActiva;
-// }
+.E.tipo{
+    background-color: $colorActiva;
+}
+
 
 
 
@@ -163,7 +212,7 @@ $colorUNLP: #96ba3a;
     background-color: $colorAprobado;
 }
 
-.U.estado{
+.E.estado{
     // color:$colorUNLP;
     // border: 2px solid $colorUNLP;
     background-color: $colorUNLP;

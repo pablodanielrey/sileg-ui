@@ -85,10 +85,10 @@
                         <mat-cell *matCellDef="let desig">
 
                             <div class="bloqueEstados" *ngIf="desig.estado.nombre != 'Activa' && desig.estado.nombre != 'Baja'">
-                                <div class="estados tipo {{estado_tipo(desig)}}">{{estado_tipo(desig)}}</div>
-                                <div class="estados estado {{estado_estado(desig)}}">{{estado_estado(desig)}}</div>
+                                <div class="estados tipo {{clase_estado_tipo(desig)}}">{{estado_tipo(desig)}}</div>
+                                <div class="estados2 estado {{clase_estado_estado(desig)}}">{{estado_estado(desig)}}</div>
                             </div>
-                            <div *ngIf="desig.estado.nombre == 'Activa'">
+                            <!-- <div *ngIf="desig.estado.nombre == 'Activa'">
                                 <mat-chip-list >
                                     <mat-chip>Activa</mat-chip>
                                 </mat-chip-list>
@@ -97,7 +97,7 @@
                                 <mat-chip-list >
                                     <mat-chip >Baja</mat-chip>
                                 </mat-chip-list>
-                            </div>
+                            </div> -->
 
                         </mat-cell>
                     </ng-container>
