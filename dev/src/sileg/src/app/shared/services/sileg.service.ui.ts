@@ -837,7 +837,7 @@ export class SilegService {
   private crear_original(desig: DatoDesignacion): DatoDesignacion {
     let aux = new DatosDesignacion(JSON.parse(JSON.stringify(desig)));
     aux.designacion.tipo = 'original';
-    aux.estado.nombre = 'Activa';
+    aux.estado.tipo = 'Activa';
     aux.designacion.desde = new Date(new Date(aux.designacion.desde).getTime() - 1000 * 60 * 60 * 24 * 365 * 5);
     aux.designacion.lugar = new Lugar(aux.designacion.lugar);
     return aux;
@@ -848,6 +848,9 @@ export class SilegService {
     arr.push(this.datos_designacion.find( dd => dd.designacion.id == id));
     if (arr[0].designacion.tipo != "original") {
       arr.push(this.crear_original(arr[0]));
+      let aux = this.crear_original(arr[1]);
+      aux.designacion.lugar = this.lugares[5];
+      arr.push(aux);
     }
     return of(arr);
   }

@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { SilegService } from '../../../shared/services/sileg.service';
-import { switchMap, map, filter, tap } from 'rxjs/operators';
+import { switchMap, map, filter, tap, distinct } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { NavegarService } from '../../../core/navegar.service';
 import { ErrorService } from '../../../core/error/error.service';
@@ -17,7 +17,7 @@ export class DetalleComponent implements OnInit {
 
   // columnas: string[] = ['cargo','dedicacion','caracter','desde','hasta','resolucion','expediente','estado'];
   columnas: string[] = ['cargo', 'dedicacion', 'caracter', 'tipo', 'fecha', 'resolucion', 'expediente', 'estado'];
-  lugares$: Observable<Lugar[]>;
+  lugares$: Observable<any[]>;
   usuario$: Observable<Usuario>;
   lugar$: BehaviorSubject<Lugar> = new BehaviorSubject(null);
   designaciones$: Observable<Array<DatoDesignacion>>;
@@ -41,23 +41,37 @@ export class DetalleComponent implements OnInit {
       })
     )
 
-    this.lugares$ = this.designaciones$.pipe(
-      map(ds => 
-        ds.reduce((acc, d) => acc.concat([d.designacion.lugar]), [])
-      ),
-      tap ( _ => console.log(_))
+    this.lugares$ = this.designaciones$.pipe(      
+      map(ds => {
+        let arr = ds.map(d => d.designacion.lugar);
+        return arr.filter((item, pos) => pos == arr.findIndex(obj => { return item.id == obj.id} ) )
+      }),
+      map(ls => ls.map(l => {
+        return {
+          lugar:l, 
+          designaciones$: this.obtenerDesignaciones(l.id)
+        }
+      }))
     );
 
-
+    
   }
 
 
   obtenerDesignaciones(lid): Observable<Array<DatoDesignacion>> {
-    return this.designaciones$.pipe(
-      map(ds => ds.filter(d => {
-        return d.designacion.lugar.id == lid
-      }))
+    return of(lid).pipe(
+      tap(v => console.log("Lugar " + v + "  <>  " + lid)),
+      switchMap( llid => this.designaciones$.pipe(
+        tap( v => console.log(v)),
+          map(ds => ds.filter(d => {
+            return d.designacion.lugar.id == llid
+          })),
+          tap( _ => console.log(_))
+        )
+      )
     )
+    
+    
   }
 
   volver() {
