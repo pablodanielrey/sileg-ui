@@ -5,35 +5,14 @@ $colorAlta: #2196f3;
 $colorBaja: #5C7A95;
 $colorCambioCargo: #ECB057;
 $colorProrroga: #A4009D;
-$colorActiva: #88C642;
+$colorActiva: #51B24A;
 // Estado de designacion
 $colorPendiente: #E22748;
 $colorAprobado: #96ba3a;
 $colorUNLP: #2c9684;
 
 
-// .colorPendiente {
-// 	-webkit-animation: color-change-2x 2s linear infinite alternate both;
-// 	        animation: color-change-2x 2s linear infinite alternate both;
-// }
 
-
-//  @-webkit-keyframes color-change-2x {
-//     0% {
-//       background: #19dcea;
-//     }
-//     100% {
-//       background: #b22cff;
-//     }
-//   }
-//   @keyframes color-change-2x {
-//     0% {
-//       background: #19dcea;
-//     }
-//     100% {
-//       background: #b22cff;
-//     }
-//   }
   
 
 
@@ -195,15 +174,39 @@ $colorUNLP: #2c9684;
 }
 
 
+.colorPendiente {
+	
+}
+
+
 
 
 
 .P.estado {
     // color:$colorPendiente;
     // border: 2px solid $colorPendiente;
-    background-color: $colorPendiente;
+    // background-color: $colorPendiente;
+    -webkit-animation: colorPendiente 0.5s linear infinite alternate both;
+	        animation: colorPendiente 0.5s linear infinite alternate both;
 
 }
+
+@-webkit-keyframes colorPendiente {
+    0% {
+      background: #91282d;
+    }
+    100% {
+      background: #E22748;
+    }
+  }
+  @keyframes colorPendiente {
+    0% {
+      background:#91282d;
+    }
+    100% {
+      background: #E22748;
+    }
+  }
 
 
 .A.estado {
