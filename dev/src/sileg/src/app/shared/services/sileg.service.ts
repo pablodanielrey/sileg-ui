@@ -88,4 +88,8 @@ export class SilegService {
   enviarUnlpMovimiento(mid: string): Observable<boolean> {
     return null;
   }
+
+  verificarPrestacion(mid: string): Observable<boolean> {
+    return null;
+  }
 }

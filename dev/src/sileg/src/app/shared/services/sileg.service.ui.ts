@@ -908,4 +908,10 @@ export class SilegService {
     return of(ok);
   }  
 
+  verificarPrestacion(mid: string): Observable<boolean> {
+    let dd = this.obtenerDatosDesignacion(mid);    
+    dd.estado.estado = 'Prestación Verificada';
+    return of(true);
+  }  
+
 }

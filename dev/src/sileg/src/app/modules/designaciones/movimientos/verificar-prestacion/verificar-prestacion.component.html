@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Verificar Prestación</h1>
+<mat-dialog-content>
+  <p>¿Está seguro?, despues de aceptar esta operación no se podrá volver atrás.</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-flat-button color="primary" (click)="verificar()" cdkFocusInitial>SI</button>
+  <button mat-button [mat-dialog-close]="data">cancelar</button>
+</mat-dialog-actions>

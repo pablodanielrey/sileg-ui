@@ -46,6 +46,8 @@ import { AdjuntarResolucionComponent } from './modules/designaciones/movimientos
 import { ReferenciasComponent } from './modules/designaciones/movimientos/referencias/referencias.component';
 import { MatDialogModule } from '@angular/material';
 import { EnviarUnlpComponent } from './modules/designaciones/movimientos/enviar-unlp/enviar-unlp.component';
+import { VerificarPrestacionComponent } from './modules/designaciones/movimientos/verificar-prestacion/verificar-prestacion.component';
+import { AdjuntarExpedienteComponent } from './modules/designaciones/movimientos/adjuntar-expediente/adjuntar-expediente.component';
 
 
 @NgModule({
@@ -75,14 +77,17 @@ import { EnviarUnlpComponent } from './modules/designaciones/movimientos/enviar-
     CancelarComponent,
     AdjuntarResolucionComponent,
     ReferenciasComponent,
-    EnviarUnlpComponent
+    EnviarUnlpComponent,
+    VerificarPrestacionComponent,
+    AdjuntarExpedienteComponent
   ],
   entryComponents: [
     DenegarComponent,
     AprobarComponent,
     CancelarComponent,
     BajaComponent,
-    EnviarUnlpComponent
+    EnviarUnlpComponent,
+    VerificarPrestacionComponent
   ],
   imports: [
     BrowserModule,

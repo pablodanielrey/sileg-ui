@@ -12,6 +12,7 @@ import { AprobarComponent } from '../../movimientos/aprobar/aprobar.component';
 import { CancelarComponent } from '../../movimientos/cancelar/cancelar.component';
 import { BajaComponent } from '../../movimientos/baja/baja.component';
 import { EnviarUnlpComponent } from '../../movimientos/enviar-unlp/enviar-unlp.component';
+import { VerificarPrestacionComponent } from '../../movimientos/verificar-prestacion/verificar-prestacion.component';
 
 @Component({
   selector: 'app-listar',
@@ -135,6 +136,14 @@ export class ListarComponent implements OnInit {
       data: desig.id
     });    
   }
+
+  verificar_prestacion(desig: Designacion) {
+    const dialogRef = this.dialog.open(VerificarPrestacionComponent, {
+      width: '250px',
+      data: desig.id
+    });
+  }
+
 
   // crear_alta(lid) {
   //   let navegar_alta = this.navegar.navegar({
