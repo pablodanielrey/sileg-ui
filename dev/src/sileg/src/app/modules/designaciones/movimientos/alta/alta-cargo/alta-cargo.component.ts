@@ -134,6 +134,14 @@ export class AltaCargoComponent implements OnInit {
     this.archivos = archivos;
   }
 
+  loguear_archivos() {
+    console.log(this.archivos);
+  }
+
+  deseleccionar_archivo(archivo) {
+    
+  }
+
   ////////////////////
 
   mostrar_error(e) {
