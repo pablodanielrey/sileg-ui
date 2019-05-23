@@ -165,7 +165,8 @@ export class SilegService {
     this.tipos_cargos = [
       new Cargo({
         'id': 'b3901ac4-7fc8-43b5-85d7-34da6728bc21',
-        'nombre': 'Titular D.E.',
+        'nombre': 'Titular',
+        'dedicacion': 'D.E.',
         'descripcion': 'Profesor Titular Dedicación Exclusiva',
         'tipo': 'Docente',
         'codigo': '05E',
@@ -173,7 +174,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'eeceeac9-12c1-479f-a8eb-a88aa19d286c',
-        'nombre': 'Asociado D.E.',
+        'nombre': 'Asociado',
+        'dedicacion': 'D.E.',
         'descripcion': 'Profesor Asociado Dedicación Exclusiva',
         'tipo': 'Docente',
         'codigo': '06E',
@@ -181,7 +183,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': '',
-        'nombre': 'Adjunto D.E.',
+        'nombre': 'Adjunto',
+        'dedicacion': 'D.E.',
         'descripcion': 'Profesor Adjunto Dedicación Exclusiva',
         'tipo': 'Docente',
         'codigo': '07E',
@@ -189,7 +192,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': '4680eeea-e534-4515-91d0-e7b456397b68',
-        'nombre': 'JTP D.E.',
+        'nombre': 'JTP',
+        'dedicacion': 'D.E.',
         'descripcion': 'Jefe de Trabajos Prácticos Dedicación Exclusiva',
         'tipo': 'Docente',
         'codigo': '08E',
@@ -197,7 +201,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'b4c0d4b6-923f-4f55-8b0a-053e5864e525',
-        'nombre': 'Ayudante 1º D.E.',
+        'nombre': 'Ayudante 1º',
+        'dedicacion': 'D.E.',
         'descripcion': 'Ayudante Diplomado Dedicación Exclusiva',
         'tipo': 'Docente',
         'codigo': '09E',
@@ -205,7 +210,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': '015d50a9-b3db-4119-b20d-a931ee377e8b',
-        'nombre': 'Titular S.E.',
+        'nombre': 'Titular',
+        'dedicacion': 'S.E.',
         'descripcion': 'Profesor Titular Dedicación Semiexclusiva',
         'tipo': 'Docente',
         'codigo': '05S',
@@ -213,7 +219,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': '6341dd1e-d57e-4378-a9fa-c7a6cc66f336',
-        'nombre': 'Asociado S.E.',
+        'nombre': 'Asociado',
+        'dedicacion': 'S.E.',
         'descripcion': 'Profesor Asociado Dedicación Semiexclusiva',
         'tipo': 'Docente',
         'codigo': '06S',
@@ -221,7 +228,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'd1a0e4a7-03ca-40a9-a98c-d89cdc322d9a',
-        'nombre': 'Adjunto S.E.',
+        'nombre': 'Adjunto',
+        'dedicacion': 'S.E.',
         'descripcion': 'Profesor Adjunto Dedicación Semiexclusiva',
         'tipo': 'Docente',
         'codigo': '07S',
@@ -229,7 +237,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': '5fa3f450-f379-41b8-9b34-26b5e14edc3f',
-        'nombre': 'JTP S.E.',
+        'nombre': 'JTP',
+        'dedicacion': 'S.E.',
         'descripcion': 'Jefe de Trabajos Prácticos Dedicación Semiexclusiva',
         'tipo': 'Docente',
         'codigo': '08S',
@@ -237,7 +246,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': '37df5825-6640-4568-965e-4478b49e9868',
-        'nombre': 'Ayudante 1º S.E.',
+        'nombre': 'Ayudante 1º',
+        'dedicacion': 'S.E.',
         'descripcion': 'Ayudante Diplomado Dedicación Semiexclusiva',
         'tipo': 'Docente',
         'codigo': '09S',
@@ -245,7 +255,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'ca0c7105-ade2-4fab-b14c-086248b7a447',
-        'nombre': 'Titular D.S.',
+        'nombre': 'Titular',
+        'dedicacion': 'D.S.',
         'descripcion': 'Profesor Titular Dedicación Simple',
         'tipo': 'Docente',
         'codigo': '05X',
@@ -253,7 +264,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'b65f8e8b-80ee-4ff8-9bf2-f04ba2bdd397',
-        'nombre': 'Asociado D.S.',
+        'nombre': 'Asociado',
+        'dedicacion': 'D.S.',
         'descripcion': 'Profesor Asociado Dedicación Simple',
         'tipo': 'Docente',
         'codigo': '06X',
@@ -261,7 +273,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'b65f8e8b-80ee-4ff8-9bf2-f04ba2bdd397',
-        'nombre': 'Adjunto D.S.',
+        'nombre': 'Adjunto',
+        'dedicacion': 'D.S.',
         'descripcion': 'Profesor Adjunto Dedicación Simple',
         'tipo': 'Docente',
         'codigo': '07X',
@@ -269,7 +282,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': '718e8e33-2989-4337-8d79-2609268d315e',
-        'nombre': 'JTP D.S.',
+        'nombre': 'JTP',
+        'dedicacion': 'D.S.',
         'descripcion': 'Jefe de Trabajos Prácticos Dedicación Simple',
         'tipo': 'Docente',
         'codigo': '08X',
@@ -277,7 +291,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'dbf391cd-1212-4e40-a795-f466b0c2406d',
-        'nombre': 'Ayudante 1º D.S.',
+        'nombre': 'Ayudante 1º',
+        'dedicacion': 'D.S.',
         'descripcion': 'Ayudante Diplomado Dedicación Simple',
         'tipo': 'Docente',
         'codigo': '09X',
@@ -285,7 +300,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': '750780c1-496a-4ca9-bcb7-9b3835f205c1',
-        'nombre': 'Ayudante 2º D.S.',
+        'nombre': 'Ayudante 2º',
+        'dedicacion': 'D.S.',
         'descripcion': 'Ayudante Alumno Dedicación Simple',
         'tipo': 'Docente',
         'codigo': '10X',
@@ -293,7 +309,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'aad',
-        'nombre': 'Decano D.E.',
+        'nombre': 'Decano',
+        'dedicacion': 'D.E.',
         'descripcion': 'Decano Dedicación Exclusiva',
         'tipo': 'Autoridad Superior',
         'codigo': '02E',
@@ -301,7 +318,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'bdffas',
-        'nombre': 'Decano T.C.',
+        'nombre': 'Decano',
+        'dedicacion': 'T.C.',
         'descripcion': 'Decano Tiempo Completo',
         'tipo': 'Autoridad Superior',
         'codigo': '02C',
@@ -309,7 +327,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'zxvaas',
-        'nombre': 'Decano T.P.',
+        'nombre': 'Decano',
+        'dedicacion': 'T.P.',
         'descripcion': 'Decano Tiempo Parcial',
         'tipo': 'Autoridad Superior',
         'codigo': '02P',
@@ -317,7 +336,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'asfgewt',
-        'nombre': 'Decano D.S.',
+        'nombre': 'Decano',
+        'dedicacion': 'D.S.',
         'descripcion': 'Decano Dedicación Simple',
         'tipo': 'Autoridad Superior',
         'codigo': '02J',
@@ -325,7 +345,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'agwhrey',
-        'nombre': 'Vice-Decano D.E.',
+        'nombre': 'Vice-Decano',
+        'dedicacion': 'D.E.',
         'descripcion': 'Vice-Decano Dedicación Exclusiva',
         'tipo': 'Autoridad Superior',
         'codigo': '02S',
@@ -333,7 +354,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'jkjkllsdgj',
-        'nombre': 'Vice-Decano ',
+        'nombre': 'Vice-Decano',
+        'dedicacion': 'T.C.',
         'descripcion': 'Vice-Decano Tiempo Completo',
         'tipo': 'Autoridad Superior',
         'codigo': '02K',
@@ -341,7 +363,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'psitsetds',
-        'nombre': 'Vice-Decano T.P.',
+        'nombre': 'Vice-Decano',
+        'dedicacion': 'T.P.',
         'descripcion': 'Vice-Decano Tiempo Parcial',
         'tipo': 'Autoridad Superior',
         'codigo': '02X',
@@ -349,7 +372,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'iashah',
-        'nombre': 'Vice-Decano D.S.',
+        'nombre': 'Vice-Decano',
+        'dedicacion': 'D.S.',
         'descripcion': 'Vice-Decano Dedicación Simple',
         'tipo': 'Autoridad Superior',
         'codigo': '02I',
@@ -357,7 +381,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'dgagadsgh',
-        'nombre': 'Secretario D.E.',
+        'nombre': 'Secretario',
+        'dedicacion': 'D.E.',
         'descripcion': 'Secretario Facultad Dedicación Exclusiva',
         'tipo': 'Autoridad Superior',
         'codigo': '04E',
@@ -365,7 +390,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'nklasdgk',
-        'nombre': 'Secreatario T.C.',
+        'nombre': 'Secreatario',
+        'dedicacion': 'T.C.',
         'descripcion': 'Secretario Facultad Tiempo Completo',
         'tipo': 'Autoridad Superior',
         'codigo': '04C',
@@ -373,7 +399,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'sdvjoseg',
-        'nombre': 'Secreatario T.P.',
+        'nombre': 'Secreatario',
+        'dedicacion': 'T.P.',
         'descripcion': 'Secretario Facultad Tiempo Parcial',
         'tipo': 'Autoridad Superior',
         'codigo': '04P',
@@ -381,7 +408,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'asfafgqwqf',
-        'nombre': 'Secreatario D.S.',
+        'nombre': 'Secreatario',
+        'dedicacion': 'D.S.',
         'descripcion': 'Secretario Facultad Dedicación Simple',
         'tipo': 'Autoridad Superior',
         'codigo': '04J',
@@ -389,7 +417,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'fqptqwtwse',
-        'nombre': 'Prosecretario D.E.',
+        'nombre': 'Prosecretario',
+        'dedicacion': 'D.E.',
         'descripcion': 'Prosecretario Facultad Dedicación Exclusiva',
         'tipo': 'Autoridad Superior',
         'codigo': '27E',
@@ -397,7 +426,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'ahashasueru',
-        'nombre': 'Prosecretario T.C.',
+        'nombre': 'Prosecretario',
+        'dedicacion': 'T.C.',
         'descripcion': 'Prosecretario Facultad Tiempo Completo',
         'tipo': 'Autoridad Superior',
         'codigo': '27C',
@@ -405,7 +435,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'ahsdyherur',
-        'nombre': 'Prosecretario D.S.',
+        'nombre': 'Prosecretario',
+        'dedicacion': 'D.S.',
         'descripcion': 'Prosecretario Facultad Dedicación Simple',
         'tipo': 'Autoridad Superior',
         'codigo': '27J',
@@ -413,7 +444,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'hshpospjhposh',
-        'nombre': 'Director Ejecutivo D.E.',
+        'nombre': 'Director Ejecutivo',
+        'dedicacion': 'D.E.',
         'descripcion': 'Director Ejecutivo Facultad Dedicación Exclusiva',
         'tipo': 'Autoridad Superior',
         'codigo': '28E',
@@ -421,7 +453,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'dhsjststi',
-        'nombre': 'Director Ejecutivo T.C.',
+        'nombre': 'Director Ejecutivo',
+        'dedicacion': 'T.C.',
         'descripcion': 'Director Ejecutivo Facultad Tiempo Completo',
         'tipo': 'Autoridad Superior',
         'codigo': '28C',
@@ -429,7 +462,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'zasgastgwywery',
-        'nombre': 'Director Ejecutivo D.S.',
+        'nombre': 'Director Ejecutivo',
+        'dedicacion': 'D.S.',
         'descripcion': 'Director Ejecutivo Facultad Dedicación Simple',
         'tipo': 'Autoridad Superior',
         'codigo': '28J',
@@ -437,7 +471,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'aeueajazjuae',
-        'nombre': 'Asistente \"A\" D.E.',
+        'nombre': 'Asistente \"A\"',
+        'dedicacion': 'D.E.',
         'descripcion': 'Asistente \"A\" Facultad Dedicación Exclusiva',
         'tipo': 'Autoridad Superior',
         'codigo': '29E',
@@ -445,7 +480,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'xfgjfxjrtj',
-        'nombre': 'Asistente \"A\" T.C.',
+        'nombre': 'Asistente \"A\"',
+        'dedicacion': 'T.C.',
         'descripcion': 'Asistente \"A\" Facultad Tiempo Completo',
         'tipo': 'Autoridad Superior',
         'codigo': '29C',
@@ -453,7 +489,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'xfgjrsusrtu',
-        'nombre': 'Asistente \"A\" D.S.',
+        'nombre': 'Asistente \"A\"',
+        'dedicacion': 'D.S.',
         'descripcion': 'Asistente \"A\" Facultad Dedicación Simple',
         'tipo': 'Autoridad Superior',
         'codigo': '29J',
@@ -461,7 +498,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'qwrupagasg',
-        'nombre': 'Asistente \"B\" D.E.',
+        'nombre': 'Asistente \"B\"',
+        'dedicacion': 'D.E.',
         'descripcion': 'Asistente \"B\" Facultad Dedicación Exclusiva',
         'tipo': 'Autoridad Superior',
         'codigo': '30E',
@@ -469,7 +507,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'ausweyweysdhsdx',
-        'nombre': 'Asistente \"B\" T.C.',
+        'nombre': 'Asistente \"B\"',
+        'dedicacion': 'T.C.',
         'descripcion': 'Asistente \"B\" Facultad Tiempo Completo',
         'tipo': 'Autoridad Superior',
         'codigo': '30C',
@@ -477,7 +516,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'ewyweywyeahsd',
-        'nombre': 'Asistente \"B\" D.S.',
+        'nombre': 'Asistente \"B\"',
+        'dedicacion': 'D.S.',
         'descripcion': 'Asistente \"B\" Facultad Dedicación Simple',
         'tipo': 'Autoridad Superior',
         'codigo': '30J',
@@ -485,7 +525,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'zjzjerueru',
-        'nombre': 'Asistente \"C\" D.E.',
+        'nombre': 'Asistente \"C\"',
+        'dedicacion': 'D.E.',
         'descripcion': 'Asistente \"C\" Facultad Dedicación Exclusiva',
         'tipo': 'Autoridad Superior',
         'codigo': '31E',
@@ -493,7 +534,8 @@ export class SilegService {
       }),
       new Cargo({
         'id': 'ueruwujwew',
-        'nombre': 'Asistente \"C\" D.S.',
+        'nombre': 'Asistente \"C\"',
+        'dedicacion': 'D.S.',
         'descripcion': 'Asistente \"C\" Facultad Dedicación Simple',
         'tipo': 'Autoridad Superior',
         'codigo': '31J',

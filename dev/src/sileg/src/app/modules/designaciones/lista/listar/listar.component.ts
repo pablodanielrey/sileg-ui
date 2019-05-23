@@ -83,10 +83,10 @@ export class ListarComponent implements OnInit {
     });
   }
 
-  modificar(mid) {
+  modificar(desig: Designacion) {
     let s = this.navegar.navegar({
-      url: '/sistema/movimientos/editar/:mid',
-      params: { mid: mid }
+      url: '/sistema/movimientos/editar/' + desig.id,
+      params: { }
     }).subscribe(_ => {
       s.unsubscribe();
     });

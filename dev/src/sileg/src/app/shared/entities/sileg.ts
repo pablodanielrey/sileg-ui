@@ -9,6 +9,7 @@ export class Cargo {
   nombre: string;
   descripcion: string;
   tipo: string;
+  dedicacion: string;
   codigo: string;
   puntos: number;
 

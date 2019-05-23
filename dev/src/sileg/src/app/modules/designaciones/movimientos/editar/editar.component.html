@@ -11,42 +11,42 @@
 
   <mat-card class="contenedorUsuario">
       <mat-card-header>
-          <mat-card-title>{{(persona$ | async)?.nombre}}</mat-card-title>
+          <mat-card-title>{{(persona$ | async)?.nombre}} {{(persona$ | async)?.apellido}}</mat-card-title>
           <mat-card-subtitle>{{(lugar$ | async)?.nombre}}</mat-card-subtitle>
       </mat-card-header>
   </mat-card>
 
-  <form [formGroup]='form' (ngSubmit)='submit()' class="formulario" >
-
+  <form [formGroup]='form' (ngSubmit)='submit()' class="formulario" *ngIf="designacion$ | async; else nulo">
+    <div formGroupName="cargo">
       <mat-form-field class="itemFormulario" appearance="outline">
           <mat-label>Cargo</mat-label>
-              <mat-select formControlName='cargo'>
-                  <mat-option *ngFor="let cargo of (cargos$ | async)" [value]="cargo">
-                      {{cargo.nombre}}
+              <mat-select formControlName='nombre'>
+                  <mat-option *ngFor="let c of (cargos_nombre$ | async)" [value]="c.nombre">
+                      {{c.nombre}}
                   </mat-option>
               </mat-select>    
       </mat-form-field>
                       
       <mat-form-field class="itemFormulario" appearance="outline">
           <mat-label>Dedicación</mat-label>
-              <mat-select formControlName='cargo'>
-                  <mat-option *ngFor="let cargo of (dedicaciones$ | async)" [value]="cargo">
-                      {{cargo.dedicacion}}
+              <mat-select formControlName='dedicacion'>
+                  <mat-option *ngFor="let d of (dedicaciones$ | async)" [value]="d.dedicacion">
+                      {{d.dedicacion}}
                   </mat-option>
               </mat-select>    
       </mat-form-field>
-                      
-      <mat-form-field class="itemFormulario" appearance="outline">
-          <mat-label>Caracter</mat-label>
-              <mat-select formControlName='caracter'>
-                  <mat-option *ngFor="let caracter of (caracteres$ | async)" [value]="caracter">
-                      {{caracter.nombre}}
-                  </mat-option>
-              </mat-select>    
-      </mat-form-field>
+    </div>
+    <mat-form-field class="itemFormulario" appearance="outline">
+        <mat-label>Caracter</mat-label>
+        <mat-select formControlName='caracter'>
+            <mat-option *ngFor="let caracter of (caracteres$ | async)" [value]="caracter">
+                {{caracter.nombre}}
+            </mat-option>
+        </mat-select>    
+    </mat-form-field>
                           
   </form>
-
+  <ng-template #nulo>No se encontro la designación</ng-template>
 </div>
 
 <div class="contenedorAcciones"> 

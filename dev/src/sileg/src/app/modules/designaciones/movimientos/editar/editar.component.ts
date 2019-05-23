@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Observable, BehaviorSubject, of, forkJoin, timer } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { SilegService } from '../../../../shared/services/sileg.service';
 import { switchMap, map, tap, mergeMap } from 'rxjs/operators';
 import { NavegarService } from '../../../../core/navegar.service';
 import { ErrorService } from '../../../../core/error/error.service';
-import { Cargo } from '../../../../shared/entities/sileg';
+import { Cargo, Designacion } from '../../../../shared/entities/sileg';
 
 @Component({
   selector: 'app-editar',
@@ -15,17 +15,22 @@ import { Cargo } from '../../../../shared/entities/sileg';
 })
 export class EditarComponent implements OnInit {
 
-  form = new FormGroup({
-    cargo: new FormControl(),
-    dedicacion: new FormControl(),
-    caracter: new FormControl(),
-    expediente: new FormControl(),
-    resolucion: new FormControl()
+  form = this.fb.group({
+    id: [''],
+    cargo: this.fb.group({
+      id: [''],
+      nombre: ['', Validators.required],
+      dedicacion: ['', Validators.required],
+      tipo: ['', Validators.required],
+      codigo: ['']
+    }),
+    caracter: ['', Validators.required]
   });
 
   caracteres$: Observable<any>;
   dedicaciones$: Observable<any>;
   cargos$: Observable<Cargo[]>;
+  cargos_nombre$: Observable<Cargo[]>;
 
   datos$: Observable<any>;
   puntos$: Observable<any>;
@@ -34,57 +39,83 @@ export class EditarComponent implements OnInit {
 
   cambio$: BehaviorSubject<any>;
 
+  designacion$: Observable<Designacion>;
+
   constructor(
     private route : ActivatedRoute,
     private service: SilegService,
     private navegar: NavegarService,
-    private error: ErrorService
+    private error: ErrorService,
+    private fb: FormBuilder
   ) { }  
 
   ngOnInit() {
+    this.designacion$ = this.route.paramMap.pipe(
+      switchMap( params => {
+        if (params.has('mid')) {
+          let mid = params.get('mid');
+          return this.service.obtenerDesignacion(mid);
+        } else {
+          return null;
+        }
+      }),
+      tap( desig => {
+        console.log(desig);
+        this.form.patchValue(desig);
+        console.log(this.form);
+      })
+    );
+
+    this.lugar$ = this.designacion$.pipe(
+      map( d => {
+        return d.lugar
+      })
+    )
+
+    this.persona$ = this.designacion$.pipe(
+      map( d => {
+        return d.usuario
+      })
+    ) 
+
+
     this.cambio$ = new BehaviorSubject<string>('');
 
     this.cargos$ = this.service.obtenerCargosDisponibles();
 
+    this.cargos_nombre$ = this.cargos$.pipe(
+      map( cs => {
+        return cs.filter((item, pos) => pos == cs.findIndex(obj => { return item.nombre == obj.nombre}))
+      })
+    );
+
+    this.dedicaciones$ = this.cargos$.pipe(
+      map (cs => {
+        return cs.filter((item, pos) => pos == cs.findIndex(obj => { return item.dedicacion == obj.dedicacion}))
+      })
+    )
+
     this.caracteres$ = this.service.obtenerCaracter();
   
-    this.dedicaciones$ = this.cambio$.pipe(
-      switchMap(c => this.cargos$.pipe(
-          tap(v => console.log(v)),
-          map(vs => vs.filter(v => v.nombre == c.nombre)),
-          tap(v => console.log(v))
-        )
-      )
-    );
+    // this.datos$ = this.route.paramMap.pipe(
+    //   map(p => { return {
+    //       lugar: p.get("lid"),
+    //       persona: p.get('uid')
+    //     }
+    //   }),
+    //   switchMap(parametros => forkJoin(
+    //       this.service.obtenerLugar(parametros['lugar']),
+    //       this.service.obtenerPersona(parametros['persona']),
+    //       this.service.obtenerPuntosPersona(parametros['persona'])
+    //     )
+    //   )
+    // );    
 
-    this.datos$ = this.route.paramMap.pipe(
-      map(p => { return {
-          lugar: p.get("lid"),
-          persona: p.get('uid')
-        }
-      }),
-      switchMap(parametros => forkJoin(
-          this.service.obtenerLugar(parametros['lugar']),
-          this.service.obtenerPersona(parametros['persona']),
-          this.service.obtenerPuntosPersona(parametros['persona'])
-        )
-      )
-    );    
 
-    this.persona$ = this.datos$.pipe(
-      tap(v => console.log(v)),
-      map(vs => vs[1])
-    );
-
-    this.lugar$ = this.datos$.pipe(
-      tap(v => console.log(v)),
-      map(vs => vs[0])
-    );
-
-    this.puntos$ = this.datos$.pipe(
-      tap(v => console.log(v)),
-      map(vs => vs[2])
-    );
+    // this.puntos$ = this.datos$.pipe(
+    //   tap(v => console.log(v)),
+    //   map(vs => vs[2])
+    // );
 
   }
 

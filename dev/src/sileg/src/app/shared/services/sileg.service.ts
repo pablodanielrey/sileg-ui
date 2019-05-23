@@ -10,7 +10,7 @@ import { map, tap } from 'rxjs/operators';
 import 'rxjs/Rx';
 
 import { Mail, Usuario, ResetClave } from '../entities/usuario';
-import { Sileg, DatosSileg, Lugar, PedidoDesignacion, Designacion, Cargo, DatosLugarDesignaciones, DatoDesignacion, Dato2Designacion, Configuracion, Caracter, DatosDesignacion } from '../entities/sileg';
+import { Sileg, DatosSileg, Lugar, PedidoDesignacion, Designacion, Cargo, DatosLugarDesignaciones, DatoDesignacion, Dato2Designacion, Configuracion, Caracter, DatosDesignacion, DatosLugarDesignacion } from '../entities/sileg';
 
 const SILEG_API_URL = environment.silegApiUrl;
 const LOGIN_API_URL = environment.loginApiUrl;
@@ -25,11 +25,11 @@ export class SilegService {
     return null;
   }
 
-  desginacionesPendientes(lid): Observable<any[]> {
+  desginacionesPendientes(lid): Observable<DatosLugarDesignacion[]> {
     return null;
   }
 
-  obtenerDesignacion(id: string): Observable<any> {
+  obtenerDesignacion(id: string): Observable<Designacion> {
     return null;
   }
 
