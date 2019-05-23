@@ -891,11 +891,14 @@ export class SilegService {
   
   cancelarMovimiento(mid: string): Observable<boolean> {
     let dd = this.obtenerDatosDesignacion(mid);
-    dd.estado.estado = 'Cancelada';
+    dd.estado.tipo = 'Cancelada';
     return of(true);
   }  
 
   bajaMovimiento(mid: string): Observable<boolean> {
+    let dd = this.obtenerDatosDesignacion(mid);
+    dd.estado.tipo = 'Baja';    
+    dd.estado.estado = 'Pendiente';
     return of(true);
   } 
 
