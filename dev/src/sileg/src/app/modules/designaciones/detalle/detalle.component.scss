@@ -1,3 +1,30 @@
+// VARIABLES DE COLOR PARA LOS ESTADOS DE LAS DESIGNACIONES
+
+// Tipo de designacion
+$colorAlta: #2196f3;
+$colorBaja: #5C7A95;
+$colorCambioCargo: #ECB057;
+$colorProrroga: #A4009D;
+$colorActiva: #51B24A;
+// Estado de designacion
+$colorPendiente: #E22748;
+$colorAprobado: #96ba3a;
+$colorUNLP: #2c9684;
+
+
+
+  
+
+
+
+.cabecera {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
 .pantalla {
     padding: 0 20PX 20PX 20px;
 }
@@ -10,20 +37,188 @@
     margin-top: 10px;
 }
 
-.estado {
+
+.tabla{
+    width: 100%;
+    
+  }
+  
+  mat-table {
+    width: 100%;
+    @media screen and (max-width: 768px) {
+        width: 120%;
+    }
+
+  }
+
+
+  
+.mat-column-usuario {
+  flex: 0 0 15% !important;
+  min-width: 100px !important;
+  font-weight: bold;
+  @media screen and (max-width: 768px) {
+    width: 200px !important;
+}
+}
+
+.mat-column-acciones {
+    flex: 0 0 3% !important;
+    min-width: 25px !important;
+    padding-left: 5px;
+}
+
+.mat-column-codigo {
+    @media screen and (max-width: 768px) {
+        max-width: 50px !important;
+    }
+}
+
+
+
+
+
+
+
+  
+  th.mat-column-position, td.mat-column-position {
+    padding-left: 8px;
+  }
+  
+  .mat-table-sticky:first-child {
+    // border-right: 1px solid #e0e0e0;
+  }
+  
+  .mat-table-sticky:last-child {
+    border-left: 1px solid #e0e0e0;
+  }
+
+
+
+
+
+
+
+
+
+.bloqueEstados {
+    display: flex;
+}
+
+.estados {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10%;
+    font-size: 12px;
+    // min-width: 16px;
+    // min-height: 16px;
+    width: 19px;
+    height: 19px;
+    font-weight: bold;
+    margin-right: 5px;
+    color: white;
+    padding: 5px 20px 5px 20px;
+}
+
+.estados2 {
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 100%;
-    border: 2px solid #2196f3;
     font-size: 12px;
     min-width: 16px;
     min-height: 16px;
-    width: 16px;
-    height: 16px;
-    color: #2196f3;
+    width: 19px;
+    height: 19px;
     font-weight: bold;
     margin-right: 5px;
+    color: white;
+    // padding: 5px 20px 5px 20px;
+    margin-left: -15px;
+    margin-top: -5px;
 }
 
+
+.Alta.tipo {
+    // color: $colorAlta;
+    // border: 2px solid $colorAlta;
+    background-color: $colorAlta;
+}
+
+.Baja.tipo {
+    // color: $colorBaja;
+    // border: 2px solid $colorBaja;
+    background-color: $colorBaja;
+}
+.Activa.tipo {
+    background-color:$colorActiva;
+}
+
+.C.tipo{
+    // color:$colorCambioCargo;
+    // border: 2px solid $colorCambioCargo;
+    background-color: $colorCambioCargo;
+
+}
+
+.P.tipo{
+    // color:$colorProrroga;
+    // border: 2px solid $colorProrroga;
+    background-color: $colorProrroga;
+
+}
+
+.E.tipo{
+    background-color: $colorActiva;
+}
+
+
+.colorPendiente {
+	
+}
+
+
+
+
+
+.P.estado {
+    // color:$colorPendiente;
+    // border: 2px solid $colorPendiente;
+    // background-color: $colorPendiente;
+    -webkit-animation: colorPendiente 0.5s linear infinite alternate both;
+	        animation: colorPendiente 0.5s linear infinite alternate both;
+
+}
+
+@-webkit-keyframes colorPendiente {
+    0% {
+      background: #91282d;
+    }
+    100% {
+      background: #E22748;
+    }
+  }
+  @keyframes colorPendiente {
+    0% {
+      background:#91282d;
+    }
+    100% {
+      background: #E22748;
+    }
+  }
+
+
+.A.estado {
+    // color:$colorAprobado;
+    // border: 2px solid $colorAprobado;
+    background-color: $colorAprobado;
+}
+
+.E.estado{
+    // color:$colorUNLP;
+    // border: 2px solid $colorUNLP;
+    background-color: $colorUNLP;
+
+}
 

@@ -84,4 +84,21 @@ export class DetalleComponent implements OnInit {
     this.error_service.error({'error': true, 'mensaje': 'designacion creada con éxito'});
   }    
 
+  estado_tipo(desig) {
+    return desig.estado.tipo;
+  }
+
+  clase_estado_tipo(desig) {
+    return this.estado_tipo(desig);
+  }
+
+  estado_estado(desig) {
+    return desig.estado.estado.substr(0,1);
+  }
+
+  clase_estado_estado(desig) {
+    return this.estado_estado(desig);
+  }
+
+
 }

@@ -47,10 +47,20 @@
                     <mat-cell *matCellDef="let desig">{{desig.designacion.expediente}}</mat-cell>
                 </ng-container> 
 
-                <ng-container matColumnDef="estado">
+                <!-- <ng-container matColumnDef="estado">
                     <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
                     <mat-cell *matCellDef="let desig">{{desig.estado.tipo}}</mat-cell>
-                </ng-container>            
+                </ng-container>       -->
+                
+                <ng-container matColumnDef="estado">
+                        <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
+                        <mat-cell *matCellDef="let desig">
+                            <div class="bloqueEstados">
+                                <div class="estados tipo {{clase_estado_tipo(desig)}}">{{estado_tipo(desig)}}</div>
+                                <div class="estados2 estado {{clase_estado_estado(desig)}}">{{estado_estado(desig)}}</div>
+                            </div>
+                        </mat-cell>
+                </ng-container> 
             
             <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
             <mat-row *matRowDef="let row; columns: columnas;"></mat-row>   
