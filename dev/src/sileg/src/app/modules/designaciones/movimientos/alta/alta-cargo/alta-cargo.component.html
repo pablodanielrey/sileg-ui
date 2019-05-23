@@ -47,11 +47,13 @@
            
             <mat-form-field>
                 <app-adjuntar-archivos [value]='archivos'></app-adjuntar-archivos>
-                <mat-chip-list *ngFor='let archivo of archivos'>
+                <mat-chip-list *ngFor='let archivo of archivos' (removed)='deseleccionar_archivo(archivo)'>
                     <mat-chip>{{archivo.archivo.name}}</mat-chip>
                 </mat-chip-list>
             </mat-form-field>
         </form>
+
+        <button (click)='loguear_archivos()'>ver archivos</button>
 
     </div>
 
