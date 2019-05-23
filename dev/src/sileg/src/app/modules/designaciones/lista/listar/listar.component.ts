@@ -145,11 +145,13 @@ export class ListarComponent implements OnInit {
   }
 
 
-  // crear_alta(lid) {
-  //   let navegar_alta = this.navegar.navegar({
-  //     url: '/sistema/movimientos/alta/seleccionar-persona/sdfdsfsd',
-  //     params: {}
-  //   })
+  crear_alta(lid) {
+    let navegar_alta = this.navegar.navegar({
+      url: '/sistema/movimientos/alta/seleccionar-persona/sdfdsfsd',
+       params: {}
+     }).subscribe(() => {
+       navegar_alta.unsubscribe();
+     })
 
   //   this.subscriptions.push(this.navegar.obtenerRuta().pipe(
   //     tap(ruta_actual => {
@@ -157,7 +159,7 @@ export class ListarComponent implements OnInit {
   //     }),
   //     switchMap(v => navegar_alta)
   //   ).subscribe());
-  // }
+  }
 
   volver() {
     let s = this.navegar.volver().subscribe(_ => {
