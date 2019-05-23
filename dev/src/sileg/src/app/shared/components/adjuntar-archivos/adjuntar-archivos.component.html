@@ -1,11 +1,15 @@
 
   <input hidden type="file" multiple #fileInput (change)='onFileChange($event)'>
-  <mat-chip-list #chipList>
+  <!--
+  <mat-chip-list #chipListAdjuntarArchivos>
     <mat-chip *ngFor='let f of archivos' (removed)='deseleccionar(f)'>
       {{f.archivo.name}}
       <mat-progress-bar *ngIf='f.cargando' mode='determinate' [value]='f.cargado'></mat-progress-bar>
       <mat-icon matChipRemove>cancel</mat-icon>
     </mat-chip>
   </mat-chip-list>
+  -->
   <button matSuffix mat-mini-fab (click)="fileInput.click()">file</button>
-  <input mat-input placeholder="Archivos...." [matChipInputFor]="chipList">
+  <!-- 
+    <input mat-input placeholder="Archivos...." [matChipInputFor]="chipListAdjuntarArchivos">
+  -->
