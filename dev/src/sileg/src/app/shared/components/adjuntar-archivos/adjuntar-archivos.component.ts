@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, NgZone, Input, OnDestroy, Host
 import { MatFormFieldControl } from '@angular/material';
 import { getQueryValue } from '@angular/core/src/view/query';
 import { Subject } from 'rxjs';
-import { NgControl } from '@angular/forms';
+import { NgControl, ControlValueAccessor } from '@angular/forms';
 
 interface Archivo {
   archivo: File,
@@ -11,17 +11,43 @@ interface Archivo {
   contenido: string
 } 
 
+/*
+  https://material.angular.io/guide/creating-a-custom-form-field-control
+  https://blog.angularindepth.com/never-again-be-confused-when-implementing-controlvalueaccessor-in-angular-forms-93b9eee9ee83
+  https://github.com/maximusk/custom-form-control-that-implements-control-value-accessor-and-wraps-jquery-slider
+*/
+
+
 @Component({
-  selector: 'app-adjuntar-archivos',
+  selector: 'adjuntar-archivos',
   templateUrl: './adjuntar-archivos.component.html',
   styleUrls: ['./adjuntar-archivos.component.scss'],
   providers: [{provide: MatFormFieldControl, useExisting: AdjuntarArchivosComponent}]
 })
-export class AdjuntarArchivosComponent extends MatFormFieldControl<Archivo[]> implements OnInit, OnDestroy  {
+export class AdjuntarArchivosComponent extends MatFormFieldControl<Archivo[]> implements ControlValueAccessor, OnInit, OnDestroy  {
 
-  ///////////////////////// MatFormFieldControl ///////////////
+  ///////////// ControlValueAccessor ///////////////
 
-  
+  onChange;
+
+  writeValue(obj: any): void {
+    this.value = obj;
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    // por ahora lo ignoro
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  /////// MatFormFieldControl /////////////
+    
   get value(): Archivo[] | null {
     return this._value;
   }
@@ -33,44 +59,75 @@ export class AdjuntarArchivosComponent extends MatFormFieldControl<Archivo[]> im
   
   private _value: Archivo[] = [];
 
+  static nextId = 0;
+  @HostBinding() id = `adjuntar-archivos-${AdjuntarArchivosComponent.nextId++}`;
+
+  @Input()
+  get placeholder() {
+    return this._placeholder;
+  }
+  set placeholder(phl) {
+    this._placeholder = phl;
+    this.stateChanges.next();
+  }
+  _placeholder: string;
+
+  get empty() {
+    return (this.value == null || this.value.length <= 0);
+  }
+
   stateChanges = new Subject<void>();
-  placeholder: string;
   focused: boolean;
-  empty: boolean;
-  shouldLabelFloat: boolean;
-  required: boolean;
-  disabled: boolean;
+  
+  @HostBinding('class.floating')
+  get shouldLabelFloat() {
+    return !this.empty;
+  }
+
+  @Input()
+  get required() {
+    return this._required;
+  }
+  set required(req) {
+    this._required = req;
+    this.stateChanges.next();
+  }
+  private _required = false; 
+
+  disabled: boolean = false;
   errorState: boolean;
   controlType?: string = 'adjuntar-archivos';
   autofilled?: boolean;
   
   @HostBinding('attr.aria-describedby') describedBy = '';
-
   setDescribedByIds(ids: string[]): void {
     this.describedBy = ids.join(' ');
   }
   
   onContainerClick(event: MouseEvent): void {
-    throw new Error("Method not implemented.");
+    // por ahora lo ignoro
   }
 
   ngOnDestroy() {
     this.stateChanges.complete();
   }  
 
-  static nextId = 0;
-  @HostBinding() id = `adjuntar-archivos-${AdjuntarArchivosComponent.nextId++}`;
+
 
   /////////////////////////////////////////////////////////
 
 
+  /*
   @Output()
   seleccionado: EventEmitter<Object[]> = new EventEmitter<Object[]>();
- 
+  */
 
   constructor(private zone: NgZone, 
               @Optional() @Self() public ngControl: NgControl) { 
     super();
+    if (this.ngControl != null) {
+      this.ngControl.valueAccessor = this;
+    } 
   }
 
   ngOnInit() {
@@ -81,7 +138,8 @@ export class AdjuntarArchivosComponent extends MatFormFieldControl<Archivo[]> im
     for (let o = 0; o < this.value.length; o++) {
       let d = this.value[o].archivo;
       if (d.name == f.name && d.size == f.size && d.lastModified == f.lastModified) {
-        return true;
+        //return true;
+        return false;
       }
     }
     return false;
@@ -102,6 +160,7 @@ export class AdjuntarArchivosComponent extends MatFormFieldControl<Archivo[]> im
             f.cargando = true;
             f.cargado = 0;
             this.stateChanges.next();
+            this.onChange(this.value);
           });
         }
         reader.onprogress = (x:ProgressEvent) => {
@@ -111,6 +170,7 @@ export class AdjuntarArchivosComponent extends MatFormFieldControl<Archivo[]> im
           this.zone.run(_ => {
             f.cargado = p;
             this.stateChanges.next();
+            this.onChange(this.value);
           });          
         }
         reader.onloadend = _=> {
@@ -121,16 +181,7 @@ export class AdjuntarArchivosComponent extends MatFormFieldControl<Archivo[]> im
             f.cargado = 100;
             f.contenido = b64;
             this.stateChanges.next();
-            
-            // chequeo a ver si se terminaron de cargar todos los archivos disparo el seleccionado.
-            let cargados : boolean = true;
-            this.value.forEach(f => {
-              cargados = cargados && f.contenido != null;
-            });
-            if (cargados) {
-              this.seleccionar();
-            }
-
+            this.onChange(this.value);
           });
         }
         console.log('leyendo archivo : ' + f.archivo.name);
@@ -141,9 +192,12 @@ export class AdjuntarArchivosComponent extends MatFormFieldControl<Archivo[]> im
 
   onFileChange(event) {
     if (event.target.files.length > 0) {
+      if (this.value == null) {
+        this.value = [];
+      }
       for (let i = 0; i < event.target.files.length; i++) {
         let f = event.target.files[i];
-        if (!this.chequear(f)) {
+        if (f != null && !this.chequear(f)) {
           let _v = this.value;
           _v.push({archivo:f, cargando:false, cargado: 0, contenido:null});
           this.value = _v;
@@ -151,27 +205,6 @@ export class AdjuntarArchivosComponent extends MatFormFieldControl<Archivo[]> im
       }
     }
     this.cargar_archivos();
-  }
-
-  deseleccionar(f:Archivo) {
-    for (let i = 0; i < this.value.length; i++) {
-      if (this.value[i].archivo.name == f.archivo.name) {
-        this.value.splice(i,1);
-      }
-    }
-  }
-
-  seleccionar() {
-    let evento = [];
-    this.value.forEach(f => {
-      evento.push({
-        nombre: f.archivo.name,
-        tamano: f.archivo.size,
-        tipo: f.archivo.type,
-        contenido: f.contenido
-      })
-    });
-    this.seleccionado.emit(evento);
   }
 
 }

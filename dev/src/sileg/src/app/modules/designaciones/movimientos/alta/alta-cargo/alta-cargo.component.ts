@@ -19,7 +19,8 @@ export class AltaCargoComponent implements OnInit {
     dedicacion: new FormControl(),
     caracter: new FormControl(),
     expediente: new FormControl(),
-    resolucion: new FormControl()
+    resolucion: new FormControl(),
+    archivos: new FormControl()
   });
 
   caracteres$: Observable<any>;
@@ -30,6 +31,7 @@ export class AltaCargoComponent implements OnInit {
   puntos$: Observable<any>;
   persona$: Observable<any>;
   lugar$: Observable<any>;
+  archivos$: Observable<any[]>;
 
   cambio$: BehaviorSubject<any>;
 
@@ -87,13 +89,22 @@ export class AltaCargoComponent implements OnInit {
       map(vs => vs[2])
     );
 
+    this.form.valueChanges.subscribe(v => {
+      console.log(v);
+    })
+
+    this.archivos$ = this.form.valueChanges.pipe(
+      map(controles => controles.archivos)
+    )
+
   }
 
   submit() {
+    console.log('se ha realizado el submit del form');
     let v = this.form.value;
     //this.cambio$.next(v.cargo);
     //this.navegar.volver();
-    this.crear();
+    //this.crear();
   }
 
   crear() {
@@ -123,23 +134,6 @@ export class AltaCargoComponent implements OnInit {
   nota_docente(archivo) {
     console.log(archivo);
     this.archivo_docente = archivo;
-  }
-
-  //////////////////////
-
-  archivos: Object[] = [];
-
-  notas(archivos) {
-    console.log(archivos);
-    this.archivos = archivos;
-  }
-
-  loguear_archivos() {
-    console.log(this.archivos);
-  }
-
-  deseleccionar_archivo(archivo) {
-    
   }
 
   ////////////////////
