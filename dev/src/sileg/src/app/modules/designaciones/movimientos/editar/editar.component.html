@@ -16,7 +16,7 @@
       </mat-card-header>
   </mat-card>
 
-  <form [formGroup]='form' (ngSubmit)='submit()' class="formulario" *ngIf="designacion$ | async; else nulo">
+  <form [formGroup]='form' (ngSubmit)='submit()' class="formulario" *ngIf="form_value$ | async; else nulo">
     <div formGroupName="cargo">
       <mat-form-field class="itemFormulario" appearance="outline">
           <mat-label>Cargo</mat-label>

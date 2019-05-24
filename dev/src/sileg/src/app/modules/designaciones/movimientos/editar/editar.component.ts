@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Observable, BehaviorSubject, of, forkJoin, timer } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { SilegService } from '../../../../shared/services/sileg.service';
-import { switchMap, map, tap, mergeMap } from 'rxjs/operators';
+import { switchMap, map, tap, mergeMap, startWith } from 'rxjs/operators';
 import { NavegarService } from '../../../../core/navegar.service';
 import { ErrorService } from '../../../../core/error/error.service';
 import { Cargo, Designacion } from '../../../../shared/entities/sileg';
@@ -40,6 +40,7 @@ export class EditarComponent implements OnInit {
   cambio$: BehaviorSubject<any>;
 
   designacion$: Observable<Designacion>;
+  form_value$: Observable<Designacion>;
 
   constructor(
     private route : ActivatedRoute,
@@ -50,6 +51,7 @@ export class EditarComponent implements OnInit {
   ) { }  
 
   ngOnInit() {
+    console.log("init");
     this.designacion$ = this.route.paramMap.pipe(
       switchMap( params => {
         if (params.has('mid')) {
@@ -58,28 +60,26 @@ export class EditarComponent implements OnInit {
         } else {
           return null;
         }
-      }),
-      tap( desig => {
-        console.log(desig);
-        this.form.patchValue(desig);
-        console.log(this.form);
       })
-    );
-
+    );    
     this.lugar$ = this.designacion$.pipe(
       map( d => {
         return d.lugar
       })
-    )
-
+    ); 
+    
     this.persona$ = this.designacion$.pipe(
       map( d => {
         return d.usuario
       })
-    ) 
+    );    
 
-
-    this.cambio$ = new BehaviorSubject<string>('');
+    this.form_value$ = this.designacion$.pipe(
+      tap( desig => {
+        console.log("after desig:" + desig);
+        this.form.patchValue(desig);
+      })
+    );   
 
     this.cargos$ = this.service.obtenerCargosDisponibles();
 
@@ -94,29 +94,7 @@ export class EditarComponent implements OnInit {
         return cs.filter((item, pos) => pos == cs.findIndex(obj => { return item.dedicacion == obj.dedicacion}))
       })
     )
-
     this.caracteres$ = this.service.obtenerCaracter();
-  
-    // this.datos$ = this.route.paramMap.pipe(
-    //   map(p => { return {
-    //       lugar: p.get("lid"),
-    //       persona: p.get('uid')
-    //     }
-    //   }),
-    //   switchMap(parametros => forkJoin(
-    //       this.service.obtenerLugar(parametros['lugar']),
-    //       this.service.obtenerPersona(parametros['persona']),
-    //       this.service.obtenerPuntosPersona(parametros['persona'])
-    //     )
-    //   )
-    // );    
-
-
-    // this.puntos$ = this.datos$.pipe(
-    //   tap(v => console.log(v)),
-    //   map(vs => vs[2])
-    // );
-
   }
 
   submit() {
