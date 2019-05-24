@@ -15,6 +15,7 @@ interface Archivo {
   https://material.angular.io/guide/creating-a-custom-form-field-control
   https://blog.angularindepth.com/never-again-be-confused-when-implementing-controlvalueaccessor-in-angular-forms-93b9eee9ee83
   https://github.com/maximusk/custom-form-control-that-implements-control-value-accessor-and-wraps-jquery-slider
+  https://alligator.io/angular/custom-form-control/
 */
 
 
