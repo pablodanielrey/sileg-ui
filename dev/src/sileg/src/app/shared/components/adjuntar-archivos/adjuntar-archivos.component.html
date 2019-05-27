@@ -5,7 +5,7 @@
   <mat-chip-list #chipListAdjuntarArchivos>
     <mat-chip *ngFor='let f of value' (removed)='deseleccionar(f)'>
       <div>
-        {{f.archivo.name}}
+        {{nombre_de_archivo(f)}}
         <mat-progress-bar *ngIf='f.cargando' mode='determinate' [value]='f.cargado'></mat-progress-bar>
       </div>
       <mat-icon matChipRemove>cancel</mat-icon>

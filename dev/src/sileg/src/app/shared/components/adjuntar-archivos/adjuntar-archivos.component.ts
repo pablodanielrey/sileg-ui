@@ -137,6 +137,14 @@ export class AdjuntarArchivosComponent extends MatFormFieldControl<Archivo[]> im
   ngOnInit() {
   }
 
+  nombre_de_archivo(f) {
+    if (f.archivo.name.length > 50) {
+      return f.archivo.name.substr(0,50) + '...';
+    } else {
+      return f.archivo.name;
+    }
+    
+  }
 
   chequear(f:File) {
     for (let o = 0; o < this.value.length; o++) {

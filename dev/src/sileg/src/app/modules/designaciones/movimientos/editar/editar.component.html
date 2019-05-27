@@ -44,7 +44,12 @@
             </mat-option>
         </mat-select>    
     </mat-form-field>
-                          
+
+    <mat-form-field class="itemFormulario" appearance="outline">
+        <mat-label>Archivos</mat-label>
+        <adjuntar-archivos placeholder='click para subir archivos...' formControlName='archivos'></adjuntar-archivos>
+    </mat-form-field>
+
   </form>
   <ng-template #nulo>No se encontro la designación</ng-template>
 </div>
