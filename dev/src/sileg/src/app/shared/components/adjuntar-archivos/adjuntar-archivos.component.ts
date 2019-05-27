@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, NgZone, Input, OnDestroy, HostBinding, Optional, Self } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, NgZone, Input, OnDestroy, HostBinding, Optional, Self, ViewChild, ElementRef, Renderer } from '@angular/core';
 import { MatFormFieldControl } from '@angular/material';
 import { getQueryValue } from '@angular/core/src/view/query';
 import { Subject } from 'rxjs';
@@ -82,7 +82,7 @@ export class AdjuntarArchivosComponent extends MatFormFieldControl<Archivo[]> im
   
   @HostBinding('class.floating')
   get shouldLabelFloat() {
-    return !this.empty;
+    return true;
   }
 
   @Input()
@@ -105,8 +105,11 @@ export class AdjuntarArchivosComponent extends MatFormFieldControl<Archivo[]> im
     this.describedBy = ids.join(' ');
   }
   
+  @ViewChild('fileInput') fileInputRef: ElementRef;
   onContainerClick(event: MouseEvent): void {
-    // por ahora lo ignoro
+    //let event = new MouseEvent('click', {bubbles:true});
+    //this.renderer.invokeElementMethod(this.fileInputRef.nativeElement, 'dispatchEvent', [event]);
+    this.fileInputRef.nativeElement.click();
   }
 
   ngOnDestroy() {
@@ -123,7 +126,7 @@ export class AdjuntarArchivosComponent extends MatFormFieldControl<Archivo[]> im
   seleccionado: EventEmitter<Object[]> = new EventEmitter<Object[]>();
   */
 
-  constructor(private zone: NgZone, 
+  constructor(private zone: NgZone, private renderer: Renderer,
               @Optional() @Self() public ngControl: NgControl) { 
     super();
     if (this.ngControl != null) {
@@ -149,6 +152,15 @@ export class AdjuntarArchivosComponent extends MatFormFieldControl<Archivo[]> im
   private computar_porcentaje(actual: number, total: number):number {
     return (actual * 100 / total);
   }  
+
+  deseleccionar(archivo) {
+    for (let i = 0; i < this.value.length; i++) {
+      if (this.value[i].archivo.name == archivo.archivo.name) {
+        this.value.splice(i,1);
+        this.stateChanges.next();
+      }
+    }
+  }
 
   cargar_archivos() {
     this.value.forEach(f => {
