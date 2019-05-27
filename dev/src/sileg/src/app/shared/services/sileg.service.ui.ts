@@ -954,6 +954,16 @@ export class SilegService {
     let dd = this.obtenerDatosDesignacion(mid);    
     dd.estado.estado = 'Prestación Verificada';
     return of(true);
+  }
+
+  modificarMovimiento(id: string, cargo: Cargo, caracter: Caracter) {
+    let d = this.designaciones.find( d => d.id == id);
+    let c = this.tipos_cargos.find( c => c.nombre == cargo.nombre && c.dedicacion == cargo.dedicacion); 
+    d.cargo = c;
+    d.cargo_id = c.id;
+    d.caracter = caracter;
+    d.caracter_id = caracter.id;
+    return of(id);
   }  
 
 }

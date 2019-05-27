@@ -16,7 +16,7 @@
       </mat-card-header>
   </mat-card>
 
-  <form [formGroup]='form' (ngSubmit)='submit()' class="formulario" *ngIf="form_value$ | async; else nulo">
+  <form [formGroup]='form' (ngSubmit)="onSubmit()" id="edit-form" class="formulario" *ngIf="form_value$ | async; else nulo">
     <div formGroupName="cargo">
       <mat-form-field class="itemFormulario" appearance="outline">
           <mat-label>Cargo</mat-label>
@@ -50,7 +50,7 @@
 </div>
 
 <div class="contenedorAcciones"> 
-  <button type="submit" [disabled]="!form.valid" mat-flat-button color="primary" class="btnGuardar">GUARDAR</button>
+  <button type="submit" form="edit-form" [disabled]="!form.valid" mat-flat-button color="primary" class="btnGuardar">GUARDAR</button>
 </div>
 
 </div>

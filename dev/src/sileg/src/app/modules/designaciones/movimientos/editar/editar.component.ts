@@ -3,7 +3,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { Observable, BehaviorSubject, of, forkJoin, timer } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { SilegService } from '../../../../shared/services/sileg.service';
-import { switchMap, map, tap, mergeMap, startWith } from 'rxjs/operators';
+import { switchMap, map, tap, mergeMap, startWith, filter, combineLatest } from 'rxjs/operators';
 import { NavegarService } from '../../../../core/navegar.service';
 import { ErrorService } from '../../../../core/error/error.service';
 import { Cargo, Designacion } from '../../../../shared/entities/sileg';
@@ -18,11 +18,8 @@ export class EditarComponent implements OnInit {
   form = this.fb.group({
     id: [''],
     cargo: this.fb.group({
-      id: [''],
       nombre: ['', Validators.required],
-      dedicacion: ['', Validators.required],
-      tipo: ['', Validators.required],
-      codigo: ['']
+      dedicacion: ['', Validators.required]
     }),
     caracter: ['', Validators.required]
   });
@@ -76,7 +73,6 @@ export class EditarComponent implements OnInit {
 
     this.form_value$ = this.designacion$.pipe(
       tap( desig => {
-        console.log("after desig:" + desig);
         this.form.patchValue(desig);
       })
     );   
@@ -89,17 +85,28 @@ export class EditarComponent implements OnInit {
       })
     );
 
-    this.dedicaciones$ = this.cargos$.pipe(
-      map (cs => {
-        return cs.filter((item, pos) => pos == cs.findIndex(obj => { return item.dedicacion == obj.dedicacion}))
+    let cargo_cg: FormGroup = this.form.get('cargo') as FormGroup;
+    this.dedicaciones$ = cargo_cg.get('nombre').valueChanges.pipe(
+      startWith(''),
+      switchMap( nombre =>  {
+        return this.cargos$.map(cs =>  {
+          return cs.filter((item, pos) => pos == cs.findIndex(obj => { return item.dedicacion == obj.dedicacion && (obj.nombre == nombre || nombre == '')}))          
+        })
       })
-    )
+    )  
+
     this.caracteres$ = this.service.obtenerCaracter();
   }
 
-  submit() {
+  onSubmit() {
     let v = this.form.value;
-    this.cambio$.next(v.cargo);
+    this.designacion$.pipe(
+      switchMap (d => {
+        return this.service.modificarMovimiento(d.id, v.cargo, v.caracter)
+      })
+    ).subscribe( r => 
+      console.log(r)
+    )
   }
 
   crear() {

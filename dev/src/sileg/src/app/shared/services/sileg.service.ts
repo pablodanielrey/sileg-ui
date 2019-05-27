@@ -92,4 +92,8 @@ export class SilegService {
   verificarPrestacion(mid: string): Observable<boolean> {
     return null;
   }
+
+  modificarMovimiento(id: string, cargo: Cargo, caracter: Caracter) {
+    return null;
+  }
 }
