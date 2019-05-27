@@ -163,3 +163,7 @@ const routes: Routes = [
   ]
 })
 export class CoreModule { }
+
+
+//https://medium.com/@bo.vandersteene/angular-track-is-your-app-in-mobile-tablet-or-desktop-view-c8fb4d7d1c2f
+

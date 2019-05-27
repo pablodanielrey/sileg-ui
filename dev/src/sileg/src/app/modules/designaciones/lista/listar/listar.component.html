@@ -208,8 +208,8 @@
                         </mat-footer-cell>
                     </ng-container>
                 
-                    <mat-header-row *matHeaderRowDef="columnasDesktop"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: columnasDesktop;"></mat-row>   
+                    <mat-header-row *matHeaderRowDef="columnas()"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: columnas();"></mat-row>   
                     <mat-footer-row mat-footer-row *matFooterRowDef="['footer']" class="example-second-footer-row"></mat-footer-row>
                 </mat-table>
 

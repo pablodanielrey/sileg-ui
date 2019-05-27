@@ -21,7 +21,7 @@ import { VerificarPrestacionComponent } from '../../movimientos/verificar-presta
 })
 export class ListarComponent implements OnInit {
   columnasDesktop : string[] = ['usuario', 'cargo', 'dedicacion', 'caracter', 'fecha', 'nota', 'resolucion', 'expediente', 'expedienteU', 'estado', 'acciones'];
-  columnasCelular : string[] = ['usuario', 'codigo', 'fecha', 'estado', 'acciones'];
+  columnasCelular : string[] = ['usuario', 'codigo', 'fecha', 'estado', 'resolucion', 'expediente', 'acciones'];
   lugares$: Observable<any[]>;
   referencias_visibles: boolean = false;
 
@@ -56,6 +56,14 @@ export class ListarComponent implements OnInit {
         return a
       })
     );
+  }
+
+  columnas() {
+    if (typeof window.ontouchstart !== 'undefined') {
+      return this.columnasCelular;
+    } else {
+      return this.columnasDesktop;
+    }
   }
 
   estado_tipo(desig) {

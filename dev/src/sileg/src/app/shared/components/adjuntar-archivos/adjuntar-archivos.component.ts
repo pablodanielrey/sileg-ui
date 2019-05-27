@@ -138,8 +138,9 @@ export class AdjuntarArchivosComponent extends MatFormFieldControl<Archivo[]> im
   }
 
   nombre_de_archivo(f) {
-    if (f.archivo.name.length > 50) {
-      return f.archivo.name.substr(0,50) + '...';
+    let longitud = 40;
+    if (f.archivo.name.length > longitud) {
+      return f.archivo.name.substr(0,longitud) + '...';
     } else {
       return f.archivo.name;
     }
