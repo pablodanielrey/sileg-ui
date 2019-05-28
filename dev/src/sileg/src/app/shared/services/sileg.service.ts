@@ -93,7 +93,7 @@ export class SilegService {
     return null;
   }
 
-  modificarMovimiento(id: string, cargo: Cargo, caracter: Caracter) {
+  modificarMovimiento(id: string, cargo: Cargo, caracter: Caracter): Observable<string> {
     return null;
   }
 }

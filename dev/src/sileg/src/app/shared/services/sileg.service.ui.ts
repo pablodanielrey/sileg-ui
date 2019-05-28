@@ -19,7 +19,10 @@ const USUARIO_API_URL = environment.usuarioApiUrl;
 
 interface EstadoI {
   tipo: string,
-  estado: string
+  estado: string,
+  final: boolean,
+  codigo: string,
+  estilo: string
 }
 
 
@@ -32,14 +35,18 @@ export class SilegService {
   designaciones: Array<Designacion> = [];
 
   tipos_estado: Array<EstadoI> = [
-    {tipo:'Alta', estado:'Pendiente'}, 
-    {tipo:'Alta', estado:'Aprobada'}, 
-    {tipo:'Alta', estado:'Enviada a UNLP'},
-    {tipo:'Baja', estado:'Pendiente'},
-    {tipo:'Baja', estado:'Aprobada'},
-    {tipo:'Baja', estado:'Enviada a UNLP'},
-    {tipo:'Activa', estado:''}, 
-    {tipo:'Baja', estado:''}
+    {tipo:'Alta', estado:'Pendiente', final:false, codigo:'', estilo:''}, 
+    {tipo:'Alta', estado:'Aprobada', final:false, codigo:'', estilo:''}, 
+    {tipo:'Alta', estado:'Enviada a UNLP', final:false, codigo:'', estilo:''},
+    {tipo:'Alta', estado:'Denegada', final:false, codigo:'', estilo:''},
+    {tipo:'Alta', estado:'Cancelada', final:false, codigo:'', estilo:''},
+    {tipo:'Baja', estado:'Pendiente', final:false, codigo:'', estilo:''},
+    {tipo:'Baja', estado:'Aprobada', final:false, codigo:'', estilo:''},
+    {tipo:'Baja', estado:'Enviada a UNLP', final:false, codigo:'', estilo:''},
+    {tipo:'Baja', estado:'Cancelada', final:false, codigo:'', estilo:''},
+    {tipo:'Baja', estado:'Denegada', final:false, codigo:'', estilo:''},
+    {tipo:'Alta', estado:'', final:true, codigo:'', estilo:''}, 
+    {tipo:'Baja', estado:'', final:true, codigo:'', estilo:''}
   ];
 
   /*
@@ -755,12 +762,17 @@ export class SilegService {
   private cant_desig_lug = {};
   private obtener_catedra(): Lugar {    
     let l = this.catedras[Math.floor(Math.random() * this.catedras.length)];
-    if (!(l.id in this.cant_desig_lug) || this.cant_desig_lug[l.id] < 20) {
+    if (!(l.id in this.cant_desig_lug) || this.cant_desig_lug[l.id] < this._obtener_max()) {
       this.cant_desig_lug[l.id] = (l.id in this.cant_desig_lug) ? this.cant_desig_lug[l.id] + 1 : 1;
       return l;
     } else {
       return this.obtener_catedra();
     }
+  }
+
+  private _obtener_max() {
+    let cant = this.tipos_cargos.length * this.tipos_caracter.length * this.tipos_estado.length;
+    return cant / this.catedras.length
   }
 
   private generar_tipo_designacion() {

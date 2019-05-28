@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { Observable, BehaviorSubject, of, forkJoin, timer } from 'rxjs';
+import { Observable, BehaviorSubject, of, forkJoin, timer, Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { SilegService } from '../../../../shared/services/sileg.service';
 import { switchMap, map, tap, mergeMap, startWith, filter, combineLatest } from 'rxjs/operators';
@@ -21,7 +21,8 @@ export class EditarComponent implements OnInit {
       nombre: ['', Validators.required],
       dedicacion: ['', Validators.required]
     }),
-    caracter: ['', Validators.required]
+    caracter: ['', Validators.required],
+    archivos: ['']
   });
 
   caracteres$: Observable<any>;
@@ -33,8 +34,6 @@ export class EditarComponent implements OnInit {
   puntos$: Observable<any>;
   persona$: Observable<any>;
   lugar$: Observable<any>;
-
-  cambio$: BehaviorSubject<any>;
 
   designacion$: Observable<Designacion>;
   form_value$: Observable<Designacion>;
@@ -104,23 +103,9 @@ export class EditarComponent implements OnInit {
       switchMap (d => {
         return this.service.modificarMovimiento(d.id, v.cargo, v.caracter)
       })
-    ).subscribe( r => 
-      console.log(r)
-    )
-  }
-
-  crear() {
-    console.log(this.form.value);
-    // se genera el cargo
-
-    // navegamos al final del proceso
-    let ruta = JSON.parse(sessionStorage.getItem('finalizar_proceso'));
-    let s = timer(2000).pipe(
-      tap(_ => {this.mostrar_error('se ha creado existósamente el alta')}),
-      switchMap(_ => this.navegar.navegar(ruta))
-      ).subscribe(_ => {
-        s.unsubscribe();
-    });
+    ).subscribe( r => {
+      this.volver();   
+    }).unsubscribe();
   }
 
   mostrar_error(e) {
