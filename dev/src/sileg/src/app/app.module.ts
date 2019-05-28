@@ -48,6 +48,8 @@ import { MatDialogModule } from '@angular/material';
 import { EnviarUnlpComponent } from './modules/designaciones/movimientos/enviar-unlp/enviar-unlp.component';
 import { VerificarPrestacionComponent } from './modules/designaciones/movimientos/verificar-prestacion/verificar-prestacion.component';
 import { AdjuntarExpedienteComponent } from './modules/designaciones/movimientos/adjuntar-expediente/adjuntar-expediente.component';
+import { FiltrosComponent } from './modules/designaciones/lista/filtros/filtros.component';
+import { DescargarArchivosComponent } from './modules/designaciones/movimientos/descargar-archivos/descargar-archivos.component';
 
 
 @NgModule({
@@ -79,7 +81,9 @@ import { AdjuntarExpedienteComponent } from './modules/designaciones/movimientos
     ReferenciasComponent,
     EnviarUnlpComponent,
     VerificarPrestacionComponent,
-    AdjuntarExpedienteComponent
+    AdjuntarExpedienteComponent,
+    FiltrosComponent,
+    DescargarArchivosComponent
   ],
   entryComponents: [
     DenegarComponent,
@@ -87,7 +91,9 @@ import { AdjuntarExpedienteComponent } from './modules/designaciones/movimientos
     CancelarComponent,
     BajaComponent,
     EnviarUnlpComponent,
-    VerificarPrestacionComponent
+    VerificarPrestacionComponent,
+    DescargarArchivosComponent,
+    FiltrosComponent
   ],
   imports: [
     BrowserModule,

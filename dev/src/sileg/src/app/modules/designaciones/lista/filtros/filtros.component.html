@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Filtros</h1>
+<mat-dialog-content>
+  <p>Archivos</p>
+  <div>
+    <label>Mostrar pendientes</label>
+    <input type="checkbox">
+  </div>
+  <div>
+    <label>Mostrar actuales</label>
+    <input type="checkbox">
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-flat-button color="primary" (click)="filtrar()" cdkFocusInitial>ACEPTAR</button>
+  <button mat-button [mat-dialog-close]="data">Cerrar</button>
+</mat-dialog-actions>

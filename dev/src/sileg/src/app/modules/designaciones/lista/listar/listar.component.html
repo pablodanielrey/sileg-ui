@@ -4,6 +4,9 @@
         <span>&nbsp; Designaciones > Listado</span>
     </div>
     <div>
+        <button mat-icon-button color="primary" (click)='filtrar()'>
+            <mat-icon matTooltip="Filtros">filter_list</mat-icon>
+        </button>
         <button mat-icon-button color="primary" (click)='referencias_visibles = true'>
             <mat-icon matTooltip="Referencias">help_outline</mat-icon>
         </button>
@@ -62,7 +65,7 @@
     
                     <ng-container matColumnDef="nota">
                         <mat-header-cell *matHeaderCellDef> Nota </mat-header-cell>
-                        <mat-cell *matCellDef="let desig">  <button mat-icon-button><mat-icon >save_alt</mat-icon></button></mat-cell>
+                        <mat-cell *matCellDef="let desig">  <button mat-icon-button (click)='descargar_archivos(desig.designacion)'><mat-icon >save_alt</mat-icon></button></mat-cell>
                     </ng-container>
     
                     <ng-container matColumnDef="resolucion">

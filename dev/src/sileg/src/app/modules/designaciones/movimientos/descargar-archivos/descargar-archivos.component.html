@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Descargar archivos</h1>
+<mat-dialog-content>
+  <p>Archivos</p>
+  <ul>
+    <li>Archivo 1</li>
+    <li>Archivo 2</li>
+    <li>Archivo 3</li>
+  </ul>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-flat-button color="primary" (click)="descargar_archivos()" cdkFocusInitial>DESCARGAR TODOS LOS ARCHIVOS</button>
+  <button mat-button [mat-dialog-close]="data">Cerrar</button>
+</mat-dialog-actions>
