@@ -15,7 +15,6 @@
   .contenedorDialogo {
     display: flex;
     flex-direction: column;
-    align-items: center;
     max-width: 350px;
     min-width: 350px;
    }
@@ -44,14 +43,7 @@
 
    }
    
-   .contenedorTyE {
-     width: 100%;
-     display: flex;
-     flex-direction: row;
-     justify-content: space-between;
-   }
-
-
+ 
    .estados {
     display: flex;
     align-items: center;
@@ -82,7 +74,7 @@
 }
 
 .textItem {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 // Tipo de designacion
@@ -90,11 +82,11 @@ $colorAlta: #2196f3;
 $colorBaja: #5C7A95;
 $colorCambioCargo: #ECB057;
 $colorProrroga: #A4009D;
-$colorActiva: #e0e0e0;;
+$colorActiva: #51B24A;
 // Estado de designacion
 $colorPendiente: #E22748;
-$colorAprobado: #2196f3;
-$colorUNLP: #96ba3a;
+$colorAprobado: #96ba3a;
+$colorUNLP: #2c9684;
  
 
 .a {
