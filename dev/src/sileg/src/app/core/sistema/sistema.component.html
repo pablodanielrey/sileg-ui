@@ -68,7 +68,7 @@
             </mat-expansion-panel>
         -->
         <button mat-button *ngIf='!tiene_submenu(menu)' class="btnMenu" (click)='navegar_hacia(menu.item); cerrar_menu(drawer)'>
-            <mat-icon class="iconoMenu">{{menu.item.icono}}</mat-icon>{{menu.item.item}}
+            <mat-icon class="iconoMenu" color="primary">{{menu.item.icono}}</mat-icon>{{menu.item.item}}
         </button>
         </div>
 
