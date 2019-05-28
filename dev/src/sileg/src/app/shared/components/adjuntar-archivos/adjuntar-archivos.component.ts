@@ -1,6 +1,6 @@
-import { Component, OnInit, Output, EventEmitter, NgZone, Input, OnDestroy, HostBinding, Optional, Self, ViewChild, ElementRef, Renderer } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, NgZone, Input, OnDestroy, HostBinding, Optional, Self, ViewChild, ElementRef, Renderer, DoCheck } from '@angular/core';
 import { MatFormFieldControl } from '@angular/material';
-import { getQueryValue } from '@angular/core/src/view/query';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs';
 import { NgControl, ControlValueAccessor } from '@angular/forms';
 
@@ -26,7 +26,7 @@ interface Archivo {
   styleUrls: ['./adjuntar-archivos.component.scss'],
   providers: [{provide: MatFormFieldControl, useExisting: AdjuntarArchivosComponent}]
 })
-export class AdjuntarArchivosComponent extends MatFormFieldControl<Archivo[]> implements ControlValueAccessor, OnInit, OnDestroy  {
+export class AdjuntarArchivosComponent implements ControlValueAccessor, MatFormFieldControl<Archivo[]>, OnInit, OnDestroy, DoCheck  {
 
   ///////////// ControlValueAccessor ///////////////
 
@@ -91,16 +91,22 @@ export class AdjuntarArchivosComponent extends MatFormFieldControl<Archivo[]> im
     return this._required;
   }
   set required(req) {
-    this._required = req;
+    this._required = coerceBooleanProperty(req);
     this.stateChanges.next();
   }
   private _required = false; 
 
   disabled: boolean = false;
-  errorState: boolean;
   controlType?: string = 'adjuntar-archivos';
   autofilled?: boolean;
   
+  errorState: boolean = false;
+  ngDoCheck(): void {
+    if (this.ngControl) {
+      this.errorState = this.ngControl.invalid && this.ngControl.touched;
+    }
+  }
+
   @HostBinding('attr.aria-describedby') describedBy = '';
   setDescribedByIds(ids: string[]): void {
     this.describedBy = ids.join(' ');
@@ -129,7 +135,6 @@ export class AdjuntarArchivosComponent extends MatFormFieldControl<Archivo[]> im
 
   constructor(private zone: NgZone, private renderer: Renderer,
               @Optional() @Self() public ngControl: NgControl) { 
-    super();
     if (this.ngControl != null) {
       this.ngControl.valueAccessor = this;
     } 
@@ -179,33 +184,33 @@ export class AdjuntarArchivosComponent extends MatFormFieldControl<Archivo[]> im
         let reader = new FileReader();
         reader.onloadstart = _ => {
           console.log('on-load');
-          this.zone.run(_ => {
+          //this.zone.run(_ => {
             f.cargando = true;
             f.cargado = 0;
-            this.stateChanges.next();
             this.onChange(this.value);
-          });
+            this.stateChanges.next();
+          //});
         }
         reader.onprogress = (x:ProgressEvent) => {
           console.log(x);
           let p = this.computar_porcentaje(x.loaded, x.total);
           console.log(p);
-          this.zone.run(_ => {
+          //this.zone.run(_ => {
             f.cargado = p;
-            this.stateChanges.next();
             this.onChange(this.value);
-          });          
+            this.stateChanges.next();
+          //});          
         }
         reader.onloadend = _=> {
           console.log('onloadend');
           let b64 = window.btoa(<string>reader.result);
-          this.zone.run(_ => {
+          //this.zone.run(_ => {
             f.cargando = false;
             f.cargado = 100;
             f.contenido = b64;
-            this.stateChanges.next();
             this.onChange(this.value);
-          });
+            this.stateChanges.next();
+          //});
         }
         console.log('leyendo archivo : ' + f.archivo.name);
         reader.readAsBinaryString(f.archivo);
