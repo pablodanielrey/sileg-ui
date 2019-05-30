@@ -35,18 +35,18 @@ export class SilegService {
   designaciones: Array<Designacion> = [];
 
   tipos_estado: Array<EstadoI> = [
-    {tipo:'Alta', estado:'Pendiente', final:false, codigo:'', estilo:''}, 
-    {tipo:'Alta', estado:'Aprobada', final:false, codigo:'', estilo:''}, 
-    {tipo:'Alta', estado:'Enviada a UNLP', final:false, codigo:'', estilo:''},
-    {tipo:'Alta', estado:'Denegada', final:false, codigo:'', estilo:''},
-    {tipo:'Alta', estado:'Cancelada', final:false, codigo:'', estilo:''},
-    {tipo:'Baja', estado:'Pendiente', final:false, codigo:'', estilo:''},
-    {tipo:'Baja', estado:'Aprobada', final:false, codigo:'', estilo:''},
-    {tipo:'Baja', estado:'Enviada a UNLP', final:false, codigo:'', estilo:''},
-    {tipo:'Baja', estado:'Cancelada', final:false, codigo:'', estilo:''},
-    {tipo:'Baja', estado:'Denegada', final:false, codigo:'', estilo:''},
-    {tipo:'Alta', estado:'', final:true, codigo:'', estilo:''}, 
-    {tipo:'Baja', estado:'', final:true, codigo:'', estilo:''}
+    {tipo:'Alta', estado:'Pendiente', final:false, codigo:'P', estilo:'altaPendiente'}, 
+    {tipo:'Alta', estado:'Aprobada', final:false, codigo:'A', estilo:'altaAprobada'}, 
+    {tipo:'Alta', estado:'Enviada a UNLP', final:false, codigo:'U', estilo:'altaUNLP'},
+    {tipo:'Alta', estado:'Denegada', final:false, codigo:'D', estilo:'altaDenegada'},
+    {tipo:'Alta', estado:'Cancelada', final:false, codigo:'C', estilo:'altaCancelada'},
+    {tipo:'Baja', estado:'Pendiente', final:false, codigo:'P', estilo:'bajaPendiente'},
+    {tipo:'Baja', estado:'Aprobada', final:false, codigo:'A', estilo:'bajaAprobada'},
+    {tipo:'Baja', estado:'Enviada a UNLP', final:false, codigo:'E', estilo:'bajaUNLP'},
+    {tipo:'Baja', estado:'Cancelada', final:false, codigo:'C', estilo:'bajaCancelada'},
+    {tipo:'Baja', estado:'Denegada', final:false, codigo:'D', estilo:'bajaDenegada'},
+    {tipo:'Alta', estado:'', final:true, codigo:'Alta', estilo:'altaActiva'}, 
+    {tipo:'Baja', estado:'', final:true, codigo:'Baja', estilo:'bajaActiva'}
   ];
 
   /*
@@ -805,7 +805,7 @@ export class SilegService {
           this.datos_designacion.push(new DatosDesignacion({
             usuario: u,
             designacion: d,
-            estado: new Estado({tipo:estado.tipo, estado:estado.estado})
+            estado: new Estado({tipo:estado.tipo, estado:estado.estado, final:estado.final, codigo:estado.codigo, estilo:estado.estilo})
           }));
 
         })

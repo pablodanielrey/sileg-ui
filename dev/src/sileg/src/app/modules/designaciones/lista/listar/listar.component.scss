@@ -7,6 +7,7 @@ $colorCambioCargo: #ECB057;
 $colorProrroga: #A4009D;
 $colorActiva: #51B24A;
 // Estado de designacion
+$colorEstado: gray;
 $colorPendiente: #E22748;
 $colorAprobado: #96ba3a;
 $colorUNLP: #2c9684;
@@ -138,6 +139,36 @@ $colorUNLP: #2c9684;
     margin-left: -15px;
     margin-top: -5px;
 }
+
+
+.estado {
+  background-color:$colorEstado;
+}
+
+.estado.bajaPendiente {
+  background-color:$colorPendiente;
+}
+
+.tipo.bajaPendiente {
+  background-color:$colorBaja;
+}
+
+.tipo.altaPendiente {
+  background-color: $colorAlta;
+}
+
+.estado.altaPendiente {
+  background-color: $colorPendiente;
+}
+
+.tipo.altaActiva {
+  background-color:$colorActiva;
+}
+
+.tipo.bajaActiva {
+  background-color:$colorBaja;
+}
+
 
 
 .Alta.tipo {

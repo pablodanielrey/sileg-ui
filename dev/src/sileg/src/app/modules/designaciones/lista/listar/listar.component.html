@@ -87,20 +87,10 @@
                         <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
                         <mat-cell *matCellDef="let desig">
 
-                            <div class="bloqueEstados" *ngIf="desig.estado.nombre != 'Activa' && desig.estado.nombre != 'Baja'">
-                                <div class="estados tipo {{clase_estado_tipo(desig)}}">{{estado_tipo(desig)}}</div>
-                                <div class="estados2 estado {{clase_estado_estado(desig)}}">{{estado_estado(desig)}}</div>
+                            <div class="bloqueEstados">
+                                <div class="estados tipo {{desig.estado.estilo}}">{{desig.estado.tipo}}</div>
+                                <div *ngIf="!desig.estado.final" class="estados2 estado {{desig.estado.estilo}}">{{desig.estado.codigo}}</div>
                             </div>
-                            <!-- <div *ngIf="desig.estado.nombre == 'Activa'">
-                                <mat-chip-list >
-                                    <mat-chip>Activa</mat-chip>
-                                </mat-chip-list>
-                            </div>
-                            <div *ngIf="desig.estado.nombre == 'Baja'">
-                                <mat-chip-list >
-                                    <mat-chip >Baja</mat-chip>
-                                </mat-chip-list>
-                            </div> -->
 
                         </mat-cell>
                     </ng-container>
