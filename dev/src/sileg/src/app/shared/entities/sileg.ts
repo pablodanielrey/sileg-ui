@@ -41,10 +41,10 @@ export class Estado {
   fecha: Date;
   tipo: string;
   estado: string;
-  autorizador_id: string;
-  final: boolean; 
+  final: boolean;
   codigo: string;
-  estilo: string; 
+  estilo: string;
+  autorizador_id: string;
 
   constructor(o:Object) {
     try {

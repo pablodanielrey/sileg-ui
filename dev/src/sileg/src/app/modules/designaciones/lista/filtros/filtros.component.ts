@@ -15,6 +15,9 @@ interface FiltroParam {
   styleUrls: ['./filtros.component.scss']
 })
 
+
+
+
 export class FiltrosComponent {
 
   constructor(private service: SilegService,
@@ -34,5 +37,7 @@ export class FiltrosComponent {
      })    
     this.dialogRef.close("");
   }
+
+  
 
 }
