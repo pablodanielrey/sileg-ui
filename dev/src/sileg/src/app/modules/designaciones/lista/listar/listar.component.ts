@@ -44,17 +44,18 @@ export class ListarComponent implements OnInit {
       (params: any, queryParams: any) => {
         return {
           lid: params.has('mid') ? params.get('mid') : null,
-          actuales: queryParams.has('actuales') ? queryParams.get('actuales'): true,
-          pendientes: queryParams.has('pendientes') ? queryParams.get('pendientes'): true,
+          actuales: queryParams.has('actuales') ? JSON.parse(queryParams.get('actuales')): true,
+          pendientes: queryParams.has('pendientes') ? JSON.parse(queryParams.get('pendientes')): true,
         }
       })
 
 
     this.lugares$ = params.pipe(
-      switchMap(p => {           
+      switchMap(p => {     
+        console.log(p);      
         if (p.lid) {
           this.lid = p.lid;
-          return this.service.desginacionesPendientes([this.lid]);
+          return this.service.obtenerDesignaciones([this.lid], p.pendientes, p.actuales);
         } else {
           return [];
         }

@@ -6,7 +6,7 @@ import { Http } from '@angular/http'
 
 
 import { Observable, of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, switchMap } from 'rxjs/operators';
 import 'rxjs/Rx';
 
 import { Mail, Usuario, ResetClave } from '../entities/usuario';
@@ -805,7 +805,7 @@ export class SilegService {
           this.datos_designacion.push(new DatosDesignacion({
             usuario: u,
             designacion: d,
-            estado: new Estado({tipo:estado.tipo, estado:estado.estado, final:estado.final, codigo:estado.codigo, estilo:estado.estilo})
+            estado: estado
           }));
 
         })
@@ -844,9 +844,28 @@ export class SilegService {
     return sublugares;
   }
 
-  desginacionesPendientes(lids: string[]): Observable<DatosLugarDesignacion[]> {
+  designacionesPendientes(lids: string[]): Observable<DatosLugarDesignacion[]> {
     let ids = this._sublugares(lids);
     return of(this.datos_lugar_designacion.filter( dl => ids.includes(dl.lugar.id)));
+  }
+
+
+
+  obtenerDesignaciones(lids: string[], pendientes: boolean, actuales: boolean): Observable<DatosLugarDesignacion[]> {
+    return this.designacionesPendientes(lids).pipe(
+      map( dl => {
+        dl.forEach( d => {
+          d.designaciones = d.designaciones.filter( (dd: DatosDesignacion) => {
+            if (pendientes && actuales) {
+              return true
+            } else {
+              return actuales ? dd.estado.final : !dd.estado.final;
+            }             
+          })
+        })
+        return dl
+      })
+    );
   }
 
   obtenerDesignacion(id: string): Observable<Designacion> {    
