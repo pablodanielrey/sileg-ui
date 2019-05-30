@@ -42,7 +42,7 @@ export class SilegService {
     {tipo:'Alta', estado:'Cancelada', final:false, codigo:'C', estilo:'altaCancelada'},
     {tipo:'Baja', estado:'Pendiente', final:false, codigo:'P', estilo:'bajaPendiente'},
     {tipo:'Baja', estado:'Aprobada', final:false, codigo:'A', estilo:'bajaAprobada'},
-    {tipo:'Baja', estado:'Enviada a UNLP', final:false, codigo:'E', estilo:'bajaUNLP'},
+    {tipo:'Baja', estado:'Enviada a UNLP', final:false, codigo:'U', estilo:'bajaUNLP'},
     {tipo:'Baja', estado:'Cancelada', final:false, codigo:'C', estilo:'bajaCancelada'},
     {tipo:'Baja', estado:'Denegada', final:false, codigo:'D', estilo:'bajaDenegada'},
     {tipo:'Alta', estado:'', final:true, codigo:'Alta', estilo:'altaActiva'}, 

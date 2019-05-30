@@ -88,8 +88,12 @@
                         <mat-cell *matCellDef="let desig">
 
                             <div class="bloqueEstados">
-                                <div class="estados tipo {{desig.estado.estilo}}">{{desig.estado.tipo}}</div>
-                                <div *ngIf="!desig.estado.final" class="estados2 estado {{desig.estado.estilo}}">{{desig.estado.codigo}}</div>
+                                <div class="tipo {{desig.estado.estilo}}" 
+                                     matTooltip="{{desig.estado.tipo}} {{desig.estado.estado}}"
+                                     matTooltipPosition="before">
+                                    {{desig.estado.tipo}}
+                                </div>
+                                <div *ngIf="!desig.estado.final" class="estado {{desig.estado.estilo}}">{{desig.estado.codigo}}</div>
                             </div>
 
                         </mat-cell>

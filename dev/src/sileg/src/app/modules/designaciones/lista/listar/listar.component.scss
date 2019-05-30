@@ -7,11 +7,14 @@ $colorCambioCargo: #ECB057;
 $colorProrroga: #A4009D;
 $colorActiva: #51B24A;
 // Estado de designacion
-$colorEstado: gray;
 $colorPendiente: #E22748;
 $colorAprobado: #96ba3a;
 $colorUNLP: #2c9684;
+$colorDenegado: #9A00B1;
+$colorCancelado: #6C24B8;
 
+$sinColorTipo:#3B4248;
+$sinColorEstado:#637b89;
 
 
   
@@ -75,12 +78,6 @@ $colorUNLP: #2c9684;
     }
 }
 
-
-
-
-
-
-
   
   th.mat-column-position, td.mat-column-position {
     padding-left: 8px;
@@ -96,17 +93,11 @@ $colorUNLP: #2c9684;
 
 
 
-
-
-
-
-
-
 .bloqueEstados {
     display: flex;
 }
 
-.estados {
+.tipo {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -120,9 +111,10 @@ $colorUNLP: #2c9684;
     margin-right: 5px;
     color: white;
     padding: 5px 20px 5px 20px;
+    background-color: $sinColorTipo;
 }
 
-.estados2 {
+.estado {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -138,87 +130,56 @@ $colorUNLP: #2c9684;
     // padding: 5px 20px 5px 20px;
     margin-left: -15px;
     margin-top: -5px;
+    background-color: $sinColorEstado;
+
 }
 
 
-.estado {
-  background-color:$colorEstado;
-}
-
-.estado.bajaPendiente {
-  background-color:$colorPendiente;
-}
-
-.tipo.bajaPendiente {
-  background-color:$colorBaja;
-}
-
-.tipo.altaPendiente {
-  background-color: $colorAlta;
-}
-
-.estado.altaPendiente {
-  background-color: $colorPendiente;
-}
 
 .tipo.altaActiva {
-  background-color:$colorActiva;
+  background-color: $colorActiva;
 }
 
 .tipo.bajaActiva {
-  background-color:$colorBaja;
+  background-color: $colorBaja;
 }
 
-
-
-.Alta.tipo {
-    // color: $colorAlta;
-    // border: 2px solid $colorAlta;
-    background-color: $colorAlta;
+.tipo.altaPendiente,
+.tipo.altaAprobada,
+.tipo.altaUNLP,
+.tipo.altaDenegada,
+.tipo.altaCancelada {
+  background-color: $colorAlta;
 }
 
-.Baja.tipo {
-    // color: $colorBaja;
-    // border: 2px solid $colorBaja;
-    background-color: $colorBaja;
-}
-.Activa.tipo {
-    background-color:$colorActiva;
+.estado.altaAprobada,
+.estado.bajaAprobada {
+  background-color: $colorAprobado;
 }
 
-.C.tipo{
-    // color:$colorCambioCargo;
-    // border: 2px solid $colorCambioCargo;
-    background-color: $colorCambioCargo;
-
+.estado.altaUNLP,
+.estado.bajaUNLP {
+  background-color: $colorUNLP;
 }
 
-.P.tipo{
-    // color:$colorProrroga;
-    // border: 2px solid $colorProrroga;
-    background-color: $colorProrroga;
-
+.estado.altaDenegada,
+.estado.bajaDenegada {
+  background-color: $colorDenegado;
 }
 
-.E.tipo{
-    background-color: $colorActiva;
-}
-
-
-.colorPendiente {
-	
+.estado.altaCancelada,
+.estado.bajaCancelada {
+  background-color: $colorCancelado;
 }
 
 
 
 
 
-.P.estado {
-    // color:$colorPendiente;
-    // border: 2px solid $colorPendiente;
-    // background-color: $colorPendiente;
-    -webkit-animation: colorPendiente 0.5s linear infinite alternate both;
-	        animation: colorPendiente 0.5s linear infinite alternate both;
+.estado.altaPendiente,
+.estado.bajaPendiente {
+  -webkit-animation: colorPendiente 0.5s linear infinite alternate both;
+	animation: colorPendiente 0.5s linear infinite alternate both;
 
 }
 
@@ -240,16 +201,4 @@ $colorUNLP: #2c9684;
   }
 
 
-.A.estado {
-    // color:$colorAprobado;
-    // border: 2px solid $colorAprobado;
-    background-color: $colorAprobado;
-}
-
-.E.estado{
-    // color:$colorUNLP;
-    // border: 2px solid $colorUNLP;
-    background-color: $colorUNLP;
-
-}
 
