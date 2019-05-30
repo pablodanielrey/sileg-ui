@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of, Subscription } from 'rxjs';
+import { Observable, of, Subscription, forkJoin } from 'rxjs';
 import { SilegService } from '../../../../shared/services/sileg.service';
 import { map, tap, switchMap } from 'rxjs/operators';
 import { Router, NavigationEnd, NavigationStart, ActivatedRoute, ParamMap } from '@angular/router';
@@ -15,6 +15,7 @@ import { EnviarUnlpComponent } from '../../movimientos/enviar-unlp/enviar-unlp.c
 import { VerificarPrestacionComponent } from '../../movimientos/verificar-prestacion/verificar-prestacion.component';
 import { DescargarArchivosComponent } from '../../movimientos/descargar-archivos/descargar-archivos.component';
 import { FiltrosComponent } from '../filtros/filtros.component';
+import { combineLatest } from 'rxjs-compat/operator/combineLatest';
 
 @Component({
   selector: 'app-listar',
@@ -26,6 +27,7 @@ export class ListarComponent implements OnInit {
   columnasCelular : string[] = ['usuario', 'codigo', 'fecha', 'estado', 'resolucion', 'expediente', 'acciones'];
   lugares$: Observable<any[]>;
   referencias_visibles: boolean = false;
+  lid: string;
 
   constructor(private error_service: ErrorService,
     private service: SilegService,
@@ -35,12 +37,24 @@ export class ListarComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    console.log("listar component");
-    this.lugares$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => {
-        if (params.has('mid')) {
-          let lid = params.get('mid');
-          return this.service.desginacionesPendientes([lid]);
+    
+    let params = Observable.combineLatest(
+      this.route.paramMap,
+      this.route.queryParamMap,
+      (params: any, queryParams: any) => {
+        return {
+          lid: params.has('mid') ? params.get('mid') : null,
+          actuales: queryParams.has('actuales') ? queryParams.get('actuales'): true,
+          pendientes: queryParams.has('pendientes') ? queryParams.get('pendientes'): true,
+        }
+      })
+
+
+    this.lugares$ = params.pipe(
+      switchMap(p => {           
+        if (p.lid) {
+          this.lid = p.lid;
+          return this.service.desginacionesPendientes([this.lid]);
         } else {
           return [];
         }
@@ -157,7 +171,7 @@ export class ListarComponent implements OnInit {
   filtrar() {
     const dialogRef = this.dialog.open(FiltrosComponent, {
       width: '250px',
-      data: ''
+      data: {'lid': this.lid, 'pendientes': true, 'actuales': true}
     });      
   }  
 
