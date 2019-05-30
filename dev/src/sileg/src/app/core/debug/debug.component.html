@@ -38,18 +38,44 @@
                 </mat-card-content>
         </mat-card>
 
+        <button mat-button (click)='actualizar_perms()'>a</button>
         <mat-card class="bloques"> 
-                <mat-card-title>Permisos</mat-card-title>
+                <mat-card-title>Permisos Disponibles</mat-card-title>
                 <mat-card-content>
-                        <div *ngFor='let p of permisos._load_perms() | async'>
-                                {{p}}
-                            </div>
-                            <p>urn:*:*:*</p>  
-                            <div>
-                                <button mat-stroked-button color="primary" (click)='configurar_permisos()'>Configurar Permisos</button>
-                            </div>
+                    <div *ngFor='let p of permisos_menu$ | async'>
+                        <mat-checkbox [(ngModel)]='p.checked' (click)='configurar_permiso(p)'>{{p.item}} - {{p.permiso}}</mat-checkbox>
+                        <button mat-button (click)='eliminar_permiso(p)'>X</button>
+                    </div>
                 </mat-card-content>
         </mat-card>
+
+        <mat-card class="bloques"> 
+                <mat-card-title>Permisos Activados</mat-card-title>
+                <mat-card-content>
+                    <div *ngFor='let p of permisos_configurados$ | async'>
+                        <div>{{p.permiso}}</div>
+                    </div>
+                </mat-card-content>
+        </mat-card>
+
+        <mat-card class="bloques"> 
+                <mat-card-title>Permisos Denegados</mat-card-title>
+                <mat-card-content>
+                    <div *ngFor='let p of permisos_denegados$ | async'>
+                        <div>{{p.permiso}}</div>
+                    </div>
+                </mat-card-content>
+        </mat-card>
+
+        <mat-card class="bloques"> 
+                <mat-card-title>Permisos No En CACHE</mat-card-title>
+                <mat-card-content>
+                    <div *ngFor='let p of permisos_faltantes$ | async'>
+                        <div>{{p.permiso}}</div>
+                    </div>
+                </mat-card-content>
+        </mat-card>
+
 
 </div>
 

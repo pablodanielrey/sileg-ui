@@ -6,6 +6,17 @@ import { RouterService } from '../router.service';
 import { PermisosService } from '../permisos.service';
 import { Router, Route } from '@angular/router';
 
+import { menu } from '../../modules/menu';
+import { Observable, of, forkJoin, Subject } from 'rxjs';
+import { map, mergeMap, tap, filter, switchMap } from 'rxjs/operators';
+
+interface Permiso {
+  item: string,
+  permiso: string,
+  checked: boolean,
+  eliminado: boolean
+}
+
 @Component({
   selector: 'app-debug',
   templateUrl: './debug.component.html',
@@ -15,13 +26,82 @@ export class DebugComponent implements OnInit {
 
   rutas: object[] = [];
 
+  actualizar_permisos$ = new Subject<void>();
+  permisos_menu$: Observable<Permiso[]> = null;
+  permisos_configurados$: Observable<Permiso[]> = null;
+  permisos_faltantes$: Observable<Permiso[]> = null;
+  permisos_denegados$: Observable<Permiso[]> = null;
+
+
+
   constructor(private preload: PreloadService, 
               private routerService: RouterService, 
               private permisos: PermisosService,
-              private router: Router) { }
+              private router: Router) { 
+              
+
+      this.permisos_menu$ = this.actualizar_permisos$.pipe(
+        tap(v => console.log('disparado')),
+        switchMap(v => of(menu)),
+        map(menu => menu.map(item => 
+          this.permisos.has(item.permisos).pipe(
+            map(b => {
+              let permiso = item.permisos.join(' ').replace(' ','');
+              return {
+                item: item.item,
+                permiso: permiso,
+                checked: b,
+                eliminado: !this.permisos._inCache(permiso)
+              }
+            })  
+          ))
+        ),
+        mergeMap(a => forkJoin(a)),
+        tap(v => console.log(v))
+      );
+      
+      this.permisos_configurados$ = this.permisos_menu$.pipe(
+        map(menu => menu.filter(item => item.checked))
+      );
+      this.permisos_denegados$ = this.permisos_menu$.pipe(
+        map(menu => menu.filter(item => !item.checked))
+      );;
+      this.permisos_faltantes$ = this.permisos_menu$.pipe(
+        map(menu => menu.filter(item => item.eliminado))
+      );;
+      /*
+      this.permisos_configurados$ = this.permisos_menu$.pipe(
+        map(menu => {
+          let ms = [];
+          menu.forEach(item => ms.push(item.permiso));
+          return ms;
+        })
+      )
+      */
+  }
+
+  actualizar_perms() {
+    this.actualizar_permisos$.next();
+  }
 
   ngOnInit() {
     this.procesar_rutas('', this.router.config);
+  }
+
+  private configurar_permiso(perm) {
+    let permiso = perm.permiso;
+    console.log('seteando permiso como retornado ok: ' + permiso);
+    if (perm.checked) {
+      this.permisos._deny(permiso);
+    } else {
+      this.permisos._set(permiso);
+    }
+    this.actualizar_permisos$.next();
+  }
+
+  private eliminar_permiso(perm) {
+    this.permisos._delete(perm.permiso);
+    this.actualizar_permisos$.next();
   }
 
   private procesar_rutas(parent:string, rs:Route[]) {
@@ -32,10 +112,6 @@ export class DebugComponent implements OnInit {
         this.rutas.push({path:parent + '/' + r.path});
       }
     });
-  }
- 
-  configurar_permisos() {
-    //this.permisos._save_example();
   }
 
   activar_preload_parcial() {

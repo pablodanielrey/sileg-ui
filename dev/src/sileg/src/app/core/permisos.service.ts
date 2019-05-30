@@ -33,6 +33,32 @@ export class PermisosService {
   constructor(private http: HttpClient) { 
   }
 
+  _set(perm) {
+    let permisoConcedido:Permission = {
+      status: 200,
+      expire: new Date().getTime() + this.expire_ok,
+      granted: true
+    }
+    localStorage.setItem(perm, JSON.stringify(permisoConcedido));
+  }
+
+  _deny(perm) {
+    let permisoConcedido:Permission = {
+      status: 200,
+      expire: new Date().getTime() + this.expire_ok,
+      granted: false
+    }
+    localStorage.setItem(perm, JSON.stringify(permisoConcedido));
+  }
+
+  _delete(perm) {
+    localStorage.removeItem(perm);
+  }
+
+  _inCache(perm) {
+    return (localStorage.getItem(perm) != null);
+  }
+
   has(perms:string[]): Observable<boolean> {
     /*
       chequea que la persona tenga todos los permisos consultados.
@@ -63,7 +89,6 @@ export class PermisosService {
     }
 
     // consulto los permisos faltantes al servidor.
-
     let origen$ = of(toCheck);
     let apiUrl = `${WARDEN_API_URL}/has_permissions`;
     let data = {
