@@ -53,7 +53,7 @@ export class PendientesComponent implements OnInit {
   }
 
   obtenerDesignacionesPendientes(ids: string[]): Observable<Array<any>> {
-    return this.service.desginacionesPendientes(ids);
+    return this.service.designacionesPendientes(ids);
   }
 
   dar_de_alta(lid) {

@@ -6,7 +6,7 @@ import { Http } from '@angular/http'
 
 
 import { Observable, of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, switchMap } from 'rxjs/operators';
 import 'rxjs/Rx';
 
 import { Mail, Usuario, ResetClave } from '../entities/usuario';
@@ -17,14 +17,6 @@ const SILEG_API_URL = environment.silegApiUrl;
 const LOGIN_API_URL = environment.loginApiUrl;
 const USUARIO_API_URL = environment.usuarioApiUrl;
 
-interface EstadoI {
-  tipo: string,
-  estado: string,
-  final: boolean,
-  codigo: string,
-  estilo: string
-}
-
 
 @Injectable()
 export class SilegService {
@@ -34,19 +26,19 @@ export class SilegService {
   lugares: Array<Lugar> = [];
   designaciones: Array<Designacion> = [];
 
-  tipos_estado: Array<EstadoI> = [
-    {tipo:'Alta', estado:'Pendiente', final:false, codigo:'', estilo:''}, 
-    {tipo:'Alta', estado:'Aprobada', final:false, codigo:'', estilo:''}, 
-    {tipo:'Alta', estado:'Enviada a UNLP', final:false, codigo:'', estilo:''},
-    {tipo:'Alta', estado:'Denegada', final:false, codigo:'', estilo:''},
-    {tipo:'Alta', estado:'Cancelada', final:false, codigo:'', estilo:''},
-    {tipo:'Baja', estado:'Pendiente', final:false, codigo:'', estilo:''},
-    {tipo:'Baja', estado:'Aprobada', final:false, codigo:'', estilo:''},
-    {tipo:'Baja', estado:'Enviada a UNLP', final:false, codigo:'', estilo:''},
-    {tipo:'Baja', estado:'Cancelada', final:false, codigo:'', estilo:''},
-    {tipo:'Baja', estado:'Denegada', final:false, codigo:'', estilo:''},
-    {tipo:'Alta', estado:'', final:true, codigo:'', estilo:''}, 
-    {tipo:'Baja', estado:'', final:true, codigo:'', estilo:''}
+  tipos_estado: Array<Estado> = [
+    new Estado({tipo:'Alta', estado:'Pendiente', final:false, codigo:'', estilo:''}), 
+    new Estado({tipo:'Alta', estado:'Aprobada', final:false, codigo:'', estilo:''}), 
+    new Estado({tipo:'Alta', estado:'Enviada a UNLP', final:false, codigo:'', estilo:''}),
+    new Estado({tipo:'Alta', estado:'Denegada', final:false, codigo:'', estilo:''}),
+    new Estado({tipo:'Alta', estado:'Cancelada', final:false, codigo:'', estilo:''}),
+    new Estado({tipo:'Baja', estado:'Pendiente', final:false, codigo:'', estilo:''}),
+    new Estado({tipo:'Baja', estado:'Aprobada', final:false, codigo:'', estilo:''}),
+    new Estado({tipo:'Baja', estado:'Enviada a UNLP', final:false, codigo:'', estilo:''}),
+    new Estado({tipo:'Baja', estado:'Cancelada', final:false, codigo:'', estilo:''}),
+    new Estado({tipo:'Baja', estado:'Denegada', final:false, codigo:'', estilo:''}),
+    new Estado({tipo:'Alta', estado:'', final:true, codigo:'', estilo:''}), 
+    new Estado({tipo:'Baja', estado:'', final:true, codigo:'', estilo:''})
   ];
 
   /*
@@ -724,7 +716,7 @@ export class SilegService {
     return this.S4() + this.S4() + '-' + this.S4() + '-' + this.S4() + '-' + this.S4() + '-' +this.S4() + this.S4()
   }
 
-  private generar_expediente(estado: EstadoI): string {
+  private generar_expediente(estado: Estado): string {
     if (estado.estado.includes('Pendiente') || estado.estado.includes('Aprobada')) {
       return ''
     }
@@ -739,7 +731,7 @@ export class SilegService {
     return exp[Math.floor(Math.random() * exp.length)];
   }
 
-  private generar_resolucion(estado:EstadoI): string {
+  private generar_resolucion(estado:Estado): string {
     if (estado.estado.includes('Pendiente') || estado.estado.includes('Aprobada')) {
       return ''
     }
@@ -805,7 +797,7 @@ export class SilegService {
           this.datos_designacion.push(new DatosDesignacion({
             usuario: u,
             designacion: d,
-            estado: new Estado({tipo:estado.tipo, estado:estado.estado})
+            estado: estado
           }));
 
         })
@@ -844,9 +836,28 @@ export class SilegService {
     return sublugares;
   }
 
-  desginacionesPendientes(lids: string[]): Observable<DatosLugarDesignacion[]> {
+  designacionesPendientes(lids: string[]): Observable<DatosLugarDesignacion[]> {
     let ids = this._sublugares(lids);
     return of(this.datos_lugar_designacion.filter( dl => ids.includes(dl.lugar.id)));
+  }
+
+
+
+  obtenerDesignaciones(lids: string[], pendientes: boolean, actuales: boolean): Observable<DatosLugarDesignacion[]> {
+    return this.designacionesPendientes(lids).pipe(
+      map( dl => {
+        dl.forEach( d => {
+          d.designaciones = d.designaciones.filter( (dd: DatosDesignacion) => {
+            if (pendientes && actuales) {
+              return true
+            } else {
+              return actuales ? dd.estado.final : !dd.estado.final;
+            }             
+          })
+        })
+        return dl
+      })
+    );
   }
 
   obtenerDesignacion(id: string): Observable<Designacion> {    

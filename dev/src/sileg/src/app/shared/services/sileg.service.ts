@@ -25,7 +25,11 @@ export class SilegService {
     return null;
   }
 
-  desginacionesPendientes(lid): Observable<DatosLugarDesignacion[]> {
+  designacionesPendientes(lids): Observable<DatosLugarDesignacion[]> {
+    return null;
+  }
+
+  obtenerDesignaciones(lids: string[], pendientes: boolean, actuales: boolean): Observable<DatosLugarDesignacion[]> {
     return null;
   }
 

@@ -42,6 +42,9 @@ export class Estado {
   tipo: string;
   estado: string;
   autorizador_id: string;
+  final: boolean; 
+  codigo: string;
+  estilo: string; 
 
   constructor(o:Object) {
     try {
