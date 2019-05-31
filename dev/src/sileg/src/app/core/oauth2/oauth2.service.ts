@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { from, Subscription, Observable, of } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { filter, flatMap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 import { AuthConfig, OAuthService, NullValidationHandler, JwksValidationHandler, OAuthEvent, OAuthErrorEvent, OAuthInfoEvent } from 'angular-oauth2-oidc';
@@ -128,12 +128,14 @@ export class Oauth2Service {
       'id_token': this.getIdToken(),
       'app_id': this.getAppId()
     }
-    return this.http.post<LogoutData>(url, data).flatMap(
-      ld => {
-        // si retorne ok entonces elimino los datos de la sesion local
-        this.oauthService.logOut(true);
-        return of(ld);
-    });
+    return this.http.post<LogoutData>(url, data).pipe(
+      flatMap(
+        ld => {
+          // si retorne ok entonces elimino los datos de la sesion local
+          this.oauthService.logOut(true);
+          return of(ld);
+      })
+    );
   }
 
   /*
