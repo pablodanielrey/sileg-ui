@@ -47,7 +47,7 @@
     <!-- MENUS -->
       
     <!-- Menu pincipal -->
-    <mat-drawer #drawer class="menu" mode="over">
+    <mat-drawer #drawer class="menu" mode="over" (openedStart)='refrescar_menu()'>
         <mat-toolbar color="primary">
             <span>GELIS</span>
         </mat-toolbar>

@@ -11,7 +11,7 @@ import { RouterService } from '../router.service';
 import { PermisosService } from '../permisos.service';
 import { Router } from '@angular/router';
 import { Observable, of, Subject, forkJoin, observable } from 'rxjs';
-import { map, mergeMap, combineAll, combineLatest,  tap, flatMap, mergeAll } from 'rxjs/operators';
+import { map, mergeMap, combineAll, combineLatest,  tap, flatMap, mergeAll, switchMap } from 'rxjs/operators';
 import { NavegarService } from '../navegar.service';
 
 import { MenuItem } from './types';
@@ -30,6 +30,7 @@ declare type MenuItemResuelto = {
 })
 export class SistemaComponent implements OnInit {
   
+  cargar_menu$: Subject<void> = new Subject<void>();
   menu_sistema$: Observable<MenuItemResuelto[]> = null;
   identity = null;
 
@@ -47,7 +48,7 @@ export class SistemaComponent implements OnInit {
               private permisos: PermisosService,
               private navegar: NavegarService) { 
 
-    let menu$ = of(menu);
+    let menu$ = this.cargar_menu$.pipe(switchMap(v => of(menu)));
     this.menu_sistema$ = menu$.pipe(
       map(rs => rs.map(e => 
         this.tengo_permisos(e).pipe(
@@ -63,6 +64,11 @@ export class SistemaComponent implements OnInit {
       map(perms => perms.filter(e => e.mostrar))
     )
       
+  }
+
+  refrescar_menu() {
+    console.log('cargando menu');
+    this.cargar_menu$.next();
   }
 
   tiene_submenu(menu:MenuItemResuelto):boolean {
