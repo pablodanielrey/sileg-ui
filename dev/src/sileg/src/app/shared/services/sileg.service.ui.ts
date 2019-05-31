@@ -17,15 +17,6 @@ const SILEG_API_URL = environment.silegApiUrl;
 const LOGIN_API_URL = environment.loginApiUrl;
 const USUARIO_API_URL = environment.usuarioApiUrl;
 
-interface EstadoI {
-  tipo: string,
-  estado: string,
-  final: boolean,
-  codigo: string,
-  estilo: string
-}
-
-
 @Injectable()
 export class SilegService {
 
@@ -34,19 +25,19 @@ export class SilegService {
   lugares: Array<Lugar> = [];
   designaciones: Array<Designacion> = [];
 
-  tipos_estado: Array<EstadoI> = [
-    {tipo:'Alta', estado:'Pendiente', final:false, codigo:'P', estilo:'altaPendiente'}, 
-    {tipo:'Alta', estado:'Aprobada', final:false, codigo:'A', estilo:'altaAprobada'}, 
-    {tipo:'Alta', estado:'Enviada a UNLP', final:false, codigo:'U', estilo:'altaUNLP'},
-    {tipo:'Alta', estado:'Denegada', final:false, codigo:'D', estilo:'altaDenegada'},
-    {tipo:'Alta', estado:'Cancelada', final:false, codigo:'C', estilo:'altaCancelada'},
-    {tipo:'Baja', estado:'Pendiente', final:false, codigo:'P', estilo:'bajaPendiente'},
-    {tipo:'Baja', estado:'Aprobada', final:false, codigo:'A', estilo:'bajaAprobada'},
-    {tipo:'Baja', estado:'Enviada a UNLP', final:false, codigo:'U', estilo:'bajaUNLP'},
-    {tipo:'Baja', estado:'Cancelada', final:false, codigo:'C', estilo:'bajaCancelada'},
-    {tipo:'Baja', estado:'Denegada', final:false, codigo:'D', estilo:'bajaDenegada'},
-    {tipo:'Alta', estado:'', final:true, codigo:'Alta', estilo:'altaActiva'}, 
-    {tipo:'Baja', estado:'', final:true, codigo:'Baja', estilo:'bajaActiva'}
+  tipos_estado: Array<Estado> = [
+    new Estado({tipo:'Alta', estado:'Pendiente', final:false, codigo:'P', estilo:'altaPendiente'}), 
+    new Estado({tipo:'Alta', estado:'Aprobada', final:false, codigo:'A', estilo:'altaAprobada'}), 
+    new Estado({tipo:'Alta', estado:'Enviada a UNLP', final:false, codigo:'U', estilo:'altaUNLP'}),
+    new Estado({tipo:'Alta', estado:'Denegada', final:false, codigo:'D', estilo:'altaDenegada'}),
+    new Estado({tipo:'Alta', estado:'Cancelada', final:false, codigo:'C', estilo:'altaCancelada'}),
+    new Estado({tipo:'Baja', estado:'Pendiente', final:false, codigo:'P', estilo:'bajaPendiente'}),
+    new Estado({tipo:'Baja', estado:'Aprobada', final:false, codigo:'A', estilo:'bajaAprobada'}),
+    new Estado({tipo:'Baja', estado:'Enviada a UNLP', final:false, codigo:'U', estilo:'bajaUNLP'}),
+    new Estado({tipo:'Baja', estado:'Cancelada', final:false, codigo:'C', estilo:'bajaCancelada'}),
+    new Estado({tipo:'Baja', estado:'Denegada', final:false, codigo:'D', estilo:'bajaDenegada'}),
+    new Estado({tipo:'Alta', estado:'', final:true, codigo:'Alta', estilo:'altaActiva'}), 
+    new Estado({tipo:'Baja', estado:'', final:true, codigo:'Baja', estilo:'bajaActiva'})
   ];
 
   /*
@@ -724,7 +715,7 @@ export class SilegService {
     return this.S4() + this.S4() + '-' + this.S4() + '-' + this.S4() + '-' + this.S4() + '-' +this.S4() + this.S4()
   }
 
-  private generar_expediente(estado: EstadoI): string {
+  private generar_expediente(estado: Estado): string {
     if (estado.estado.includes('Pendiente') || estado.estado.includes('Aprobada')) {
       return ''
     }
@@ -739,7 +730,7 @@ export class SilegService {
     return exp[Math.floor(Math.random() * exp.length)];
   }
 
-  private generar_resolucion(estado:EstadoI): string {
+  private generar_resolucion(estado:Estado): string {
     if (estado.estado.includes('Pendiente') || estado.estado.includes('Aprobada')) {
       return ''
     }
