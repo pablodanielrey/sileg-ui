@@ -7,7 +7,7 @@ import { PermisosService } from '../permisos.service';
 import { Router, Route } from '@angular/router';
 
 import { menu } from '../../modules/menu';
-import { Observable, of, forkJoin, Subject } from 'rxjs';
+import { Observable, of, forkJoin, Subject, BehaviorSubject } from 'rxjs';
 import { map, mergeMap, tap, filter, switchMap } from 'rxjs/operators';
 
 interface Permiso {
@@ -26,7 +26,7 @@ export class DebugComponent implements OnInit {
 
   rutas: object[] = [];
 
-  actualizar_permisos$ = new Subject<void>();
+  actualizar_permisos$ = new BehaviorSubject<void>(null);
   permisos_menu$: Observable<Permiso[]> = null;
   permisos_configurados$: Observable<Permiso[]> = null;
   permisos_faltantes$: Observable<Permiso[]> = null;
@@ -68,23 +68,12 @@ export class DebugComponent implements OnInit {
       this.permisos_faltantes$ = this.permisos_menu$.pipe(
         map(menu => menu.filter(item => item.eliminado))
       );;
-      /*
-      this.permisos_configurados$ = this.permisos_menu$.pipe(
-        map(menu => {
-          let ms = [];
-          menu.forEach(item => ms.push(item.permiso));
-          return ms;
-        })
-      )
-      */
-  }
-
-  actualizar_perms() {
-    this.actualizar_permisos$.next();
+      
   }
 
   ngOnInit() {
     this.procesar_rutas('', this.router.config);
+    this.actualizar_permisos$.next();
   }
 
   private configurar_permiso(perm) {
