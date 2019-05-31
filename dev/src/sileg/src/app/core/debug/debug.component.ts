@@ -32,6 +32,15 @@ export class DebugComponent implements OnInit {
   permisos_faltantes$: Observable<Permiso[]> = null;
   permisos_denegados$: Observable<Permiso[]> = null;
 
+  /* este codigo va del lado del servidor */
+  perfiles$: Observable<object[]> = of([
+    {checked:false, permiso:'depto'},
+    {checked:false, permiso:'autoridad'},
+    {checked:false, permiso:'administrador'},
+    {checked:false, permiso:'despacho'},
+    {checked:false, permiso:'mesa de entradas'},
+    {checked:false, permiso:'personal'}
+  ])
 
 
   constructor(private preload: PreloadService, 

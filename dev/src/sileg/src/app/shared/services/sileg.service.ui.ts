@@ -852,7 +852,7 @@ export class SilegService {
 
 
   obtenerDesignaciones(lids: string[], pendientes: boolean, actuales: boolean): Observable<DatosLugarDesignacion[]> {
-    return this.designacionesPendientes(lids).pipe(
+    let designaciones$ = this.designacionesPendientes(lids).pipe(
       map( dl => {
         dl.forEach( d => {
           d.designaciones = d.designaciones.filter( (dd: DatosDesignacion) => {
@@ -866,6 +866,15 @@ export class SilegService {
         return dl
       })
     );
+
+    /* este codigo va del lado del servidor - ahora solo configuro en debug una especie de restriccion */
+    let filtradas_por_perfil$ = designaciones$.pipe(
+      map(ds => {
+        return ds;  
+      })
+    )
+
+    return designaciones$;
   }
 
   obtenerDesignacion(id: string): Observable<Designacion> {    

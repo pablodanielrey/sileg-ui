@@ -15,7 +15,7 @@ import { EnviarUnlpComponent } from '../../movimientos/enviar-unlp/enviar-unlp.c
 import { VerificarPrestacionComponent } from '../../movimientos/verificar-prestacion/verificar-prestacion.component';
 import { DescargarArchivosComponent } from '../../movimientos/descargar-archivos/descargar-archivos.component';
 import { FiltrosComponent } from '../filtros/filtros.component';
-import { combineLatest } from 'rxjs-compat/operator/combineLatest';
+
 
 @Component({
   selector: 'app-listar',
@@ -30,11 +30,13 @@ export class ListarComponent implements OnInit {
   lid: string;
 
   constructor(private error_service: ErrorService,
-    private service: SilegService,
-    private navegar: NavegarService,
-    private route: ActivatedRoute,
-    public dialog: MatDialog,
-    private router: Router) { }
+              private service: SilegService,
+              private navegar: NavegarService,
+              private route: ActivatedRoute,
+              public dialog: MatDialog,
+              private router: Router) { 
+
+    }
 
   ngOnInit() {
     

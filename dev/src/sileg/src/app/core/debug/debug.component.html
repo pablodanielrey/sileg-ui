@@ -75,6 +75,17 @@
                 </mat-card-content>
         </mat-card>
 
+        <mat-card class="bloques"> 
+            <mat-card-title>Perfiles del servidor</mat-card-title>
+            <mat-card-content>
+                <div *ngFor='let p of perfiles$ | async'>
+                    <mat-checkbox [(ngModel)]='p.checked' (click)='configurar_perfil(p)'>{{p.permiso}}</mat-checkbox>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+
+
 
 </div>
 
