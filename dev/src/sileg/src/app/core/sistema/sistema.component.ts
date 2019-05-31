@@ -1,7 +1,5 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Oauth2Service } from '../oauth2/oauth2.service';
-import { Configuracion } from '../../shared/entities/sileg';
-import { SilegService } from '../../shared/services/sileg.service';
 
 import { PreloadService } from '../preload/preload.service';
 
@@ -16,6 +14,8 @@ import { NavegarService } from '../navegar.service';
 
 import { MenuItem } from './types';
 import { menu } from '../../modules/menu';
+
+import { environment } from '../../../environments/environment';
 
 declare type MenuItemResuelto = {
   item: MenuItem,
@@ -33,14 +33,13 @@ export class SistemaComponent implements OnInit {
   cargar_menu$: Subject<void> = new Subject<void>();
   menu_sistema$: Observable<MenuItemResuelto[]> = null;
   identity = null;
+  environment = environment;
 
   subscriptions: any[] = [];
-  config: Configuracion = null;
   @HostBinding('class') componentCssClass;
 
   constructor(public overlayContainer: OverlayContainer,
               private oauthService: Oauth2Service, 
-              private service: SilegService,
               private preload: PreloadService,
               private events: EventsService,
               private router: Router,

@@ -112,6 +112,7 @@ const routes: Routes = [
     MatAutocompleteModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     OAuthModule.forRoot({
       resourceServer: {
         allowedUrls: ['http'],

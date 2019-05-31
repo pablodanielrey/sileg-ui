@@ -11,7 +11,7 @@
             <button mat-icon-button class="iconoCabecera" color="" (click)="drawer.toggle()">
                 <mat-icon>menu</mat-icon>
             </button>
-            <span class="tituloSistema">GELIS</span>
+            <span class="tituloSistema">{{environment.loader.tituloSistema}}</span>
         </div>
 
         <div>
@@ -49,7 +49,7 @@
     <!-- Menu pincipal -->
     <mat-drawer #drawer class="menu" mode="over" (openedStart)='refrescar_menu()'>
         <mat-toolbar color="primary">
-            <span>GELIS</span>
+            <span>{{environment.loader.tituloSistema}}</span>
         </mat-toolbar>
 
         <div *ngFor='let menu of menu_sistema$ | async'>
