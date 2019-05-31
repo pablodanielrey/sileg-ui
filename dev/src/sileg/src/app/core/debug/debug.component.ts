@@ -41,7 +41,6 @@ export class DebugComponent implements OnInit {
               
 
       this.permisos_menu$ = this.actualizar_permisos$.pipe(
-        tap(v => console.log('disparado')),
         switchMap(v => of(menu)),
         map(menu => menu.map(item => 
           this.permisos.has(item.permisos).pipe(
