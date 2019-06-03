@@ -24,7 +24,7 @@ export class PendientesComponent implements OnInit {
     let lid_raiz = '9f09b08d-607a-4192-bc54-5cc5db16ad39'
     let ruta = {
       url: '/sistema/designaciones/listar/listar/' + lid_raiz,
-      params: {}
+      params: { 'pendientes': true, 'actuales': false}
     }
     let s = timer(1000).pipe(
       switchMap(_ => this.navegar.navegar(ruta))
