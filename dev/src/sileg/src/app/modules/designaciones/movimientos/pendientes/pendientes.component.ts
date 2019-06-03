@@ -3,6 +3,7 @@ import { SilegService } from '../../../../shared/services/sileg.service';
 import { Observable, of, timer } from 'rxjs';
 import { switchMap, map, tap, delay } from 'rxjs/operators';
 import { NavegarService } from '../../../../core/navegar.service';
+import { PreloadService } from '../../../../core/preload/preload.service';
 
 
 @Component({
@@ -15,7 +16,9 @@ export class PendientesComponent implements OnInit {
   columnas: string[] = ['usuario','cargo','dedicacion','caracter','fecha','nota','resolucion','expediente','estado','acciones'];
   lugares$: Observable<any[]>;
 
-  constructor(private service : SilegService, private navegar: NavegarService) {  }
+  constructor(private service : SilegService,
+              private navegar: NavegarService,
+              private preload: PreloadService) {  }
 
   ngOnInit() { 
     /*
@@ -26,9 +29,11 @@ export class PendientesComponent implements OnInit {
       url: '/sistema/designaciones/listar/listar/' + lid_raiz,
       params: { 'pendientes': true, 'actuales': false}
     }
+    this.preload.activar_preload_parcial();
     let s = timer(1000).pipe(
       switchMap(_ => this.navegar.navegar(ruta))
     ).subscribe(_ => {
+      this.preload.desactivar_preload_parcial();
       s.unsubscribe();
     })
     /*

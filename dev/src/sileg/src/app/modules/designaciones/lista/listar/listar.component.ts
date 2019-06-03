@@ -15,6 +15,7 @@ import { EnviarUnlpComponent } from '../../movimientos/enviar-unlp/enviar-unlp.c
 import { VerificarPrestacionComponent } from '../../movimientos/verificar-prestacion/verificar-prestacion.component';
 import { DescargarArchivosComponent } from '../../movimientos/descargar-archivos/descargar-archivos.component';
 import { FiltrosComponent } from '../filtros/filtros.component';
+import { PreloadService } from '../../../../core/preload/preload.service';
 
 
 @Component({
@@ -34,13 +35,13 @@ export class ListarComponent implements OnInit {
               private service: SilegService,
               private navegar: NavegarService,
               private route: ActivatedRoute,
+              private preload: PreloadService,
               public dialog: MatDialog,
               private router: Router) { 
 
     }
 
   ngOnInit() {
-    
     let params = Observable.combineLatest(
       this.route.paramMap,
       this.route.queryParamMap,
@@ -55,6 +56,7 @@ export class ListarComponent implements OnInit {
 
 
     this.lugares$ = params.pipe(
+      tap( _ => this.preload.activar_preload_parcial()),
       switchMap(p => {     
         console.log(p);      
         if (p.lid) {
@@ -75,7 +77,8 @@ export class ListarComponent implements OnInit {
           })
         }
         return a
-      })
+      }),
+      tap( _ => this.preload.desactivar_preload_parcial())
     );
   }
 
@@ -177,7 +180,16 @@ export class ListarComponent implements OnInit {
     const dialogRef = this.dialog.open(FiltrosComponent, {
       width: '250px',
       data: this.filtros
-    });      
+    });
+    let call = dialogRef.afterClosed().pipe( 
+      switchMap( value => {
+        return this.navegar.navegar({
+          url: '/sistema/designaciones/listar/listar/'+ this.filtros.lid,
+           params: value
+         })              
+      })
+    ).subscribe( c => call.unsubscribe() )
+
   }  
 
   verificar_prestacion(desig: Designacion) {

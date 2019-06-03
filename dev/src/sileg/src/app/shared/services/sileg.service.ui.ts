@@ -858,18 +858,9 @@ export class SilegService {
           aux.push(d);         
         }
         return aux;
-        // dl.forEach( d => {
-        //   d.designaciones = d.designaciones.filter( (dd: DatosDesignacion) => {
-        //     if (pendientes && actuales) {
-        //       return true
-        //     } else {
-        //       return actuales ? dd.estado.final : !dd.estado.final;
-        //     }             
-        //   })
-        // })
-        // return dl
       })
-    );
+    ).delay(2000);
+    console.log("a");
 
     /* este codigo va del lado del servidor - ahora solo configuro en debug una especie de restriccion */
     let filtradas_por_perfil$ = designaciones$.pipe(
@@ -899,7 +890,7 @@ export class SilegService {
   }  
 
   obtenerLugar(lid: string): Observable<any> {
-    return of(this.lugares.find( l => l.id == lid)).delay(2000);
+    return of(this.lugares.find( l => l.id == lid)).delay(1000);
   }
 
   buscarLugares(texto: string): Observable<any[]> {

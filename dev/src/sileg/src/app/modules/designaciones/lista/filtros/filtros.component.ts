@@ -34,14 +34,8 @@ export class FiltrosComponent {
 
   
   filtrar() {
-    let value = this.form.value;
-    let navegar_alta = this.navegar.navegar({
-      url: '/sistema/designaciones/listar/listar/'+ this.data.lid,
-       params: value
-     }).subscribe(() => {
-       navegar_alta.unsubscribe();
-     })    
-    this.dialogRef.close("");
+    let value = this.form.value;    
+    this.dialogRef.close(value);
   }
 
   

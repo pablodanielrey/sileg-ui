@@ -46,7 +46,8 @@ export class PreloadService {
   }
 
   cambiar_preload_completo(b) {
-    this.pcompleto_channel.postMessage(b);
+    this.preload_completo.next(b);
+    // this.pcompleto_channel.postMessage(b);
   }
 
   activar_preload_parcial() {
@@ -58,7 +59,8 @@ export class PreloadService {
   }
 
   cambiar_preload_parcial(b) {
-    this.pparcial_channel.postMessage(b);
+    this.preload_parcial.next(b);
+    // this.pparcial_channel.postMessage(b);
   }
   
 }
