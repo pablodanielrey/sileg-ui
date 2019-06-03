@@ -25,7 +25,7 @@
 
     <mat-tab-group *ngFor="let l of (lugares$ | async)" class="tab">
      
-        <mat-tab label="{{ l.lugar.nombre }}">  
+        <mat-tab label="{{ l.lugar.nombre }} - Puntos alta: {{l.ptos_alta}} - Puntos Baja: {{l.ptos_baja}}">  
 
             <div class="tabla">
   
@@ -44,7 +44,12 @@
     
                     <ng-container matColumnDef="cargo">
                         <mat-header-cell *matHeaderCellDef> Cargo </mat-header-cell>
-                        <mat-cell *matCellDef="let desig">{{desig.designacion.cargo.nombre}}</mat-cell>
+                        <mat-cell *matCellDef="let desig">
+                            {{desig.designacion.cargo.nombre}}
+                            <mat-chip-list>
+                                <mat-chip>{{desig.designacion.cargo.puntos}}</mat-chip>
+                            </mat-chip-list>
+                        </mat-cell>
                     </ng-container>
     
                     <ng-container matColumnDef="dedicacion">

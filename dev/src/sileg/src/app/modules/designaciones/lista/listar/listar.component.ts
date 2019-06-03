@@ -71,8 +71,8 @@ export class ListarComponent implements OnInit {
         for (let e of v) {
           a.push({
             lugar: e.lugar,
-            ptos_alta: e.ptos_alta,
-            ptos_baja: e.ptos_baja,
+            ptos_alta: e.puntos_alta,
+            ptos_baja: e.puntos_baja,
             designaciones$: of(e.designaciones)
           })
         }

@@ -848,19 +848,26 @@ export class SilegService {
         let aux = [];
         for (let i=0; i < dl.length; i++) {
           let d = Object.assign(Object.create(dl[i]), dl[i]);
+          d.puntos_alta = 0;
+          d.puntos_baja = 0;
           d.designaciones = d.designaciones.filter( (dd: DatosDesignacion) => {
+            let r = false;
             if (pendientes && actuales) {
-              return true
+              r = true
             } else {
-              return actuales ? dd.estado.final : !dd.estado.final;
+              r = actuales ? dd.estado.final : !dd.estado.final;
             }
+            d.puntos_alta = (r && dd.estado.tipo == 'Alta') ? parseFloat((d.puntos_alta + dd.designacion.cargo.puntos).toFixed(2)) : d.puntos_alta;
+            d.puntos_baja = (r && dd.estado.tipo == 'Baja') ? parseFloat((d.puntos_baja + dd.designacion.cargo.puntos).toFixed(2)): d.puntos_baja;
+            return r;
           }) 
+          console.log("Puntos alta:" + d.puntos_alta);
+          console.log("Puntos baja:" + d.puntos_baja);
           aux.push(d);         
         }
         return aux;
       })
-    ).delay(2000);
-    console.log("a");
+    ).delay(1500);
 
     /* este codigo va del lado del servidor - ahora solo configuro en debug una especie de restriccion */
     let filtradas_por_perfil$ = designaciones$.pipe(
