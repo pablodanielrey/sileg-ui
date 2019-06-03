@@ -28,6 +28,7 @@ export class ListarComponent implements OnInit {
   lugares$: Observable<any[]>;
   referencias_visibles: boolean = false;
   lid: string;
+  filtros: any = {};
 
   constructor(private error_service: ErrorService,
               private service: SilegService,
@@ -44,11 +45,12 @@ export class ListarComponent implements OnInit {
       this.route.paramMap,
       this.route.queryParamMap,
       (params: any, queryParams: any) => {
-        return {
-          lid: params.has('mid') ? params.get('mid') : null,
-          actuales: queryParams.has('actuales') ? JSON.parse(queryParams.get('actuales')): true,
-          pendientes: queryParams.has('pendientes') ? JSON.parse(queryParams.get('pendientes')): true,
+        this.filtros = {
+          "lid": params.has('mid') ? params.get('mid') : null,
+          "actuales": queryParams.has('actuales') ? JSON.parse(queryParams.get('actuales')): true,
+          "pendientes": queryParams.has('pendientes') ? JSON.parse(queryParams.get('pendientes')): true
         }
+        return this.filtros
       })
 
 
@@ -174,7 +176,7 @@ export class ListarComponent implements OnInit {
   filtrar() {
     const dialogRef = this.dialog.open(FiltrosComponent, {
       width: '250px',
-      data: {'lid': this.lid, 'pendientes': true, 'actuales': true}
+      data: this.filtros
     });      
   }  
 

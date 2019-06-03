@@ -1,10 +1,12 @@
 <h1 mat-dialog-title>Filtros</h1>
-<mat-dialog-content class="contenedor">
-     <mat-checkbox>Ver Pendientes</mat-checkbox>
-     <mat-checkbox>Ver Actuales</mat-checkbox>
-</mat-dialog-content>
+<form [formGroup]='form' (ngSubmit)='filtrar()'>
+  <mat-dialog-content class="contenedor">
+      <mat-checkbox formControlName='pendientes'>Ver Pendientes</mat-checkbox>
+      <mat-checkbox formControlName='actuales'>Ver Actuales</mat-checkbox>
+  </mat-dialog-content>
 
-<mat-dialog-actions>
-  <button mat-flat-button color="primary" (click)="filtrar()" cdkFocusInitial>ACEPTAR</button>
-  <button mat-button [mat-dialog-close]="data">Cerrar</button>
-</mat-dialog-actions>
+  <mat-dialog-actions>
+    <button type="submit" mat-button color="primary" cdkFocusInitial>ACEPTAR</button>
+    <button mat-button [mat-dialog-close]="data">Cerrar</button>
+  </mat-dialog-actions>
+</form>

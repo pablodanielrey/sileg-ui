@@ -845,16 +845,29 @@ export class SilegService {
   obtenerDesignaciones(lids: string[], pendientes: boolean, actuales: boolean): Observable<DatosLugarDesignacion[]> {
     let designaciones$ = this.designacionesPendientes(lids).pipe(
       map( dl => {
-        dl.forEach( d => {
+        let aux = [];
+        for (let i=0; i < dl.length; i++) {
+          let d = Object.assign(Object.create(dl[i]), dl[i]);
           d.designaciones = d.designaciones.filter( (dd: DatosDesignacion) => {
             if (pendientes && actuales) {
               return true
             } else {
               return actuales ? dd.estado.final : !dd.estado.final;
-            }             
-          })
-        })
-        return dl
+            }
+          }) 
+          aux.push(d);         
+        }
+        return aux;
+        // dl.forEach( d => {
+        //   d.designaciones = d.designaciones.filter( (dd: DatosDesignacion) => {
+        //     if (pendientes && actuales) {
+        //       return true
+        //     } else {
+        //       return actuales ? dd.estado.final : !dd.estado.final;
+        //     }             
+        //   })
+        // })
+        // return dl
       })
     );
 
