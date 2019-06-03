@@ -884,7 +884,7 @@ export class SilegService {
   }
   
   obtenerPersona(uid: string): Observable<any> {
-    return of(this.usuarios.filter( u => u.id == uid));
+    return of(this.usuarios.find( u => u.id == uid));
   }
 
   buscarPersonas(texto: string): Observable<any[]> {

@@ -47,7 +47,6 @@ export class EditarComponent implements OnInit {
   ) { }  
 
   ngOnInit() {
-    console.log("init");
     this.designacion$ = this.route.paramMap.pipe(
       switchMap( params => {
         if (params.has('mid')) {

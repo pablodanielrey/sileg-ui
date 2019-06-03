@@ -116,12 +116,18 @@ export class ListarComponent implements OnInit {
   }
 
   modificar(desig: Designacion) {
-    let s = this.navegar.navegar({
+    let navegar_modificar = this.navegar.navegar({
       url: '/sistema/movimientos/editar/' + desig.id,
       params: { }
-    }).subscribe(_ => {
-      s.unsubscribe();
     });
+
+    let s = this.navegar.obtenerRuta().pipe(
+      tap(ruta_actual => {
+        sessionStorage.setItem('finalizar_proceso', JSON.stringify(ruta_actual));
+      }),
+      switchMap(v => navegar_modificar)
+    ).subscribe( v => s.unsubscribe())
+
   }
 
   aprobar(desig: Designacion) {
@@ -202,18 +208,16 @@ export class ListarComponent implements OnInit {
 
   crear_alta(lid) {
     let navegar_alta = this.navegar.navegar({
-      url: '/sistema/movimientos/alta/seleccionar-persona/sdfdsfsd',
+      url: '/sistema/movimientos/alta/seleccionar-persona/'+this.lid,
        params: {}
-     }).subscribe(() => {
-       navegar_alta.unsubscribe();
-     })
+     });
 
-  //   this.subscriptions.push(this.navegar.obtenerRuta().pipe(
-  //     tap(ruta_actual => {
-  //       sessionStorage.setItem('finalizar_proceso', JSON.stringify(ruta_actual));
-  //     }),
-  //     switchMap(v => navegar_alta)
-  //   ).subscribe());
+     let s = this.navegar.obtenerRuta().pipe(
+      tap(ruta_actual => {
+        sessionStorage.setItem('finalizar_proceso', JSON.stringify(ruta_actual));
+      }),
+      switchMap(v => navegar_alta)
+    ).subscribe( v => s.unsubscribe())
   }
 
   volver() {
