@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of, Subscription, forkJoin } from 'rxjs';
 import { SilegService } from '../../../../shared/services/sileg.service';
-import { map, tap, switchMap } from 'rxjs/operators';
+import { map, tap, switchMap, filter, mergeMap } from 'rxjs/operators';
 import { Router, NavigationEnd, NavigationStart, ActivatedRoute, ParamMap } from '@angular/router';
 import { NavegarService } from '../../../../core/navegar.service';
 import { ErrorService } from '../../../../core/error/error.service';
@@ -16,7 +16,7 @@ import { VerificarPrestacionComponent } from '../../movimientos/verificar-presta
 import { DescargarArchivosComponent } from '../../movimientos/descargar-archivos/descargar-archivos.component';
 import { FiltrosComponent } from '../filtros/filtros.component';
 import { PreloadService } from '../../../../core/preload/preload.service';
-import { PerfilesService } from '../../../../shared/services/perfiles.service';
+import { PerfilesService, Perfil } from '../../../../shared/services/perfiles.service';
 
 
 @Component({
@@ -31,6 +31,12 @@ export class ListarComponent implements OnInit {
   referencias_visibles: boolean = false;
   lid: string;
   filtros: any = {};
+  
+  // tipos de perfiles. para exportarlo a la vista.
+  perfil = Perfil;
+
+  puntos_header$: Observable<string> = null;
+  perfil$: Observable<Perfil> = null;
 
   constructor(private error_service: ErrorService,
               private service: SilegService,
@@ -82,6 +88,33 @@ export class ListarComponent implements OnInit {
       }),
       tap( _ => this.preload.desactivar_preload_parcial())
     );
+
+    /*
+    let obs_perfiles$: Observable<Observable<{perfil:Perfil, es:boolean}>[]> = this.perfiles.perfiles().pipe(
+      map(ps => {
+        return ps.map(p => this.perfiles.es(p).pipe(
+            map(b => { return {perfil:p, es:b} })) 
+          )
+      })
+    );
+    let perfiles$:Observable<{perfil:Perfil, es:boolean}[]> = forkJoin(obs_perfiles$);
+
+    this.perfil$ = .pipe(
+      map(ps => {
+        ps.pipe(
+          map()
+        )
+        ps.filter(p => p.es)
+      }),
+      map(ps => {
+        if (ps.length > 0) {
+          return ps[0].perfil;
+        } else {
+          return Perfil.PERSONA;
+        }
+      })
+    )
+    */
   }
 
   columnas() {
@@ -96,7 +129,7 @@ export class ListarComponent implements OnInit {
   }
 
   puntos(lugar):string {
-    if (this.perfiles.es('departamento')) {
+    if (this.perfiles.es(Perfil.AUTORIDAD)) {
       return " - Puntos alta: " + lugar.ptos_alta + " - Puntos Baja: " + lugar.ptos_baja;
     } else {
       return "";

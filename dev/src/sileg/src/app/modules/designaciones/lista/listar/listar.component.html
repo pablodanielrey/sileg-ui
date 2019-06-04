@@ -44,7 +44,7 @@
                         <mat-header-cell *matHeaderCellDef> Cargo </mat-header-cell>
                         <mat-cell *matCellDef="let desig">
                             {{desig.designacion.cargo.nombre}}
-                            <mat-chip-list *ngIf="perfiles.es('departamento')">
+                            <mat-chip-list *ngIf="perfiles.es(perfil.AUTORIDAD)">
                                 <mat-chip>{{desig.designacion.cargo.puntos}}</mat-chip>
                             </mat-chip-list>
                         </mat-cell>
@@ -127,67 +127,67 @@
     
                                     <!-- operaciones del departamento -->
 
-                                    <button (click)="dar_de_baja(desig.designacion)" mat-menu-item>
+                                    <button *ngIf="perfiles.es(perfil.DEPARTAMENTO)" (click)="dar_de_baja(desig.designacion)" mat-menu-item>
                                         <mat-icon>trending_down</mat-icon>
                                         <span>Pedir Baja</span>
                                     </button>
 
                                     <!-- operaciones de las autoridades -->
 
-                                    <button mat-menu-item (click)='aprobar(desig.designacion)'>
+                                    <button mat-menu-item *ngIf="perfiles.es(perfil.AUTORIDAD)" (click)='aprobar(desig.designacion)'>
                                     <mat-icon>check</mat-icon>
                                     <span>Aprobar</span>
                                     </button>
 
-                                    <button mat-menu-item (click)='denegar(desig.designacion)'>
+                                    <button mat-menu-item *ngIf="perfiles.es(perfil.AUTORIDAD)" (click)='denegar(desig.designacion)'>
                                     <mat-icon>highlight_off</mat-icon>
                                     <span>Denegar</span>
                                     </button>
 
                                     <!-- operaciones del dueño del movimiento -->
 
-                                    <button mat-menu-item (click)='cancelar(desig.designacion)'>
+                                    <button mat-menu-item *ngIf="perfiles.es(perfil.DEPARTAMENTO)" (click)='cancelar(desig.designacion)'>
                                         <mat-icon>delete_outline</mat-icon>
                                         <span>Cancelar</span>
                                     </button>
 
-                                    <button (click)="modificar(desig.designacion)" mat-menu-item >
+                                    <button *ngIf="perfiles.es(perfil.DEPARTAMENTO)" (click)="modificar(desig.designacion)" mat-menu-item >
                                         <mat-icon class="material-icons-outlined">edit</mat-icon>
                                         <span>Modificar</span>
                                     </button>
 
                                     <!-- despacho -->
 
-                                    <button mat-menu-item (click)='adjuntar_resolucion(desig.designacion)'>
+                                    <button mat-menu-item *ngIf="perfiles.es(perfil.DESPACHO)" (click)='adjuntar_resolucion(desig.designacion)'>
                                         <mat-icon>attachment</mat-icon>
                                         <span>Adjuntar Resolución</span>
                                     </button>
 
                                     <!-- Mesa de entradas -->
 
-                                    <button mat-menu-item>
+                                    <button *ngIf="perfiles.es(perfil.MESA_DE_ENTRADAS)" mat-menu-item>
                                         <mat-icon>attachment</mat-icon>
                                         <span>Adjuntar Expediente</span>
                                     </button>
 
-                                    <button mat-menu-item (click)='enviar_unlp(desig.designacion)'>
+                                    <button *ngIf="perfiles.es(perfil.MESA_DE_ENTRADAS)" mat-menu-item (click)='enviar_unlp(desig.designacion)'>
                                         <mat-icon class="material-icons-outlined">local_shipping</mat-icon>
                                         <span>Enviada a Universidad</span>
                                     </button>
 
                                     <!-- Personal -->
 
-                                    <button mat-menu-item>
+                                    <button *ngIf="perfiles.es(perfil.PERSONAL)" mat-menu-item>
                                         <mat-icon class="material-icons-outlined">insert_drive_file</mat-icon>
                                         <span>Verificado Aptitud</span>
                                     </button>
 
-                                    <button mat-menu-item>
+                                    <button *ngIf="perfiles.es(perfil.PERSONAL)" mat-menu-item>
                                         <mat-icon class="material-icons-outlined">insert_drive_file</mat-icon>
                                         <span>Declaración Jurada</span>
                                     </button>
 
-                                    <button mat-menu-item (click)='verificar_prestacion(desig.designacion)'>
+                                    <button *ngIf="perfiles.es(perfil.PERSONAL)" mat-menu-item (click)='verificar_prestacion(desig.designacion)'>
                                         <mat-icon class="material-icons-outlined">check_circle</mat-icon>
                                         <span>Verificar Prestación</span>
                                     </button>
