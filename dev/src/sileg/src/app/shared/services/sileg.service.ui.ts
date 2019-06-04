@@ -896,6 +896,13 @@ export class SilegService {
     return of(personas2);
   }  
 
+  crearPersona(data: any): Observable<Usuario> {
+    let p = new Usuario(data);
+    p.id = this.uuid();
+    this.usuarios.push(p);
+    return of(p)
+  }
+
   obtenerLugar(lid: string): Observable<any> {
     return of(this.lugares.find( l => l.id == lid)).delay(1000);
   }

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { NavegarService } from '../../../../../core/navegar.service';
+import { SilegService } from '../../../../../shared/services/sileg.service';
+import { switchMap, map } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { forkJoin, combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-crear-persona',
@@ -9,31 +13,41 @@ import { NavegarService } from '../../../../../core/navegar.service';
 })
 export class CrearPersonaComponent implements OnInit {
 
-  form = new FormGroup({
-    nombre: new FormControl(''),
-    apellido: new FormControl(''),
-    dni: new FormControl(''),
-    telefono: new FormControl(''),
-    celular: new FormControl(''),
-    email: new FormControl('')
+  form = this.fb.group({
+    nombre: ['', Validators.required],
+    apellido: ['', Validators.required],
+    dni: ['', Validators.required],
+    telefono: [''],
+    celular: [''],
+    email: ['', Validators.email],
   });
 
-  constructor(private navegar: NavegarService) { }
+  constructor(
+    private navegar: NavegarService,
+    private fb: FormBuilder,
+    private service: SilegService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
   }
 
-  submit() {
-    let v = this.form.value;
-  }
-
   alta() {
-    let lid = 'sdfsdfsdfdf';
-    let pid = 'ssdfsdfsd';
-    this.navegar.navegar({
-      url:'/sistema/movimientos/alta/alta-cargo/' + lid + '/' + pid,
-      params:{}
-    }).subscribe();
+    let data = this.form.value;
+
+    let crear = this.service.crearPersona(data);
+    let params = this.route.paramMap;
+
+    let call$ = combineLatest(crear, params).pipe(
+      switchMap( params => {
+        let lid = params[1].get('lid');
+        let pid = params[0].id;
+        return this.navegar.navegar({
+          url:'/sistema/movimientos/alta/alta-cargo/' + lid + '/' + pid,
+          params:{}
+        })        
+      })
+    ).subscribe( _=> { call$.unsubscribe() })
   }
 
   volver() {

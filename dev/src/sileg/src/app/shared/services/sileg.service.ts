@@ -45,6 +45,10 @@ export class SilegService {
     return null;
   }
 
+  crearPersona(data: any): Observable<Usuario> {
+    return null;
+  }
+
   obtenerLugar(lid: string): Observable<any> {
     return null;
   }

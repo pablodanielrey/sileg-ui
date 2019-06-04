@@ -11,7 +11,7 @@
         <div class="contenedorForm">
                 <!-- <mat-card >
                     <mat-card-content > -->
-                            <form [formGroup]='form' (ngSubmit)='submit()' class="formulario">
+                            <form id="person-form" [formGroup]='form' (ngSubmit)='alta()' class="formulario">
                                     <mat-form-field appearance="outline" class="itemFormulario">
                                         <mat-label>Nombre</mat-label>
                                         <input matInput formControlName='nombre'/>
@@ -54,8 +54,7 @@
             </div>
         
             <div class="contenedorAcciones"> 
-                    <button type="submit" form='lugar' (click)='alta()' class="btnGuardar" mat-flat-button color="primary" >SIGUIENTE</button>
-        
+                    <button type="submit" [disabled]="!form.valid" form='person-form' class="btnGuardar" mat-flat-button color="primary" >SIGUIENTE</button>
             </div>
 
 </div>
