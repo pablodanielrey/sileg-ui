@@ -19,26 +19,41 @@ export class PerfilesService {
 
   constructor() { }
 
-  es(perfil:Perfil):Observable<boolean> {
-    let perfiles = [];
-    let i_perfiles = localStorage.getItem('perfiles');
-    if (i_perfiles != null) {
-      perfiles = JSON.parse(i_perfiles);
-    }
-    return of(perfiles.includes(perfil)).pipe(distinctUntilChanged());
-  }
-
-  configurar(perfil:Perfil):Observable<void> {
+  private _obtener_lista_perfiles() {
     let perf = localStorage.getItem('perfiles');
     if (perf == null) {
       perf = "[]";
     }
     let lista_perfiles = JSON.parse(perf);
+    return lista_perfiles;
+  }
+
+  private _setear_lista_perfiles(perfiles) {
+    let perf = JSON.stringify(perfiles)
+    localStorage.setItem('perfiles', perf);
+  }
+
+
+  es(perfil:Perfil):Observable<boolean> {
+    let perfiles = this._obtener_lista_perfiles();
+    return of(perfiles.includes(perfil)).pipe(distinctUntilChanged());
+  }
+
+  eliminar(perfil:Perfil):Observable<void> {
+    let perfiles = this._obtener_lista_perfiles();
+    if (perfiles.includes(perfil)) {
+      let nuevos_perfiles = perfiles.filter(p => p != perfil);
+      this._setear_lista_perfiles(nuevos_perfiles);
+    }
+    return of();
+  }
+
+  configurar(perfil:Perfil):Observable<void> {
+    let lista_perfiles = this._obtener_lista_perfiles();
     if (!lista_perfiles.includes(perfil)) {
       lista_perfiles.push(perfil)
+      this._setear_lista_perfiles(lista_perfiles);
     }
-    perf = JSON.stringify(lista_perfiles)
-    localStorage.setItem('perfiles', perf);
     return of();
   }
 
@@ -47,9 +62,7 @@ export class PerfilesService {
     for (var e in Perfil) {
       ps.push(Perfil[e]);
     }
-    return of(ps).pipe(
-      distinctUntilChanged()      
-    );
+    return of(ps);
   }
 
 }

@@ -156,11 +156,10 @@
 
                                 <!-- operaciones del departamento -->
 
-                                <button *ngIf="(perfiles$ | async).includes(perfil.DEPARTAMENTO)" (click)="dar_de_baja(desig.designacion)"
-                                    mat-menu-item>
-                                    <mat-icon>trending_down</mat-icon>
-                                    <span>Pedir Baja</span>
-                                </button>
+                                    <button *ngIf="desig.estado.tipo == 'Alta' && desig.estado.final && (perfiles$ | async).includes(perfil.DEPARTAMENTO)" (click)="dar_de_baja(desig.designacion)" mat-menu-item>
+                                        <mat-icon>trending_down</mat-icon>
+                                        <span>Pedir Baja</span>
+                                    </button>
 
                                 <!-- operaciones de las autoridades -->
 
