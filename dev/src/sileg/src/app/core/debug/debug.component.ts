@@ -106,7 +106,9 @@ export class DebugComponent implements OnInit {
     console.log('configurando perfil');
     console.log(perfil);
     if (perfil.checked) {
-
+      let sub = this.perfiles.eliminar(perfil.permiso).subscribe(v => {
+        sub.unsubscribe();
+      });
     } else {
       let sub = this.perfiles.configurar(perfil.permiso).subscribe(v => {
         sub.unsubscribe();
