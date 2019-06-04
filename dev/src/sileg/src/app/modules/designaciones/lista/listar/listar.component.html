@@ -36,7 +36,7 @@
 
                     <ng-container matColumnDef="usuarioCelular" sticky>
                         <mat-header-cell *matHeaderCellDef class="columnaUsuario"> Usuario </mat-header-cell>
-                        <mat-cell *matCellDef="let desig" class="columnaUsuario" (click)='abierto = abierto ==  true ? false : true'> 
+                        <mat-cell *matCellDef="let desig" class="columnaUsuario" (click)='desig.abierto = desig.abierto ==  true ? false : true'> 
                             {{desig.usuario.nombre}} {{desig.usuario.apellido}}
                             <mat-icon>keyboard_arrow_down</mat-icon>
                         </mat-cell>
@@ -44,7 +44,7 @@
 
                     <ng-container matColumnDef="detalle">
                         <!-- <mat-header-cell *matHeaderCellDef class="columnaDetalleCelular"> Usuario </mat-header-cell> -->
-                        <mat-cell [@desplegarDetalle]="abierto == true ? 'abierto' : 'cerrado'" *matCellDef="let desig" [attr.colspan]='columnas().length'> 
+                        <mat-cell [@desplegarDetalle]="desig.abierto == true ? 'abierto' : 'cerrado'" *matCellDef="let desig" [attr.colspan]='columnas().length'> 
                             <div class="detalleDesignacion">
                                 <div> Cargo: {{desig.designacion.cargo.nombre}}</div>
                                 <div> Dedicación: {{desig.designacion.cargo.dedicacion}}</div>
@@ -228,7 +228,7 @@
                 
                     <mat-header-row *matHeaderRowDef="columnas()"></mat-header-row>
                     <mat-row  *matRowDef="let row; columns: columnas();"></mat-row>   
-                    <mat-row [class.ocultarFila]='abierto == false || abierto == undefined' *matRowDef="let row; columns: ['detalle']"></mat-row>
+                    <mat-row [class.ocultarFila]='row.abierto == false || row.abierto == undefined' *matRowDef="let row; columns: ['detalle']"></mat-row>
                     <mat-footer-row mat-footer-row *matFooterRowDef="['footer']" class=""></mat-footer-row>
                 </mat-table>
 
