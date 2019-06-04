@@ -102,10 +102,16 @@ export class DebugComponent implements OnInit {
     this.actualizar_permisos$.next();
   }
 
-  private configurar_perfil(perfil:Perfil) {
-    let sub = this.perfiles.configurar(perfil).subscribe(v => {
-      sub.unsubscribe();
-    });
+  private configurar_perfil(perfil) {
+    console.log('configurando perfil');
+    console.log(perfil);
+    if (perfil.checked) {
+
+    } else {
+      let sub = this.perfiles.configurar(perfil.permiso).subscribe(v => {
+        sub.unsubscribe();
+      });
+    }
   }
 
   private procesar_rutas(parent:string, rs:Route[]) {
