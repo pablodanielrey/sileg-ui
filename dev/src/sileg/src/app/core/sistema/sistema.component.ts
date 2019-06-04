@@ -62,7 +62,6 @@ export class SistemaComponent implements OnInit {
       mergeMap(a => forkJoin(a)),
       map(perms => perms.filter(e => e.mostrar))
     )
-      
   }
 
   refrescar_menu() {

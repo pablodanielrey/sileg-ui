@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Observable, BehaviorSubject, of, forkJoin, timer } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { SilegService } from '../../../../../shared/services/sileg.service';
-import { switchMap, map, tap, mergeMap } from 'rxjs/operators';
+import { switchMap, map, tap, mergeMap, startWith } from 'rxjs/operators';
 import { NavegarService } from '../../../../../core/navegar.service';
 import { ErrorService } from '../../../../../core/error/error.service';
+import { Cargo } from '../../../../../shared/entities/sileg';
 
 @Component({
   selector: 'app-alta-cargo',
@@ -14,18 +15,19 @@ import { ErrorService } from '../../../../../core/error/error.service';
 })
 export class AltaCargoComponent implements OnInit {
 
-  form = new FormGroup({
-    cargo: new FormControl(),
-    dedicacion: new FormControl(),
-    caracter: new FormControl(),
-    expediente: new FormControl(),
-    resolucion: new FormControl(),
-    archivos: new FormControl()
+  form = this.fb.group({
+    cargo: this.fb.group({
+      nombre: ['', Validators.required],
+      dedicacion: ['', Validators.required]
+    }),
+    caracter: ['', Validators.required],
+    archivos: ['']
   });
 
   caracteres$: Observable<any>;
   dedicaciones$: Observable<any>;
-  cargos$: Observable<any>;
+  cargos$: Observable<Cargo[]>;
+  cargos_nombre$: Observable<Cargo[]>;
 
   datos$: Observable<any>;
   puntos$: Observable<any>;
@@ -39,31 +41,36 @@ export class AltaCargoComponent implements OnInit {
     private route : ActivatedRoute,
     private service: SilegService,
     private navegar: NavegarService,
-    private error: ErrorService
+    private error: ErrorService,
+    private fb: FormBuilder
   ) { }  
 
   ngOnInit() {
     this.cambio$ = new BehaviorSubject<string>('');
 
     this.cargos$ = this.service.obtenerCargosDisponibles();
+    this.cargos_nombre$ = this.cargos$.pipe(
+      map( cs => {
+        return cs.filter((item, pos) => pos == cs.findIndex(obj => { return item.nombre == obj.nombre}))
+      })
+    );    
 
-    this.caracteres$ = this.cambio$.pipe(
-      switchMap(c => this.cargos$.pipe(
-          map(vs => vs.filter(v => c != null && v.nombre == c.nombre))
-        )
-      )
-    );
-    this.dedicaciones$ = this.cambio$.pipe(
-      switchMap(c => this.cargos$.pipe(
-          map(vs => vs.filter(v => v.nombre == c.nombre))
-        )
-      )
-    );
+    this.caracteres$ = this.service.obtenerCaracter();
+
+    let cargo_cg: FormGroup = this.form.get('cargo') as FormGroup;
+    this.dedicaciones$ = cargo_cg.get('nombre').valueChanges.pipe(
+      startWith(''),
+      switchMap( nombre =>  {
+        return this.cargos$.map(cs =>  {
+          return cs.filter((item, pos) => pos == cs.findIndex(obj => { return item.dedicacion == obj.dedicacion && (obj.nombre == nombre || nombre == '')}))          
+        })
+      })
+    )  
 
     this.datos$ = this.route.paramMap.pipe(
       map(p => { return {
           lugar: p.get("lid"),
-          persona: p.get('uid')
+          persona: p.get('pid')
         }
       }),
       switchMap(parametros => forkJoin(
@@ -75,7 +82,7 @@ export class AltaCargoComponent implements OnInit {
     );    
 
     this.persona$ = this.datos$.pipe(
-      tap(v => console.log(v)),
+      tap(v => console.log(v[1])),
       map(vs => vs[1])
     );
 
@@ -89,22 +96,10 @@ export class AltaCargoComponent implements OnInit {
       map(vs => vs[2])
     );
 
-    this.form.valueChanges.subscribe(v => {
-      console.log(v);
-    })
-
     this.archivos$ = this.form.valueChanges.pipe(
       map(controles => controles.archivos)
     )
 
-  }
-
-  submit() {
-    console.log('se ha realizado el submit del form');
-    let v = this.form.value;
-    //this.cambio$.next(v.cargo);
-    //this.navegar.volver();
-    //this.crear();
   }
 
   crear() {
