@@ -17,16 +17,31 @@ import { DescargarArchivosComponent } from '../../movimientos/descargar-archivos
 import { FiltrosComponent } from '../filtros/filtros.component';
 import { PreloadService } from '../../../../core/preload/preload.service';
 import { PerfilesService, Perfil } from '../../../../shared/services/perfiles.service';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 
 @Component({
   selector: 'app-listar',
   templateUrl: './listar.component.html',
-  styleUrls: ['./listar.component.scss']
+  styleUrls: ['./listar.component.scss'],
+  animations:[
+    trigger('desplegarDetalle', [
+      state('abierto', style({
+        height: '*',
+      })),
+      state('cerrado', style({
+        height: '0px',
+        minHeight: '0'
+      })),
+      transition('abierto <=> cerrado', [
+        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+      ])
+    ])
+  ]
 })
 export class ListarComponent implements OnInit {
   columnasDesktop : string[] = ['usuario', 'cargo', 'dedicacion', 'caracter', 'fecha', 'nota', 'resolucion', 'expediente', 'expedienteU', 'estado', 'acciones'];
-  columnasCelular : string[] = ['usuario', 'codigo', 'fecha', 'estado', 'resolucion', 'expediente', 'acciones'];
+  columnasCelular : string[] = ['usuarioCelular', 'estado', 'acciones'];
   lugares$: Observable<any[]>;
   referencias_visibles: boolean = false;
   lid: string;

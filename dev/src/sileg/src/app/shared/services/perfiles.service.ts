@@ -22,7 +22,6 @@ export class PerfilesService {
   es(perfil:Perfil):Observable<boolean> {
     let perfiles = [];
     let i_perfiles = localStorage.getItem('perfiles');
-    console.log(i_perfiles);
     if (i_perfiles != null) {
       perfiles = JSON.parse(i_perfiles);
     }
