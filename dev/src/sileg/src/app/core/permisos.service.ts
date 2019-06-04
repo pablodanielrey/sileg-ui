@@ -28,7 +28,7 @@ interface Permission {
 export class PermisosService {
 
   expire_error = 10 * 1000;   // 10 segundos para los permisos cuando existe error.
-  expire_ok = 60 * 10 * 1000; // 10 minutos para los permisos correctamente retornados
+  expire_ok = 60 * 60 * 24 * 1000; // 10 minutos para los permisos correctamente retornados
 
   constructor(private http: HttpClient) { 
   }
