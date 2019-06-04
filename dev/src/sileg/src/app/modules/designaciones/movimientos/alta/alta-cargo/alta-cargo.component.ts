@@ -103,17 +103,14 @@ export class AltaCargoComponent implements OnInit {
   }
 
   crear() {
-    console.log(this.form.value);
-    // se genera el cargo
-
-    // navegamos al final del proceso
     let ruta = JSON.parse(sessionStorage.getItem('finalizar_proceso'));
-    let s = timer(2000).pipe(
-      tap(_ => {this.mostrar_error('se ha creado existósamente el alta')}),
+    let c = this.datos$.pipe(
+      switchMap( v => {
+        return this.service.crearDesignacion(this.form.value, v[0].id, v[1])
+      }),
+      tap( _ => {this.mostrar_error('se ha creado existósamente el alta')}),
       switchMap(_ => this.navegar.navegar(ruta))
-      ).subscribe(_ => {
-        s.unsubscribe();
-    });
+    ).subscribe( _ => c.unsubscribe());
   }
 
   ////////////////////////////

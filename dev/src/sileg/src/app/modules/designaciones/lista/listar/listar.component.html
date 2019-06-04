@@ -1,6 +1,8 @@
 <mat-toolbar-row class="cabecera">
     <div>
-        <button mat-button color="primary" (click)='volver()'><mat-icon>undo </mat-icon> VOLVER</button>
+        <button mat-button color="primary" (click)='volver()'>
+            <mat-icon>undo </mat-icon> VOLVER
+        </button>
         <span>&nbsp; Designaciones > Listado</span>
     </div>
     <div>
@@ -12,7 +14,7 @@
         </button>
     </div>
 </mat-toolbar-row>
-  
+
 <mat-divider></mat-divider>
 
 <router-outlet></router-outlet>
@@ -26,17 +28,18 @@
     <mat-tab-group *ngFor="let l of (lugares$ | async)" class="tab">
         <mat-tab label="{{ l.lugar.nombre }} {{puntos(l) | async}}">
             <div class="tabla">
-  
+
                 <mat-table [dataSource]="l.designaciones$ | async" multiTemplateDataRows>
-    
+
                     <ng-container matColumnDef="usuario" sticky>
                         <mat-header-cell *matHeaderCellDef class="columnaUsuario"> Usuario </mat-header-cell>
-                        <mat-cell *matCellDef="let desig" class="columnaUsuario"> {{desig.usuario.nombre}} {{desig.usuario.apellido}}</mat-cell>
+                        <mat-cell *matCellDef="let desig" class="columnaUsuario"> {{desig.usuario.nombre}}
+                            {{desig.usuario.apellido}}</mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="usuarioCelular" sticky>
                         <mat-header-cell *matHeaderCellDef class="columnaUsuario"> Usuario </mat-header-cell>
-                        <mat-cell *matCellDef="let desig" class="columnaUsuario" (click)='desig.abierto = desig.abierto ==  true ? false : true'> 
+                        <mat-cell *matCellDef="let desig" class="columnaUsuario" (click)='desig.abierto = desig.abierto ==  true ? false : true'>
                             {{desig.usuario.nombre}} {{desig.usuario.apellido}}
                             <mat-icon>keyboard_arrow_down</mat-icon>
                         </mat-cell>
@@ -44,7 +47,8 @@
 
                     <ng-container matColumnDef="detalle">
                         <!-- <mat-header-cell *matHeaderCellDef class="columnaDetalleCelular"> Usuario </mat-header-cell> -->
-                        <mat-cell [@desplegarDetalle]="desig.abierto == true ? 'abierto' : 'cerrado'" *matCellDef="let desig" [attr.colspan]='columnas().length'> 
+                        <mat-cell [@desplegarDetalle]="desig.abierto == true ? 'abierto' : 'cerrado'" *matCellDef="let desig"
+                            [attr.colspan]='columnas().length'>
                             <div class="detalleDesignacion">
                                 <div> Cargo: {{desig.designacion.cargo.nombre}}</div>
                                 <div> Dedicación: {{desig.designacion.cargo.dedicacion}}</div>
@@ -59,25 +63,26 @@
 
                     <ng-container matColumnDef="codigo">
                         <mat-header-cell *matHeaderCellDef> Código </mat-header-cell>
-                        <mat-cell *matCellDef="let desig" matTooltip="{{desig.designacion.cargo.nombre}} {{desig.designacion.cargo.dedicacion}}"  matTooltipPosition="left" >
+                        <mat-cell *matCellDef="let desig" matTooltip="{{desig.designacion.cargo.nombre}} {{desig.designacion.cargo.dedicacion}}"
+                            matTooltipPosition="left">
                             {{desig.designacion.cargo.codigo}}</mat-cell>
                     </ng-container>
-    
+
                     <ng-container matColumnDef="cargo">
                         <mat-header-cell *matHeaderCellDef> Cargo </mat-header-cell>
                         <mat-cell *matCellDef="let desig">
                             {{desig.designacion.cargo.nombre}}
                             <mat-chip-list *ngIf="(perfiles$ | async).includes(perfil.AUTORIDAD)">
                                 <mat-chip>{{desig.designacion.cargo.puntos}}</mat-chip>
-                            </mat-chip-list> 
+                            </mat-chip-list>
                         </mat-cell>
                     </ng-container>
-    
+
                     <ng-container matColumnDef="dedicacion">
                         <mat-header-cell *matHeaderCellDef> Dedicación </mat-header-cell>
                         <mat-cell *matCellDef="let desig">{{desig.designacion.cargo.dedicacion}}</mat-cell>
                     </ng-container>
-    
+
                     <ng-container matColumnDef="caracter">
                         <mat-header-cell *matHeaderCellDef> Caracter </mat-header-cell>
                         <mat-cell *matCellDef="let desig"> {{desig.designacion.caracter.nombre}}</mat-cell>
@@ -87,23 +92,25 @@
                         <mat-header-cell *matHeaderCellDef> Puntos </mat-header-cell>
                         <mat-cell *matCellDef="let desig"> {{desig.designacion.cargo.puntos}}</mat-cell>
                     </ng-container>
-    
-    
+
+
                     <ng-container matColumnDef="fecha">
-                    <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
-                    <mat-cell *matCellDef="let desig">{{desig.designacion.desde | date: 'dd/MM/yyyy'}}</mat-cell>
+                        <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
+                        <mat-cell *matCellDef="let desig">{{desig.designacion.desde | date: 'dd/MM/yyyy'}}</mat-cell>
                     </ng-container>
-    
+
                     <ng-container matColumnDef="nota">
                         <mat-header-cell *matHeaderCellDef> Nota </mat-header-cell>
-                        <mat-cell *matCellDef="let desig">  <button mat-icon-button (click)='descargar_archivos(desig.designacion)'><mat-icon >save_alt</mat-icon></button></mat-cell>
+                        <mat-cell *matCellDef="let desig"> <button mat-icon-button (click)='descargar_archivos(desig.designacion)'>
+                                <mat-icon>save_alt</mat-icon>
+                            </button></mat-cell>
                     </ng-container>
-    
+
                     <ng-container matColumnDef="resolucion">
                         <mat-header-cell *matHeaderCellDef> Resolución </mat-header-cell>
                         <mat-cell *matCellDef="let desig">{{desig.designacion.resolucion}}</mat-cell>
                     </ng-container>
-    
+
                     <ng-container matColumnDef="expediente">
                         <mat-header-cell *matHeaderCellDef> Expediente </mat-header-cell>
                         <mat-cell *matCellDef="let desig">{{desig.designacion.expediente}}</mat-cell>
@@ -113,15 +120,14 @@
                         <mat-header-cell *matHeaderCellDef> Expediente U. </mat-header-cell>
                         <mat-cell *matCellDef="let desig">{{desig.designacion.expediente}}</mat-cell>
                     </ng-container>
-    
+
                     <ng-container matColumnDef="estado" class="columnaEstado">
                         <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
                         <mat-cell *matCellDef="let desig">
 
                             <div class="bloqueEstados">
-                                <div class="tipo {{desig.estado.estilo}}" 
-                                     matTooltip="{{desig.estado.tipo}} {{desig.estado.estado}}"
-                                     matTooltipPosition="before">
+                                <div class="tipo {{desig.estado.estilo}}" matTooltip="{{desig.estado.tipo}} {{desig.estado.estado}}"
+                                    matTooltipPosition="before">
                                     {{desig.estado.tipo}}
                                 </div>
                                 <div *ngIf="!desig.estado.final" class="estado {{desig.estado.estilo}}">{{desig.estado.codigo}}</div>
@@ -129,115 +135,118 @@
 
                         </mat-cell>
                     </ng-container>
-    
-    
+
+
                     <ng-container matColumnDef="acciones" stickyEnd>
                         <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
                         <mat-cell *matCellDef="let desig">
-    
-                                <button mat-icon-button [matMenuTriggerFor]="menu">
-                                     <mat-icon>apps</mat-icon>
 
+                            <button mat-icon-button [matMenuTriggerFor]="menu">
+                                <mat-icon>apps</mat-icon>
+
+                            </button>
+                            <mat-menu #menu="matMenu">
+
+                                <!-- operaciones del dueño de la designación -->
+
+                                <button mat-menu-item (click)='detalle(desig.designacion)'>
+                                    <mat-icon>zoom_in</mat-icon>
+                                    <span>Detalle</span>
                                 </button>
-                                <mat-menu #menu="matMenu">
 
-                                    <!-- operaciones del dueño de la designación -->
+                                <!-- operaciones del departamento -->
 
-                                    <button mat-menu-item (click)='detalle(desig.designacion)'>
-                                        <mat-icon>zoom_in</mat-icon>
-                                        <span>Detalle</span>
-                                    </button>
-    
-                                    <!-- operaciones del departamento -->
+                                <button *ngIf="(perfiles$ | async).includes(perfil.DEPARTAMENTO)" (click)="dar_de_baja(desig.designacion)"
+                                    mat-menu-item>
+                                    <mat-icon>trending_down</mat-icon>
+                                    <span>Pedir Baja</span>
+                                </button>
 
-                                    <button *ngIf="(perfiles$ | async).includes(perfil.DEPARTAMENTO)" (click)="dar_de_baja(desig.designacion)" mat-menu-item>
-                                        <mat-icon>trending_down</mat-icon>
-                                        <span>Pedir Baja</span>
-                                    </button>
+                                <!-- operaciones de las autoridades -->
 
-                                    <!-- operaciones de las autoridades -->
-
-                                    <button mat-menu-item *ngIf="(perfiles$ | async).includes(perfil.AUTORIDAD)" (click)='aprobar(desig.designacion)'>
+                                <button mat-menu-item *ngIf="(perfiles$ | async).includes(perfil.AUTORIDAD)" (click)='aprobar(desig.designacion)'>
                                     <mat-icon>check</mat-icon>
                                     <span>Aprobar</span>
-                                    </button>
+                                </button>
 
-                                    <button mat-menu-item *ngIf="(perfiles$ | async).includes(perfil.AUTORIDAD)" (click)='denegar(desig.designacion)'>
+                                <button mat-menu-item *ngIf="(perfiles$ | async).includes(perfil.AUTORIDAD)" (click)='denegar(desig.designacion)'>
                                     <mat-icon>highlight_off</mat-icon>
                                     <span>Denegar</span>
-                                    </button>
+                                </button>
 
-                                    <!-- operaciones del dueño del movimiento -->
+                                <!-- operaciones del dueño del movimiento -->
 
-                                    <button mat-menu-item *ngIf="(perfiles$ | async).includes(perfil.DEPARTAMENTO)" (click)='cancelar(desig.designacion)'>
-                                        <mat-icon>delete_outline</mat-icon>
-                                        <span>Cancelar</span>
-                                    </button>
+                                <button mat-menu-item *ngIf="(perfiles$ | async).includes(perfil.DEPARTAMENTO)" (click)='cancelar(desig.designacion)'>
+                                    <mat-icon>delete_outline</mat-icon>
+                                    <span>Cancelar</span>
+                                </button>
 
-                                    <button *ngIf="(perfiles$ | async).includes(perfil.DEPARTAMENTO)" (click)="modificar(desig.designacion)" mat-menu-item >
-                                        <mat-icon class="material-icons-outlined">edit</mat-icon>
-                                        <span>Modificar</span>
-                                    </button>
+                                <button *ngIf="(perfiles$ | async).includes(perfil.DEPARTAMENTO)" (click)="modificar(desig.designacion)"
+                                    mat-menu-item>
+                                    <mat-icon class="material-icons-outlined">edit</mat-icon>
+                                    <span>Modificar</span>
+                                </button>
 
-                                    <!-- despacho -->
+                                <!-- despacho -->
 
-                                    <button mat-menu-item *ngIf="(perfiles$ | async).includes(perfil.DESPACHO)" (click)='adjuntar_resolucion(desig.designacion)'>
-                                        <mat-icon>attachment</mat-icon>
-                                        <span>Adjuntar Resolución</span>
-                                    </button>
+                                <button mat-menu-item *ngIf="(perfiles$ | async).includes(perfil.DESPACHO)" (click)='adjuntar_resolucion(desig.designacion)'>
+                                    <mat-icon>attachment</mat-icon>
+                                    <span>Adjuntar Resolución</span>
+                                </button>
 
-                                    <!-- Mesa de entradas -->
+                                <!-- Mesa de entradas -->
 
-                                    <button *ngIf="(perfiles$ | async).includes(perfil.MESA_DE_ENTRADAS)" mat-menu-item>
-                                        <mat-icon>attachment</mat-icon>
-                                        <span>Adjuntar Expediente</span>
-                                    </button>
+                                <button *ngIf="(perfiles$ | async).includes(perfil.MESA_DE_ENTRADAS)" mat-menu-item>
+                                    <mat-icon>attachment</mat-icon>
+                                    <span>Adjuntar Expediente</span>
+                                </button>
 
-                                    <button *ngIf="(perfiles$ | async).includes(perfil.MESA_DE_ENTRADAS)" mat-menu-item (click)='enviar_unlp(desig.designacion)'>
-                                        <mat-icon class="material-icons-outlined">local_shipping</mat-icon>
-                                        <span>Enviada a Universidad</span>
-                                    </button>
+                                <button *ngIf="(perfiles$ | async).includes(perfil.MESA_DE_ENTRADAS)" mat-menu-item
+                                    (click)='enviar_unlp(desig.designacion)'>
+                                    <mat-icon class="material-icons-outlined">local_shipping</mat-icon>
+                                    <span>Enviada a Universidad</span>
+                                </button>
 
-                                    <!-- Personal -->
+                                <!-- Personal -->
 
-                                    <button *ngIf="(perfiles$ | async).includes(perfil.PERSONAL)" mat-menu-item>
-                                        <mat-icon class="material-icons-outlined">insert_drive_file</mat-icon>
-                                        <span>Verificado Aptitud</span>
-                                    </button>
+                                <button *ngIf="(perfiles$ | async).includes(perfil.PERSONAL)" mat-menu-item>
+                                    <mat-icon class="material-icons-outlined">insert_drive_file</mat-icon>
+                                    <span>Verificado Aptitud</span>
+                                </button>
 
-                                    <button *ngIf="(perfiles$ | async).includes(perfil.PERSONAL)" mat-menu-item>
-                                        <mat-icon class="material-icons-outlined">insert_drive_file</mat-icon>
-                                        <span>Declaración Jurada</span>
-                                    </button>
+                                <button *ngIf="(perfiles$ | async).includes(perfil.PERSONAL)" mat-menu-item>
+                                    <mat-icon class="material-icons-outlined">insert_drive_file</mat-icon>
+                                    <span>Declaración Jurada</span>
+                                </button>
 
-                                    <button *ngIf="(perfiles$ | async).includes(perfil.PERSONAL)" mat-menu-item (click)='verificar_prestacion(desig.designacion)'>
-                                        <mat-icon class="material-icons-outlined">check_circle</mat-icon>
-                                        <span>Verificar Prestación</span>
-                                    </button>
+                                <button *ngIf="(perfiles$ | async).includes(perfil.PERSONAL)" mat-menu-item (click)='verificar_prestacion(desig.designacion)'>
+                                    <mat-icon class="material-icons-outlined">check_circle</mat-icon>
+                                    <span>Verificar Prestación</span>
+                                </button>
 
-                                </mat-menu>
-    
+                            </mat-menu>
+
                         </mat-cell>
                     </ng-container>
-    
+
                     <ng-container matColumnDef="footer">
                         <mat-footer-cell *matFooterCellDef>
                             <button mat-button color="primary" (click)='crear_alta(l.id)'>+ NUEVA DESIGNACIÓN</button>
                         </mat-footer-cell>
                     </ng-container>
-                
+
                     <mat-header-row *matHeaderRowDef="columnas()"></mat-header-row>
-                    <mat-row  *matRowDef="let row; columns: columnas();"></mat-row>   
+                    <mat-row *matRowDef="let row; columns: columnas();"></mat-row>
                     <mat-row [class.ocultarFila]='row.abierto == false || row.abierto == undefined' *matRowDef="let row; columns: ['detalle']"></mat-row>
                     <mat-footer-row mat-footer-row *matFooterRowDef="['footer']" class=""></mat-footer-row>
                 </mat-table>
 
             </div>
-    
+
         </mat-tab>
 
-        
-  
+
+
     </mat-tab-group>
 
 

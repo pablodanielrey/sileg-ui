@@ -104,4 +104,8 @@ export class SilegService {
   modificarMovimiento(id: string, cargo: Cargo, caracter: Caracter): Observable<string> {
     return null;
   }
+
+  crearDesignacion(data: any, lid: string, u: Usuario): Observable<string> {
+    return null;
+  }
 }
