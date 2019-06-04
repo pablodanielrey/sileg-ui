@@ -16,21 +16,6 @@ export class SeleccionarPersonaComponent implements OnInit {
   persona$ = new BehaviorSubject<any>(null);
 
   constructor(private router: Router, private route: ActivatedRoute, private navegar: NavegarService) {
-    /*
-    this.persona$.pipe(
-      mergeMap(p => forkJoin(
-          of(p.id), 
-          this.route.paramMap.pipe(map(pr => pr.get('lid')))
-      )).pipe(
-        tap(v => console.log(v))
-      ).subscribe(vs =>
-        {
-          let pid = vs[0].id;
-          let lid = vs[1].get('lid');
-          this.navegar(pid, lid);
-        }
-      );
-      */
   }
 
   ngOnInit() {
@@ -54,10 +39,16 @@ export class SeleccionarPersonaComponent implements OnInit {
   }
 
   crear_persona() {
-    this.navegar.navegar({
-      url:'/sistema/movimientos/alta/crear-persona/sdffdsf',
-      params:{}
-    }).subscribe();
+
+    this.route.paramMap.pipe(
+      switchMap( params => {
+        let lid = params.get('lid');
+        return this.navegar.navegar({
+          url:'/sistema/movimientos/alta/crear-persona/'+ lid,
+          params:{}
+        })        
+      })
+    ).subscribe();
   }
 
 

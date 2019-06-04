@@ -896,6 +896,13 @@ export class SilegService {
     return of(personas2);
   }  
 
+  crearPersona(data: any): Observable<Usuario> {
+    let p = new Usuario(data);
+    p.id = this.uuid();
+    this.usuarios.push(p);
+    return of(p)
+  }
+
   obtenerLugar(lid: string): Observable<any> {
     return of(this.lugares.find( l => l.id == lid)).delay(1000);
   }
@@ -955,46 +962,37 @@ export class SilegService {
 
   aprobarMovimiento(mid: string): Observable<boolean> {
     let dd = this.obtenerDatosDesignacion(mid);
-    let ok = false;
-    switch(dd.estado.tipo) {
-      case 'Alta': dd.estado.estado = 'Aprobada'; ok = true; break;
-      case 'Baja': dd.estado.estado = 'Aprobada'; ok = true; break;
-    }
-    return of(ok);
+    dd.estado = this.tipos_estado.find( v => v.tipo == dd.estado.tipo && v.estado == 'Aprobada');
+    return of(true);
   }
 
   denegarMovimiento(mid: string): Observable<boolean> {
     let dd = this.obtenerDatosDesignacion(mid);
-    dd.estado.estado = 'Denegada';
+    dd.estado = this.tipos_estado.find( v => v.tipo == dd.estado.tipo && v.estado == 'Denegada');
     return of(true);
   } 
   
   cancelarMovimiento(mid: string): Observable<boolean> {
     let dd = this.obtenerDatosDesignacion(mid);
-    dd.estado.estado = 'Cancelada';
+    dd.estado = this.tipos_estado.find( v => v.tipo == dd.estado.tipo && v.estado == 'Cancelada');
     return of(true);
   }  
 
   bajaMovimiento(mid: string): Observable<boolean> {
     let dd = this.obtenerDatosDesignacion(mid);
-    dd.estado.tipo = 'Baja';    
-    dd.estado.estado = 'Pendiente';
+    dd.estado = this.tipos_estado.find( v => v.tipo == "Baja" && v.estado == 'Pendiente');    
     return of(true);
   } 
 
   enviarUnlpMovimiento(mid: string): Observable<boolean> {
     let dd = this.obtenerDatosDesignacion(mid);
-    let ok = false;
-    switch(dd.estado.tipo) {
-      case 'Alta': dd.estado.estado = 'Enviada a UNLP'; ok = true; break;
-      case 'Baja': dd.estado.estado = 'Enviada a UNLP'; ok = true; break;
-    }
-    return of(ok);
+    dd.estado = this.tipos_estado.find( v => v.tipo == dd.estado.tipo && v.estado == 'Enviada a UNLP');    
+    return of(true);
   }  
 
   verificarPrestacion(mid: string): Observable<boolean> {
     let dd = this.obtenerDatosDesignacion(mid);    
-    dd.estado.estado = 'Prestación Verificada';
+    dd.estado = this.tipos_estado.find( v => v.tipo == dd.estado.tipo && v.estado == 'Prestación Verificada');    
     return of(true);
   }
 
