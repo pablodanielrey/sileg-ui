@@ -150,7 +150,7 @@
     
                                     <!-- operaciones del departamento -->
 
-                                    <button *ngIf="(perfiles$ | async).includes(perfil.DEPARTAMENTO)" (click)="dar_de_baja(desig.designacion)" mat-menu-item>
+                                    <button *ngIf="desig.estado.tipo == 'Alta' && (perfiles$ | async).includes(perfil.DEPARTAMENTO)" (click)="dar_de_baja(desig.designacion)" mat-menu-item>
                                         <mat-icon>trending_down</mat-icon>
                                         <span>Pedir Baja</span>
                                     </button>
