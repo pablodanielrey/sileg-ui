@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of, Subscription, forkJoin } from 'rxjs';
+import { Observable, of, Subscription, combineLatest } from 'rxjs';
 import { SilegService } from '../../../../shared/services/sileg.service';
 import { map, tap, switchMap, filter, mergeMap } from 'rxjs/operators';
 import { Router, NavigationEnd, NavigationStart, ActivatedRoute, ParamMap } from '@angular/router';
@@ -36,7 +36,7 @@ export class ListarComponent implements OnInit {
   perfil = Perfil;
 
   puntos_header$: Observable<string> = null;
-  perfil$: Observable<Perfil> = null;
+  perfiles$ : Observable<Perfil[]> = null;
 
   constructor(private error_service: ErrorService,
               private service: SilegService,
@@ -89,32 +89,28 @@ export class ListarComponent implements OnInit {
       tap( _ => this.preload.desactivar_preload_parcial())
     );
 
-    /*
-    let obs_perfiles$: Observable<Observable<{perfil:Perfil, es:boolean}>[]> = this.perfiles.perfiles().pipe(
-      map(ps => {
-        return ps.map(p => this.perfiles.es(p).pipe(
-            map(b => { return {perfil:p, es:b} })) 
-          )
-      })
-    );
-    let perfiles$:Observable<{perfil:Perfil, es:boolean}[]> = forkJoin(obs_perfiles$);
-
-    this.perfil$ = .pipe(
-      map(ps => {
-        ps.pipe(
-          map()
-        )
-        ps.filter(p => p.es)
-      }),
-      map(ps => {
-        if (ps.length > 0) {
-          return ps[0].perfil;
-        } else {
-          return Perfil.PERSONA;
-        }
-      })
+    // obtengo todos los perfiles y si estan activos o no.
+    let obs_perfiles$: Observable<{perfil:Perfil, es:boolean}[]> = this.perfiles.perfiles().pipe(
+      mergeMap(perfiles => {
+        let arr = perfiles.map(perfil => {
+            let resultado = this.perfiles.es(perfil).pipe(
+              map(b => { 
+                let o = { perfil:perfil, es:b }
+                return o 
+              })
+            ) 
+            return resultado;
+          });
+        return combineLatest(arr);
+      }
+    ))
+    // filtro los perfiles que estan presentes
+    this.perfiles$ = obs_perfiles$.pipe(
+      map(ps => ps.filter(p => p.es)),
+      map(ps => ps.map(p => p.perfil)),
+      tap(v => console.log(v))
     )
-    */
+
   }
 
   columnas() {
@@ -128,13 +124,15 @@ export class ListarComponent implements OnInit {
     }
   }
 
-  puntos(lugar):string {
-    if (this.perfiles.es(Perfil.AUTORIDAD)) {
-      return " - Puntos alta: " + lugar.ptos_alta + " - Puntos Baja: " + lugar.ptos_baja;
-    } else {
-      return "";
-    }
-    
+  puntos(lugar):Observable<string> {
+    return this.perfiles$.pipe(
+      map(ps => {
+        if (ps.includes(Perfil.AUTORIDAD)) {
+          return " - Puntos alta: " + lugar.ptos_alta + " - Puntos Baja: " + lugar.ptos_baja;
+        } else {
+          return "";
+        }
+      }))
   }
 
   estado_tipo(desig) {
