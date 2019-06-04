@@ -19,7 +19,16 @@ $sinColorEstado:#637b89;
 
   
 
+.ocultarFila {
+  display: none;
+  height: 0px;
+}
 
+.detalleDesignacion {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0 10px 0;
+}
 
 .cabecera {
     display: flex;
@@ -50,7 +59,7 @@ $sinColorEstado:#637b89;
   mat-table {
     width: 100%;
     @media screen and (max-width: 768px) {
-        width: 150%;
+        // width: 150%;
     }
 
   }
@@ -65,6 +74,22 @@ $sinColorEstado:#637b89;
     width: 200px !important;
 }
 }
+
+
+.mat-column-usuarioCelular {
+  flex: 0 0 50% !important;
+  min-width: 100px !important;
+  font-weight: bold;
+  width: 100px !important;
+
+}
+
+.mat-column-estado {
+  @media screen and (max-width: 768px) {
+      max-width: 80px !important;
+  }
+}
+
 
 .mat-column-acciones {
     flex: 0 0 3% !important;
