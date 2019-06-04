@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of, Subscription, forkJoin } from 'rxjs';
 import { SilegService } from '../../../../shared/services/sileg.service';
-import { map, tap, switchMap } from 'rxjs/operators';
+import { map, tap, switchMap, filter, mergeMap } from 'rxjs/operators';
 import { Router, NavigationEnd, NavigationStart, ActivatedRoute, ParamMap } from '@angular/router';
 import { NavegarService } from '../../../../core/navegar.service';
 import { ErrorService } from '../../../../core/error/error.service';
@@ -16,20 +16,42 @@ import { VerificarPrestacionComponent } from '../../movimientos/verificar-presta
 import { DescargarArchivosComponent } from '../../movimientos/descargar-archivos/descargar-archivos.component';
 import { FiltrosComponent } from '../filtros/filtros.component';
 import { PreloadService } from '../../../../core/preload/preload.service';
+import { PerfilesService, Perfil } from '../../../../shared/services/perfiles.service';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 
 @Component({
   selector: 'app-listar',
   templateUrl: './listar.component.html',
-  styleUrls: ['./listar.component.scss']
+  styleUrls: ['./listar.component.scss'],
+  animations:[
+    trigger('desplegarDetalle', [
+      state('abierto', style({
+        height: '*',
+      })),
+      state('cerrado', style({
+        height: '0px',
+        minHeight: '0'
+      })),
+      transition('abierto <=> cerrado', [
+        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+      ])
+    ])
+  ]
 })
 export class ListarComponent implements OnInit {
-  columnasDesktop : string[] = ['usuario', 'cargo', 'dedicacion', 'caracter', 'fecha', 'nota', 'resolucion', 'expediente', 'expedienteU', 'estado', 'acciones'];
-  columnasCelular : string[] = ['usuario', 'codigo', 'fecha', 'estado', 'resolucion', 'expediente', 'acciones'];
+  columnasDesktop : string[] = ['usuario', 'cargo', 'dedicacion', 'caracter', 'puntos', 'fecha', 'nota', 'resolucion', 'expediente', 'expedienteU', 'estado', 'acciones'];
+  columnasCelular : string[] = ['usuarioCelular', 'estado', 'acciones'];
   lugares$: Observable<any[]>;
   referencias_visibles: boolean = false;
   lid: string;
   filtros: any = {};
+  
+  // tipos de perfiles. para exportarlo a la vista.
+  perfil = Perfil;
+
+  puntos_header$: Observable<string> = null;
+  perfil$: Observable<Perfil> = null;
 
   constructor(private error_service: ErrorService,
               private service: SilegService,
@@ -37,6 +59,7 @@ export class ListarComponent implements OnInit {
               private route: ActivatedRoute,
               private preload: PreloadService,
               public dialog: MatDialog,
+              private perfiles: PerfilesService,
               private router: Router) { 
 
     }
@@ -80,14 +103,53 @@ export class ListarComponent implements OnInit {
       }),
       tap( _ => this.preload.desactivar_preload_parcial())
     );
+
+    /*
+    let obs_perfiles$: Observable<Observable<{perfil:Perfil, es:boolean}>[]> = this.perfiles.perfiles().pipe(
+      map(ps => {
+        return ps.map(p => this.perfiles.es(p).pipe(
+            map(b => { return {perfil:p, es:b} })) 
+          )
+      })
+    );
+    let perfiles$:Observable<{perfil:Perfil, es:boolean}[]> = forkJoin(obs_perfiles$);
+
+    this.perfil$ = .pipe(
+      map(ps => {
+        ps.pipe(
+          map()
+        )
+        ps.filter(p => p.es)
+      }),
+      map(ps => {
+        if (ps.length > 0) {
+          return ps[0].perfil;
+        } else {
+          return Perfil.PERSONA;
+        }
+      })
+    )
+    */
   }
 
   columnas() {
+    /*
+      detecta si es un dispositivo touch
+    */
     if (typeof window.ontouchstart !== 'undefined') {
       return this.columnasCelular;
     } else {
       return this.columnasDesktop;
     }
+  }
+
+  puntos(lugar):string {
+    if (this.perfiles.es(Perfil.AUTORIDAD)) {
+      return " - Puntos alta: " + lugar.ptos_alta + " - Puntos Baja: " + lugar.ptos_baja;
+    } else {
+      return "";
+    }
+    
   }
 
   estado_tipo(desig) {

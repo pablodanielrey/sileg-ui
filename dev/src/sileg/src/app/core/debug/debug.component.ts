@@ -9,6 +9,7 @@ import { Router, Route } from '@angular/router';
 import { menu } from '../../modules/menu';
 import { Observable, of, forkJoin, Subject, BehaviorSubject } from 'rxjs';
 import { map, mergeMap, tap, filter, switchMap } from 'rxjs/operators';
+import { Perfil, PerfilesService } from '../../shared/services/perfiles.service';
 
 interface Permiso {
   item: string,
@@ -34,19 +35,19 @@ export class DebugComponent implements OnInit {
 
   /* este codigo va del lado del servidor */
   perfiles$: Observable<object[]> = of([
-    {checked:false, permiso:'depto'},
-    {checked:false, permiso:'autoridad'},
-    {checked:false, permiso:'administrador'},
-    {checked:false, permiso:'despacho'},
-    {checked:false, permiso:'mesa de entradas'},
-    {checked:false, permiso:'personal'}
+    {checked:false, permiso:Perfil.DEPARTAMENTO},
+    {checked:false, permiso:Perfil.AUTORIDAD},
+    {checked:false, permiso:Perfil.DESPACHO},
+    {checked:false, permiso:Perfil.MESA_DE_ENTRADAS},
+    {checked:false, permiso:Perfil.PERSONAL}
   ])
 
 
   constructor(private preload: PreloadService, 
               private routerService: RouterService, 
               private permisos: PermisosService,
-              private router: Router) { 
+              private router: Router,
+              private perfiles: PerfilesService) { 
               
 
       this.permisos_menu$ = this.actualizar_permisos$.pipe(
@@ -99,6 +100,12 @@ export class DebugComponent implements OnInit {
   private eliminar_permiso(perm) {
     this.permisos._delete(perm.permiso);
     this.actualizar_permisos$.next();
+  }
+
+  private configurar_perfil(perfil:Perfil) {
+    let sub = this.perfiles.configurar(perfil).subscribe(v => {
+      sub.unsubscribe();
+    });
   }
 
   private procesar_rutas(parent:string, rs:Route[]) {

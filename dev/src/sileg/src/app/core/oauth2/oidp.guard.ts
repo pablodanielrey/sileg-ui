@@ -2,6 +2,7 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from
 import { Oauth2Service } from './oauth2.service';
 import { Injectable } from '@angular/core';
 
+
 @Injectable()
 export class OidpGuard implements CanActivate {
 
@@ -17,3 +18,15 @@ export class OidpGuard implements CanActivate {
         return valid;
     }
 }
+
+
+// @Injectable()
+// export class OidpGuard implements CanActivate {
+
+//     constructor(private router: Router, private oauthService: Oauth2Service) {
+//     }
+
+//     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+//         return true;
+//     }
+// }
