@@ -16,6 +16,7 @@ import { VerificarPrestacionComponent } from '../../movimientos/verificar-presta
 import { DescargarArchivosComponent } from '../../movimientos/descargar-archivos/descargar-archivos.component';
 import { FiltrosComponent } from '../filtros/filtros.component';
 import { PreloadService } from '../../../../core/preload/preload.service';
+import { PerfilesService } from '../../../../shared/services/perfiles.service';
 
 
 @Component({
@@ -37,6 +38,7 @@ export class ListarComponent implements OnInit {
               private route: ActivatedRoute,
               private preload: PreloadService,
               public dialog: MatDialog,
+              private perfiles: PerfilesService,
               private router: Router) { 
 
     }
@@ -83,11 +85,23 @@ export class ListarComponent implements OnInit {
   }
 
   columnas() {
+    /*
+      detecta si es un dispositivo touch
+    */
     if (typeof window.ontouchstart !== 'undefined') {
       return this.columnasCelular;
     } else {
       return this.columnasDesktop;
     }
+  }
+
+  puntos(lugar):string {
+    if (this.perfiles.es('departamento')) {
+      return " - Puntos alta: " + lugar.ptos_alta + " - Puntos Baja: " + lugar.ptos_baja;
+    } else {
+      return "";
+    }
+    
   }
 
   estado_tipo(desig) {
