@@ -73,4 +73,22 @@ export class DetalleComponent implements OnInit {
     })
   }
 
+  crear_alta() {
+    let navegar_alta = this.lugar$.pipe(
+      switchMap( l => {
+        return this.navegar.navegar({
+          url: '/sistema/movimientos/alta/seleccionar-persona/'+l.id,
+           params: {}
+         });
+      })
+    )
+    
+     let s = this.navegar.obtenerRuta().pipe(
+      tap(ruta_actual => {
+        sessionStorage.setItem('finalizar_proceso', JSON.stringify(ruta_actual));
+      }),
+      switchMap(v => navegar_alta)
+    ).subscribe( v => s.unsubscribe())
+  }  
+
 }
