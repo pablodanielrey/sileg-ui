@@ -33,8 +33,7 @@ export class AdjuntarArchivosComponent implements ControlValueAccessor, MatFormF
   onChange;
 
   writeValue(obj: any): void {
-    // el form lo inicializa y me lo cambia a string
-    //this.value = obj;
+    this.value = obj;
   }
 
   registerOnChange(fn: any): void {
