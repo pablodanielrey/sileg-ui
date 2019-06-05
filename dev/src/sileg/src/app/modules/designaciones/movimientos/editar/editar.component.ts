@@ -22,7 +22,7 @@ export class EditarComponent implements OnInit {
       dedicacion: ['', Validators.required]
     }),
     caracter: ['', Validators.required],
-    archivos: ['']
+    archivos: [[]]
   });
 
   caracteres$: Observable<any>;
