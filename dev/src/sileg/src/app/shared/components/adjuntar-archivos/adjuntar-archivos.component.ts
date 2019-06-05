@@ -33,7 +33,8 @@ export class AdjuntarArchivosComponent implements ControlValueAccessor, MatFormF
   onChange;
 
   writeValue(obj: any): void {
-    this.value = obj;
+    // el form lo inicializa y me lo cambia a string
+    //this.value = obj;
   }
 
   registerOnChange(fn: any): void {
@@ -227,8 +228,7 @@ export class AdjuntarArchivosComponent implements ControlValueAccessor, MatFormF
         let f = event.target.files[i];
         if (f != null && !this.chequear(f)) {
           let _v = this.value;
-          _v.push({archivo:f, cargando:false, cargado: 0, contenido:null});
-          this.value = _v;
+          this.value.push({archivo:f, cargando:false, cargado: 0, contenido:null});
         }
       }
     }
