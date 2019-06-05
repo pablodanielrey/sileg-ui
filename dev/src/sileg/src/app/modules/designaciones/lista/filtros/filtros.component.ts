@@ -34,7 +34,8 @@ export class FiltrosComponent {
 
   
   filtrar() {
-    let value = this.form.value;    
+    let value = this.form.value;
+    value.filtrar = true;    
     this.dialogRef.close(value);
   }
 

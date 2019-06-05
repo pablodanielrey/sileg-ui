@@ -249,6 +249,9 @@ export class ListarComponent implements OnInit {
     });
     let call = dialogRef.afterClosed().pipe( 
       switchMap( value => {
+        if (!('filtrar' in value)) {
+          return of(null)
+        }
         return this.navegar.navegar({
           url: '/sistema/designaciones/listar/listar/'+ this.filtros.lid,
            params: value
