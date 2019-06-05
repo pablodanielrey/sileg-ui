@@ -268,7 +268,7 @@ export class ListarComponent implements OnInit {
 
   crear_alta(lid) {
     let navegar_alta = this.navegar.navegar({
-      url: '/sistema/movimientos/alta/seleccionar-persona/'+this.lid,
+      url: '/sistema/movimientos/alta/seleccionar-persona/'+lid,
        params: {}
      });
 

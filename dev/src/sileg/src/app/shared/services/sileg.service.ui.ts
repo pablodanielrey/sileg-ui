@@ -1008,6 +1008,8 @@ export class SilegService {
 
   crearDesignacion(data: any, lid: string, u: Usuario): Observable<string> {
     let desig = new Designacion(data);
+    let cargo: Cargo = this.tipos_cargos.find( c => c.dedicacion == data.cargo.dedicacion && c.nombre == data.cargo.nombre)
+    desig.cargo = cargo;
     desig.id = this.uuid();
     desig.desde = new Date();
     desig.usuario = u;
