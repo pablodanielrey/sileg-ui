@@ -17,6 +17,27 @@ $sinColorTipo:#3B4248;
 $sinColorEstado:#637b89;
 
 
+.btnVolver {
+  display: inline;
+  @media screen and (max-width: 768px) {
+    display: none;
+}
+}
+
+.btnVolverCel {
+  display: none;
+  @media screen and (max-width: 768px) {
+    display: inline;
+}
+}
+
+.ruta {
+  opacity: .5;
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
+}
+  
   
 
 .ocultarFila {
@@ -73,6 +94,11 @@ $sinColorEstado:#637b89;
   @media screen and (max-width: 768px) {
     width: 200px !important;
 }
+}
+
+.mat-column-cargo {
+  flex: 0 0 12% !important;
+  min-width: 100px !important;
 }
 
 
@@ -227,3 +253,15 @@ $sinColorEstado:#637b89;
 
 
 
+.btnDescargar {
+  margin: 5px 0 5px 0;
+}
+
+.puntos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 5px;
+  margin-left: 5px;
+  color: $colorAlta;
+}
