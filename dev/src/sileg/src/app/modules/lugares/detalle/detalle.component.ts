@@ -3,10 +3,11 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { NavegarService } from '../../../core/navegar.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { SilegService } from '../../../shared/services/sileg.service';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import { Lugar } from '../../../shared/entities/sileg';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap, tap, catchError, finalize } from 'rxjs/operators';
 import { PreloadService } from '../../../core/preload/preload.service';
+import { ErrorService } from '../../../core/error/error.service';
 
 @Component({
   selector: 'app-detalle',
@@ -28,14 +29,19 @@ export class DetalleComponent implements OnInit {
   lugar$: Observable<Lugar>;
   tipos$: Observable<string[]>;
 
-  constructor(private navegar: NavegarService, private service: SilegService,
-              private route: ActivatedRoute, private fb: FormBuilder) { }
+  constructor(private navegar: NavegarService,
+              private service: SilegService,
+              private preload: PreloadService,
+              private route: ActivatedRoute,
+              private error: ErrorService,
+              private fb: FormBuilder) { }
  
 
   ngOnInit() {
     this.tipos$ = this.service.obterTipoLugar();
     this.lugar$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => {
+      tap( _ => this.preload.activar_preload_completo()),
+      switchMap((params: ParamMap) => {        
         if (params.has('lid')) {
           let lid = params.get('lid');
           return this.service.obtenerLugar(lid);
@@ -45,7 +51,17 @@ export class DetalleComponent implements OnInit {
       }),
       tap( lugar => {
         this.form.patchValue(lugar);
-      })
+        this.preload.desactivar_preload_completo();
+      }),
+      catchError( err => {    
+        console.log(err);
+
+        return this.error.error(err);
+      }),
+      finalize(() => 
+        this.preload.desactivar_preload_completo()
+      )
+        
     );
     
   }

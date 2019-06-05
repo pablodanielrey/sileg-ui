@@ -12,7 +12,7 @@
     <div class="contenedorForm">
         <!-- <mat-card >
             <mat-card-content > -->
-                <form id='lugar' [formGroup]='form' (ngSubmit)='submit()' *ngIf="lugar$ | async; else lugarNulo">
+                <form id='lugar' [formGroup]='form' (ngSubmit)='submit()' *ngIf="lugar$ | async">
                 
 
                         <mat-form-field class="itemFormulario" appearance="outline" >
@@ -54,7 +54,6 @@
                             </mat-form-field>                    
 
                 </form>
-                <ng-template #lugarNulo>No se encontro el lugar</ng-template>
 
             <!-- </mat-card-content>
         </mat-card> -->        
