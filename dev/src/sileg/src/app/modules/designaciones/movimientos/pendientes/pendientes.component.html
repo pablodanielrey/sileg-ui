@@ -1,12 +1,17 @@
 <mat-toolbar-row class="cabecera">
     <div>
-        <button mat-button color="primary" (click)='volver()'><mat-icon>undo </mat-icon> VOLVER</button>
-        <span>&nbsp; Designaciones > Listado</span>
+            <button class="btnVolver" mat-button color="primary" (click)='volver()'> <mat-icon>undo </mat-icon> VOLVER </button>
+            <button class="btnVolverCel" mat-icon-button color="primary" (click)='volver()'> <mat-icon>undo</mat-icon> </button>
+            
+            <span class="ruta">&nbsp; Designaciones > Listado</span>
     </div>
     <div>
-        <button mat-icon-button color="primary" (click)='referencias_visibles = true'>
-            <mat-icon matTooltip="Referencias">help_outline</mat-icon>
-        </button>
+            <button mat-icon-button color="primary" (click)='filtrar()'>
+                    <mat-icon matTooltip="Filtros">tune</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" (click)='referencias_visibles = true'>
+                    <mat-icon matTooltip="Referencias">help_outline</mat-icon>
+                </button>
      </div>
 </mat-toolbar-row>
 

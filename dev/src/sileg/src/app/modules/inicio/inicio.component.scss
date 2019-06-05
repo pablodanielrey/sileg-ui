@@ -12,6 +12,9 @@ $colorPrimario: #E22748;
 
   .imgTocaMenu {
     margin: 20px 0 0 35px;
+    @media screen and (max-width: 768px) {
+      display: none;
+  }
 }
   
 
@@ -19,6 +22,9 @@ $colorPrimario: #E22748;
     display: flex;
     flex-direction: column;
     align-items: center;
+    @media screen and (max-width: 768px) {
+      margin-top: 75px;
+  }
   }
   
   .logo {
