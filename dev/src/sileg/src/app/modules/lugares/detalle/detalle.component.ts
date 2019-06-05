@@ -22,7 +22,7 @@ export class DetalleComponent implements OnInit {
     tipo: [''],
     oficina: [''],
     telefono: [''],
-    correo: ['']
+    correo: ['', Validators.email]
   })
 
   lugar$: Observable<Lugar>;
