@@ -62,6 +62,7 @@
 
     <div class="contenedorAcciones"> 
             <button class="btnItems" mat-stroked-button color="primary" (click)="designaciones()">DESIGNACIONES</button>
+            <button class="btnItems" mat-stroked-button color="primary" (click)='crear_alta(l.id)'>+ NUEVA DESIGNACIÓN</button>
             <button type="submit" form='lugar' [disabled]="!form.valid" class="btnGuardar" mat-flat-button color="primary" >GUARDAR</button>
 
     </div>
