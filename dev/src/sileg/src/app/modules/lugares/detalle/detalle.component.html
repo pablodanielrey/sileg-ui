@@ -7,12 +7,12 @@
       
 <mat-divider></mat-divider>
       
-<div class="pantalla">
+<div class="pantalla" *ngIf="lugar$ | async">
     
     <div class="contenedorForm">
         <!-- <mat-card >
             <mat-card-content > -->
-                <form id='lugar' [formGroup]='form' (ngSubmit)='submit()' *ngIf="lugar$ | async">
+                <form id='lugar' [formGroup]='form' (ngSubmit)='submit()'>
                 
 
                         <mat-form-field class="itemFormulario" appearance="outline" >
@@ -59,7 +59,7 @@
         </mat-card> -->        
     </div>
 
-    <div class="contenedorAcciones"> 
+    <div class="contenedorAcciones" > 
             <button class="btnItems" mat-stroked-button color="primary" (click)="designaciones()">DESIGNACIONES</button>
             <button class="btnItems" mat-stroked-button color="primary" (click)='crear_alta()'>+ NUEVA DESIGNACIÓN</button>
             <button type="submit" form='lugar' [disabled]="!form.valid" class="btnGuardar" mat-flat-button color="primary" >GUARDAR</button>

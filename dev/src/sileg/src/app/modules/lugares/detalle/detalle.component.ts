@@ -40,26 +40,26 @@ export class DetalleComponent implements OnInit {
   ngOnInit() {
     this.tipos$ = this.service.obterTipoLugar();
     this.lugar$ = this.route.paramMap.pipe(
-      tap( _ => this.preload.activar_preload_completo()),
+      tap( _ => this.preload.activar_preload_parcial()),
       switchMap((params: ParamMap) => {        
         if (params.has('lid')) {
           let lid = params.get('lid');
           return this.service.obtenerLugar(lid);
         } else {
-          return null;
+          return of(new Lugar({}));
         }
-      }),
-      tap( lugar => {
-        this.form.patchValue(lugar);
-        this.preload.desactivar_preload_completo();
       }),
       catchError( err => {    
         console.log(err);
-
-        return this.error.error(err);
+        this.error.error({error:true, mensaje:err});
+        return of(new Lugar({}));
+      }),
+      tap( lugar => {
+        this.preload.desactivar_preload_parcial();
+        this.form.patchValue(lugar);
       }),
       finalize(() => 
-        this.preload.desactivar_preload_completo()
+        this.preload.desactivar_preload_parcial()
       )
         
     );
