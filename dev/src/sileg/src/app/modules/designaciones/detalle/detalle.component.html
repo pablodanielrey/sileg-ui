@@ -14,9 +14,18 @@
         <mat-tab label="{{l.lugar.nombre }}">
         <mat-table [dataSource]="l.designaciones$ | async" multiTemplateDataRows>
 
-                <ng-container matColumnDef="usuario">
-                        <mat-header-cell *matHeaderCellDef>  Usuario </mat-header-cell>
-                        <mat-cell *matCellDef="let desig" (click)='desig.abierto = desig.abierto ==  true ? false : true'>{{desig.usuario.nombre}} {{desig.usuario.apellido}} <mat-icon>keyboard_arrow_down</mat-icon></mat-cell>
+                <ng-container matColumnDef="usuario" sticky>
+                        <mat-header-cell *matHeaderCellDef class="columnaUsuario"> Usuario </mat-header-cell>
+                        <mat-cell *matCellDef="let desig" class="columnaUsuario"> {{desig.usuario.nombre}}
+                            {{desig.usuario.apellido}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="usuarioCelular" sticky>
+                        <mat-header-cell *matHeaderCellDef class="columnaUsuario"> Usuario </mat-header-cell>
+                        <mat-cell *matCellDef="let desig" class="columnaUsuario" (click)='desig.abierto = desig.abierto ==  true ? false : true'>
+                            {{desig.usuario.nombre}} {{desig.usuario.apellido}}
+                            <mat-icon>keyboard_arrow_down</mat-icon>
+                        </mat-cell>
                     </ng-container>
 
                 <ng-container matColumnDef="detalle">
@@ -60,9 +69,14 @@
 
 
                 <ng-container matColumnDef="fecha">
-                    <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef> Desde </mat-header-cell>
                     <mat-cell *matCellDef="let desig">{{desig.designacion.desde | date: 'dd/MM/yyyy'}}</mat-cell>
                 </ng-container>  
+
+                <ng-container matColumnDef="fechaF">
+                        <mat-header-cell *matHeaderCellDef> Hasta </mat-header-cell>
+                        <mat-cell *matCellDef="let desig">{{desig.designacion.desde | date: 'dd/MM/yyyy'}}</mat-cell>
+                    </ng-container> 
                 
                 <ng-container matColumnDef="resolucion">
                     <mat-header-cell *matHeaderCellDef> Resolución </mat-header-cell>
@@ -73,6 +87,11 @@
                     <mat-header-cell *matHeaderCellDef> Expediente </mat-header-cell>
                     <mat-cell *matCellDef="let desig">{{desig.designacion.expediente}}</mat-cell>
                 </ng-container> 
+
+                <ng-container matColumnDef="expedienteU">
+                        <mat-header-cell *matHeaderCellDef> Expediente U. </mat-header-cell>
+                        <mat-cell *matCellDef="let desig">{{desig.designacion.expediente}}</mat-cell>
+                    </ng-container> 
 
                 
                 <ng-container matColumnDef="estado">
