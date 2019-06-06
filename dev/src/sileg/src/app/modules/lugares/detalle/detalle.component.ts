@@ -37,7 +37,11 @@ export class DetalleComponent implements OnInit {
               private fb: FormBuilder) { }
  
 
+  mostrar_error(err: string) {
+    this.error.error({error:true, mensaje: err});
+  }
   ngOnInit() {
+    
     this.tipos$ = this.service.obterTipoLugar();
     this.lugar$ = this.route.paramMap.pipe(
       tap( _ => this.preload.activar_preload_parcial()),
@@ -50,12 +54,15 @@ export class DetalleComponent implements OnInit {
         }
       }),
       catchError( err => {    
-        console.log(err);
-        this.error.error({error:true, mensaje:err});
+        this.mostrar_error(err);
         return of(new Lugar({}));
       }),
       tap( lugar => {
         this.preload.desactivar_preload_parcial();
+        if (lugar == undefined || lugar == null) {
+          lugar = new Lugar({});
+          this.mostrar_error("No se encontro el lugar");
+        }
         this.form.patchValue(lugar);
       }),
       finalize(() => 
