@@ -72,7 +72,16 @@ export class DetalleComponent implements OnInit {
     
   }
 
-
+  textoEstado(estado) {
+    if (estado.final && estado.tipo == 'Baja') {
+      return "Baja";
+    }
+    if (estado.final) {
+      return "Activa";
+    }
+    return estado.tipo;
+  }
+  
   obtenerDesignaciones(lid): Observable<Array<DatoDesignacion>> {
     return of(lid).pipe(
       tap(v => console.log("Lugar " + v + "  <>  " + lid)),
@@ -115,7 +124,7 @@ export class DetalleComponent implements OnInit {
     return this.estado_estado(desig);
   }
 
-
+  
 
   columnas() {
     /*

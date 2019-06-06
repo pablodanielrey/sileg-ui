@@ -10,7 +10,11 @@ $colorActiva: #51B24A;
 $colorPendiente: #E22748;
 $colorAprobado: #96ba3a;
 $colorUNLP: #2c9684;
+$colorDenegado: #9A00B1;
+$colorCancelado: #6C24B8;
 
+$sinColorTipo:#3B4248;
+$sinColorEstado:#637b89;
 
 
 .btnVolver {
@@ -34,8 +38,18 @@ $colorUNLP: #2c9684;
   }
 }
   
+  
 
+.ocultarFila {
+  display: none;
+  height: 0px;
+}
 
+.detalleDesignacion {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0 10px 0;
+}
 
 .cabecera {
     display: flex;
@@ -66,7 +80,7 @@ $colorUNLP: #2c9684;
   mat-table {
     width: 100%;
     @media screen and (max-width: 768px) {
-        width: 120%;
+        // width: 150%;
     }
 
   }
@@ -82,6 +96,27 @@ $colorUNLP: #2c9684;
 }
 }
 
+.mat-column-cargo {
+  flex: 0 0 12% !important;
+  min-width: 100px !important;
+}
+
+
+.mat-column-usuarioCelular {
+  flex: 0 0 50% !important;
+  min-width: 100px !important;
+  font-weight: bold;
+  width: 100px !important;
+
+}
+
+.mat-column-estado {
+  @media screen and (max-width: 768px) {
+      max-width: 80px !important;
+  }
+}
+
+
 .mat-column-acciones {
     flex: 0 0 3% !important;
     min-width: 25px !important;
@@ -93,12 +128,6 @@ $colorUNLP: #2c9684;
         max-width: 50px !important;
     }
 }
-
-
-
-
-
-
 
   
   th.mat-column-position, td.mat-column-position {
@@ -115,17 +144,11 @@ $colorUNLP: #2c9684;
 
 
 
-
-
-
-
-
-
 .bloqueEstados {
     display: flex;
 }
 
-.estados {
+.tipo {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -139,9 +162,10 @@ $colorUNLP: #2c9684;
     margin-right: 5px;
     color: white;
     padding: 5px 20px 5px 20px;
+    background-color: $sinColorTipo;
 }
 
-.estados2 {
+.estado {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -157,57 +181,56 @@ $colorUNLP: #2c9684;
     // padding: 5px 20px 5px 20px;
     margin-left: -15px;
     margin-top: -5px;
-}
-
-
-.Alta.tipo {
-    // color: $colorAlta;
-    // border: 2px solid $colorAlta;
-    background-color: $colorAlta;
-}
-
-.Baja.tipo {
-    // color: $colorBaja;
-    // border: 2px solid $colorBaja;
-    background-color: $colorBaja;
-}
-.Activa.tipo {
-    background-color:$colorActiva;
-}
-
-.C.tipo{
-    // color:$colorCambioCargo;
-    // border: 2px solid $colorCambioCargo;
-    background-color: $colorCambioCargo;
+    background-color: $sinColorEstado;
 
 }
 
-.P.tipo{
-    // color:$colorProrroga;
-    // border: 2px solid $colorProrroga;
-    background-color: $colorProrroga;
 
+
+.tipo.altaActiva {
+  background-color: $colorActiva;
 }
 
-.E.tipo{
-    background-color: $colorActiva;
+.tipo.bajaActiva {
+  background-color: $colorBaja;
+}
+
+.tipo.altaPendiente,
+.tipo.altaAprobada,
+.tipo.altaUNLP,
+.tipo.altaDenegada,
+.tipo.altaCancelada {
+  background-color: $colorAlta;
+}
+
+.estado.altaAprobada,
+.estado.bajaAprobada {
+  background-color: $colorAprobado;
+}
+
+.estado.altaUNLP,
+.estado.bajaUNLP {
+  background-color: $colorUNLP;
+}
+
+.estado.altaDenegada,
+.estado.bajaDenegada {
+  background-color: $colorDenegado;
+}
+
+.estado.altaCancelada,
+.estado.bajaCancelada {
+  background-color: $colorCancelado;
 }
 
 
-.colorPendiente {
-	
-}
 
 
 
-
-
-.P.estado {
-    // color:$colorPendiente;
-    // border: 2px solid $colorPendiente;
-    // background-color: $colorPendiente;
-    -webkit-animation: colorPendiente 0.5s linear infinite alternate both;
-	        animation: colorPendiente 0.5s linear infinite alternate both;
+.estado.altaPendiente,
+.estado.bajaPendiente {
+  -webkit-animation: colorPendiente 0.5s linear infinite alternate both;
+	animation: colorPendiente 0.5s linear infinite alternate both;
 
 }
 
@@ -229,22 +252,16 @@ $colorUNLP: #2c9684;
   }
 
 
-.A.estado {
-    // color:$colorAprobado;
-    // border: 2px solid $colorAprobado;
-    background-color: $colorAprobado;
+
+.btnDescargar {
+  margin: 5px 0 5px 0;
 }
 
-.E.estado{
-    // color:$colorUNLP;
-    // border: 2px solid $colorUNLP;
-    background-color: $colorUNLP;
-
-}
-
-
-
-.ocultarFila {
-  display: none;
-  height: 0px;
+.puntos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 5px;
+  margin-left: 5px;
+  color: $colorAlta;
 }

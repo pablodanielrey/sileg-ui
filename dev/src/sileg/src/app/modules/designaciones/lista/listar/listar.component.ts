@@ -150,6 +150,16 @@ export class ListarComponent implements OnInit {
       }))
   }
 
+  textoEstado(estado) {
+    if (estado.final && estado.tipo == 'Baja') {
+      return "Baja";
+    }
+    if (estado.final) {
+      return "Activa";
+    }
+    return estado.tipo;
+  }
+
   estado_tipo(desig) {
     return desig.estado.tipo;
   }

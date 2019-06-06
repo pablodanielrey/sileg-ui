@@ -97,10 +97,13 @@
                 <ng-container matColumnDef="estado">
                         <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
                         <mat-cell *matCellDef="let desig">
-                            <div class="bloqueEstados">
-                                <div class="estados tipo {{clase_estado_tipo(desig)}}">{{estado_tipo(desig)}}</div>
-                                <div class="estados2 estado {{clase_estado_estado(desig)}}">{{estado_estado(desig)}}</div>
-                            </div>
+                                <div class="bloqueEstados">
+                                        <div class="tipo {{desig.estado.estilo}}" matTooltip="{{desig.estado.tipo}} {{desig.estado.estado}}"
+                                            matTooltipPosition="before">
+                                            {{textoEstado(desig.estado)}}
+                                        </div>
+                                        <div *ngIf="!desig.estado.final" class="estado {{desig.estado.estilo}}">{{desig.estado.codigo}}</div>
+                                    </div>
                         </mat-cell>
                 </ng-container> 
             

@@ -52,7 +52,8 @@ export class Estado {
     } catch(e) {
       console.log(e);
     }
-  }    
+  } 
+  
 }
 
 export class Designacion {

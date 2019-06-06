@@ -78,7 +78,7 @@
                         <mat-cell *matCellDef="let desig">
                             {{desig.designacion.cargo.nombre}}
                             <div class="puntos" *ngIf="(perfiles$ | async).includes(perfil.AUTORIDAD)" matTooltip="Puntos" matTooltipPosition="after">
-                                {{desig.designacion.cargo.puntos}}
+                                ({{desig.designacion.cargo.puntos}})
                             </div>
                         </mat-cell>
                     </ng-container>
@@ -133,7 +133,7 @@
                             <div class="bloqueEstados">
                                 <div class="tipo {{desig.estado.estilo}}" matTooltip="{{desig.estado.tipo}} {{desig.estado.estado}}"
                                     matTooltipPosition="before">
-                                    {{desig.estado.tipo}}
+                                    {{textoEstado(desig.estado)}}
                                 </div>
                                 <div *ngIf="!desig.estado.final" class="estado {{desig.estado.estilo}}">{{desig.estado.codigo}}</div>
                             </div>
