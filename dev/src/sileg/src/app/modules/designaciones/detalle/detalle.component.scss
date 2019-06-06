@@ -13,6 +13,26 @@ $colorUNLP: #2c9684;
 
 
 
+.btnVolver {
+  display: inline;
+  @media screen and (max-width: 768px) {
+    display: none;
+}
+}
+
+.btnVolverCel {
+  display: none;
+  @media screen and (max-width: 768px) {
+    display: inline;
+}
+}
+
+.ruta {
+  opacity: .5;
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
+}
   
 
 
@@ -222,3 +242,9 @@ $colorUNLP: #2c9684;
 
 }
 
+
+
+.ocultarFila {
+  display: none;
+  height: 0px;
+}
