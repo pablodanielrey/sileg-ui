@@ -7,16 +7,31 @@ import { NavegarService } from '../../../core/navegar.service';
 import { ErrorService } from '../../../core/error/error.service';
 import { DatoDesignacion, Lugar } from '../../../shared/entities/sileg';
 import { Usuario } from '../../../shared/entities/usuario';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-detalle',
   templateUrl: './detalle.component.html',
-  styleUrls: ['./detalle.component.scss']
+  styleUrls: ['./detalle.component.scss'],
+  animations:[
+    trigger('desplegarDetalle', [
+      state('abierto', style({
+        height: '*',
+      })),
+      state('cerrado', style({
+        height: '0px',
+        minHeight: '0'
+      })),
+      transition('abierto <=> cerrado', [
+        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+      ])
+    ])
+  ]
 })
 export class DetalleComponent implements OnInit {
 
-  // columnas: string[] = ['cargo','dedicacion','caracter','desde','hasta','resolucion','expediente','estado'];
-  columnas: string[] = ['cargo', 'dedicacion', 'caracter', 'tipo', 'fecha', 'resolucion', 'expediente', 'estado'];
+  columnasDesktop: string[] = ['cargo', 'dedicacion', 'caracter', 'tipo', 'fecha', 'resolucion', 'expediente', 'estado'];
+  columnasCelular : string[] = ['usuario','estado'];
   lugares$: Observable<any[]>;
   usuario$: Observable<Usuario>;
   lugar$: BehaviorSubject<Lugar> = new BehaviorSubject(null);
@@ -100,5 +115,17 @@ export class DetalleComponent implements OnInit {
     return this.estado_estado(desig);
   }
 
+
+
+  columnas() {
+    /*
+      detecta si es un dispositivo touch
+    */
+    if (typeof window.ontouchstart !== 'undefined') {
+      return this.columnasCelular;
+    } else {
+      return this.columnasDesktop;
+    }
+  }
 
 }
