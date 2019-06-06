@@ -133,7 +133,7 @@ export class Lugar {
   constructor(o:Object) {
     try {
       Object.assign(this, o);
-      this.abreviatura = (this.nombre.length > 0) ? this.nombre.charAt(0) : '';
+      this.abreviatura = (this.nombre && this.nombre.length > 0) ? this.nombre.charAt(0) : '';
     } catch(e) {
       console.log(e);
     }

@@ -904,7 +904,8 @@ export class SilegService {
   }
 
   obtenerLugar(lid: string): Observable<any> {
-    return of(this.lugares.find( l => l.id == lid)).delay(1000);
+    let l = this.lugares.find( l => l.id == lid);    
+    return l === undefined ? Observable.throw("No se encontro el lugar") : of(l);
   }
 
   buscarLugares(texto: string): Observable<any[]> {

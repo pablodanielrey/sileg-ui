@@ -1,23 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Subject } from 'rxjs';
-import { error_object, ErrorService } from './error.service'
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-error',
   templateUrl: './error.component.html',
   styleUrls: ['./error.component.scss']
 })
-export class ErrorComponent implements OnInit {
+export class ErrorComponent {
 
-  error$: Subject<error_object>;
-  constructor(private service: ErrorService) {
-    this.error$ = service.obtener_error();
-  }
-
-  ngOnInit() {
-  }
+  constructor(
+    public dialogRef: MatDialogRef<ErrorComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: string
+    ) {}
 
   close() {
-    this.service.error(null);
+    this.dialogRef.close();
   }
 }

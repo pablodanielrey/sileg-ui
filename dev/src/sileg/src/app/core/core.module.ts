@@ -80,6 +80,9 @@ const routes: Routes = [
     ErrorComponent,
     DialogoComponent
   ],
+  entryComponents: [
+    ErrorComponent
+  ],
   imports: [
     MatExpansionModule,
     MatButtonModule,
