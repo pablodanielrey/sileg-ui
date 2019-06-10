@@ -18,6 +18,7 @@ import { FiltrosComponent } from '../filtros/filtros.component';
 import { PreloadService } from '../../../../core/preload/preload.service';
 import { PerfilesService, Perfil } from '../../../../shared/services/perfiles.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { ReferenciasComponent } from '../../movimientos/referencias/referencias.component';
 
 
 @Component({
@@ -43,7 +44,6 @@ export class ListarComponent implements OnInit {
   columnasDesktop : string[] = ['usuario', 'cargo', 'dedicacion', 'caracter', 'fecha', 'nota', 'resolucion', 'expediente', 'expedienteU', 'estado', 'acciones'];
   columnasCelular : string[] = ['usuarioCelular', 'estado', 'acciones'];
   lugares$: Observable<any[]>;
-  referencias_visibles: boolean = false;
   lid: string;
   filtros: any = {};
   
@@ -212,6 +212,12 @@ export class ListarComponent implements OnInit {
       width: '250px',
       data: desig.id
     });
+  }
+
+  abrirReferencias() {
+    const dialogRef = this.dialog.open(ReferenciasComponent, {
+      width: '250px'
+    });    
   }
 
   cancelar(desig: Designacion) {

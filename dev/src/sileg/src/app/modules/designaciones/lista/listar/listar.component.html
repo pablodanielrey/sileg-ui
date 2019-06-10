@@ -9,7 +9,7 @@
         <button mat-icon-button color="primary" (click)='filtrar()'>
             <mat-icon matTooltip="Filtros">tune</mat-icon>
         </button>
-        <button mat-icon-button color="primary" (click)='referencias_visibles = true'>
+        <button mat-icon-button color="primary" (click)='abrirReferencias()'>
             <mat-icon matTooltip="Referencias">help_outline</mat-icon>
         </button>
     </div>
@@ -18,8 +18,6 @@
 <mat-divider></mat-divider>
 
 <router-outlet></router-outlet>
-
-<app-referencias [visible]='referencias_visibles' (cerrar)='referencias_visibles=false' *ngIf='referencias_visibles'></app-referencias>
 
 
 <div class="pantalla">

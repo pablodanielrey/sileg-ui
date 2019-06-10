@@ -1,25 +1,20 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-referencias',
   templateUrl: './referencias.component.html',
   styleUrls: ['./referencias.component.scss']
 })
-export class ReferenciasComponent implements OnInit {
+export class ReferenciasComponent {
 
-  @Input()
-  visible: boolean;
-
-  @Output()
-  cerrar: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+  constructor(
+    public dialogRef: MatDialogRef<ReferenciasComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: string    
+  ) { }
 
   _cerrar() {
-    this.cerrar.next(true);
+    this.dialogRef.close(true);
   }
 
 }

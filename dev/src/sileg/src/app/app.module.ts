@@ -93,7 +93,8 @@ import { DescargarArchivosComponent } from './modules/designaciones/movimientos/
     EnviarUnlpComponent,
     VerificarPrestacionComponent,
     DescargarArchivosComponent,
-    FiltrosComponent
+    FiltrosComponent,
+    ReferenciasComponent
   ],
   imports: [
     BrowserModule,
