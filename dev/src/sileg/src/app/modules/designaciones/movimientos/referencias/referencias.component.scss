@@ -1,49 +1,3 @@
-.dialogo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top:0;
-    left: 0;
-    z-index: 1000;
-    background-color: rgba(0, 0, 0, 0.4);
-    width: 100%;
-    height: 100%;
-  
-  }
-
-  .contenedorDialogo {
-    display: flex;
-    flex-direction: column;
-    max-width: 350px;
-    min-width: 350px;
-   }
-
-   .contenidoCard {
-     width: 100%;
-   }
-
-   .tituloCabecera {
-     display: flex;
-     flex-direction: row;
-     align-items: center;
-   }
-
-   .cabeceraCard {
-     display: flex;
-     flex-direction: row;
-     align-items: center;
-     justify-content: space-between;
-     margin-bottom: 10px;
-   }
-
-   .textotitulo {
-      font-size: 18px;
-      margin-left: 5px;
-
-   }
-   
- 
    .estados {
     display: flex;
     align-items: center;
@@ -60,11 +14,6 @@
 
 }
 
-.estados2 {
-  font-size: 12px;
-  border-radius: 5px;
-  padding: 5px;
-}
 
 .item {
   display: flex;
