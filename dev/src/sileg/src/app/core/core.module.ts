@@ -54,10 +54,12 @@ import { PreloadTotalComponent } from './preload/preload-total/preload-total.com
 import { PreloadService } from './preload/preload.service';
 import { DebugComponent } from './debug/debug.component';
 
-import { ErrorComponent } from './error/error.component';
+import { ErrorComponent as ModalError } from './modal/error/error.component';
 import { PermisosService } from './permisos.service';
-import { ErrorService } from './error/error.service';
 import { DialogoComponent } from './dialogo/dialogo.component';
+import { InfoComponent } from './modal/info/info.component';
+import { WarningComponent } from './modal/warning/warning.component';
+import { ConfirmComponent } from './modal/confirm/confirm.component';
 
 
 const routes: Routes = [
@@ -77,11 +79,17 @@ const routes: Routes = [
     PreloadParcialComponent,
     PreloadTotalComponent,
     DebugComponent,
-    ErrorComponent,
-    DialogoComponent
+    ModalError,
+    DialogoComponent,
+    InfoComponent,
+    WarningComponent,
+    ConfirmComponent
   ],
   entryComponents: [
-    ErrorComponent
+    ModalError,
+    InfoComponent,
+    WarningComponent,
+    ConfirmComponent    
   ],
   imports: [
     MatExpansionModule,
@@ -158,7 +166,6 @@ const routes: Routes = [
   providers: [
     PermisosService,
     PreloadService,
-    ErrorService,
     OidpGuard,
     Oauth2Service,
     { provide: OAuthStorage, useValue: localStorage },

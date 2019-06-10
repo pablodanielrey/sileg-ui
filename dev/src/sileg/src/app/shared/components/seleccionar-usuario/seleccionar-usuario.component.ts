@@ -15,6 +15,9 @@ export class SeleccionarUsuarioComponent implements OnInit {
   @Output()
   seleccionado: EventEmitter<any> = new EventEmitter<any>();
 
+  @Output()
+  crear_persona: EventEmitter<any> = new EventEmitter<any>();
+
   private cargando: boolean = false;
   private existen_resultados$: Observable<boolean>;
   personas$: Observable<any[]>;
@@ -66,5 +69,9 @@ export class SeleccionarUsuarioComponent implements OnInit {
 
   private _seleccionar_persona(persona:any) {
     this.seleccionado.emit(persona);
+  }
+
+  private nuevo() {
+    this.crear_persona.emit();
   }
 }

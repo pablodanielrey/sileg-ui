@@ -84,8 +84,15 @@
             </mat-card-content>
         </mat-card>
 
-
-
+        <mat-card class="bloques"> 
+            <mat-card-title>Modals</mat-card-title>
+            <mat-card-content>
+                <button mat-raised-button (click)="openInfoModal()">Show Info Modal</button>
+                <button mat-raised-button (click)="openWarningModal()">Show Warning Modal</button>
+                <button mat-raised-button (click)="openErrorModal()">Show Error Modal</button>
+                <button mat-raised-button (click)="openConfirmModal()">Show Confirm Modal</button>
+            </mat-card-content>
+        </mat-card>        
 
 </div>
 

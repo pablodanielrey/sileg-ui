@@ -5,8 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { SilegService } from '../../../../../shared/services/sileg.service';
 import { switchMap, map, tap, mergeMap, startWith } from 'rxjs/operators';
 import { NavegarService } from '../../../../../core/navegar.service';
-import { ErrorService } from '../../../../../core/error/error.service';
 import { Cargo } from '../../../../../shared/entities/sileg';
+import { ModalService } from '../../../../../core/modal/modal.service';
 
 @Component({
   selector: 'app-alta-cargo',
@@ -41,8 +41,8 @@ export class AltaCargoComponent implements OnInit {
     private route : ActivatedRoute,
     private service: SilegService,
     private navegar: NavegarService,
-    private error: ErrorService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private modalService: ModalService
   ) { }  
 
   ngOnInit() {
@@ -108,7 +108,7 @@ export class AltaCargoComponent implements OnInit {
       switchMap( v => {
         return this.service.crearDesignacion(this.form.value, v[0].id, v[1])
       }),
-      tap( _ => {this.mostrar_error('se ha creado existósamente el alta')}),
+      switchMap( _ => this.modalService.openErrorModal("Se guardo exitosamente")),
       switchMap(_ => this.navegar.navegar(ruta, false))
     ).subscribe( _ => c.unsubscribe());
   }
@@ -129,10 +129,6 @@ export class AltaCargoComponent implements OnInit {
   }
 
   ////////////////////
-
-  mostrar_error(e) {
-    this.error.error({error:true, mensaje:e});
-  }
 
   volver() {
     this.navegar.volver().subscribe().unsubscribe();
