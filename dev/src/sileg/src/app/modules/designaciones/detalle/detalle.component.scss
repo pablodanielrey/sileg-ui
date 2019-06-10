@@ -104,15 +104,17 @@ $sinColorEstado:#637b89;
 
 .mat-column-usuarioCelular {
   flex: 0 0 50% !important;
-  min-width: 100px !important;
+  min-width: 210px !important;
   font-weight: bold;
-  width: 100px !important;
+  width: 300px !important;
+  // background-color: red;
 
 }
 
 .mat-column-estado {
+  // background-color: green;
   @media screen and (max-width: 768px) {
-      max-width: 80px !important;
+      max-width: 60px !important;
   }
 }
 

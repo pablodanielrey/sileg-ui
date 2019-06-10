@@ -31,7 +31,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 export class DetalleComponent implements OnInit {
 
   columnasDesktop: string[] = ['usuario','cargo', 'dedicacion', 'caracter', 'tipo', 'fecha', 'fechaF', 'resolucion', 'expediente', 'expedienteU', 'estado'];
-  columnasCelular : string[] = ['usuarioCelular', 'cargo', 'estado'];
+  columnasCelular : string[] = ['usuarioCelular', 'estado'];
   lugares$: Observable<any[]>;
   usuario$: Observable<Usuario>;
   lugar$: BehaviorSubject<Lugar> = new BehaviorSubject(null);

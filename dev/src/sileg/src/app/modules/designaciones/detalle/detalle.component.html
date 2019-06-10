@@ -32,16 +32,15 @@
                         <mat-cell [@desplegarDetalle]="desig.abierto == true ? 'abierto' : 'cerrado'" *matCellDef="let desig"
                             [attr.colspan]='columnas().length'>
                             <div class="detalleDesignacion">
-                                <div> Cargo: <b> 44 </b> </div>
-                                <div> Dedicación: <b> 55 </b> </div>
-                                <div> Caracter: <b> 55 </b> </div>
-                                <div> Puntos: <b> 55 </b> </div>
-                                <div> Fecha: <b> 66 </b> </div>
-                                <div> Resolución: <b> 88 </b> </div>
-                                <div> Expediente: <b> // </b> </div>
-                                <div> 
-                                    <button class="btnDescargar" mat-stroked-button (click)='descargar_archivos(desig.designacion)'><mat-icon>save_alt</mat-icon> Descargar Archivos </button>
-                                </div>
+                                <div> Tipo: <b> {{desig.designacion.tipo}} </b> </div>
+                                <div> Cargo: <b> {{desig.designacion.cargo.nombre}} </b> </div>
+                                <div> Dedicación: <b> {{desig.designacion.cargo.dedicacion}} </b> </div>
+                                <div> Caracter: <b> {{desig.designacion.caracter.nombre}} </b> </div>
+                                <div> Desde: <b> {{desig.designacion.desde | date: 'dd/MM/yyyy'}} </b> </div>
+                                <div> Hasta: <b> {{desig.designacion.desde | date: 'dd/MM/yyyy'}} </b> </div>
+                                <div> Resolución: <b> {{desig.designacion.resolucion}} </b> </div>
+                                <div> Expediente: <b> {{desig.designacion.expediente}} </b> </div>
+                                <div> Expediente U: <b> {{desig.designacion.expediente}} </b> </div>
                             </div>
                         </mat-cell>
                     </ng-container>
@@ -94,7 +93,7 @@
                     </ng-container> 
 
                 
-                <ng-container matColumnDef="estado">
+                <ng-container matColumnDef="estado" >
                         <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
                         <mat-cell *matCellDef="let desig">
                                 <div class="bloqueEstados">
