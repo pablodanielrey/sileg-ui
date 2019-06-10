@@ -109,7 +109,7 @@ export class AltaCargoComponent implements OnInit {
         return this.service.crearDesignacion(this.form.value, v[0].id, v[1])
       }),
       tap( _ => {this.mostrar_error('se ha creado existósamente el alta')}),
-      switchMap(_ => this.navegar.navegar(ruta))
+      switchMap(_ => this.navegar.navegar(ruta, false))
     ).subscribe( _ => c.unsubscribe());
   }
 

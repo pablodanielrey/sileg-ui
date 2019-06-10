@@ -54,9 +54,9 @@ export class NavegarService {
     )
   }
 
-  navegar(ruta: Ruta):Observable<boolean> {
+  navegar(ruta: Ruta, generar_volver: boolean = true):Observable<boolean> {
     return this.obtenerRuta().pipe(
-      tap( ruta_actual => this.generarVolver(ruta.url, ruta_actual)),
+      tap( ruta_actual => (generar_volver) ? this.generarVolver(ruta.url, ruta_actual): null),
       mergeMap( r => {
         return from(this.router.navigate([ruta.url], {queryParams: ruta.params}))
       }))
