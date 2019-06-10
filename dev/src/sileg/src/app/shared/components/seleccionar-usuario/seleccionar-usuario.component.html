@@ -15,7 +15,10 @@
           </mat-option>
       </mat-autocomplete>
 
-      <mat-hint *ngIf='existen_resultados$ | async'>No se encontraron resultados!</mat-hint>
+      <mat-hint *ngIf='existen_resultados$ | async'>
+          <p>No se encontraron resultados!</p>
+          <button mat-stroked-button color="primary" (click)='nuevo()' class="btnCrear">CREAR NUEVO USUARIO</button>
+      </mat-hint>          
   </mat-form-field>
 
 </form>

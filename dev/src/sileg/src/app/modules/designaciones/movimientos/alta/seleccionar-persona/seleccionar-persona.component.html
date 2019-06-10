@@ -7,6 +7,5 @@
 <mat-divider></mat-divider>
 
 <div class="pantalla">
-  <app-seleccionar-usuario (seleccionado)='seleccionado($event)'></app-seleccionar-usuario>
-  <button mat-stroked-button color="primary" (click)='crear_persona()' class="btnCrear">CREAR NUEVO USUARIO</button>
+  <app-seleccionar-usuario (crear_persona)='crear_persona()' (seleccionado)='seleccionado($event)'></app-seleccionar-usuario>  
 </div>
