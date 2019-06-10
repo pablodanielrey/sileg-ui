@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { SilegService } from '../../../../shared/services/sileg.service';
 import { switchMap, map, tap, mergeMap, startWith, filter, combineLatest } from 'rxjs/operators';
 import { NavegarService } from '../../../../core/navegar.service';
-import { ErrorService } from '../../../../core/error/error.service';
 import { Cargo, Designacion } from '../../../../shared/entities/sileg';
 
 @Component({
@@ -42,7 +41,6 @@ export class EditarComponent implements OnInit {
     private route : ActivatedRoute,
     private service: SilegService,
     private navegar: NavegarService,
-    private error: ErrorService,
     private fb: FormBuilder
   ) { }  
 
@@ -105,10 +103,6 @@ export class EditarComponent implements OnInit {
     ).subscribe( r => {
       this.volver();   
     }).unsubscribe();
-  }
-
-  mostrar_error(e) {
-    this.error.error({error:true, mensaje:e});
   }
 
   volver() {

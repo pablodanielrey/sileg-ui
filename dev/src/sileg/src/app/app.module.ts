@@ -34,7 +34,6 @@ import { DetalleComponent as DetalleDesigancionComponent } from './modules/desig
 import { DetalleComponent as DetalleLugarComponent } from './modules/lugares/detalle/detalle.component';
 
 import { environment } from '../environments/environment';
-import { EjemploErrorComponent } from './modules/ejemplo-error/ejemplo-error.component';
 import { BajaComponent } from './modules/designaciones/movimientos/baja/baja.component';
 import { AprobarComponent } from './modules/designaciones/movimientos/aprobar/aprobar.component';
 import { DenegarComponent } from './modules/designaciones/movimientos/denegar/denegar.component';
@@ -69,7 +68,6 @@ import { DescargarArchivosComponent } from './modules/designaciones/movimientos/
     SeleccionarComponent,
     DetalleDesigancionComponent,
     DetalleLugarComponent,
-    EjemploErrorComponent,
     BajaComponent,
     AprobarComponent,
     DenegarComponent,

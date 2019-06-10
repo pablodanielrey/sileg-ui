@@ -1,6 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { Subject } from 'rxjs';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-error',
@@ -12,9 +11,6 @@ export class ErrorComponent {
   constructor(
     public dialogRef: MatDialogRef<ErrorComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string
-    ) {}
+  ){ }
 
-  close() {
-    this.dialogRef.close();
-  }
 }

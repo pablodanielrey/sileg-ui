@@ -4,7 +4,6 @@ import { SilegService } from '../../../../shared/services/sileg.service';
 import { map, tap, switchMap, filter, mergeMap } from 'rxjs/operators';
 import { Router, NavigationEnd, NavigationStart, ActivatedRoute, ParamMap } from '@angular/router';
 import { NavegarService } from '../../../../core/navegar.service';
-import { ErrorService } from '../../../../core/error/error.service';
 import { Designacion } from '../../../../shared/entities/sileg';
 import { DenegarComponent } from '../../movimientos/denegar/denegar.component';
 import { MatDialog } from '@angular/material';
@@ -53,7 +52,7 @@ export class ListarComponent implements OnInit {
   puntos_header$: Observable<string> = null;
   perfiles$ : Observable<Perfil[]> = null;
 
-  constructor(private error_service: ErrorService,
+  constructor(
               private service: SilegService,
               private navegar: NavegarService,
               private route: ActivatedRoute,
@@ -303,10 +302,6 @@ export class ListarComponent implements OnInit {
     let s = this.navegar.volver().subscribe(_ => {
       s.unsubscribe();
     });
-  }
-
-  mostrar_error() {
-    this.error_service.error({ 'error': true, 'mensaje': 'designacion creada con éxito' });
   }
 
 }

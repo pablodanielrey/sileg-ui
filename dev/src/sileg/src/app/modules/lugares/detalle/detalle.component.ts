@@ -7,7 +7,7 @@ import { Observable, Subscription, of } from 'rxjs';
 import { Lugar } from '../../../shared/entities/sileg';
 import { switchMap, tap, catchError, finalize } from 'rxjs/operators';
 import { PreloadService } from '../../../core/preload/preload.service';
-import { ErrorService } from '../../../core/error/error.service';
+import { ModalService } from '../../../core/modal/modal.service';
 
 @Component({
   selector: 'app-detalle',
@@ -33,13 +33,10 @@ export class DetalleComponent implements OnInit {
               private service: SilegService,
               private preload: PreloadService,
               private route: ActivatedRoute,
-              private error: ErrorService,
+              private modal: ModalService,
               private fb: FormBuilder) { }
  
 
-  mostrar_error(err: string) {
-    this.error.error({error:true, mensaje: err});
-  }
   ngOnInit() {
     
     this.tipos$ = this.service.obterTipoLugar();
@@ -54,14 +51,14 @@ export class DetalleComponent implements OnInit {
         }
       }),
       catchError( err => {    
-        this.mostrar_error(err);
+        this.modal.openErrorModal(err);
         return of(new Lugar({}));
       }),
       tap( lugar => {
         this.preload.desactivar_preload_parcial();
         if (lugar == undefined || lugar == null) {
           lugar = new Lugar({});
-          this.mostrar_error("No se encontro el lugar");
+          this.modal.openErrorModal("No se encontro el lugar");
         }
         this.form.patchValue(lugar);
       }),

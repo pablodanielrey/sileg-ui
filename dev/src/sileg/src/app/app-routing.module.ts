@@ -34,7 +34,6 @@ import { AdjuntarArchivoComponent } from './shared/components/adjuntar-archivo/a
 import { AdjuntarArchivosComponent } from './shared/components/adjuntar-archivos/adjuntar-archivos.component'; 
 
 import { DebugComponent } from './core/debug/debug.component';
-import { EjemploErrorComponent } from './modules/ejemplo-error/ejemplo-error.component';
 import { OidpGuard } from './core/oauth2/oidp.guard';
 import { LoaderComponent } from './core/loader/loader.component';
 import { Oauth2Component } from './core/oauth2/oauth2.component';
@@ -51,7 +50,6 @@ const routes: Routes = [
     canActivate: [OidpGuard],
     component: SistemaComponent,
     children: [
-      { path: 'error', component: EjemploErrorComponent },
       { path: 'inicio', component: InicioComponent },
       {
         path: 'movimientos',

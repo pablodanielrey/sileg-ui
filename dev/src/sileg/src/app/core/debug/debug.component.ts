@@ -10,6 +10,7 @@ import { menu } from '../../modules/menu';
 import { Observable, of, forkJoin, Subject, BehaviorSubject } from 'rxjs';
 import { map, mergeMap, tap, filter, switchMap } from 'rxjs/operators';
 import { Perfil, PerfilesService } from '../../shared/services/perfiles.service';
+import { ModalService } from '../modal/modal.service';
 
 interface Permiso {
   item: string,
@@ -47,6 +48,7 @@ export class DebugComponent implements OnInit {
               private routerService: RouterService, 
               private permisos: PermisosService,
               private router: Router,
+              private modalService: ModalService,
               private perfiles: PerfilesService) { 
               
 
@@ -149,6 +151,22 @@ export class DebugComponent implements OnInit {
 
   navegar() {
     this.routerService.navegar(this.form.value['ruta']);
+  }
+
+  openInfoModal() {
+    this.modalService.openInfoModal("Info", "Modal info");
+  }
+
+  openWarningModal() {
+    this.modalService.openWarningModal("Warning", "Modal Warning");
+  }
+
+  openErrorModal() {
+    this.modalService.openErrorModal("Ha ocurrido un error");
+  }
+
+  openConfirmModal() {
+    this.modalService.openConfirmModal("Modal con Confirmación", "Este es un modal con confirmación");
   }
 
 }

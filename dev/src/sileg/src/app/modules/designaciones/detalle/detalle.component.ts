@@ -4,7 +4,6 @@ import { SilegService } from '../../../shared/services/sileg.service';
 import { switchMap, map, filter, tap, distinct } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { NavegarService } from '../../../core/navegar.service';
-import { ErrorService } from '../../../core/error/error.service';
 import { DatoDesignacion, Lugar } from '../../../shared/entities/sileg';
 import { Usuario } from '../../../shared/entities/usuario';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -37,11 +36,12 @@ export class DetalleComponent implements OnInit {
   lugar$: BehaviorSubject<Lugar> = new BehaviorSubject(null);
   designaciones$: Observable<Array<DatoDesignacion>>;
 
-  constructor(private error_service: ErrorService,
-              private service : SilegService,
-              private route: ActivatedRoute, 
-              private cdRef: ChangeDetectorRef,
-              private navegar: NavegarService) { }
+  constructor(
+    private service : SilegService,
+    private route: ActivatedRoute, 
+    private cdRef: ChangeDetectorRef,
+    private navegar: NavegarService
+  ) { }
 
               
   ngOnInit() {
@@ -103,10 +103,6 @@ export class DetalleComponent implements OnInit {
       s.unsubscribe();
     });
   }  
-
-  mostrar_error() {
-    this.error_service.error({'error': true, 'mensaje': 'designacion creada con éxito'});
-  }    
 
   estado_tipo(desig) {
     return desig.estado.tipo;
