@@ -1,9 +1,27 @@
 <h1 mat-dialog-title>Referencias</h1>
 <mat-dialog-content>
-    <div>Estados</div>
-    <div class="item"><div class="estados pe">P</div><div class="textItem">Pendiente de Aprobación</div></div>
-    <div class="item"><div class="estados a">A</div><div class="textItem">Aprobado</div></div>
-    <div class="item"><div class="estados u">U</div><div class="textItem">Enviado a UNLP</div></div></mat-dialog-content>
+    <div class="referencias">
+        <div>
+            <div>Tipos</div>
+            <div class="item"> <div class="tipo altaEnProceso">Alta</div> <div class="textItem">Alta en proceso</div></div>
+            <div class="item"> <div class="tipo bajaEnProceso">Baja</div> <div class="textItem">Baja en proceso</div></div>
+            <div class="item"> <div class="tipo activa">Activa</div> <div class="textItem">Designación Activa</div></div>
+            <div class="item"> <div class="tipo baja">Baja</div> <div class="textItem">Baja Completada</div></div>
+        </div>
+        <div>
+            <div class="tituloEstado">Estados</div>
+            <div class="item"><div class="estados pendiente">P</div><div class="textItem">Pendiente de Aprobación</div></div>
+            <div class="item"><div class="estados aprobado">A</div><div class="textItem">Aprobado por Autoridad</div></div>
+            <div class="item"><div class="estados denegado">D</div><div class="textItem">Denegado por Autoridad</div></div>
+            <div class="item"><div class="estados cancelado">C</div><div class="textItem">Designación Cancelada</div></div>
+            <div class="item"><div class="estados unlp">U</div><div class="textItem">Enviado a UNLP</div></div>
+        </div>
+    </div>
+
+</mat-dialog-content>
+    
 <mat-dialog-actions>
-  <button mat-button (click)='_cerrar()'>Cerrar</button>
+  <button mat-button (click)='_cerrar()'> <mat-icon>close</mat-icon> Cerrar</button>
 </mat-dialog-actions>
+
+

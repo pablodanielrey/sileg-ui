@@ -215,7 +215,7 @@ export class ListarComponent implements OnInit {
 
   abrirReferencias() {
     const dialogRef = this.dialog.open(ReferenciasComponent, {
-      width: '250px'
+      width: '500px'
     });    
   }
 
