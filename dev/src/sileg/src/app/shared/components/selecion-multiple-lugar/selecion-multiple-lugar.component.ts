@@ -19,9 +19,9 @@ export class SelecionMultipleLugarComponent implements OnInit {
   @Output()
   seleccionado: EventEmitter<any[]> = new EventEmitter<any[]>();
 
-  private cargando: boolean = false;
-  private lugares$: Observable<any[]>;
-  private existen_resultados$: Observable<boolean>;
+  cargando: boolean = false;
+  lugares$: Observable<any[]>;
+  existen_resultados$: Observable<boolean>;
   seleccionados: any[] = [];
 
 

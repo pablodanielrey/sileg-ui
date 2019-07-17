@@ -16,4 +16,7 @@ export class SeleccionarLugaresComponent implements OnInit {
     console.log(lugares);
   }
 
+  volver() {
+  }
+
 }

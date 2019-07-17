@@ -73,5 +73,8 @@ export class ModificarComponent implements OnInit {
     this.cambio$.next(v.cargo);
   }
 
-
+  volver() {
+   
+  }
+  
 }

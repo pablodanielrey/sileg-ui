@@ -16,6 +16,8 @@ export class PendientesComponent implements OnInit {
   columnas: string[] = ['usuario','cargo','dedicacion','caracter','fecha','nota','resolucion','expediente','estado','acciones'];
   lugares$: Observable<any[]>;
 
+  referencias_visibles : boolean = false;
+
   constructor(private service : SilegService,
               private navegar: NavegarService,
               private preload: PreloadService) {  }
@@ -75,5 +77,12 @@ export class PendientesComponent implements OnInit {
       switchMap(v => navegar_alta)
     ).subscribe()
   }  
+
+
+  volver() {
+  }
+
+  filtrar() {
+  }
 
  }
